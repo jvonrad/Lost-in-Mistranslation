@@ -2,7 +2,7 @@
 set -e
 
 # --------- GPU Config -------
-export CUDA_VISIBLE_DEVICES=6 # use gpu=x
+export CUDA_VISIBLE_DEVICES=7 # use gpu=x
 
 # ---------- Models ----------
 LLAMA_2_7B="meta-llama/Llama-2-7b-hf"
@@ -14,15 +14,27 @@ OLMO_3_7B_BASE="allenai/Olmo-3-1025-7B"
 # --------- Fine-tuned Models ---------
 LLAMA_2_7B_NO_TAGS="/data/jonathan/Lost-in-Mistranslation/models/llama2-ted2025-cpt-notags/final"
 LLAMA_2_7B_60_STEPS_NO_TAGS="/data/jonathan/Lost-in-Mistranslation/models/Llama-2-7b-hf-ted2025-cpt-60steps-notags/final"
+OLMO_2_7B_BASE_FINETUNED="/data/jonathan/Lost-in-Mistranslation/models/OLMo-2-1124-7B-ted2025-multilingual-lora/"
+OLMO_2_7B_BASE_FINETUNED_PRETOKENIZED="/data/jonathan/Lost-in-Mistranslation/models/OLMo-2-1124-7B-ted2025-cpt-fullft-300steps-multilingual-notags/final"
 # --------------------------------------
+
+# ---------- TED vs TED + KLAR finetuned --------
+OLMO_2_7B_TED_KLAR_LATE_LAYERS="/data/jonathan/Lost-in-Mistranslation/models/olmo2-ted-klar-top4/final"
+OLMO_2_7B_KLAR_LATE_LAYERS="/data/jonathan/Lost-in-Mistranslation/models/olmo2-klar-top4/final"
+OLMO_2_7B_TED_KLAR_FULL="/data/jonathan/Lost-in-Mistranslation/models/olmo2-ted-klar-full/final"
+OLMO_2_7B_KLAR_FULL="/data/jonathan/Lost-in-Mistranslation/models/olmo2-klar-full/final"
 
 # -------- Benchmarks ----------
 # Knowledge
 GLOBAL_FULL="global_mmlu_full_en,global_mmlu_full_es,global_mmlu_full_fr,global_mmlu_full_de,global_mmlu_full_id,global_mmlu_full_pt,global_mmlu_full_ru,global_mmlu_full_zh,global_mmlu_full_ja,global_mmlu_full_ar,global_mmlu_full_sw,global_mmlu_full_bn"
 GLOBAL_1="global_mmlu_full_en,global_mmlu_full_es,global_mmlu_full_fr,global_mmlu_full_de"
 GLOBAL_2="global_mmlu_full_ru,global_mmlu_full_zh,global_mmlu_full_ja,global_mmlu_full_ar"
-GLOBAL_3="global_mmlu_full_sw,global_mmlu_full_bn,global_mmlu_full_pt,global_mmlu_full_id"
+GLOBAL_3="global_mmlu_full_sw,global_mmlu_full_bn"
+GLOBAL_4="global_mmlu_full_pt,global_mmlu_full_id"
+GLOBAL_KLAR="global_mmlu_full_ar,global_mmlu_full_en,global_mmlu_full_es,global_mmlu_full_fr"
+GLOBAL_KLAR2="global_mmlu_full_ja,global_mmlu_full_ru,global_mmlu_full_zh"
 
+  
 # Translation
 FLORES_1="flores200:eng_Latn-deu_Latn,flores200:eng_Latn-spa_Latn,flores200:eng_Latn-fra_Latn,flores200:eng_Latn-por_Latn"
 FLORES_2="flores200:eng_Latn-rus_Cyrl,flores200:eng_Latn-zho_Hans,flores200:eng_Latn-jpn_Jpan,flores200:eng_Latn-arb_Arab"
@@ -34,7 +46,7 @@ MGSM_COT="mgsm_cot_native_bn,mgsm_cot_native_de,mgsm_cot_native_en,mgsm_cot_nati
 # -------------------------------
 
 # --------- Run Config ---------
-CURR_MODEL="allenai/OLMo-2-1124-7B" # <-- change this to the model you want to evaluate
+CURR_MODEL=$OLMO_2_7B_KLAR_LATE_LAYERS
 MODEL_NAME=${CURR_MODEL//\//_}
 TIMESTAMP=$(date +%F_%H-%M-%S)
 RUN_DIR="logs/${MODEL_NAME}_${TIMESTAMP}"
@@ -54,10 +66,10 @@ echo "Run directory: $RUN_DIR"
 export VLLM_USE_V1=0
 export LIGHTEVAL_CONFIG="model_name=$CURR_MODEL"
 
-# ---------- Translation ------ Flores 200 ---------
-lighteval accelerate "$LIGHTEVAL_CONFIG" "$FLORES_3" --load-tasks-multilingual  \
-  > >(tee "$RUN_DIR/stdout.log") \
-  2> "$RUN_DIR/stderr.log"
+# # ---------- Translation ------ Flores 200 ---------
+# lighteval accelerate "$LIGHTEVAL_CONFIG" "$FLORES_1" --load-tasks-multilingual  \
+#   > >(tee "$RUN_DIR/stdout.log") \
+#   2> "$RUN_DIR/stderr.log"
 
 # lighteval accelerate "$LIGHTEVAL_CONFIG" "$FLORES_2" --load-tasks-multilingual \
 #   > >(tee "$RUN_DIR/stdout.log") \
@@ -69,38 +81,62 @@ lighteval accelerate "$LIGHTEVAL_CONFIG" "$FLORES_3" --load-tasks-multilingual  
 
 # --------- LM EVAL HARNESS ---------
 
-# # Run evaluation
-# lm_eval --model hf \
-#   --model_args "pretrained=$CURR_MODEL,device_map=auto,dtype=auto" \
-#   --tasks "$GLOBAL_FULL" \
-#   --batch_size auto \
-#   > >(tee "$RUN_DIR/stdout.log") \
-#   2> "$RUN_DIR/stderr.log"
 
-# echo "Run finished at $(date +%F_%H-%M-%S)"
-
-
-# # using vllm
-# lm_eval --model vllm \
-#     --model_args pretrained=$CURR_MODEL,dtype=auto \
-#     --tasks $GLOBAL_3 \
-#     --batch_size auto\
+# using vllm
+lm_eval --model vllm \
+    --model_args pretrained=allenai/OLMo-2-1124-7B,tokenizer=allenai/OLMo-2-1124-7B,dtype=auto,trust_remote_code=True \
+    --tasks $GLOBAL_KLAR \
+    --batch_size auto
+    
+#     \
 #   > >(tee "$RUN_DIR/stdout.log") \
 #   2> "$RUN_DIR/stderr.log"
 
 
-# with peft model
-# lm_eval --model hf \
-#   --model_args pretrained=$CURR_MODEL,peft=/data/jonathan/Lost-in-Mistranslation/models/OLMo-2-1124-7B-ted2025-cpt-lora-720steps-r32-multilingual/final_lora/ \
-#   --tasks $GLOBAL_3 \
-#   --batch_size auto \
-#   --device cuda
+# lm_eval --model vllm   --model_args pretrained=/data/jonathan/Lost-in-Mistranslation/models/olmo2-klar-full/final,tokenizer=allenai/OLMo-2-1124-7B,dtype=auto,trust_remote_code=True   --tasks $GLOBAL_KLAR2   --batch_size auto
+
 
 # ------- Model Training --------
 
-# export WANDB_PROJECT="UnLock"
-# export WANDB_ENTITY="jonathan-von-rad"
-# export WANDB_DISABLED=false
+export WANDB_PROJECT="UnLock"
+export WANDB_ENTITY="jonathan-von-rad"
+export WANDB_DISABLED=false
+
+# CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+# torchrun --standalone --nproc_per_node=8 finetune_full.py
+
+####################
+# Train on KLAR
+####################
+
+python train_klar_lora.py \
+  --model_name allenai/OLMo-2-1124-7B \
+  --tokenized_data_dir /data/jonathan/Lost-in-Mistranslation/datasets/tokenized/klar-olmo2 \
+  --output_dir /data/jonathan/Lost-in-Mistranslation/models/olmo2_klar_lora \
+  --per_device_train_batch_size 16 \
+  --gradient_accumulation_steps 1 \
+  --learning_rate 5e-5 \
+  --num_train_epochs 1 \
+  --bf16 \
+  --lora_r 16 \
+  --lora_start_layer 20 \
+  --lora_alpha 32 \
+  --lora_dropout 0.05 \
+  --save_final \
+  --report_to wandb 
+
+
+# tokenized klar data:
+# /data/jonathan/Lost-in-Mistranslation/datasets/tokenized/klar-olmo2
+
+# ------- Pretokenize ----------
+
+# Klar dataset
+
+# python pretokenize_klar.py \
+#   --klar_root /data/jonathan/Lost-in-Mistranslation/datasets/KLAR-CLC \
+#   --model_name allenai/OLMo-2-1124-7B \
+#   --output_dir /data/jonathan/Lost-in-Mistranslation/datasets/tokenized/klar-olmo2 
 
 # -------- Train Tokenizer ----------
 
