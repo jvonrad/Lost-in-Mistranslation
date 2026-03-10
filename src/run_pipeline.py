@@ -140,9 +140,9 @@ def step_select(args):
     print(f"  Languages with matrices: {available}")
     q = 1.0 - args.p          # e.g. p=0.02 → q=0.98 → top 2%
     min_rep = max(2, len(available) - 1)  # head must appear in most languages
-
+                                                          
     sorted_head_list = []
-    for lan in available:
+    for lan in available:              
         matrix = torch.load(
             os.path.join(results_dir, f"{args.model}_{lan}.pth"),
             map_location="cpu",

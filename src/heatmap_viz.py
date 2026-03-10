@@ -1,4 +1,8 @@
 """
+It produces two images:
+all_languages.png — the grid of heatmaps, one per language (equivalent to Figure 1 in the paper)
+head_distribution.png — a line chart showing which layers contain the most important heads
+
 LAHIS Heatmap Visualiser — reproduces Figure 1 from the paper.
 
 For each language, loads the saved importance matrix (.pth) and plots a

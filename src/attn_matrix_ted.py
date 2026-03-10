@@ -1,4 +1,8 @@
 """
+It takes the TED text files from ted_loader.py
+and the patched model from model_handler.py
+And produces one 32×32 importance matrix per language 
+
 LAHIS Attention Head Importance Matrix — TED data edition.
 
 Computes the (num_layers × num_heads) importance matrix for each language
@@ -78,16 +82,19 @@ def get_attn_head_matrix_ted(
     num_layers = model.config.num_hidden_layers
     num_heads  = model.config.num_attention_heads
 
-    # Soft head mask — the quantity whose gradients give importance scores
+    # creates the 32*32 grid; head mask — the quantity whose gradients give importance scores
     head_mask = nn.Parameter(
         torch.ones(num_layers, num_heads, dtype=torch.bfloat16),
         requires_grad=True,
     )
 
     model.eval()
+    # We freeze every weight in Llama-2. We don't want to train the model, we just want to measure it. 
+    # The only thing we're "training" is the mask itself.
     for param in model.parameters():
         param.requires_grad = False
 
+    # These two tensors collect statistics across all 1000 samples. At the end we'll divide by 1000 to get averages.
     total_head_importance = torch.zeros_like(head_mask, dtype=torch.float32)
     neg_grad_counts        = torch.zeros_like(head_mask, dtype=torch.int32)
 
@@ -99,7 +106,7 @@ def get_attn_head_matrix_ted(
         text = data_dict.get("text", "")
         if not text:
             continue
-
+        # Tokenize
         input_ids = tokenizer(
             text,
             return_tensors="pt",
@@ -108,8 +115,8 @@ def get_attn_head_matrix_ted(
             max_length=max_length,
         ).input_ids.to(model.device)
 
-        # Distribute mask to all attention layers (gradient flows via slice views)
         if is_patched:
+            # Set the mask and run the model
             model_handler.set_lahis_head_mask(model, head_mask)
             outputs = model(input_ids, labels=input_ids)
         else:
@@ -123,12 +130,13 @@ def get_attn_head_matrix_ted(
         loss.backward()
 
         # LAHIS importance accumulation (paper §2.2, Eq. 8)
+        # Accumulate importance scores
         with torch.no_grad():
             grad = head_mask.grad.float()          # [num_layers, num_heads]
             mask = head_mask.float()
             total_head_importance += (grad.abs() * mask * 1000)
             neg_grad_counts        += (grad * mask < 0).int()
-
+        # Update the mask with AdamW:
         optimizer.step()
 
     if is_patched:
@@ -137,7 +145,7 @@ def get_attn_head_matrix_ted(
     # Re-enable model gradients
     for param in model.parameters():
         param.requires_grad = True
-
+    # Compute final scores - exactly the paper's equation
     avg_importance  = total_head_importance / len(dataset)
     avg_neg_freq    = neg_grad_counts.float() / len(dataset)
     final_matrix    = avg_importance * avg_neg_freq
@@ -145,6 +153,8 @@ def get_attn_head_matrix_ted(
     out_dir = f"../results/{model_name}"
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, f"{model_name}_{lan}.pth")
+    # Saves the 32×32 tensor to disk. This is what all the later scripts load
+    # heatmap_viz.py, specificity_eval.py, intervention_demo.py
     torch.save(final_matrix, out_path)
     print(f"  Saved importance matrix  ->  {out_path}")
     print(f"  Score range: [{final_matrix.min():.4f}, {final_matrix.max():.4f}]")

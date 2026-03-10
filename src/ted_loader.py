@@ -1,5 +1,7 @@
 """
-TED Multilingual Data Loader for LAHIS experiments.
+The raw TED data lives in one big file: TED2025/multi_way.jsonl. It has 2.2 million lines, 
+each line is one talk segment with translations in many languages.
+This file's job is to chop that big file into 10 small per-language files that the rest of the pipeline reads.
 
 Converts TED2025/multi_way.jsonl into per-language JSON files in the format:
     [{"text": "..."}, ...]
@@ -30,7 +32,7 @@ LAHIS_TO_TED["pt"] = "pt-br"   # pt -> pt-br by default
 DEFAULT_LANGS = ["en", "fr", "es", "zh", "ru", "de", "ar", "ja", "ko", "vi", "th", "hi"]
 TED_JSONL_DEFAULT = "../../TED2025/multi_way.jsonl"
 
-
+# Load the raw file so its reads every line, parses it as JSON, returns a list of 2.2 million records.
 def load_ted_jsonl(path: str) -> List[dict]:
     records = []
     with open(path, "r", encoding="utf-8") as f:
@@ -40,7 +42,7 @@ def load_ted_jsonl(path: str) -> List[dict]:
                 records.append(json.loads(line))
     return records
 
-
+#Scans every record in the TED file and collects all language codes it finds. 
 def get_available_languages(records: List[dict]) -> List[str]:
     langs: set = set()
     for rec in records:
@@ -57,7 +59,10 @@ def _normalize_to_lahis(ted_code: str) -> str:
     """Convert a TED language code to the LAHIS code used for file naming."""
     return TED_TO_LAHIS.get(ted_code, ted_code)
 
-
+''' It loops through every record and pulls out the text for each language you asked for
+Then it groups 5 consecutive sentences into one chunk
+Why join 5 sentences? One sentence is too short — the model sees only a few tokens and the loss signal is noisy. 
+5 sentences gives ~100–200 tokens of real language context, which makes the LAHIS gradient more meaningful.'''
 def build_monolingual_streams(
     records: List[dict],
     languages: Optional[List[str]] = None,
