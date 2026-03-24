@@ -357,12 +357,22 @@ class ConsistencyTrainer(Trainer):
         for _, idxs in groups.items():
             if len(idxs) < 2:
                 continue
-            idxs_t = torch.tensor(idxs, device=answer_logits.device)
-            mean_probs = probs[idxs_t].mean(dim=0, keepdim=True).detach()
+
+            # find English example for this fact
+            en_idxs = [i for i in idxs if _langs[i] == "en"]
+            if len(en_idxs) == 0:
+                continue  # no English anchor for this fact
+            en_idx = en_idxs[0]
+
+            en_probs = probs[en_idx:en_idx+1].detach()
+
             for idx in idxs:
+                if idx == en_idx:
+                    continue  # don't compare English to itself
+
                 kl = F.kl_div(
                     log_probs[idx:idx+1],
-                    mean_probs,
+                    en_probs,
                     reduction="batchmean",
                 )
                 kl_terms.append(kl)
@@ -455,16 +465,20 @@ def main():
     compute_metrics = make_mcq_accuracy_fn(tokenizer)
 
     print0(f"Loading HF dataset: {args.hf_dataset_id}")
-    raw = load_dataset(args.hf_dataset_id)
+    from datasets import load_from_disk
 
-    raw_train = maybe_limit_raw_split(raw["train"], args.max_train_facts)
-    raw_val = maybe_limit_raw_split(raw["validation"], args.max_val_facts)
+    flat_root = "/data/jonathan/Lost-in-Mistranslation/datasets/wikifact_flat_olmo2_1124_7b"
+    train_ds = load_from_disk(f"{flat_root}/train")
+    val_ds = load_from_disk(f"{flat_root}/validation")
 
-    print0("Flattening WIKI-FACT train ...")
-    train_ds = flatten_wikifact_split(raw_train, tokenizer, LANGS)
+    if args.max_train_facts is not None:
+        keep_facts = set(train_ds["fact_id"][: args.max_train_facts * len(LANGS)])
+        train_ds = train_ds.filter(lambda x: x["fact_id"] in keep_facts)
 
-    print0("Flattening WIKI-FACT validation ...")
-    val_ds = flatten_wikifact_split(raw_val, tokenizer, LANGS)
+    if args.max_val_facts is not None:
+        keep_facts = set(val_ds["fact_id"][: args.max_val_facts * len(LANGS)])
+        val_ds = val_ds.filter(lambda x: x["fact_id"] in keep_facts)
+
 
     val_by_lang = {lang: filter_lang(val_ds, lang) for lang in LANGS}
 
