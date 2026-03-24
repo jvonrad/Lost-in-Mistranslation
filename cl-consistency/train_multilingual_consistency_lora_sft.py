@@ -30,7 +30,8 @@ python train_multilingual_consistency_lora_sft.py \
   --num_epochs 1 \
   --ckpt_dir /data/jonathan/Lost-in-Mistranslation/models/wikifact_sft_lora_ckpts \
   --output_dir /data/jonathan/Lost-in-Mistranslation/models/wikifact_sft_lora \
-  --run_name wiki-fact-sft-lora-75
+  --run_name wiki-fact-sft-lora-75 
+      
 '''
 
 
@@ -406,6 +407,12 @@ def parse_args():
     ap.add_argument("--learning_rate", type=float, default=2e-5)
     ap.add_argument("--warmup_ratio", type=float, default=0.05)
     ap.add_argument("--weight_decay", type=float, default=0.01)
+    ap.add_argument("--use_preprocessed_data", action="store_true", default=False)
+    ap.add_argument(
+        "--preprocessed_data_path",
+        type=str,
+        default="/data/jonathan/Lost-in-Mistranslation/datasets/wikifact_flat_olmo2_1124_7b"
+    )
     ap.add_argument("--logging_steps", type=int, default=10)
     ap.add_argument("--save_steps", type=int, default=200)
     ap.add_argument("--eval_steps", type=int, default=200)
@@ -434,6 +441,22 @@ def eval_named_dataset(trainer: Trainer, ds: Dataset, name: str):
     metrics = trainer.evaluate(eval_dataset=ds, metric_key_prefix=name)
     print0(metrics)
     return metrics
+
+def limit_by_unique_facts(ds: Dataset, max_facts: Optional[int]) -> Dataset:
+    if max_facts is None:
+        return ds
+
+    seen = set()
+    keep = []
+    for fid in ds["fact_id"]:
+        if fid not in seen:
+            seen.add(fid)
+            keep.append(fid)
+            if len(keep) >= max_facts:
+                break
+
+    keep = set(keep)
+    return ds.filter(lambda x: x["fact_id"] in keep)
 
 
 def main():
@@ -464,20 +487,26 @@ def main():
 
     compute_metrics = make_mcq_accuracy_fn(tokenizer)
 
-    print0(f"Loading HF dataset: {args.hf_dataset_id}")
-    from datasets import load_from_disk
+    if args.use_preprocessed_data:
+        print0(f"Loading preprocessed dataset from {args.preprocessed_data_path}")
 
-    flat_root = "/data/jonathan/Lost-in-Mistranslation/datasets/wikifact_flat_olmo2_1124_7b"
-    train_ds = load_from_disk(f"{flat_root}/train")
-    val_ds = load_from_disk(f"{flat_root}/validation")
+        from datasets import load_from_disk
+        train_ds = load_from_disk(f"{args.preprocessed_data_path}/train")
+        val_ds = load_from_disk(f"{args.preprocessed_data_path}/validation")
 
-    if args.max_train_facts is not None:
-        keep_facts = set(train_ds["fact_id"][: args.max_train_facts * len(LANGS)])
-        train_ds = train_ds.filter(lambda x: x["fact_id"] in keep_facts)
+    else:
+        print0(f"Loading HF dataset: {args.hf_dataset_id}")
 
-    if args.max_val_facts is not None:
-        keep_facts = set(val_ds["fact_id"][: args.max_val_facts * len(LANGS)])
-        val_ds = val_ds.filter(lambda x: x["fact_id"] in keep_facts)
+        raw = load_dataset(args.hf_dataset_id)
+
+        print0("Flattening WIKI-FACT train ...")
+        train_ds = flatten_wikifact_split(raw["train"], tokenizer, LANGS)
+
+        print0("Flattening WIKI-FACT validation ...")
+        val_ds = flatten_wikifact_split(raw["validation"], tokenizer, LANGS)
+
+    train_ds = limit_by_unique_facts(train_ds, args.max_train_facts)
+    val_ds = limit_by_unique_facts(val_ds, args.max_val_facts)
 
 
     val_by_lang = {lang: filter_lang(val_ds, lang) for lang in LANGS}
