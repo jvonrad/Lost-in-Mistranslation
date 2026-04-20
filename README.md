@@ -5,7 +5,7 @@
 
 ---
 
-![Two-stage pipeline](assets/main-figure.pdf)
+![Two-stage pipeline](./main-figure.pdf)
 *Figure 1: Two-stage pipeline for inducing cross-lingual consistency in English-pretrained LLMs. Light CPT on parallel data enables multilingual capability, while GRPO-based reinforcement learning reshapes internal representations to produce consistent factual predictions across languages, unlike SFT which results in surface-level memorization.*
 
 ---
