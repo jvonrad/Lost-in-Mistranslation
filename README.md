@@ -1,4 +1,4 @@
-# Lost in Multilinguality: Unlocking Latent Multilingual Knowledge via Consistency-Driven Reinforcement Learning
+# Unlocking Latent Multilingual Knowledge via Consistency-Driven Reinforcement Learning
 
 > **Louis Arts, George Burgess, Eleftheria Kolokytha, Harry O'Donnell, Ektor Oikonomidis Doumpas, Jonathan von Rad**
 > University College London
