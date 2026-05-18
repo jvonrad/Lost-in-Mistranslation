@@ -1,2 +1,4 @@
 logs/
 wandb/
+node_modules/
+Dockerfile.flash

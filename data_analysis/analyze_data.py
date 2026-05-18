@@ -6,7 +6,11 @@ from typing import Iterable, Dict, List, Optional, Set
 # -------------------------
 # Config
 # -------------------------
-MGSM_LANGS = ["en", "de", "id", "pt", "bn", "sw", "es", "ru", "fr", "ja", "zh-cn", "ar"]
+# MGSM_LANGS = ["en", "de", "id", "pt", "bn", "sw", "es", "ru", "fr", "ja", "zh-cn", "ar"]
+MGSM_LANGS = ["en", "bn", "sw", "ru", "ja", "zh-cn", "ar"]
+
+MIN_LANGS_PER_TALK = 7
+MIN_LANGS_PER_ROW = 2
 
 # -------------------------
 # Utilities
@@ -43,7 +47,7 @@ def prune_to_target_langs(ex: Dict, target_langs: List[str]) -> Dict:
 def filter_examples(
     path: str,
     target_langs: List[str],
-    min_langs_per_talk: int = 2,
+    min_langs_per_talk: int = 7,
     min_langs_per_row: int = 2,
 ) -> List[Dict]:
     eligible = find_eligible_talk_ids(path, target_langs, min_langs_per_talk)
@@ -269,6 +273,6 @@ if __name__ == "__main__":
         DATA_PATH,
         MGSM_LANGS,
         tokenizer_name="allenai/OLMo-2-1124-7B",
-        min_langs_per_talk=2,
-        min_langs_per_row=2,
+        min_langs_per_talk=MIN_LANGS_PER_TALK,
+        min_langs_per_row=MIN_LANGS_PER_ROW,
     )

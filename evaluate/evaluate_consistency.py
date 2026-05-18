@@ -2,12 +2,29 @@
 # -*- coding: utf-8 -*-
 
 """
-Evaluate allenai/OLMo-2-1124-7B on the VALIDATION split of your multilingual MCQ dataset
+Evaluate allenai/OLMo-2-1124-7B on the TEST split of your multilingual MCQ dataset
 using conditional logprob scoring over answer options.
 
-Example:
-python evaluate_consistency.py \
-  --input_jsonl /data/jonathan/Lost-in-Mistranslation/datasets/Wiki-triplets/multilingual_mcq_text_filtered_val.jsonl \
+BASELINE="allenai/OLMo-2-1124-7B"
+ALIGNED_SFT="jonny-vr/olmo-2-7b-aligned-wikifact-sft"
+ALIGNED_GRPO="jonny-vr/olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint"
+ONLY_GRPO="jonny-vr/olmo-2-7b-wikifact-grpo"
+ONLY_SFT="jonny-vr/olmo-2-7B.wikifact-sft-consistent"
+ONLY_ALIGNED="jonny-vr/olmo-2-7b-finetranslations"
+
+Example: (using hf dataset)
+python evaluate/evaluate_consistency.py \
+  --hf_dataset jonny-vr/WIKI-FACT \
+  --split test \
+  --model jonny-vr/olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint \
+  --batch_size 8 \
+  --score_mode avg
+  
+  
+using local json file:
+
+python evaluate/evaluate_consistency.py \
+  --input_jsonl /data/jonathan/Lost-in-Mistranslation/datasets/Wiki-triplets/multilingual_mcq_text_filtered_zh_simplified_val.jsonl \
   --model allenai/OLMo-2-1124-7B \
   --batch_size 8 \
   --score_mode avg
@@ -26,6 +43,9 @@ from collections import defaultdict
 import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForCausalLM
+from datasets import load_dataset
+
+
 
 
 LANGS = ["en", "de", "id", "pt", "ar", "bn", "sw", "es", "ru", "fr", "ja", "zh"]
@@ -49,6 +69,13 @@ def build_prompt(question: str) -> str:
 	# Keep this simple and stable.
 	return f"Question: {question}\nAnswer:"
 
+
+def load_hf_rows(repo_id: str, split: str, config: str | None = None):
+	if config:
+		ds = load_dataset(repo_id, config, split=split)
+	else:
+		ds = load_dataset(repo_id, split=split)
+	return list(ds)
 
 def score_candidates_batch(
 	model,
@@ -140,15 +167,22 @@ def score_candidates_batch(
 
 def main():
 	ap = argparse.ArgumentParser()
-	ap.add_argument("--input_jsonl", required=True, help="Use your validation split here, not train.")
+	ap.add_argument("--hf_dataset", default="jonny-vr/WIKI-FACT")
+	ap.add_argument("--hf_config", default=None, help="Config/subset name if the dataset has one")
+	ap.add_argument("--split", default="test", choices=["train", "validation", "test"])
+	ap.add_argument("--input_jsonl", default=None, help="Optional: local JSONL instead of HF")
 	ap.add_argument("--model", default="allenai/OLMo-2-1124-7B")
 	ap.add_argument("--batch_size", type=int, default=8)
 	ap.add_argument("--max_examples_per_lang", type=int, default=0, help="0 = all")
 	ap.add_argument("--score_mode", choices=["sum", "avg"], default="avg")
 	args = ap.parse_args()
 
-	print(f"Loading validation rows from: {args.input_jsonl}")
-	rows = load_rows(args.input_jsonl)
+	if args.input_jsonl:
+		print(f"Loading rows from local JSONL: {args.input_jsonl}")
+		rows = load_rows(args.input_jsonl)
+	else:
+		print(f"Loading {args.hf_dataset} [{args.split}] from Hugging Face")
+		rows = load_hf_rows(args.hf_dataset, args.split, args.hf_config)
 	print(f"Loaded {len(rows):,} rows")
 
 	device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -158,6 +192,14 @@ def main():
 	tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
 	if tokenizer.pad_token is None:
 		tokenizer.pad_token = tokenizer.eos_token
+  
+	# After loading tokenizer, run once:
+	test_prompt = "Question: What is the capital of France?\nAnswer:"
+	test_opt = "Paris"
+	p_ids = tokenizer(test_prompt)["input_ids"]
+	f_ids = tokenizer(test_prompt + " " + test_opt)["input_ids"]
+	assert f_ids[:len(p_ids)] == p_ids, f"Tokenization boundary mismatch: {p_ids} vs {f_ids[:len(p_ids)]}"
+	print(f"Prompt tokens: {len(p_ids)}, Full tokens: {len(f_ids)}, Option tokens: {len(f_ids) - len(p_ids)}")
 
 	print(f"Loading model: {args.model}")
 	model = AutoModelForCausalLM.from_pretrained(
@@ -180,19 +222,31 @@ def main():
 		lang_examples = []
 
 		for row in rows:
-			if "langs" not in row or lang not in row["langs"]:
-				continue
-			item = row["langs"][lang]
+			# Schema A: nested {"langs": {"en": {...}, "de": {...}}}
+			if "langs" in row and isinstance(row["langs"], dict):
+				if lang not in row["langs"]:
+					continue
+				item = row["langs"][lang]
+				question = (item.get("question") or "").strip()
+				options = item.get("options", [])
+				gold = (item.get("answer_text") or "").strip()
+				fact_id = row.get("fact_id")
 
-			question = item.get("question", "").strip()
-			options = item.get("options", [])
-			gold = item.get("answer_text", "").strip()
+			# Schema B: flat row with a `lang` or `language` column
+			elif row.get("lang") == lang or row.get("language") == lang:
+				question = (row.get("question") or "").strip()
+				options = row.get("options", [])
+				gold = (row.get("answer_text") or row.get("answer") or "").strip()
+				fact_id = row.get("fact_id") or row.get("id")
+
+			else:
+				continue
 
 			if not question or not isinstance(options, list) or len(options) != 4 or gold not in options:
 				continue
 
 			lang_examples.append({
-				"fact_id": row.get("fact_id"),
+				"fact_id": fact_id,
 				"lang": lang,
 				"prompt": build_prompt(question),
 				"options": options,
