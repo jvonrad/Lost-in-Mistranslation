@@ -2,3 +2,5 @@ logs/
 wandb/
 node_modules/
 Dockerfile.flash
+package-lock.json
+package.json
