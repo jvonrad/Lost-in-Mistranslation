@@ -22,16 +22,17 @@ from peft import get_peft_model, LoraConfig, TaskType, PeftModel
 import wandb
 
 '''
-python train_multilingual_consistency_lora_sft.py \
+CUDA_VISIBLE_DEVICES=1 python cl-consistency/train_multilingual_consistency_lora_sft.py \
   --hf_dataset_id jonny-vr/WIKI-FACT \
-  --model_id allenai/OLMo-2-1124-7B \
-  --facts_per_device_batch 1 \
+  --model_id /data/jonathan/Lost-in-Mistranslation/models/olmo2-finetranslations-structured-lora-checkpoints/checkpoint-12400-merged \
+  --facts_per_device_batch 8 \
   --gradient_accumulation_steps 8 \
   --num_epochs 1 \
-  --ckpt_dir /data/jonathan/Lost-in-Mistranslation/models/wikifact_sft_lora_ckpts \
-  --output_dir /data/jonathan/Lost-in-Mistranslation/models/wikifact_sft_lora \
-  --run_name wiki-fact-sft-lora-75 
-      
+  --ckpt_dir /data/jonathan/Lost-in-Mistranslation/models/olmo_2_7b_aligned_wikifact_sft_consistent \
+  --output_dir /data/jonathan/Lost-in-Mistranslation/models/olmo_2_7b_aligned_wikifact_sft_consistent \
+  --run_name wiki-fact-sft-lora-consistent_aligned \
+  --use_preprocessed_data \
+  --consistency_weight 0.5
 '''
 
 
@@ -41,8 +42,8 @@ HF_DATASET_ID = "jonny-vr/WIKI-FACT"
 CKPT_DIR = "/tmp/olmo2_wikifact_ckpts"
 OUTPUT_DIR = "/tmp/olmo2_wikifact_final"
 
-LORA_R = 32
-LORA_ALPHA = 64
+LORA_R = 64
+LORA_ALPHA = 128
 
 FACTS_PER_DEVICE_BATCH = 1
 GRAD_ACCUM = 8
@@ -333,6 +334,13 @@ class ConsistencyTrainer(Trainer):
         fact_ids = inputs.pop("fact_id")
         _langs = inputs.pop("lang")
         gold_letter_idx = inputs.pop("gold_letter_idx")
+        
+        if self.state.global_step % 50 == 0 and rank == 0:
+            print0(
+                f"step={self.state.global_step} "
+                f"batch_rows={inputs['input_ids'].shape[0]} "
+                f"seq_len={inputs['input_ids'].shape[1]}"
+            )
 
         outputs = model(
             input_ids=inputs["input_ids"],
@@ -353,34 +361,29 @@ class ConsistencyTrainer(Trainer):
 
         probs = F.softmax(answer_logits, dim=-1)
         log_probs = F.log_softmax(answer_logits, dim=-1)
-        kl_terms = []
+        consistency_terms = []
 
         for _, idxs in groups.items():
             if len(idxs) < 2:
                 continue
 
-            # find English example for this fact
-            en_idxs = [i for i in idxs if _langs[i] == "en"]
-            if len(en_idxs) == 0:
-                continue  # no English anchor for this fact
-            en_idx = en_idxs[0]
+            group_probs = probs[idxs]              # [n_langs, 4]
+            group_log_probs = log_probs[idxs]      # [n_langs, 4]
 
-            en_probs = probs[en_idx:en_idx+1].detach()
+            # Symmetric target: average distribution across languages
+            mean_probs = group_probs.mean(dim=0, keepdim=True).detach()   # [1, 4]
 
-            for idx in idxs:
-                if idx == en_idx:
-                    continue  # don't compare English to itself
-
-                kl = F.kl_div(
-                    log_probs[idx:idx+1],
-                    en_probs,
-                    reduction="batchmean",
-                )
-                kl_terms.append(kl)
+            # Match every language to the shared multilingual mean
+            kl = F.kl_div(
+                group_log_probs,
+                mean_probs.expand_as(group_log_probs),
+                reduction="batchmean",
+            )
+            consistency_terms.append(kl)
 
         consistency_loss = (
-            torch.stack(kl_terms).mean()
-            if kl_terms else torch.tensor(0.0, device=answer_logits.device)
+            torch.stack(consistency_terms).mean()
+            if consistency_terms else torch.tensor(0.0, device=answer_logits.device)
         )
 
         loss = ce_loss + self.consistency_weight * consistency_loss
@@ -577,6 +580,7 @@ def main():
         lr_scheduler_type="cosine",
         warmup_ratio=args.warmup_ratio,
         weight_decay=args.weight_decay,
+        gradient_checkpointing=True,
         save_strategy="steps",
         save_steps=args.save_steps,
         eval_strategy="steps",

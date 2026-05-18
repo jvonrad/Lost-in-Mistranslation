@@ -17,22 +17,22 @@ For each fact:
 ## LORA WITH HF INFERENCE
 
   
-PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=4 python cl-consistency/train_wikifact_grpo.py  \
-	--model_id /data/jonathan/Lost-in-Mistranslation/models/olmo2-finetranslations-structured-lora-checkpoints/checkpoint-12400-merged \
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=7 python cl-consistency/train_wikifact_grpo.py  \
+	--model_id allenai/OLMo-2-1124-7B \
 	--dataset_id jonny-vr/WIKI-FACT \
-	--output_dir /data/jonathan/Lost-in-Mistranslation/models/aligned-finetranslations-wikifact-grpo \
+	--output_dir /data/jonathan/Lost-in-Mistranslation/models/olmo-2-base-grpo \
 	--per_device_train_batch_size 1 \
 	--num_train_epochs 1 \
-	--learning_rate 5e-6 \
+	--learning_rate 1e-5 \
 	--num_generations 8  \
 	--max_completion_length 48 \
-	--run_name ted-finetranslations-wikifact-grpo-new \
-	--eval_steps 200  \
+	--run_name olmo-2-base-grpo \
+	--eval_steps 500  \
 	--max_eval_wikifact 500 \
 	--bf16 \
 	--use_lora  \
 	--kl_coef 0.0 \
-	--max_train_samples 20000 
+	--max_train_samples 40000 
 
 /data/jonathan/Lost-in-Mistranslation/models/olmo2-ted-cultura-sw-bn-structured-lora-final/merged
 
@@ -67,20 +67,21 @@ CUDA_VISIBLE_DEVICES=6 python train_wikifact_grpo.py  \
 
 
 ## FULL PARAMETER FT Example:
-PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=4,7 python train_wikifact_grpo.py \
-  --model_id allenai/OLMo-2-1124-7B-Instruct \
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=2,3 python cl-consistency/train_wikifact_grpo.py \
+  --model_id /data/jonathan/Lost-in-Mistranslation/models/olmo2-finetranslations-structured-lora-checkpoints/checkpoint-12400-merged \
   --dataset_id jonny-vr/WIKI-FACT \
-  --output_dir /data/jonathan/Lost-in-Mistranslation/models/wikifact_grpo_vllm \
+  --output_dir /data/jonathan/Lost-in-Mistranslation/models/olmo-aligned-lr-1e-5-full \
   --per_device_train_batch_size 1 \
   --num_train_epochs 1 \
-  --learning_rate 5e-6 \
+  --learning_rate 1e-5 \
   --num_generations 4 \
   --max_completion_length 48 \
-  --run_name grouped_rollout_v1_grpo_full \
+  --run_name olmo_aligned_lr_1e-5_full \
   --eval_steps 5 \
   --max_eval_wikifact 500 \
   --bf16 \
-  --max_train_samples 20000 
+  --max_train_samples 20000 \
+  --kl_coef 0.01
 """
 
 import os
@@ -161,8 +162,8 @@ MAX_EVAL_SAMPLES_PER_LANG = 267
 INDEX_TO_LETTER = {0: "A", 1: "B", 2: "C", 3: "D"}
 VALID_LETTERS = {"A", "B", "C", "D"}
 
-LORA_R = 32
-LORA_ALPHA = 64
+LORA_R = 64
+LORA_ALPHA = 128
 
 
 def parse_args():
@@ -257,7 +258,7 @@ def generate_via_vllm(
 			"max_tokens": max_completion_length,
 			"temperature": temperature,
 			"top_p": top_p,
-			"repetition_penalty": 1.3,
+			"repetition_penalty": 1.5,
 		},
 	)
 	data = resp.json()
@@ -293,7 +294,7 @@ def log_sample_rollout_to_file(
 	group_rewards: Dict,
 	batch: Dict,
 ):
-	log_path = os.path.join(output_dir, "finetranslations.txt")
+	log_path = output_dir
 	sample_key = sorted(grouped_preds.keys())[0]
 	sample_fact_idx, sample_gen_idx = sample_key
 
@@ -607,31 +608,29 @@ def extract_answer_text(text: str) -> str:
 	return text
 
 
-def resolve_prediction_to_letter(pred_text: str, option_map: Dict[str, str]) -> Tuple[Optional[str], bool]:
-	pred_raw = extract_answer_text(pred_text)
-	pred_norm = normalize_text(pred_raw)
-	if not pred_norm:
-		return None, False
+def resolve_prediction_to_letter(
+    pred_text: str, option_map: Dict[str, str]
+) -> Tuple[Optional[str], bool]:
+    pred_raw = extract_answer_text(pred_text)
+    pred_norm = normalize_text(pred_raw)
+    if not pred_norm:
+        return None, False
 
-	option_norm = {letter: normalize_text(text) for letter, text in option_map.items()}
+    option_norm = {letter: normalize_text(text) for letter, text in option_map.items()}
 
-	for letter, opt_norm in option_norm.items():
-		if pred_norm == opt_norm:
-			return letter, True
+    for letter, opt_norm in option_norm.items():
+        if pred_norm == opt_norm:
+            return letter, True
 
-	m = re.match(r"^([abcd])(?:[\.\)\]:\-\s]|$)", pred_norm)
-	if m:
-		return m.group(1).upper(), True
+    candidates = []
+    for letter, opt_norm in option_norm.items():
+        if opt_norm and (pred_norm in opt_norm or opt_norm in pred_norm):
+            candidates.append(letter)
 
-	candidates = []
-	for letter, opt_norm in option_norm.items():
-		if opt_norm and (pred_norm in opt_norm or opt_norm in pred_norm):
-			candidates.append(letter)
+    if len(candidates) == 1:
+        return candidates[0], True
 
-	if len(candidates) == 1:
-		return candidates[0], True
-
-	return None, False
+    return None, False
 
 
 def build_single_language_prompt(lang: str, question: str, options: Dict[str, str]) -> str:
@@ -1069,7 +1068,8 @@ def generate_grouped_rollouts(
 			top_p=top_p,
 			max_new_tokens=max_completion_length,
 			pad_token_id=tokenizer.pad_token_id,
-			repetition_penalty=1.3,
+			repetition_penalty=1.5,
+   			no_repeat_ngram_size=3,
 			eos_token_id=tokenizer.eos_token_id,
 		)
 
@@ -1242,8 +1242,9 @@ def main():
 			config=vars(args),
 		)
 
-	print(f"Loading tokenizer for {args.model_id} ...", flush=True)
-	tokenizer = AutoTokenizer.from_pretrained(args.model_id, use_fast=True)
+	print(f"Loading tokenizer for allenai/OLMo-2-1124-7B ...", flush=True)
+
+	tokenizer = AutoTokenizer.from_pretrained("allenai/OLMo-2-1124-7B", use_fast=True)
 	if tokenizer.pad_token is None:
 		tokenizer.pad_token = tokenizer.eos_token
 	tokenizer.padding_side = "left"
@@ -1258,12 +1259,14 @@ def main():
 		tokenizer(" D", add_special_tokens=False)["input_ids"][-1],
 	]
 	
-	# Flores loading
-	flores_eval_sets = load_flores_parallel_subset(
-		target_langs=["ar", "bn", "de", "es", "fr", "id", "ja", "pt", "ru", "sw", "zh"],
-		split="dev",
-		max_samples=args.max_eval_flores,
-	)
+	flores_eval_sets = {}
+
+	if args.max_eval_flores > 0:
+		flores_eval_sets = load_flores_parallel_subset(
+			target_langs=["ar", "bn", "de", "es", "fr", "id", "ja", "pt", "ru", "sw", "zh"],
+			split="dev",
+			max_samples=args.max_eval_flores,
+		)
 	# MMLU loading
 	mmlu_eval_sets = load_global_mmlu_dev_eval_by_lang(LANGS, tokenizer)
 
@@ -1278,7 +1281,7 @@ def main():
 		peft_config = LoraConfig(
 			r=LORA_R,
 			lora_alpha=LORA_ALPHA,
-			target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
+			target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "up_proj", "down_proj", "gate_proj"],
 			lora_dropout=0.05,
 			bias="none",
 			task_type=TaskType.CAUSAL_LM,
@@ -1310,7 +1313,7 @@ def main():
 			print(f"WARNING: Failed to load initial adapter: {resp.text}", flush=True)    
 
 		
-	model.gradient_checkpointing_enable()
+	model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
 	model.train()
 
 	ref_model = None
@@ -1493,7 +1496,7 @@ def main():
 					
 					if global_step % 200 == 0:
 						log_sample_rollout_to_file(
-							output_dir="/home/nvidia/jonathan/projects/Lost-in-Mistranslation/grpo_samples",
+							output_dir=os.path.join("/home/nvidia/jonathan/projects/Lost-in-Mistranslation/grpo_samples", args.run_name),
 							global_step=global_step,
 							grouped_preds=grouped_preds,
 							group_rewards=group_rewards,
