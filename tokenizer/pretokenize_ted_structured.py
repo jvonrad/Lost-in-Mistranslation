@@ -124,38 +124,29 @@ def eligible_talk_ids(path, selected_langs, k=2):
 def make_format_segment(tokenizer, rng):
     def format_segment(para_data):
         """
-        Individual paired format, blank-line separated.
-        When English is present, pair it with each available target language, but
-        randomize whether English or the target language comes first.
+        All available languages once per row, with the language order randomly
+        shuffled per row:
 
           en: {en_sent}
           de: {de_sent}
-
           es: {es_sent}
-          en: {en_sent}
+          ...
+
+        Each language string appears exactly once, so the model can't shortcut
+        x->en translation by attending to a duplicated `en: ...` line. Random
+        order ensures both en->x and x->en directions are learned (when en
+        lands after a non-English language, predicting the English line
+        requires translating from the preceding non-English context).
         """
         pd = prune_to_selected_langs(para_data, LANG_ORDER)
         if not pd:
             return ""
 
         langs = [l for l in LANG_ORDER if l in pd]
-        anchor_lang = "en" if "en" in pd else rng.choice(langs)
-        anchor_text = pd[anchor_lang]
+        rng.shuffle(langs)
 
-        pairs = []
-        for tgt_lang in langs:
-            if tgt_lang == anchor_lang:
-                continue
-
-            if rng.random() < 0.5:
-                pairs.append(f"{anchor_lang}: {anchor_text}\n{tgt_lang}: {pd[tgt_lang]}")
-            else:
-                pairs.append(f"{tgt_lang}: {pd[tgt_lang]}\n{anchor_lang}: {anchor_text}")
-
-        if not pairs:
-            return f"{anchor_lang}: {anchor_text}" + tokenizer.eos_token
-
-        return "\n\n".join(pairs) + tokenizer.eos_token
+        lines = [f"{l}: {pd[l]}" for l in langs]
+        return "\n".join(lines) + tokenizer.eos_token
 
     return format_segment
 

@@ -19,7 +19,7 @@ Notebook-like choices preserved:
 - save_steps=200
 - bf16=True
 - optim="adamw_torch_fused"
-
+ 
 # CUDA_VISIBLE_DEVICES=0,1,2,3 \
 # torchrun --standalone --nproc_per_node=4 training/train_ted_structured_lora.py
 
@@ -74,14 +74,14 @@ def default_dataset_path(model_id: str) -> str:
 	return os.path.join(TOKENIZED_DATA_ROOT, f"{model_name}_ted_12_langs_extra_bn_sw")
 
 
-def default_ckpt_dir(model_id: str) -> str:
+def default_ckpt_dir(model_id: str, learning_rate: float) -> str:
 	model_name = model_id.split("/")[-1]
-	return os.path.join(MODEL_OUT_ROOT, f"{model_name}-ted-structured-lora-checkpoints")
+	return os.path.join(MODEL_OUT_ROOT, f"{model_name}-ted-structured-lr-{learning_rate}-lora-checkpoints")
 
 
-def default_output_dir(model_id: str) -> str:
+def default_output_dir(model_id: str, learning_rate: float) -> str:
 	model_name = model_id.split("/")[-1]
-	return os.path.join(MODEL_OUT_ROOT, f"{model_name}-ted-structured-lora-final")
+	return os.path.join(MODEL_OUT_ROOT, f"{model_name}-ted-structured-lr-{learning_rate}-lora-final")
 
 CKPT_DIR = ""
 OUTPUT_DIR = ""
@@ -864,9 +864,9 @@ def main():
 	if not args.dataset_path:
 		args.dataset_path = default_dataset_path(args.model_id)
 	if not args.ckpt_dir:
-		args.ckpt_dir = default_ckpt_dir(args.model_id)
+		args.ckpt_dir = default_ckpt_dir(args.model_id, args.learning_rate)
 	if not args.output_dir:
-		args.output_dir = default_output_dir(args.model_id)
+		args.output_dir = default_output_dir(args.model_id, args.learning_rate)
 
 	if args.no_bf16:
 		args.bf16 = False

@@ -65,7 +65,7 @@ MODEL_ALIASES = {
 def resolve_model_id(model_id_or_alias: str) -> str:
 	return MODEL_ALIASES.get(model_id_or_alias, model_id_or_alias)
 
-
+ 
 def default_dataset_path(model_id: str) -> str:
 	model_name = model_id.split("/")[-1]
 	return os.path.join(TOKENIZED_DATA_ROOT, f"{model_name}_ted_12_langs_extra_bn_sw")
