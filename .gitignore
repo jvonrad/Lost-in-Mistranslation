@@ -4,3 +4,5 @@ node_modules/
 Dockerfile.flash
 package-lock.json
 package.json
+.claude
+training/__pycache__
