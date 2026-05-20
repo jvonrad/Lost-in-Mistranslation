@@ -24,7 +24,13 @@ Notebook-like choices preserved:
 # torchrun --standalone --nproc_per_node=4 training/train_ted_structured_lora.py
 
 
-python training/train_ted_structured_lora.py --model_id allenai/OLMo-2-1124-7B \
+python training/train_ted_structured_lora.py \
+    --model_id olmo2-7b \
+    --eval_steps 4000 \
+    --per_device_train_batch_size 4 \
+    --per_device_eval_batch_size 2 \
+    --gradient_accumulation_steps 2 \
+    --learning_rate 5e-5 
 
 Uses pretokenized dataset at:
 	/data/jonathan/Lost-in-Mistranslation/datasets/tokenized/ted_single_target_12_langs
@@ -89,8 +95,8 @@ rank = int(os.environ.get("RANK", 0))
 PER_DEVICE_BATCH_SIZE = 6
 GRAD_ACCUM = 8
 
-LORA_R = 32
-LORA_ALPHA = 64
+LORA_R = 64
+LORA_ALPHA = 128
 
 DATASET_PATH = ""
 REQ_LANGS = ["en", "es", "fr", "de", "id", "pt", "ru", "zh-cn", "ja", "ar", "sw", "bn"]
@@ -508,9 +514,11 @@ def compute_flores_hidden_cosine(
 	return metrics
 
 class FloresEvalCallback(TrainerCallback):
-	def __init__(self, tokenizer, flores_sets):
+	def __init__(self, tokenizer, flores_sets, run_every_n=2):
 		self.tokenizer = tokenizer
 		self.flores_sets = flores_sets
+		self.run_every_n = run_every_n
+		self._eval_count = 0
 		self._last_logged_step = None
 
 	def on_evaluate(self, args, state, control, model=None, **kwargs):
@@ -521,6 +529,10 @@ class FloresEvalCallback(TrainerCallback):
 			return
 		self._last_logged_step = state.global_step
 
+		self._eval_count += 1
+		if self._eval_count % self.run_every_n != 0:
+			return
+
 		device = next(model.parameters()).device
 
 		extra_metrics = {}
@@ -530,7 +542,7 @@ class FloresEvalCallback(TrainerCallback):
 				tokenizer=self.tokenizer,
 				flores_sets=self.flores_sets,
 				device=device,
-				max_new_tokens=128,
+				max_new_tokens=64,
 				batch_size=4,
 			)
 		)
@@ -540,21 +552,12 @@ class FloresEvalCallback(TrainerCallback):
 				tokenizer=self.tokenizer,
 				flores_sets=self.flores_sets,
 				device=device,
-				max_new_tokens=128,
+				max_new_tokens=64,
 				batch_size=4,
 			)
 		)
 		extra_metrics.update(
 			compute_flores_hidden_cosine(
-				model=model,
-				tokenizer=self.tokenizer,
-				flores_sets=self.flores_sets,
-				device=device,
-				batch_size=8,
-			)
-		)
-		extra_metrics.update(
-			compute_translation_retrieval(
 				model=model,
 				tokenizer=self.tokenizer,
 				flores_sets=self.flores_sets,
@@ -829,6 +832,7 @@ def parse_args():
 
 	parser.add_argument("--num_epochs", type=float, default=NUM_EPOCHS)
 	parser.add_argument("--per_device_train_batch_size", type=int, default=PER_DEVICE_BATCH_SIZE)
+	parser.add_argument("--per_device_eval_batch_size", type=int, default=2)
 	parser.add_argument("--gradient_accumulation_steps", type=int, default=GRAD_ACCUM)
 	parser.add_argument("--learning_rate", type=float, default=2e-5)
 	parser.add_argument("--warmup_ratio", type=float, default=0.05)
@@ -948,8 +952,10 @@ def main():
 
 	# ── 3. W&B init ────────────────────────────────────────────────────────────
 	if args.report_to == "wandb" and rank == 0:
+		model_name = args.model_id.split("/")[-1]
 		wandb.init(
 			project=WANDB_PROJECT,
+			name=f"{model_name}-lora-lr-{args.learning_rate}",
 			config={
 				"model": args.model_id,
 				"format": "grouped-paired",
@@ -984,7 +990,6 @@ def main():
 	base_model = AutoModelForCausalLM.from_pretrained(
 		args.model_id,
 		dtype=torch.bfloat16,
-		attn_implementation="flash_attention_2",
 	)
 	base_model.config.pad_token_id = tokenizer.pad_token_id
  
@@ -996,7 +1001,7 @@ def main():
 	peft_config = LoraConfig(
 		r=LORA_R,
 		lora_alpha=LORA_ALPHA,
-		target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
+		target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "up_proj", "down_proj", "gate_proj"],
 		lora_dropout=0.05,
 		bias="none",
 		task_type=TaskType.CAUSAL_LM,
@@ -1005,9 +1010,6 @@ def main():
 	model = get_peft_model(base_model, peft_config)
 	model.print_trainable_parameters()
  
-	if rank == 0:
-		print("Requested attention backend:", "flash_attention_2")
-		print("Model config attn_implementation:", getattr(model.config, "_attn_implementation", None))
 
 	trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
 	total = sum(p.numel() for p in model.parameters())
@@ -1032,10 +1034,10 @@ def main():
 		warmup_steps=200,
 		weight_decay=args.weight_decay,
 		save_strategy="steps",
-		save_steps=args.save_steps,
+		save_steps=args.eval_steps,
 		eval_strategy="steps",
 		eval_steps=args.eval_steps,
-		per_device_eval_batch_size=1,
+		per_device_eval_batch_size=args.per_device_eval_batch_size,
 		eval_accumulation_steps=1,
 		save_total_limit=args.save_total_limit,
 		load_best_model_at_end=False,
@@ -1079,11 +1081,11 @@ def main():
 	)
 
 	if rank == 0:
-		print(f"\nStarting OLMo-2 run:")
+		print(f"\nStarting {args.model_id} run:")
 		print(f"  Format: grouped-paired | LoRA r={LORA_R}, alpha={LORA_ALPHA} | no quantization")
 
 		print(f"  {num_chunks} chunks | max_steps={max_steps}")
-		print(f"  Checkpointing every {args.save_steps} steps → {args.ckpt_dir}")
+		print(f"  Checkpointing every {args.eval_steps} steps → {args.ckpt_dir}")
 
 	trainer.train()
  

@@ -15,18 +15,16 @@ For each fact:
 
 
 ## LORA WITH HF INFERENCE
-
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=7 
   
-PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=7 python cl-consistency/train_wikifact_grpo.py  \
-	--model_id allenai/OLMo-2-1124-7B \
-	--dataset_id jonny-vr/WIKI-FACT \
-	--output_dir /data/jonathan/Lost-in-Mistranslation/models/olmo-2-base-grpo \
+python training/train_wikifact_grpo.py  \
+	--model_id olmo2-7b \
+	--dataset_id jvonrad/PolyFact \
 	--per_device_train_batch_size 1 \
 	--num_train_epochs 1 \
-	--learning_rate 1e-5 \
+	--learning_rate 5e-5 \
 	--num_generations 8  \
-	--max_completion_length 48 \
-	--run_name olmo-2-base-grpo \
+	--max_completion_length 32 \
 	--eval_steps 500  \
 	--max_eval_wikifact 500 \
 	--bf16 \
@@ -34,54 +32,6 @@ PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=7 python c
 	--kl_coef 0.0 \
 	--max_train_samples 40000 
 
-/data/jonathan/Lost-in-Mistranslation/models/olmo2-ted-cultura-sw-bn-structured-lora-final/merged
-
-## LORA WITH VLLM
-
-CUDA_VISIBLE_DEVICES=5 VLLM_ALLOW_RUNTIME_LORA_UPDATING=True vllm serve allenai/OLMo-2-1124-7B-Instruct \
-  --enable-lora \
-  --max-lora-rank 32 \
-  --dtype bfloat16 \
-  --gpu-memory-utilization 0.85
-  
-CUDA_VISIBLE_DEVICES=6 python train_wikifact_grpo.py  \
-	--model_id allenai/OLMo-2-1124-7B-Instruct \
-	--dataset_id jonny-vr/WIKI-FACT \
-	--output_dir /data/jonathan/Lost-in-Mistranslation/models/wikifact_grouped_rollout \
-	--per_device_train_batch_size 1 \
-	--num_train_epochs 1 \
-	--learning_rate 5e-6 \
-	--num_generations 8  \
-	--max_completion_length 48 \
-	--run_name grouped_rollout_v1_grpo_vllm \
-	--eval_steps 200  \
-	--max_eval_wikifact 500 \
-	--bf16 \
-	--use_lora  \
-	--use_vllm \
-	--vllm_base_url http://localhost:8000  \
-	--vllm_sync_steps 10 \
-	--lora_sync_dir /tmp/lora_checkpoint \
-	--kl_coef 0.0 \
-	--max_train_samples 20000 
-
-
-## FULL PARAMETER FT Example:
-PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=2,3 python cl-consistency/train_wikifact_grpo.py \
-  --model_id /data/jonathan/Lost-in-Mistranslation/models/olmo2-finetranslations-structured-lora-checkpoints/checkpoint-12400-merged \
-  --dataset_id jonny-vr/WIKI-FACT \
-  --output_dir /data/jonathan/Lost-in-Mistranslation/models/olmo-aligned-lr-1e-5-full \
-  --per_device_train_batch_size 1 \
-  --num_train_epochs 1 \
-  --learning_rate 1e-5 \
-  --num_generations 4 \
-  --max_completion_length 48 \
-  --run_name olmo_aligned_lr_1e-5_full \
-  --eval_steps 5 \
-  --max_eval_wikifact 500 \
-  --bf16 \
-  --max_train_samples 20000 \
-  --kl_coef 0.01
 """
 
 import os
@@ -105,6 +55,8 @@ from transformers import (
 	AutoTokenizer,
 	AutoModelForCausalLM,
 	get_cosine_schedule_with_warmup,
+	StoppingCriteria,
+	StoppingCriteriaList,
 )
 from peft import LoraConfig, TaskType, get_peft_model
 import torch.nn.functional as F
@@ -112,9 +64,32 @@ from torch.utils.data import DataLoader as TorchDataLoader
 
 
 
-MODEL_ID = "allenai/OLMo-2-1124-7B-Instruct"
-HF_DATASET_ID = "jonny-vr/WIKI-FACT"
-OUTPUT_DIR = "/data/jonathan/Lost-in-Mistranslation/models/wikifact_grouped_rollout_grpo"
+MODEL_ID = "allenai/OLMo-2-1124-7B"
+HF_DATASET_ID = "jvonrad/PolyFact"
+HF_DATASET_CONFIG = "parallel"
+MODEL_OUT_ROOT = "/data/jonathan/Lost-in-Mistranslation/models"
+
+MODEL_ALIASES = {
+	"olmo2-7b": "allenai/OLMo-2-1124-7B",
+	"olmo2-7b-instruct": "allenai/OLMo-2-1124-7B-Instruct",
+	"llama-3.1-8b": "meta-llama/Llama-3.1-8B",
+	"qwen2.5-7b": "Qwen/Qwen2.5-7B",
+	"gemma-2-9b": "google/gemma-2-9b",
+}
+
+
+def resolve_model_id(model_id_or_alias: str) -> str:
+	return MODEL_ALIASES.get(model_id_or_alias, model_id_or_alias)
+
+
+def default_run_name(model_id: str, learning_rate: float) -> str:
+	model_name = model_id.split("/")[-1]
+	return f"{model_name}-poly-grpo-lr-{learning_rate}"
+
+
+def default_output_dir(model_id: str, learning_rate: float) -> str:
+	return os.path.join(MODEL_OUT_ROOT, default_run_name(model_id, learning_rate))
+
 
 WANDB_PROJECT = "UnLock"
 
@@ -170,8 +145,7 @@ def parse_args():
 	ap = argparse.ArgumentParser()
 	ap.add_argument("--model_id", type=str, default=MODEL_ID)
 	ap.add_argument("--dataset_id", type=str, default=HF_DATASET_ID)
-	ap.add_argument("--output_dir", type=str, default=OUTPUT_DIR)
-	ap.add_argument("--run_name", type=str, default=None)
+	ap.add_argument("--dataset_config", type=str, default=HF_DATASET_CONFIG)
 	ap.add_argument("--logprob_micro_batch_size", type=int, default=4)
 	# In parse_args(), add:
 	ap.add_argument("--use_lora", action="store_true", default=False)
@@ -272,6 +246,45 @@ def set_seed(seed: int):
 	random.seed(seed)
 	torch.manual_seed(seed)
 	torch.cuda.manual_seed_all(seed)
+
+
+def get_newline_token_ids(tokenizer) -> List[int]:
+	"""Return all token IDs whose decoded form contains a newline."""
+	probes = ["\n", "\n\n", " \n", "\nA", "\nThe"]
+	ids = set()
+	for s in probes:
+		for tid in tokenizer(s, add_special_tokens=False)["input_ids"]:
+			if "\n" in tokenizer.decode([tid], skip_special_tokens=False):
+				ids.add(int(tid))
+	return sorted(ids)
+
+
+class StopOnNewline(StoppingCriteria):
+	"""Per-sequence stopping: mark a sequence done as soon as it emits a newline token.
+
+	Returns a BoolTensor of shape [batch_size]. Modern HF generate ANDs this with
+	its EOS tracking, so sequences finish individually instead of dragging the
+	whole batch to max_new_tokens.
+	"""
+
+	def __init__(self, newline_token_ids: List[int]):
+		super().__init__()
+		# Stored as 1-D tensor for fast isin; moved to device on first call.
+		self.newline_token_ids = torch.as_tensor(list(newline_token_ids), dtype=torch.long)
+		self._done_mask = None
+
+	def __call__(self, input_ids: torch.LongTensor, scores, **kwargs) -> torch.BoolTensor:
+		batch_size = input_ids.shape[0]
+		device = input_ids.device
+
+		if self._done_mask is None or self._done_mask.shape[0] != batch_size or self._done_mask.device != device:
+			self._done_mask = torch.zeros(batch_size, dtype=torch.bool, device=device)
+			self.newline_token_ids = self.newline_token_ids.to(device)
+
+		last_token = input_ids[:, -1]
+		hit = torch.isin(last_token, self.newline_token_ids)
+		self._done_mask = self._done_mask | hit
+		return self._done_mask
 
 
 def safe_strip(x: Any) -> str:
@@ -505,15 +518,72 @@ def compute_flores_bleu(
 			preds.extend([x.strip() for x in decoded])
 
 		score = bleu.compute(predictions=preds, references=[[r] for r in refs])["score"]
-		metrics[f"flores_bleu/{lang}"] = score
+		metrics[f"flores_bleu/en_to_{lang}"] = score
 
 	if len(metrics) > 0:
-		metrics["flores_bleu/avg"] = sum(metrics.values()) / len(metrics)
+		metrics["flores_bleu/en_to_x_avg"] = sum(metrics.values()) / len(metrics)
+
+	return metrics
+
+
+@torch.no_grad()
+def compute_flores_bleu_to_english(
+	model,
+	tokenizer,
+	flores_sets,
+	device,
+	max_new_tokens=64,
+	batch_size=4,
+):
+	bleu = evaluate.load("sacrebleu")
+	metrics = {}
+
+	model.eval()
+
+	for lang, data in flores_sets.items():
+		src_texts = data["tgt_texts"]
+		refs = data["src_texts"]
+
+		preds = []
+
+		for i in range(0, len(src_texts), batch_size):
+			batch_src = src_texts[i:i + batch_size]
+
+			prompts = [
+				f"Translate the following sentence from {LANG_NAME_MAP[lang]} to English:\n\n{s}\n\nTranslation:"
+				for s in batch_src
+			]
+
+			tok = tokenizer(
+				prompts,
+				return_tensors="pt",
+				padding=True,
+				truncation=True,
+				max_length=512,
+			).to(device)
+
+			gen = model.generate(
+				**tok,
+				max_new_tokens=max_new_tokens,
+				do_sample=False,
+				pad_token_id=tokenizer.pad_token_id,
+				eos_token_id=tokenizer.eos_token_id,
+			)
+
+			gen_only = gen[:, tok["input_ids"].shape[1]:]
+			decoded = tokenizer.batch_decode(gen_only, skip_special_tokens=True)
+			preds.extend([x.strip() for x in decoded])
+
+		score = bleu.compute(predictions=preds, references=[[r] for r in refs])["score"]
+		metrics[f"flores_bleu/{lang}_to_en"] = score
+
+	if len(metrics) > 0:
+		metrics["flores_bleu/x_to_en_avg"] = sum(metrics.values()) / len(metrics)
 
 	return metrics
 
 ###################################
-# Hidden State Cosine Similarity 
+# Hidden State Cosine Similarity
 #####################################
 
 def mean_pool_hidden(hidden_states, attention_mask):
@@ -649,7 +719,8 @@ def build_single_language_prompt(lang: str, question: str, options: Dict[str, st
 
 
 def build_grouped_fact_item(ex: Dict[str, Any]) -> Dict[str, Any]:
-	langs_data = ex.get("langs", {})
+	# PolyFact uses `translations`; WIKI-FACT used `langs`. Accept either.
+	langs_data = ex.get("translations") or ex.get("langs") or {}
 	if not isinstance(langs_data, dict):
 		return {"is_valid": False, "num_languages": 0}
 
@@ -663,16 +734,31 @@ def build_grouped_fact_item(ex: Dict[str, Any]) -> Dict[str, Any]:
 		item = langs_data[lang]
 		question = safe_strip(item.get("question", ""))
 		answer_text = safe_strip(item.get("answer_text", ""))
-		options = item.get("options", [])
 
-		if not question or not isinstance(options, list) or len(options) != 4:
+		# PolyFact: option_a..option_d (separate keys). WIKI-FACT: options (list).
+		if "option_a" in item:
+			options = [
+				safe_strip(item.get("option_a", "")),
+				safe_strip(item.get("option_b", "")),
+				safe_strip(item.get("option_c", "")),
+				safe_strip(item.get("option_d", "")),
+			]
+		else:
+			opts_raw = item.get("options", [])
+			if not isinstance(opts_raw, list) or len(opts_raw) != 4:
+				continue
+			options = [safe_strip(x) for x in opts_raw]
+
+		if not question or any(not x for x in options):
 			continue
 
-		options = [safe_strip(x) for x in options]
-		if any(not x for x in options):
-			continue
+		# Prefer explicit answer_index when present (PolyFact); fall back to text match.
+		answer_idx = item.get("answer_index", None)
+		if isinstance(answer_idx, int) and 0 <= answer_idx <= 3:
+			gold_letter = INDEX_TO_LETTER[answer_idx]
+		else:
+			gold_letter = answer_text_to_letter(options, answer_text)
 
-		gold_letter = answer_text_to_letter(options, answer_text)
 		if gold_letter is None:
 			continue
 
@@ -685,6 +771,7 @@ def build_grouped_fact_item(ex: Dict[str, Any]) -> Dict[str, Any]:
 
 		prompts_by_lang[lang] = build_single_language_prompt(lang, question, option_map)
 		meta_by_lang[lang] = {
+			"question": question,
 			"gold_letter": gold_letter,
 			"gold_text": answer_text,
 			"options": option_map,
@@ -783,12 +870,16 @@ def evaluate_wikifact_grouped(
 
 		input_len = inputs["input_ids"].shape[1]
 
+		stopping = StoppingCriteriaList([
+			StopOnNewline(getattr(tokenizer, "newline_token_ids", []) or [])
+		])
 		outputs = model.generate(
 			**inputs,
 			max_new_tokens=max_completion_length,
 			do_sample=False,
 			pad_token_id=tokenizer.pad_token_id,
 			eos_token_id=tokenizer.eos_token_id,
+			stopping_criteria=stopping,
 		)
 
 		pred_text_by_lang = {}
@@ -851,7 +942,8 @@ def run_full_eval(
 	max_prompt_length,
 	max_completion_length,
 	device,
-	global_step
+	global_step,
+	eval_steps,
 ):
 	metrics = {}
 
@@ -867,13 +959,22 @@ def run_full_eval(
 		max_completion_length=max_completion_length,
 	))
 
-	if global_step % 1000 == 0:
+	if eval_steps > 0 and global_step % (2 * eval_steps) == 0:
 		metrics.update(compute_flores_bleu(
 			model=model,
 			tokenizer=tokenizer,
 			flores_sets=flores_eval_sets,
 			device=device,
-			max_new_tokens=128,
+			max_new_tokens=64,
+			batch_size=4,
+		))
+
+		metrics.update(compute_flores_bleu_to_english(
+			model=model,
+			tokenizer=tokenizer,
+			flores_sets=flores_eval_sets,
+			device=device,
+			max_new_tokens=64,
 			batch_size=4,
 		))
 
@@ -1061,6 +1162,9 @@ def generate_grouped_rollouts(
 
 		input_len = inputs["input_ids"].shape[1]
 
+		stopping = StoppingCriteriaList([
+			StopOnNewline(getattr(tokenizer, "newline_token_ids", []) or [])
+		])
 		outputs = model.generate(
 			**inputs,
 			do_sample=True,
@@ -1071,6 +1175,7 @@ def generate_grouped_rollouts(
 			repetition_penalty=1.5,
    			no_repeat_ngram_size=3,
 			eos_token_id=tokenizer.eos_token_id,
+			stopping_criteria=stopping,
 		)
 
 		if was_training:
@@ -1232,6 +1337,10 @@ def main():
 	if args.no_bf16:
 		args.bf16 = False
 
+	args.model_id = resolve_model_id(args.model_id)
+	args.run_name = default_run_name(args.model_id, args.learning_rate)
+	args.output_dir = default_output_dir(args.model_id, args.learning_rate)
+
 	set_seed(args.seed)
 	os.makedirs(args.output_dir, exist_ok=True)
 
@@ -1242,12 +1351,15 @@ def main():
 			config=vars(args),
 		)
 
-	print(f"Loading tokenizer for allenai/OLMo-2-1124-7B ...", flush=True)
+	print(f"Loading tokenizer for {args.model_id} ...", flush=True)
 
-	tokenizer = AutoTokenizer.from_pretrained("allenai/OLMo-2-1124-7B", use_fast=True)
+	tokenizer = AutoTokenizer.from_pretrained(args.model_id, use_fast=True)
 	if tokenizer.pad_token is None:
 		tokenizer.pad_token = tokenizer.eos_token
 	tokenizer.padding_side = "left"
+
+	tokenizer.newline_token_ids = get_newline_token_ids(tokenizer)
+	print(f"Newline stop token ids: {tokenizer.newline_token_ids}", flush=True)
 
 	dtype = torch.bfloat16 if args.bf16 and torch.cuda.is_available() else torch.float32
 	
@@ -1327,8 +1439,11 @@ def main():
 		for p in ref_model.parameters():
 			p.requires_grad = False
 
-	print(f"Loading dataset {args.dataset_id} ...", flush=True)
-	raw_all = load_dataset(args.dataset_id)
+	print(f"Loading dataset {args.dataset_id} (config={args.dataset_config or 'default'}) ...", flush=True)
+	if args.dataset_config:
+		raw_all = load_dataset(args.dataset_id, args.dataset_config)
+	else:
+		raw_all = load_dataset(args.dataset_id)
 	raw_train = raw_all["train"]
 	raw_val = raw_all["validation"]
 	
@@ -1482,7 +1597,12 @@ def main():
 					# print one sampled grouped rollout
 					sample_key = sorted(grouped_preds.keys())[0]
 					sample_fact_idx, sample_gen_idx = sample_key
+					sample_meta = json.loads(batch["meta_by_lang_json"][sample_fact_idx])
 					print(f"\n[sample rollout @ step {global_step}] fact_idx={sample_fact_idx} gen_idx={sample_gen_idx}", flush=True)
+					en_meta = sample_meta.get("en", {})
+					if en_meta:
+						print(f"question (en): {en_meta.get('question', '?')}", flush=True)
+						print(f"gold (en):     {en_meta.get('gold_text', '?')}", flush=True)
 					for lang in LANGS:
 						if lang in grouped_preds[sample_key]:
 							print(f"{lang}: {grouped_preds[sample_key][lang]}", flush=True)
@@ -1514,7 +1634,8 @@ def main():
 						max_prompt_length=args.max_prompt_length,
 						max_completion_length=args.max_completion_length,
 						device=device,
-						global_step=global_step
+						global_step=global_step,
+						eval_steps=args.eval_steps,
 					)
 					print(f"\n[eval @ step {global_step}] {eval_metrics}", flush=True)
 					if args.report_to == "wandb":
