@@ -1,7 +1,6 @@
 # Unlocking Latent Multilingual Knowledge via Consistency-Driven Reinforcement Learning
 
-> **Louis Arts, George Burgess, Eleftheria Kolokytha, Harry O'Donnell, Ektor Oikonomidis Doumpas, Jonathan von Rad**
-> University College London
+
 
 ![Two-stage pipeline](./main-figure.png)
 
@@ -25,9 +24,9 @@ Applied to OLMo-2-7B across the 12 most widely spoken languages (18.5% → 70% o
 
 GRPO outperforms SFT across all benchmarks and transfers to **11 unseen languages** not seen during training.
 
-## Dataset: WIKI-FACT
+## Dataset: PolyFact
 
-🤗 [`jvonrad/WIKI-FACT`](https://huggingface.co/datasets/jvonrad/WIKI-FACT) — 100K facts × 12 languages, fully parallel, grounded in Wikidata. Split: 95K train / 2.5K val / 2.5K test.
+🤗 (open-sourced upon publication) — 100K facts × 12 languages, fully parallel, grounded in Wikidata. Split: 95K train / 2.5K val / 2.5K test.
 
 ## Installation
 
