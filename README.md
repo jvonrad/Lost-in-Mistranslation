@@ -1,4 +1,4 @@
-# Unlocking Latent Multilingual Knowledge via Consistency-Driven Reinforcement Learning
+# Improving Multilingual Knowledge Access via Consistency-Driven Reinforcement Learning
 
 
 
