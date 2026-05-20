@@ -2,7 +2,9 @@
 
 
 
-![Two-stage pipeline](./main-figure.png)
+<p align="center">
+  <img src="./main-figure.png" width="600">
+</p>
 
 ## Overview
 
