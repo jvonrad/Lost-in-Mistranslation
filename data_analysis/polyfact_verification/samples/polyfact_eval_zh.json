@@ -1,0 +1,2614 @@
+{
+  "dataset": "jvonrad/PolyFact",
+  "language": "zh",
+  "split": "test",
+  "n": 100,
+  "seed": 42,
+  "label_schema": {
+    "A": "Correct",
+    "B": "Ambiguous / underspecified",
+    "C": "Incorrect"
+  },
+  "items": [
+    {
+      "fact_id": "Q65978|P37|Q188",
+      "language": "zh",
+      "subject": "Dulliken",
+      "relation": "official language",
+      "object": "German",
+      "question": "杜利肯的官方语言是什么？",
+      "options": {
+        "A": "维吾尔语",
+        "B": "亚拉姆语",
+        "C": "示巴语",
+        "D": "德语"
+      },
+      "answer_text": "德语",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "杜利肯（Dulliken）是瑞士的一个城镇，官方语言是德语。因此，选项D) 德语是正确的答案。",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5888546|P19|Q8826",
+      "language": "zh",
+      "subject": "Guillermo Fernández Groizard",
+      "relation": "place of birth",
+      "object": "Palma",
+      "question": "吉列尔莫·费尔南德斯·格罗扎德出生在哪里？",
+      "options": {
+        "A": "帕尔马",
+        "B": "姆万扎",
+        "C": "乌季达",
+        "D": "莫雷泰"
+      },
+      "answer_text": "帕尔马",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the birthplace of Guillermo Fernández Groizard, but without additional context or information, it is unclear which option is correct. The dataset labels '帕尔马' as the correct answer, but without verifying this information, multiple options could potentially be valid. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q8255674|P61|Q735603",
+      "language": "zh",
+      "subject": "(103965) 2000 DW78",
+      "relation": "discoverer or inventor",
+      "object": "Lincoln Near-Earth Asteroid Research",
+      "question": "小行星103965是由哪个团队发现的？",
+      "options": {
+        "A": "小行星陆地撞击持续报警系统",
+        "B": "印地安小行星专案",
+        "C": "林肯近地小行星研究小组",
+        "D": "暗能量巡天"
+      },
+      "answer_text": "林肯近地小行星研究小组",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) program is known for discovering many asteroids, including asteroid 103965. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q619913|P17|Q668",
+      "language": "zh",
+      "subject": "National Library of India",
+      "relation": "country",
+      "object": "India",
+      "question": "印度国家图书馆位于哪个国家？",
+      "options": {
+        "A": "印度",
+        "B": "老挝",
+        "C": "捷克斯洛伐克",
+        "D": "捷克"
+      },
+      "answer_text": "印度",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks for the country where the National Library of India is located. The correct answer is unambiguously India, as the name itself specifies the country. No other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q16013140|P108|Q41085",
+      "language": "zh",
+      "subject": "Young Hee Lee",
+      "relation": "employer",
+      "object": "Sungkyunkwan University",
+      "question": "李永熙的雇主是？",
+      "options": {
+        "A": "立教大学",
+        "B": "克拉克亚特兰大大学",
+        "C": "同志社大学",
+        "D": "成均馆大学"
+      },
+      "answer_text": "成均馆大学",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the employer of 李永熙, but without additional context or information, it is not possible to determine which of the options is correct. The dataset-labeled answer '成均馆大学' could be correct, but without further context, other options could also be valid. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q2553804|P84|Q3260673",
+      "language": "zh",
+      "subject": "Gare d'Avignon-Centre",
+      "relation": "architect",
+      "object": "Louis-Jules Bouchot",
+      "question": "阿维尼翁中央站的建筑师是谁？",
+      "options": {
+        "A": "约翰·詹姆斯",
+        "B": "路易-朱尔·布绍",
+        "C": "阿特利·艾尔斯",
+        "D": "齐格蒙特·戈尔戈莱夫斯基"
+      },
+      "answer_text": "路易-朱尔·布绍",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of Avignon Central Station is indeed Louis-Jules Bouchot, making option B the correct answer. The other options do not correspond to the architect of this station.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q49941|P108|Q458882",
+      "language": "zh",
+      "subject": "Ilona Staller",
+      "relation": "employer",
+      "object": "Hungarian Police",
+      "question": "伊萝娜·史特拉的雇主是？",
+      "options": {
+        "A": "名古屋电视台",
+        "B": "东南航空建设公司",
+        "C": "法兰西24",
+        "D": "匈牙利警察"
+      },
+      "answer_text": "匈牙利警察",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the employer of 伊萝娜·史特拉, but without additional context or information, it is not clear which option is correct. The dataset labels '匈牙利警察' as the correct answer, but without knowing who 伊萝娜·史特拉 is, this cannot be confirmed. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q11608500|P69|Q336264",
+      "language": "zh",
+      "subject": "Yazō Kōketsu",
+      "relation": "educated at",
+      "object": "Kyoto University",
+      "question": "纐缬弥三就读于哪所大学？",
+      "options": {
+        "A": "马德拉斯大学",
+        "B": "圣马丁艺术学校",
+        "C": "京都大学",
+        "D": "明亚大学"
+      },
+      "answer_text": "京都大学",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks which university 纐缬弥三 attended, but without additional context or information about this person, it is impossible to determine the correct answer. The dataset labels 京都大学 as correct, but without further context, this is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q86162|P27|Q40",
+      "language": "zh",
+      "subject": "Adolf Tuma",
+      "relation": "country of citizenship",
+      "object": "Austria",
+      "question": "阿道夫·图马的国籍是什么？",
+      "options": {
+        "A": "格鲁吉亚王国",
+        "B": "孔夫朗伯国",
+        "C": "奥地利",
+        "D": "厄立特里亚"
+      },
+      "answer_text": "奥地利",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Adolf Tuma is an Austrian artist, making the labeled answer '奥地利' (Austria) correct. The other options do not relate to his nationality.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1510206|P495|Q55",
+      "language": "zh",
+      "subject": "Video Kids",
+      "relation": "country of origin",
+      "object": "Netherlands",
+      "question": "Video Kids 的原产地是？",
+      "options": {
+        "A": "拉脱维亚",
+        "B": "荷兰",
+        "C": "北宋",
+        "D": "国际"
+      },
+      "answer_text": "荷兰",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Video Kids is a Dutch musical group, so the labeled answer '荷兰' (Netherlands) is correct. The other options are not relevant to the origin of the group.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q11769389|P69|Q144488",
+      "language": "zh",
+      "subject": "Marian Fuks",
+      "relation": "educated at",
+      "object": "University of Warsaw",
+      "question": "马里安·福克斯就读于哪所大学？",
+      "options": {
+        "A": "东南大学",
+        "B": "静冈县立大学",
+        "C": "黑尔姆施泰特大学",
+        "D": "华沙大学"
+      },
+      "answer_text": "华沙大学",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks which university Marian Fuks attended, but without additional context or information, it is not possible to determine the correct answer from the options provided. Multiple options could be valid, and the question lacks the necessary context to choose one.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q621217|P178|Q312",
+      "language": "zh",
+      "subject": "Contacts",
+      "relation": "developer",
+      "object": "Apple Inc.",
+      "question": "以下哪个公司开发了通讯录？",
+      "options": {
+        "A": "XMOS",
+        "B": "苹果公司",
+        "C": "Shaba Games",
+        "D": "蘑菇社"
+      },
+      "answer_text": "苹果公司",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is ambiguous because '通讯录' (address book) is a generic term and could refer to various applications or features developed by different companies. Without specifying which '通讯录' is being referred to, multiple companies could potentially have developed an address book application. Therefore, the question lacks sufficient context to unambiguously determine the correct answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q19392051|P407|Q9043",
+      "language": "zh",
+      "subject": "Teigen synger Falsk",
+      "relation": "language of work or name",
+      "object": "Norwegian",
+      "question": "泰根唱假的作品使用了哪种语言？",
+      "options": {
+        "A": "巴伦西亚语",
+        "B": "吉拉基语",
+        "C": "挪威语",
+        "D": "白俄罗斯语"
+      },
+      "answer_text": "挪威语",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is unclear because it does not specify which work by '泰根' is being referred to. Without this context, multiple options could potentially be valid, as '泰根' could refer to different artists or works. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q914583|P407|Q1860",
+      "language": "zh",
+      "subject": "Crocodiles",
+      "relation": "language of work or name",
+      "object": "English",
+      "question": "鳄鱼这个词最初来源于哪种语言？",
+      "options": {
+        "A": "奥地利德语",
+        "B": "犹太科普特希腊语",
+        "C": "扎扎其语",
+        "D": "英语"
+      },
+      "answer_text": "英语",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The word 'crocodile' in English is derived from the Greek word 'krokodilos'. Therefore, the correct origin is Greek, not English. The dataset-labeled answer is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q53650845|P495|Q30",
+      "language": "zh",
+      "subject": "Happy Together",
+      "relation": "country of origin",
+      "object": "United States",
+      "question": "与星同居的原产地是？",
+      "options": {
+        "A": "危地马拉",
+        "B": "美国",
+        "C": "意大利",
+        "D": "北马其顿"
+      },
+      "answer_text": "美国",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the origin of '与星同居', but it is unclear what '与星同居' refers to. Without additional context, it is impossible to determine the correct answer, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q40393|P17|Q928",
+      "language": "zh",
+      "subject": "Caba",
+      "relation": "country",
+      "object": "Philippines",
+      "question": "卡巴属于哪个国家？",
+      "options": {
+        "A": "乌代浦土邦",
+        "B": "菲律宾",
+        "C": "卢旺达",
+        "D": "意大利"
+      },
+      "answer_text": "菲律宾",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks which country '卡巴' belongs to, but '卡巴' is not a well-known entity or term that clearly belongs to any of the given options. Without additional context, it is ambiguous which option is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3020979|P178|Q3116102",
+      "language": "zh",
+      "subject": "DecapAttack",
+      "relation": "developer",
+      "object": "Tokai Communications",
+      "question": "DecapAttack是由谁开发的？",
+      "options": {
+        "A": "Vic东海",
+        "B": "加贺软体",
+        "C": "Sescoi",
+        "D": "腾讯"
+      },
+      "answer_text": "Vic东海",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "DecapAttack is a video game developed by Vic Tokai, which is the correct answer labeled as 'Vic东海' in Chinese. The other options do not correspond to the developer of DecapAttack.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15175063|P61|Q735603",
+      "language": "zh",
+      "subject": "(67999) 2000 XC32",
+      "relation": "discoverer or inventor",
+      "object": "Lincoln Near-Earth Asteroid Research",
+      "question": "小行星67999是由哪个团队发现的？",
+      "options": {
+        "A": "乌普萨拉-ESO小行星和彗星巡天",
+        "B": "光学重力透镜实验",
+        "C": "林肯近地小行星研究小组",
+        "D": "印地安小行星专案"
+      },
+      "answer_text": "林肯近地小行星研究小组",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer '林肯近地小行星研究小组' is correct. Asteroid 67999 was indeed discovered by the Lincoln Near-Earth Asteroid Research (LINEAR) team, which corresponds to option C.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3041333|P178|Q14428",
+      "language": "zh",
+      "subject": "Dungeons & Dragons: Tower of Doom",
+      "relation": "developer",
+      "object": "Capcom",
+      "question": "《龙与地下城：毁灭之塔》是由哪个开发者开发的？",
+      "options": {
+        "A": "卡普空",
+        "B": "标普道琼斯指数",
+        "C": "斯坦伯格",
+        "D": "Synapse Software"
+      },
+      "answer_text": "卡普空",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The game 'Dungeons & Dragons: Tower of Doom' was developed by Capcom, making option A the correct answer. The other options are unrelated to the development of this game.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q28414954|P69|Q1074117",
+      "language": "zh",
+      "subject": "Wang Kai",
+      "relation": "educated at",
+      "object": "Renmin University of China",
+      "question": "王凯就读于哪所大学？",
+      "options": {
+        "A": "斯特拉斯堡大学",
+        "B": "澳大利亚国立大学",
+        "C": "犹他大学",
+        "D": "中国人民大学"
+      },
+      "answer_text": "中国人民大学",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks which university Wang Kai attended, but without additional context or information about Wang Kai, it is impossible to determine the correct answer. Multiple options could be valid, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q107285044|P170|Q3325495",
+      "language": "zh",
+      "subject": "Peasant dance in Soria",
+      "relation": "creator",
+      "object": "Valeriano Bécquer",
+      "question": "索里亚农民舞蹈的创作者是谁？",
+      "options": {
+        "A": "爱德华·格拉兹达",
+        "B": "麦克·阿伦",
+        "C": "巴莱里亚诺·贝克尔",
+        "D": "若泽·马略阿"
+      },
+      "answer_text": "巴莱里亚诺·贝克尔",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer '巴莱里亚诺·贝克尔' is correct. Valeriano Becquer is known for creating the 'Soria Farmers Dance'. The other options do not match this fact.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15164791|P61|Q1759008",
+      "language": "zh",
+      "subject": "(53262) 1999 FE6",
+      "relation": "discoverer or inventor",
+      "object": "OCA-DLR Asteroid Survey",
+      "question": "小行星53262是由哪个天文台发现的？",
+      "options": {
+        "A": "赛丁泉天文台",
+        "B": "埃潘德天文台",
+        "C": "OCA-DLR小行星巡天",
+        "D": "事件视界望远镜"
+      },
+      "answer_text": "OCA-DLR小行星巡天",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer 'OCA-DLR小行星巡天' is correct. The OCA-DLR Asteroid Survey is known for discovering asteroids, including 53262.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q22970111|P61|Q515838",
+      "language": "zh",
+      "subject": "(19712) 1999 TL220",
+      "relation": "discoverer or inventor",
+      "object": "Catalina Sky Survey",
+      "question": "小行星 (19712) 1999 TL220 是由哪个天文系统发现的？",
+      "options": {
+        "A": "加西亚·德·诺达尔远航",
+        "B": "卡特林那巡天系统",
+        "C": "贝利",
+        "D": "贝恩哈德·阿施纳"
+      },
+      "answer_text": "卡特林那巡天系统",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The Catalina Sky Survey (卡特林那巡天系统) is indeed known for discovering many asteroids, including (19712) 1999 TL220. The other options do not correspond to known astronomical survey systems. Therefore, the labeled answer is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q152000|P61|Q312448",
+      "language": "zh",
+      "subject": "369 Aëria",
+      "relation": "discoverer or inventor",
+      "object": "Alphonse Borrelly",
+      "question": "小行星369是由谁发现的？",
+      "options": {
+        "A": "阿方斯·路易·尼古拉斯·包瑞利",
+        "B": "戈特弗里德·里特·冯·里特沙因",
+        "C": "詹姆斯·B·法兰西斯",
+        "D": "威廉·安布罗斯·考利"
+      },
+      "answer_text": "阿方斯·路易·尼古拉斯·包瑞利",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer, 阿方斯·路易·尼古拉斯·包瑞利, is indeed the astronomer who discovered asteroid 369. The other options do not correspond to the discoverer of this asteroid, making the labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q7818240|P30|Q49",
+      "language": "zh",
+      "subject": "Tomales Bay",
+      "relation": "continent",
+      "object": "North America",
+      "question": "托马雷斯湾位于哪个大洲？",
+      "options": {
+        "A": "印度次大陆",
+        "B": "北美洲",
+        "C": "南美洲",
+        "D": "亚洲"
+      },
+      "answer_text": "北美洲",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Tamaulipas Bay, known as Tomares Bay in Chinese, is located in North America. The dataset-labeled answer '北美洲' (North America) is correct, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q99521472|P30|Q49",
+      "language": "zh",
+      "subject": "Mendota Overlook",
+      "relation": "continent",
+      "object": "North America",
+      "question": "门多塔瞭望台位于哪个大洲？",
+      "options": {
+        "A": "南极洲",
+        "B": "亚洲",
+        "C": "南美洲",
+        "D": "北美洲"
+      },
+      "answer_text": "北美洲",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Mendota Lookout Tower is located in North America, specifically in the United States. Therefore, the dataset-labeled correct answer '北美洲' (North America) is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1289140|P19|Q84",
+      "language": "zh",
+      "subject": "Frederick Rolfe",
+      "relation": "place of birth",
+      "object": "London",
+      "question": "弗雷德里克·罗尔夫出生在哪里？",
+      "options": {
+        "A": "三台县",
+        "B": "波蒂奇",
+        "C": "捷克逊镇",
+        "D": "伦敦"
+      },
+      "answer_text": "伦敦",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Frederick Rolfe, also known as Baron Corvo, was born in London. The dataset-labeled answer '伦敦' is correct, and no other options are valid. The question is well-formed.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3502|P17|Q38",
+      "language": "zh",
+      "subject": "Grauno",
+      "relation": "country",
+      "object": "Italy",
+      "question": "格劳诺属于哪个国家？",
+      "options": {
+        "A": "阿拉伯联合酋长国",
+        "B": "意大利",
+        "C": "列支敦斯登",
+        "D": "泰国"
+      },
+      "answer_text": "意大利",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "格劳诺（Grano）是意大利的一个小镇，因此选项 B) 意大利 是正确的。其他选项都不符合。",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1907448|P30|Q46",
+      "language": "zh",
+      "subject": "Bustillo de Chaves",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "布斯蒂略德查韦斯位于哪个大洲？",
+      "options": {
+        "A": "亚洲",
+        "B": "欧洲",
+        "C": "加勒比地区",
+        "D": "中美洲"
+      },
+      "answer_text": "欧洲",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The question asks about the continent where '布斯蒂略德查韦斯' is located. '布斯蒂略德查韦斯' (Bustillo de Chaves) is not a well-known place, and it does not appear to be located in Europe. The dataset-labeled answer '欧洲' (Europe) is incorrect. Without additional context, the correct answer cannot be determined from the given options.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5425725|P84|Q121279",
+      "language": "zh",
+      "subject": "FIFA headquarters",
+      "relation": "architect",
+      "object": "Tilla Theus",
+      "question": "国际足联总部是由哪位建筑师设计的？",
+      "options": {
+        "A": "蒂拉·特尤斯",
+        "B": "皮埃尔·孔唐·迪夫里",
+        "C": "科塞伊·奥克图斯",
+        "D": "山崎实"
+      },
+      "answer_text": "蒂拉·特尤斯",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The FIFA headquarters was designed by the Swiss architect Tilla Theus, but the name '蒂拉·特尤斯' does not correspond to her name in Chinese. The correct Chinese name should be '蒂拉·特乌斯'. Therefore, the dataset-labeled answer is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q16610417|P136|Q9778",
+      "language": "zh",
+      "subject": "Edgaras Žakevičius",
+      "relation": "genre",
+      "object": "electronic music",
+      "question": "埃德加斯·扎凯维丘斯是什么类型音乐？",
+      "options": {
+        "A": "格科姆音乐",
+        "B": "凯尔特朋克",
+        "C": "电子音乐",
+        "D": "莱伊科"
+      },
+      "answer_text": "电子音乐",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the type of music associated with '埃德加斯·扎凯维丘斯', but without additional context or information about this person, it is difficult to determine the correct answer. The dataset labels '电子音乐' (electronic music) as correct, but without more context, other options could also be plausible. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6807675|P19|Q1156",
+      "language": "zh",
+      "subject": "Meera Vasudevan",
+      "relation": "place of birth",
+      "object": "Mumbai",
+      "question": "米拉·维苏德万出生在哪里？",
+      "options": {
+        "A": "布尔干",
+        "B": "科文特花园",
+        "C": "孟买",
+        "D": "巴歇尔"
+      },
+      "answer_text": "孟买",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks where Mira Viswanathan was born, but without additional context or information, it is unclear which option is correct. The dataset labels '孟买' (Mumbai) as the correct answer, but without verifying this fact, multiple options could potentially be valid. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1206523|P50|Q76412",
+      "language": "zh",
+      "subject": "The German lesson",
+      "relation": "author",
+      "object": "Siegfried Lenz",
+      "question": "《德语课》的作者是谁？",
+      "options": {
+        "A": "大卫·查默斯",
+        "B": "齐格飞·蓝茨",
+        "C": "杰拉德·J·霍尔兹曼",
+        "D": "塞尔玛·拉格洛夫"
+      },
+      "answer_text": "齐格飞·蓝茨",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The author of 'The German Lesson' (《德语课》) is Siegfried Lenz (齐格飞·蓝茨), making option B the correct answer. The other options are not related to this work.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1609839|P84|Q3701426",
+      "language": "zh",
+      "subject": "Church of the Immaculate Conception",
+      "relation": "architect",
+      "object": "Józef Plośko",
+      "question": "圣母无原罪教堂的建筑师是谁？",
+      "options": {
+        "A": "哈拉尔德·戴尔曼",
+        "B": "约瑟夫·普洛斯科",
+        "C": "扬·桑迪尼-艾希尔",
+        "D": "海梅·博尔特·梅利亚"
+      },
+      "answer_text": "约瑟夫·普洛斯科",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of the Church of the Immaculate Conception is indeed Joseph Prószkowski (约瑟夫·普洛斯科). The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1512023|P108|Q156737",
+      "language": "zh",
+      "subject": "Gerhard Lagaly",
+      "relation": "employer",
+      "object": "Kiel University",
+      "question": "格哈德·拉加利在哪所大学工作？",
+      "options": {
+        "A": "基尔大学",
+        "B": "巴布亚纽几内亚大学",
+        "C": "白俄罗斯国立大学",
+        "D": "伍珀塔尔大学"
+      },
+      "answer_text": "基尔大学",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Gerhard Lagaly is known to have worked at Kiel University, making option A the correct answer. There is no indication that he worked at any of the other universities listed.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6503270|P30|Q48",
+      "language": "zh",
+      "subject": "Yürekli",
+      "relation": "continent",
+      "object": "Asia",
+      "question": "于尔克利位于哪个大洲？",
+      "options": {
+        "A": "亚洲",
+        "B": "欧亚非大陆",
+        "C": "南美洲",
+        "D": "南极洲"
+      },
+      "answer_text": "亚洲",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the continent where '于尔克利' is located, but '于尔克利' is not a recognizable name for a place in Chinese. Without additional context, it is unclear which continent it refers to, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q119662|P176|Q156578",
+      "language": "zh",
+      "subject": "Volkswagen Pointer",
+      "relation": "manufacturer",
+      "object": "Volkswagen Group",
+      "question": "大众指针是由哪个公司制造的？",
+      "options": {
+        "A": "压钢车厢公司",
+        "B": "大众集团",
+        "C": "HWA股份公司",
+        "D": "中国商用飞机"
+      },
+      "answer_text": "大众集团",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks about the manufacturer of the Volkswagen Pointer, which is a car model produced by Volkswagen Group. The labeled answer '大众集团' (Volkswagen Group) is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1870882|P27|Q183",
+      "language": "zh",
+      "subject": "Lothar Krell",
+      "relation": "country of citizenship",
+      "object": "Germany",
+      "question": "洛萨·克雷尔的国籍是？",
+      "options": {
+        "A": "德国",
+        "B": "比利时",
+        "C": "危地马拉",
+        "D": "吉尔吉斯斯坦"
+      },
+      "answer_text": "德国",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the nationality of 洛萨·克雷尔, but without additional context or information about who this person is, it is impossible to determine the correct answer. Multiple options could be valid, and the question lacks sufficient context to choose one.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q134177485|P170|Q195796",
+      "language": "zh",
+      "subject": "Stolperstein dedicated to Ludwig März",
+      "relation": "creator",
+      "object": "Gunter Demnig",
+      "question": "《献给路德维希·马尔茨的绊脚石》的创作者是谁？",
+      "options": {
+        "A": "贰瓶勉",
+        "B": "贡特·德姆尼希",
+        "C": "约·科斯特",
+        "D": "马丁·凯丁"
+      },
+      "answer_text": "贡特·德姆尼希",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The creator of the 'Stolpersteine' (stumbling stones) project, which includes the work dedicated to Ludwig Marz, is Gunter Demnig. Therefore, the dataset-labeled answer is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q28127429|P178|Q1172164",
+      "language": "zh",
+      "subject": "The Witcher Battle Arena",
+      "relation": "developer",
+      "object": "CD Projekt RED",
+      "question": "《巫师：战斗竞技场》是由哪个开发者开发的？",
+      "options": {
+        "A": "Conectiva",
+        "B": "CD Projekt RED",
+        "C": "瓦尔特·布卢梅",
+        "D": "卡普空"
+      },
+      "answer_text": "CD Projekt RED",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "CD Projekt RED is the correct developer of 'The Witcher: Battle Arena'. The other options are not related to this game, making the dataset-labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q27536829|P57|Q65923686",
+      "language": "zh",
+      "subject": "Ozark Sharks",
+      "relation": "director",
+      "object": "Misty Talley",
+      "question": "电影《奥沙克鲨鱼》的导演是谁？",
+      "options": {
+        "A": "布鲁斯·麦克唐纳德",
+        "B": "米斯蒂·塔利",
+        "C": "茱莉·贝托恰丽",
+        "D": "林弼成"
+      },
+      "answer_text": "米斯蒂·塔利",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Misty Talley is indeed the director of the film 'Ozark Sharks'. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1993027|P30|Q46",
+      "language": "zh",
+      "subject": "Turís",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "图里斯位于哪个大洲？",
+      "options": {
+        "A": "西非",
+        "B": "欧洲",
+        "C": "加勒比地区",
+        "D": "中土大陆"
+      },
+      "answer_text": "欧洲",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "图里斯（Toulouse）是法国的一座城市，位于欧洲。因此，选项B（欧洲）是正确的，其他选项都不符合。",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q130340667|P38|Q125999",
+      "language": "zh",
+      "subject": "Sovereign State of the Bektashi Order",
+      "relation": "currency",
+      "object": "Albanian lek",
+      "question": "拜克塔什教团主权国家使用的货币是什么？",
+      "options": {
+        "A": "阿尔巴尼亚列克",
+        "B": "西班牙殖民雷亚尔",
+        "C": "马达加斯加法郎",
+        "D": "迦纳塞地"
+      },
+      "answer_text": "阿尔巴尼亚列克",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the currency used by a sovereign state of the Bektashi Order. The Bektashi Order is a Sufi order, not a sovereign state, making the question problematic. Without additional context, it's unclear why '阿尔巴尼亚列克' is the correct answer, as the Bektashi Order is not a country.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q9935|P176|Q3295867",
+      "language": "zh",
+      "subject": "Fanta",
+      "relation": "manufacturer",
+      "object": "The Coca-Cola Company",
+      "question": "芬达是由哪个公司制造的？",
+      "options": {
+        "A": "泰莱达科技",
+        "B": "可口可乐公司",
+        "C": "安讯士",
+        "D": "任天堂"
+      },
+      "answer_text": "可口可乐公司",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks which company manufactures Fanta. Fanta is a brand of fruit-flavored carbonated soft drinks created by The Coca-Cola Company. Therefore, the dataset-labeled answer '可口可乐公司' (The Coca-Cola Company) is correct, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q735133|P37|Q1412",
+      "language": "zh",
+      "subject": "Ikaalinen",
+      "relation": "official language",
+      "object": "Finnish",
+      "question": "伊卡利宁的官方语言是什么？",
+      "options": {
+        "A": "法语",
+        "B": "芬兰语",
+        "C": "钦察语支",
+        "D": "多利安希腊语"
+      },
+      "answer_text": "芬兰语",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks for the official language of Finland (\"伊卡利宁\" is a transliteration of \"Finland\" in Chinese). The correct answer is \"芬兰语\" (Finnish), which is unambiguously the official language of Finland. No other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q19827640|P407|Q11051",
+      "language": "zh",
+      "subject": "Anil",
+      "relation": "language of work or name",
+      "object": "Hindustani",
+      "question": "阿尼尔的作品或名称的语言是什么？",
+      "options": {
+        "A": "印度斯坦语",
+        "B": "牙买加克里奥尔语",
+        "C": "新挪威语",
+        "D": "旁遮普语"
+      },
+      "answer_text": "印度斯坦语",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is ambiguous because it does not specify which 'Anil' is being referred to, and without additional context, multiple options could be valid. The question lacks sufficient information to determine the correct language associated with 'Anil's work or name.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3456447|P38|Q1440737",
+      "language": "zh",
+      "subject": "Democratic Republic of Madagascar",
+      "relation": "currency",
+      "object": "Malagasy franc",
+      "question": "马达加斯加民主共和国的货币是什么？",
+      "options": {
+        "A": "马达加斯加法郎",
+        "B": "巴西雷斯",
+        "C": "葡萄牙士姑度",
+        "D": "委内瑞拉玻利瓦尔"
+      },
+      "answer_text": "马达加斯加法郎",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The currency of Madagascar is the Malagasy ariary, not the Malagasy franc. Therefore, the labeled answer is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5958622|P178|Q652421",
+      "language": "zh",
+      "subject": "Hyperspeed",
+      "relation": "developer",
+      "object": "MicroProse",
+      "question": "超光速是由哪家公司开发的？",
+      "options": {
+        "A": "微文公司",
+        "B": "皮特·欣特延斯",
+        "C": "雾行者",
+        "D": "雅科夫列夫"
+      },
+      "answer_text": "微文公司",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks which company developed '超光速' (faster-than-light technology), but none of the options clearly correspond to a known company associated with such technology. The dataset-labeled answer '微文公司' does not have a clear connection to the concept of faster-than-light technology, making the question ambiguous or underspecified.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1461091|P57|Q1530222",
+      "language": "zh",
+      "subject": "The 4th Floor",
+      "relation": "director",
+      "object": "Antonio Mercero",
+      "question": "电影《第四楼》的导演是谁？",
+      "options": {
+        "A": "法乌斯托·布里齐",
+        "B": "雅各·亚伦·艾斯特斯",
+        "C": "安东尼奥·梅塞罗",
+        "D": "斯维欧泰伯"
+      },
+      "answer_text": "安东尼奥·梅塞罗",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The director of the film 'The Fourth Floor' is indeed Antonio Mercero, which corresponds to option C. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q45084|P50|Q316431",
+      "language": "zh",
+      "subject": "The Cleric Quintet",
+      "relation": "author",
+      "object": "R. A. Salvatore",
+      "question": "《牧师五部曲》的作者是？",
+      "options": {
+        "A": "依丽莎白·顾姬",
+        "B": "R·A·萨尔瓦多",
+        "C": "米高·麦费德",
+        "D": "奇玛曼达·恩格兹·阿迪契"
+      },
+      "answer_text": "R·A·萨尔瓦多",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "R.A. Salvatore is indeed the author of 'The Cleric Quintet' (《牧师五部曲》 in Chinese), making the dataset-labeled answer correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q765764|P176|Q560947",
+      "language": "zh",
+      "subject": "Kobben-class submarine",
+      "relation": "manufacturer",
+      "object": "Nordseewerke",
+      "question": "科本级潜艇是由哪家公司制造的？",
+      "options": {
+        "A": "Metronome Records A/S",
+        "B": "大同公司",
+        "C": "北海造船公司",
+        "D": "蒂姆飞机公司"
+      },
+      "answer_text": "北海造船公司",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The \"科本级潜艇\" (Kilo-class submarine) is indeed manufactured by \"北海造船公司\" (Beihai Shipbuilding Corporation), making the dataset-labeled answer correct. The other options are unrelated to submarine manufacturing.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3790681|P495|Q38",
+      "language": "zh",
+      "subject": "The Demons of St. Petersberg",
+      "relation": "country of origin",
+      "object": "Italy",
+      "question": "圣彼得堡的恶魔原产于哪个国家？",
+      "options": {
+        "A": "德意志帝国",
+        "B": "阿拉伯联合酋长国",
+        "C": "普鲁士王国",
+        "D": "意大利"
+      },
+      "answer_text": "意大利",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the origin of '圣彼得堡的恶魔' (St. Petersburg's demon), but without additional context, it is unclear what this refers to. It could be a historical figure, a fictional character, or something else entirely. Without this context, it is impossible to determine the correct answer, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6763293|P30|Q48",
+      "language": "zh",
+      "subject": "Egeköy",
+      "relation": "continent",
+      "object": "Asia",
+      "question": "埃格科伊位于哪个大洲？",
+      "options": {
+        "A": "欧亚非大陆",
+        "B": "南美洲",
+        "C": "北美洲",
+        "D": "亚洲"
+      },
+      "answer_text": "亚洲",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the continent where '埃格科伊' is located, but '埃格科伊' is not a recognizable name for a place in Chinese. Without additional context or clarification, it is impossible to determine the correct answer. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1002162|P37|Q1412",
+      "language": "zh",
+      "subject": "Valtimo",
+      "relation": "official language",
+      "object": "Finnish",
+      "question": "瓦尔蒂莫的官方语言是什么？",
+      "options": {
+        "A": "委内瑞拉西班牙语",
+        "B": "印尼语",
+        "C": "芬兰语",
+        "D": "沃莱塔语"
+      },
+      "answer_text": "芬兰语",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks for the official language of Valtimo, which is a municipality in Finland. Therefore, the official language is Finnish (芬兰语), making option C the correct answer. The other options do not apply to Valtimo.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q426119|P176|Q490480",
+      "language": "zh",
+      "subject": "GP32",
+      "relation": "manufacturer",
+      "object": "Game Park",
+      "question": "GP32是由哪个公司制造的？",
+      "options": {
+        "A": "富士电机",
+        "B": "别里耶夫设计局",
+        "C": "GamePark",
+        "D": "林克-霍夫曼-布希"
+      },
+      "answer_text": "GamePark",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The GP32 is a handheld game console developed by the South Korean company GamePark. The other options are unrelated to the GP32, making the dataset-labeled answer correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1463930|P27|Q183",
+      "language": "zh",
+      "subject": "Friedrich von Podewils",
+      "relation": "country of citizenship",
+      "object": "Germany",
+      "question": "弗里德里希·冯·波德维尔斯是哪个国家的国籍？",
+      "options": {
+        "A": "阿拉贡联合王国",
+        "B": "马打兰国",
+        "C": "澳大利亚",
+        "D": "德国"
+      },
+      "answer_text": "德国",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Friedrich von Bodenstedt was a German writer and translator, making Germany the correct answer for his nationality. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q7549230|P407|Q1860",
+      "language": "zh",
+      "subject": "So Fresh: The Hits of Summer 2002 Plus the Biggest Hits of 2001",
+      "relation": "language of work or name",
+      "object": "English",
+      "question": "So Fresh：2002年夏季热门歌曲精选 + 2001年最热门歌曲 的语言是？",
+      "options": {
+        "A": "马赞德兰语",
+        "B": "英语",
+        "C": "古东斯拉夫语",
+        "D": "阿萨姆语"
+      },
+      "answer_text": "英语",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks for the language of a music compilation album titled 'So Fresh: The Hits of Summer 2002 + The Biggest Hits of 2001'. Given the context of popular music compilations, it is reasonable to conclude that the language is English, as 'So Fresh' is a well-known English-language music series. The dataset-labeled answer '英语' (English) is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5312909|P69|Q1185955",
+      "language": "zh",
+      "subject": "Duke Williams",
+      "relation": "educated at",
+      "object": "University of Nevada, Reno",
+      "question": "杜克·威廉姆斯就读于哪个大学？",
+      "options": {
+        "A": "内华达大学雷诺分校",
+        "B": "AFI戏剧学院",
+        "C": "师范院校",
+        "D": "凯撒顿州立大学"
+      },
+      "answer_text": "内华达大学雷诺分校",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks which university Duke Williams attended, but without additional context or information about Duke Williams, it is difficult to determine the correct answer. Multiple options could be valid, and the question lacks specificity.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15173336|P61|Q1140499",
+      "language": "zh",
+      "subject": "(63509) 2001 OW83",
+      "relation": "discoverer or inventor",
+      "object": "Near-Earth Asteroid Tracking",
+      "question": "小行星63509是由哪个项目发现的？",
+      "options": {
+        "A": "托洛洛山美洲际天文台",
+        "B": "外太阳系起源巡天",
+        "C": "近地小行星追踪",
+        "D": "暗能量巡天"
+      },
+      "answer_text": "近地小行星追踪",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer '近地小行星追踪' (Near-Earth Asteroid Tracking) is correct. The asteroid 63509 was indeed discovered by the Near-Earth Asteroid Tracking program, and no other options are valid for this discovery.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q635744|P30|Q46",
+      "language": "zh",
+      "subject": "Ternes",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "泰尔讷站位于哪个大洲？",
+      "options": {
+        "A": "中土大陆",
+        "B": "维斯特洛",
+        "C": "非洲",
+        "D": "欧洲"
+      },
+      "answer_text": "欧洲",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "泰尔讷站是一个位于法国巴黎的地铁站，因此它位于欧洲。选项D“欧洲”是唯一正确的答案。其他选项涉及虚构的大陆或不相关的大陆。",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q18389228|P407|Q20923490",
+      "language": "zh",
+      "subject": "The Best of Big Bang 2006-2014",
+      "relation": "language of work or name",
+      "object": "multiple languages",
+      "question": "《生活大爆炸：2006-2014精选》这部作品或名称的语言是？",
+      "options": {
+        "A": "多语种",
+        "B": "盖尔亚支",
+        "C": "摩洛哥口语",
+        "D": "孟加拉语"
+      },
+      "answer_text": "多语种",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The title '生活大爆炸：2006-2014精选' suggests a collection related to 'The Big Bang Theory,' which is primarily in English but may include other languages in a 'selected' compilation. '多语种' (multilingual) is the most fitting option, as the other options are specific languages unlikely to be the primary language of this work.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q8016465|P108|Q540672",
+      "language": "zh",
+      "subject": "William P. Harrison",
+      "relation": "employer",
+      "object": "Auburn University",
+      "question": "威廉·P·哈里森在哪里工作？",
+      "options": {
+        "A": "环球影业",
+        "B": "欧本大学",
+        "C": "克里夫兰州立大学",
+        "D": "肯德基"
+      },
+      "answer_text": "欧本大学",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks where William P. Harrison works, but without additional context or information about who William P. Harrison is, multiple options could be valid. The dataset labels '欧本大学' (Auburn University) as correct, but without more context, it's impossible to confirm this as the only correct answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q7801402|P57|Q15846389",
+      "language": "zh",
+      "subject": "Tiger Eyes",
+      "relation": "director",
+      "object": "Lawrence Blume",
+      "question": "电影《老虎的眼睛》的导演是谁？",
+      "options": {
+        "A": "纳迪尔·莫克内什",
+        "B": "胡利奥·布拉乔",
+        "C": "艾迪桑·查斯域卡森",
+        "D": "劳伦斯·布卢姆"
+      },
+      "answer_text": "劳伦斯·布卢姆",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer '劳伦斯·布卢姆' is correct. Lawrence Blume is the director of the film 'Tiger Eyes'. The other options do not match the known director of this film.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q961384|P30|Q46",
+      "language": "zh",
+      "subject": "Barcelona Metro line 4",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "巴塞罗那地铁4号线位于哪个大洲？",
+      "options": {
+        "A": "欧洲",
+        "B": "北美洲",
+        "C": "澳大利亚洲",
+        "D": "西兰大陆"
+      },
+      "answer_text": "欧洲",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks about the continent where the Barcelona Metro Line 4 is located. Barcelona is a city in Spain, which is in Europe. Therefore, the correct answer is unambiguously A) 欧洲.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q57069|P108|Q156725",
+      "language": "zh",
+      "subject": "Günter Ralfs",
+      "relation": "employer",
+      "object": "University of Hamburg",
+      "question": "京特·拉尔夫斯是哪所大学的雇主？",
+      "options": {
+        "A": "布雷西亚大学",
+        "B": "科隆德国体育大学",
+        "C": "莫斯科国立法律大学",
+        "D": "汉堡大学"
+      },
+      "answer_text": "汉堡大学",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the university that employs Günter Rahlfs. Without additional context or information, it is not possible to determine which university is correct. The dataset labels '汉堡大学' (Hamburg University) as the correct answer, but this cannot be verified without further context. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4355110|P27|Q145",
+      "language": "zh",
+      "subject": "Alan Harper",
+      "relation": "country of citizenship",
+      "object": "United Kingdom",
+      "question": "艾伦·哈珀的国籍是？",
+      "options": {
+        "A": "英国",
+        "B": "冰岛自由邦",
+        "C": "吉尔吉斯斯坦",
+        "D": "瑙鲁"
+      },
+      "answer_text": "英国",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the nationality of '艾伦·哈珀', but without additional context, it is unclear who this refers to. There could be multiple individuals with this name, and the options provided do not help clarify which '艾伦·哈珀' is being referred to. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1996477|P17|Q408",
+      "language": "zh",
+      "subject": "Noongar people",
+      "relation": "country",
+      "object": "Australia",
+      "question": "农噶尔人主要居住在哪个国家？",
+      "options": {
+        "A": "卡斯蒂利亚联合王国",
+        "B": "厄瓜多尔",
+        "C": "哥伦比亚",
+        "D": "澳大利亚"
+      },
+      "answer_text": "澳大利亚",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The question asks about the primary country of residence for the '农噶尔人' (Nungar people), who are an Indigenous group in Australia. However, the dataset-labeled answer '澳大利亚' (Australia) is correct, but the question is misleading because '农噶尔人' is not a recognized term for any group in Australia. The correct term should be 'Noongar' or 'Nyoongar'. Therefore, the labeling is incorrect due to the factual inaccuracy in the question.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1233580|P69|Q156725",
+      "language": "zh",
+      "subject": "Sylvia Paletschek",
+      "relation": "educated at",
+      "object": "University of Hamburg",
+      "question": "西尔维娅·帕莱切克就读于哪所大学？",
+      "options": {
+        "A": "汉堡大学",
+        "B": "格勒诺布尔第二大学",
+        "C": "三一国际大学",
+        "D": "白求恩-库克曼大学"
+      },
+      "answer_text": "汉堡大学",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the university Sylvia Paletschek attended, but without additional context or information, it's unclear which option is correct. The dataset labels '汉堡大学' as correct, but without verifying this fact, multiple options could be plausible. Therefore, the question is underspecified.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q123527|P108|Q152087",
+      "language": "zh",
+      "subject": "Claudia Schmölders",
+      "relation": "employer",
+      "object": "Humboldt-Universität zu Berlin",
+      "question": "克劳迪娅·施莫尔德斯在哪所大学工作？",
+      "options": {
+        "A": "基辅国立文化艺术大学",
+        "B": "柏林洪堡大学",
+        "C": "布拉格查理大学文学院",
+        "D": "罗兰大学"
+      },
+      "answer_text": "柏林洪堡大学",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks where Claudia Schmölders works, but without additional context or information, it's unclear which university is correct. The dataset labels 'Berlin Humboldt University' as correct, but without verifying this fact, multiple options could be plausible.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4542992|P61|Q814731",
+      "language": "zh",
+      "subject": "(31195) 1997 YG18",
+      "relation": "discoverer or inventor",
+      "object": "Beijing Schmidt CCD Asteroid Program",
+      "question": "小行星31195是由哪个天文计划发现的？",
+      "options": {
+        "A": "欧内斯特·伦纳德·詹森",
+        "B": "北京天文台施密特CCD小行星计划",
+        "C": "萨马瓦尔·伊本·穆罕默德·伊本·穆罕默德·伊本·穆罕默德·伊本·",
+        "D": "萨姆尔·亚历山大·金尼尔·威尔森"
+      },
+      "answer_text": "北京天文台施密特CCD小行星计划",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer '北京天文台施密特CCD小行星计划' is correct. Options A, C, and D are names of individuals, not astronomical programs, making them unlikely to be correct answers to the question about which program discovered the asteroid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q183|P38|Q4916",
+      "language": "zh",
+      "subject": "Germany",
+      "relation": "currency",
+      "object": "euro",
+      "question": "德国的货币是什么？",
+      "options": {
+        "A": "以色列新谢克尔",
+        "B": "阿根廷里亚尔",
+        "C": "冰岛克朗",
+        "D": "欧元"
+      },
+      "answer_text": "欧元",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks about the currency of Germany. The correct answer is the Euro (欧元), which is option D. The other options are currencies of different countries: Israel, Argentina, and Iceland. Therefore, the dataset-labeled answer is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q492348|P136|Q1054574",
+      "language": "zh",
+      "subject": "Syndrome",
+      "relation": "genre",
+      "object": "romance film",
+      "question": "以下哪一项是电影的类型？",
+      "options": {
+        "A": "音乐片",
+        "B": "爱情片",
+        "C": "教育娱乐",
+        "D": "小说改编电影"
+      },
+      "answer_text": "爱情片",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for a type of movie, and multiple options could be valid. Both '音乐片' (musical) and '爱情片' (romance) are common movie genres. '教育娱乐' (edutainment) and '小说改编电影' (film adaptation) could also be considered types of movies, depending on interpretation. The question lacks specificity to unambiguously select one correct answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q972852|P495|Q17",
+      "language": "zh",
+      "subject": "K",
+      "relation": "country of origin",
+      "object": "Japan",
+      "question": "K的故乡是？",
+      "options": {
+        "A": "捷克",
+        "B": "德意志帝国",
+        "C": "拉脱维亚",
+        "D": "日本"
+      },
+      "answer_text": "日本",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question 'K的故乡是？' is ambiguous because 'K' is not defined. Without additional context, it is impossible to determine which option is correct. The dataset-labeled answer '日本' could be correct if 'K' refers to a specific person or entity associated with Japan, but this is not clear from the question itself.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q819079|P178|Q215639",
+      "language": "zh",
+      "subject": "Opera Mini",
+      "relation": "developer",
+      "object": "Opera",
+      "question": "Opera Mini是由哪个公司开发的？",
+      "options": {
+        "A": "AQ合作社",
+        "B": "Opera软件公司",
+        "C": "科斯塔·帕纳伊",
+        "D": "雅达利有限公司"
+      },
+      "answer_text": "Opera软件公司",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Opera Mini is a web browser developed by Opera Software, which is correctly identified as 'Opera软件公司' in the options. The other options do not relate to the development of Opera Mini, making the labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q95133|P20|Q65",
+      "language": "zh",
+      "subject": "Robert Aldrich",
+      "relation": "place of death",
+      "object": "Los Angeles",
+      "question": "罗伯特·奥尔德里奇在哪里去世？",
+      "options": {
+        "A": "萨勒河畔卡尔伯",
+        "B": "后布吕尔",
+        "C": "洛杉矶",
+        "D": "瓜拉帕里"
+      },
+      "answer_text": "洛杉矶",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Robert Aldrich, the American film director, died in Los Angeles. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5345654|P69|Q170027",
+      "language": "zh",
+      "subject": "Edward Tuddenham",
+      "relation": "educated at",
+      "object": "University of London",
+      "question": "爱德华·图登纳姆就读于哪所大学？",
+      "options": {
+        "A": "伦敦大学",
+        "B": "福岛县立医科大学",
+        "C": "雷恩高等商业学院",
+        "D": "旧金山艺术大学"
+      },
+      "answer_text": "伦敦大学",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks which university Edward Tudenham attended, but without additional context or information about Edward Tudenham, it is not possible to determine the correct answer. The dataset labels '伦敦大学' as correct, but this cannot be verified from the given options alone.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4817549|P136|Q11401",
+      "language": "zh",
+      "subject": "Down to Earth",
+      "relation": "genre",
+      "object": "hip-hop",
+      "question": "脚踏实地通常属于哪一类型？",
+      "options": {
+        "A": "嘻哈音乐",
+        "B": "休闲电子游戏",
+        "C": "动作片",
+        "D": "先锋音乐"
+      },
+      "answer_text": "嘻哈音乐",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The phrase \"脚踏实地\" (down-to-earth) is commonly associated with hip-hop music, as it often emphasizes authenticity and real-life experiences. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q456960|P84|Q3525458",
+      "language": "zh",
+      "subject": "Westminster Bridge",
+      "relation": "architect",
+      "object": "Thomas Page",
+      "question": "西敏桥的建筑师是谁？",
+      "options": {
+        "A": "弗朗西斯科·德·普拉韦斯",
+        "B": "汤马斯·佩吉 (工程师)",
+        "C": "圣地亚哥·拉古纳斯",
+        "D": "巴托洛梅奥·普罗瓦利亚"
+      },
+      "answer_text": "汤马斯·佩吉 (工程师)",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of Westminster Bridge is indeed Thomas Page, who was an engineer. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3292679|P20|Q193877",
+      "language": "zh",
+      "subject": "Marie Mansart",
+      "relation": "place of death",
+      "object": "Ivry-sur-Seine",
+      "question": "玛丽·曼萨尔在哪里去世的？",
+      "options": {
+        "A": "卢河畔图雷特",
+        "B": "莫尔纳斯",
+        "C": "塞纳河畔伊夫里",
+        "D": "鲁夫赖"
+      },
+      "answer_text": "塞纳河畔伊夫里",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer '塞纳河畔伊夫里' is correct. Marie Mansart, a French actress, died in Ivry-sur-Seine (塞纳河畔伊夫里). The other options do not match the known location of her death.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q104031903|P20|Q220",
+      "language": "zh",
+      "subject": "Lucio Battistrada",
+      "relation": "place of death",
+      "object": "Rome",
+      "question": "卢乔·巴蒂斯特拉达在哪里去世的？",
+      "options": {
+        "A": "拉雷纳",
+        "B": "罗马",
+        "C": "黑罗尔茨巴赫",
+        "D": "哈拉霍夫"
+      },
+      "answer_text": "罗马",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Lucio Battisti, an Italian singer-songwriter, passed away in Rome. The dataset-labeled answer '罗马' is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q919515|P20|Q994372",
+      "language": "zh",
+      "subject": "Ring Lardner",
+      "relation": "place of death",
+      "object": "East Hampton",
+      "question": "林·拉德纳在哪里去世的？",
+      "options": {
+        "A": "伯纳斯顿",
+        "B": "马某某",
+        "C": "东汉普顿镇",
+        "D": "诺威奇镇"
+      },
+      "answer_text": "东汉普顿镇",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Lin Radner, also known as Lynn Redgrave, passed away in East Hampton, which corresponds to the option '东汉普顿镇'. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4581519|P136|Q49451",
+      "language": "zh",
+      "subject": "1984",
+      "relation": "genre",
+      "object": "progressive rock",
+      "question": "1984年发行的专辑《1984》属于哪种类型？",
+      "options": {
+        "A": "宗教音乐",
+        "B": "前卫摇滚",
+        "C": "拉丁爵士乐",
+        "D": "阿フロ比茨"
+      },
+      "answer_text": "前卫摇滚",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the genre of the album '1984' released in 1984, but it does not specify the artist. Multiple artists could have released albums titled '1984' in that year, making it ambiguous without additional context. Therefore, the labeling of '前卫摇滚' as the correct answer is not unambiguously right.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q23838605|P84|Q67031",
+      "language": "zh",
+      "subject": "The Interlace",
+      "relation": "architect",
+      "object": "Ole Scheeren",
+      "question": "互联大厦的建筑师是谁？",
+      "options": {
+        "A": "威廉·F·基斯",
+        "B": "拉尔夫·塔布斯",
+        "C": "尼古拉斯·巴谢利耶",
+        "D": "奥雷·舍人"
+      },
+      "answer_text": "奥雷·舍人",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of the Interlace building is Ole Scheeren, which is 奥雷·舍人 in Chinese. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6129834|P27|Q16",
+      "language": "zh",
+      "subject": "James Blackburn",
+      "relation": "country of citizenship",
+      "object": "Canada",
+      "question": "詹姆斯·布莱克本的国籍是什么？",
+      "options": {
+        "A": "汪达尔人",
+        "B": "阿塞拜疆",
+        "C": "波兰会议王国",
+        "D": "加拿大"
+      },
+      "answer_text": "加拿大",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the nationality of James Blackburn, but without additional context, it is unclear which James Blackburn is being referred to. There could be multiple individuals with that name from different nationalities. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3644504|P27|Q27",
+      "language": "zh",
+      "subject": "Brian Shelley",
+      "relation": "country of citizenship",
+      "object": "Ireland",
+      "question": "布赖恩·谢利是哪个国家的公民？",
+      "options": {
+        "A": "新西兰",
+        "B": "法兰克福自由市",
+        "C": "爱尔兰共和国",
+        "D": "突尼西亚"
+      },
+      "answer_text": "爱尔兰共和国",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Brian Shelley is an Irish footballer, making the labeled answer '爱尔兰共和国' (Ireland) correct. No other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1416312|P27|Q30",
+      "language": "zh",
+      "subject": "Don Self",
+      "relation": "country of citizenship",
+      "object": "United States",
+      "question": "唐·塞尔夫的国籍是什么？",
+      "options": {
+        "A": "加利西亚王国",
+        "B": "俄罗斯",
+        "C": "新加坡",
+        "D": "美国"
+      },
+      "answer_text": "美国",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Don Self is a fictional character from the American TV series 'Prison Break', and he is portrayed as an American. Therefore, the dataset-labeled answer '美国' (United States) is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q16940033|P136|Q1046768",
+      "language": "zh",
+      "subject": "Daniel Chaudon",
+      "relation": "genre",
+      "object": "música popular brasileira",
+      "question": "丹尼尔·肖东是什么类型的音乐？",
+      "options": {
+        "A": "巴西风流行音乐",
+        "B": "澳大利亚嘻哈音乐",
+        "C": "爱尔兰音乐",
+        "D": "沙发音乐"
+      },
+      "answer_text": "巴西风流行音乐",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Daniel Chaudon is known for Brazilian pop music, which aligns with option A. The other options do not match his music style.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6770319|P30|Q48",
+      "language": "zh",
+      "subject": "Duru",
+      "relation": "continent",
+      "object": "Asia",
+      "question": "杜鲁属于哪个大洲？",
+      "options": {
+        "A": "亚洲",
+        "B": "南极洲",
+        "C": "南美洲",
+        "D": "北美洲"
+      },
+      "answer_text": "亚洲",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The question asks which continent '杜鲁' belongs to. '杜鲁' is not a recognized geographical entity or location, making the dataset-labeled answer '亚洲' incorrect. The question is nonsensical as it stands.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q27859|P170|Q712401",
+      "language": "zh",
+      "subject": "indomie",
+      "relation": "creator",
+      "object": "Sudono Salim",
+      "question": "《营多面》的创作者是谁？",
+      "options": {
+        "A": "埃德蒙·布莱尔·莱顿",
+        "B": "萨洛蒙·孔宁克",
+        "C": "林绍良",
+        "D": "岸本齐史"
+      },
+      "answer_text": "林绍良",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer '林绍良' is correct. '营多面' is a brand of instant noodles created by Indonesian businessman 林绍良 (Liem Sioe Liong). The other options are unrelated to this product.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q126648|P176|Q689159",
+      "language": "zh",
+      "subject": "SS Storstad",
+      "relation": "manufacturer",
+      "object": "Armstrong Whitworth",
+      "question": "斯托斯塔德号是由哪家公司制造的？",
+      "options": {
+        "A": "缩尺复合体公司",
+        "B": "阿姆斯特朗惠特沃斯",
+        "C": "合众汽车",
+        "D": "GTA Motor"
+      },
+      "answer_text": "阿姆斯特朗惠特沃斯",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the manufacturer of '斯托斯塔德号', but without additional context, it is unclear what '斯托斯塔德号' refers to. Multiple options could be valid depending on the context, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q832816|P57|Q51562",
+      "language": "zh",
+      "subject": "Carmen",
+      "relation": "director",
+      "object": "Ernst Lubitsch",
+      "question": "电影《情因孽果》的导演是谁？",
+      "options": {
+        "A": "文森·拉诺",
+        "B": "玛伦·艾德",
+        "C": "彼得·库森斯",
+        "D": "恩斯特·刘别谦"
+      },
+      "answer_text": "恩斯特·刘别谦",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The film '情因孽果' is directed by Peter Cousens, not Ernst Lubitsch. Therefore, the dataset-labeled answer is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5894138|P57|Q3392879",
+      "language": "zh",
+      "subject": "Hong Kong 1941",
+      "relation": "director",
+      "object": "Po-Chih Leong",
+      "question": "电影《等待黎明》的导演是谁？",
+      "options": {
+        "A": "梅布尔·诺曼",
+        "B": "梁普智",
+        "C": "约瑟夫·迦勒布·丹斯切尔",
+        "D": "克里斯·费舍"
+      },
+      "answer_text": "梁普智",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The film \"等待黎明\" (Wait Until Dawn) is directed by 梁普智 (Ringo Lam). The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3102904|P69|Q1137665",
+      "language": "zh",
+      "subject": "Georges Hulin de Loo",
+      "relation": "educated at",
+      "object": "Ghent University",
+      "question": "乔治·于兰·德洛就读于哪所大学？",
+      "options": {
+        "A": "罗伯特·莫里斯大学",
+        "B": "凯斯西储大学",
+        "C": "根特大学",
+        "D": "葡萄牙天主教大学"
+      },
+      "answer_text": "根特大学",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "George Uhlenbeck, a physicist, studied at Ghent University, making option C the correct answer. The question is clear and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q52769089|P170|Q195796",
+      "language": "zh",
+      "subject": "Stolperstein dedicated to Bruno Katz",
+      "relation": "creator",
+      "object": "Gunter Demnig",
+      "question": "《献给布鲁诺·卡茨的绊脚石》的创作者是谁？",
+      "options": {
+        "A": "阿尔丰斯·慕夏",
+        "B": "贡特·德姆尼希",
+        "C": "约西夫·康斯坦丁·德拉甘",
+        "D": "莉齐·波登"
+      },
+      "answer_text": "贡特·德姆尼希",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks for the creator of 'Stolpersteine for Bruno Katz', which is a project by Gunter Demnig. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6190295|P27|Q145",
+      "language": "zh",
+      "subject": "Jez Smith",
+      "relation": "country of citizenship",
+      "object": "United Kingdom",
+      "question": "杰兹·史密斯的国籍是？",
+      "options": {
+        "A": "德意志帝国",
+        "B": "英国",
+        "C": "洪都拉斯",
+        "D": "吉尔吉斯斯坦"
+      },
+      "answer_text": "英国",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the nationality of '杰兹·史密斯', but without additional context or information about who this person is, it is impossible to determine the correct answer. The name alone does not provide enough information to unambiguously select '英国' or any other option as the correct nationality.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q11407709|P19|Q38283",
+      "language": "zh",
+      "subject": "Manabu Minami",
+      "relation": "place of birth",
+      "object": "Yokohama",
+      "question": "南満腹的出生地是？",
+      "options": {
+        "A": "卡捷琳诺皮尔",
+        "B": "横滨市",
+        "C": "塔夸拉",
+        "D": "杜姆杜姆"
+      },
+      "answer_text": "横滨市",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the birthplace of '南満腹', but without additional context or information about who '南満腹' is, it is impossible to determine the correct answer. The dataset-labeled answer '横滨市' could be correct, but without more context, it is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q774275|P17|Q142",
+      "language": "zh",
+      "subject": "Maruéjols-lès-Gardon",
+      "relation": "country",
+      "object": "France",
+      "question": "马吕埃若尔莱加尔东属于哪个国家？",
+      "options": {
+        "A": "法国",
+        "B": "美属萨摩亚",
+        "C": "巴勒斯坦",
+        "D": "立陶宛"
+      },
+      "answer_text": "法国",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "马吕埃若尔莱加尔东（Marseille-lès-Aubigny）是一个位于法国的地名，因此选项A（法国）是正确的。其他选项与该地名无关。",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6835422|P27|Q30",
+      "language": "zh",
+      "subject": "Michael Wolfe",
+      "relation": "country of citizenship",
+      "object": "United States",
+      "question": "迈克尔·沃尔夫的国籍是什么？",
+      "options": {
+        "A": "西德",
+        "B": "波札那",
+        "C": "美国",
+        "D": "摩德纳和雷焦公国"
+      },
+      "answer_text": "美国",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Michael Wolff is an American author and journalist, so the dataset-labeled answer '美国' (United States) is correct. The other options do not apply to him.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15284184|P170|Q5603",
+      "language": "zh",
+      "subject": "Silver Car Crash (Double Disaster)",
+      "relation": "creator",
+      "object": "Andy Warhol",
+      "question": "谁创作了《银色车祸》？",
+      "options": {
+        "A": "爱德华·霍奇斯·贝利",
+        "B": "梅里·约瑟夫·布隆代尔",
+        "C": "菲利普·贝斯纳尔",
+        "D": "安迪·沃荷"
+      },
+      "answer_text": "安迪·沃荷",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The artwork 'Silver Car Crash (Double Disaster)' was created by Andy Warhol, making option D the correct answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3218706|P19|Q42929",
+      "language": "zh",
+      "subject": "Laura Nicolini",
+      "relation": "place of birth",
+      "object": "Soresina",
+      "question": "劳拉·尼科利尼出生在哪里？",
+      "options": {
+        "A": "索雷西纳",
+        "B": "蓬泰维科",
+        "C": "圣奥梅罗",
+        "D": "帕尔米"
+      },
+      "answer_text": "索雷西纳",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Laura Nicolini was born in Soresina, making option A the correct answer. The question is clear and unambiguous, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    }
+  ]
+}

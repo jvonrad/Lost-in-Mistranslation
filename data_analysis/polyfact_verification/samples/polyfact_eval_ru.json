@@ -1,0 +1,2614 @@
+{
+  "dataset": "jvonrad/PolyFact",
+  "language": "ru",
+  "split": "test",
+  "n": 100,
+  "seed": 42,
+  "label_schema": {
+    "A": "Correct",
+    "B": "Ambiguous / underspecified",
+    "C": "Incorrect"
+  },
+  "items": [
+    {
+      "fact_id": "Q65978|P37|Q188",
+      "language": "ru",
+      "subject": "Dulliken",
+      "relation": "official language",
+      "object": "German",
+      "question": "Какой язык является официальным языком Дулликена?",
+      "options": {
+        "A": "уйгурский язык",
+        "B": "Сабейский язык",
+        "C": "арамейские языки",
+        "D": "немецкий язык"
+      },
+      "answer_text": "немецкий язык",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Dulliken is a municipality in Switzerland where the official language is German. Therefore, the dataset-labeled answer 'немецкий язык' (German) is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5888546|P19|Q8826",
+      "language": "ru",
+      "subject": "Guillermo Fernández Groizard",
+      "relation": "place of birth",
+      "object": "Palma",
+      "question": "В каком городе родился Гильермо Фернандес Гройзард?",
+      "options": {
+        "A": "Мванза",
+        "B": "Уджда",
+        "C": "Молетай",
+        "D": "Пальма"
+      },
+      "answer_text": "Пальма",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Guillermo Fernández Groizard was born in Palma, making the dataset-labeled answer correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q8255674|P61|Q735603",
+      "language": "ru",
+      "subject": "(103965) 2000 DW78",
+      "relation": "discoverer or inventor",
+      "object": "Lincoln Near-Earth Asteroid Research",
+      "question": "Кто является первооткрывателем астероида (103965) 2000 DW78?",
+      "options": {
+        "A": "ATLAS (система телескопов)",
+        "B": "Dark Energy Survey",
+        "C": "Лаборатория поиска околоземных астероидов имени Линкольна",
+        "D": "Астероидная программа Индианы"
+      },
+      "answer_text": "Лаборатория поиска околоземных астероидов имени Линкольна",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) program is indeed credited with the discovery of the asteroid (103965) 2000 DW78, making option C correct. No other options are valid for this discovery.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q619913|P17|Q668",
+      "language": "ru",
+      "subject": "National Library of India",
+      "relation": "country",
+      "object": "India",
+      "question": "В какой стране находится Национальная библиотека Индии?",
+      "options": {
+        "A": "Чехословакия",
+        "B": "Чехия",
+        "C": "Индия",
+        "D": "Лаос"
+      },
+      "answer_text": "Индия",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The National Library of India is indeed located in India, making option C the correct answer. The other options are unrelated countries.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q16013140|P108|Q41085",
+      "language": "ru",
+      "subject": "Young Hee Lee",
+      "relation": "employer",
+      "object": "Sungkyunkwan University",
+      "question": "Кем является Ли Хён-хи?",
+      "options": {
+        "A": "Университет Сонгюнгван",
+        "B": "Университет Кларка Атланты",
+        "C": "Университет Досися",
+        "D": "Университет Риккё"
+      },
+      "answer_text": "Университет Сонгюнгван",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The question asks about a person, 'Ли Хён-хи', but the options are all universities. The dataset-labeled answer 'Университет Сонгюнгван' does not answer the question about who 'Ли Хён-хи' is. Therefore, the labeled answer is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q2553804|P84|Q3260673",
+      "language": "ru",
+      "subject": "Gare d'Avignon-Centre",
+      "relation": "architect",
+      "object": "Louis-Jules Bouchot",
+      "question": "Кто является архитектором вокзала Авиньон-Центр?",
+      "options": {
+        "A": "Зигмунт Горголевский",
+        "B": "Атли Айрес",
+        "C": "Луи-Жюль Бушо",
+        "D": "Джон Джеймс"
+      },
+      "answer_text": "Луи-Жюль Бушо",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of the Avignon-Centre station is indeed Louis-Jules Bouchot, making option C the correct answer. The other options do not correspond to the architect of this station.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q49941|P108|Q458882",
+      "language": "ru",
+      "subject": "Ilona Staller",
+      "relation": "employer",
+      "object": "Hungarian Police",
+      "question": "Кем был работодателем Чиччолина?",
+      "options": {
+        "A": "Полиция Венгрии",
+        "B": "Нагоя Бродкастинг Нетворк",
+        "C": "SNCASE",
+        "D": "France 24"
+      },
+      "answer_text": "Полиция Венгрии",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "Ilona Staller, known as Cicciolina, is an Italian-Hungarian porn star and politician. None of the options listed, including 'Полиция Венгрии' (Hungarian Police), are correct employers for her. The dataset-labeled answer is factually incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q11608500|P69|Q336264",
+      "language": "ru",
+      "subject": "Yazō Kōketsu",
+      "relation": "educated at",
+      "object": "Kyoto University",
+      "question": "В каком учебном заведении учился Ядзо Кокэцу?",
+      "options": {
+        "A": "Мадрасский университет",
+        "B": "Киотский университет",
+        "C": "колледж искусства им. Святого Мартина",
+        "D": "Минийский университет"
+      },
+      "answer_text": "Киотский университет",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset labels 'Киотский университет' as the correct answer, which is indeed the institution where Ядзо Кокэцу studied. The other options are not related to him, making the labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q86162|P27|Q40",
+      "language": "ru",
+      "subject": "Adolf Tuma",
+      "relation": "country of citizenship",
+      "object": "Austria",
+      "question": "Какое гражданство имел Адольф Тума?",
+      "options": {
+        "A": "Австрия",
+        "B": "Графство Конфлан",
+        "C": "Грузинское царство",
+        "D": "Эритрея"
+      },
+      "answer_text": "Австрия",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Adolf Thuma was an Austrian painter, so the correct citizenship is Austria. The other options are not relevant to his nationality.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1510206|P495|Q55",
+      "language": "ru",
+      "subject": "Video Kids",
+      "relation": "country of origin",
+      "object": "Netherlands",
+      "question": "В какой стране зародился проект Video Kids?",
+      "options": {
+        "A": "Нидерланды",
+        "B": "Северная Сун",
+        "C": "Латвия",
+        "D": "международное"
+      },
+      "answer_text": "Нидерланды",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The project Video Kids originated in the Netherlands, making option A the correct answer. The other options are not valid, as Video Kids is not associated with any of them.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q11769389|P69|Q144488",
+      "language": "ru",
+      "subject": "Marian Fuks",
+      "relation": "educated at",
+      "object": "University of Warsaw",
+      "question": "В каком учебном заведении учился Мариан Фукс?",
+      "options": {
+        "A": "Варшавский университет",
+        "B": "Юго-Восточный университет",
+        "C": "Университет Сидзуока",
+        "D": "Хельмштедтский университет"
+      },
+      "answer_text": "Варшавский университет",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Marian Fuks was a Polish historian and journalist who studied at the University of Warsaw. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q621217|P178|Q312",
+      "language": "ru",
+      "subject": "Contacts",
+      "relation": "developer",
+      "object": "Apple Inc.",
+      "question": "Кто является разработчиком операционной системы iOS?",
+      "options": {
+        "A": "Apple Inc.",
+        "B": "Shaba Games",
+        "C": "Amanita Design",
+        "D": "XMOS"
+      },
+      "answer_text": "Apple Inc.",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Apple Inc. is the correct and unambiguous developer of the iOS operating system. None of the other options are valid developers for iOS.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q19392051|P407|Q9043",
+      "language": "ru",
+      "subject": "Teigen synger Falsk",
+      "relation": "language of work or name",
+      "object": "Norwegian",
+      "question": "На каком языке написана песня Teigen synger Falsk?",
+      "options": {
+        "A": "белорусский язык",
+        "B": "норвежский язык",
+        "C": "валенсийский язык",
+        "D": "гилякский язык"
+      },
+      "answer_text": "норвежский язык",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The song 'Teigen synger Falsk' is in Norwegian, as indicated by the title. The dataset-labeled answer 'норвежский язык' is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q914583|P407|Q1860",
+      "language": "ru",
+      "subject": "Crocodiles",
+      "relation": "language of work or name",
+      "object": "English",
+      "question": "На каком языке был написан оригинал книги «Крокодил»?",
+      "options": {
+        "A": "австрийский немецкий",
+        "B": "английский язык",
+        "C": "иудейский койне греческий язык",
+        "D": "зазаки"
+      },
+      "answer_text": "английский язык",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The book 'Krokodil' was originally written in Russian by Fyodor Dostoevsky. The dataset-labeled answer 'английский язык' (English) is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q53650845|P495|Q30",
+      "language": "ru",
+      "subject": "Happy Together",
+      "relation": "country of origin",
+      "object": "United States",
+      "question": "В какой стране впервые вышел сериал \"Счастливы вместе\"?",
+      "options": {
+        "A": "Северная Македония",
+        "B": "Гватемала",
+        "C": "Италия",
+        "D": "США"
+      },
+      "answer_text": "США",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The TV series 'Married... with Children', which 'Счастливы вместе' is based on, first aired in the USA. Therefore, the labeled answer 'США' is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q40393|P17|Q928",
+      "language": "ru",
+      "subject": "Caba",
+      "relation": "country",
+      "object": "Philippines",
+      "question": "Каба является государством, расположенным в какой стране?",
+      "options": {
+        "A": "Италия",
+        "B": "Руанда",
+        "C": "княжество Мевар",
+        "D": "Филиппины"
+      },
+      "answer_text": "Филиппины",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The question asks about 'Каба' as a state, but none of the options are correct. 'Каба' is not a state in the Philippines or any of the other listed countries. The dataset-labeled answer is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3020979|P178|Q3116102",
+      "language": "ru",
+      "subject": "DecapAttack",
+      "relation": "developer",
+      "object": "Tokai Communications",
+      "question": "Кто является разработчиком DecapAttack?",
+      "options": {
+        "A": "Sescoi",
+        "B": "Tencent",
+        "C": "Kaga Create",
+        "D": "Tokai Communications Corporation"
+      },
+      "answer_text": "Tokai Communications Corporation",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The correct developer of DecapAttack is Vic Tokai, not Tokai Communications Corporation. Therefore, the labeled answer is incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15175063|P61|Q735603",
+      "language": "ru",
+      "subject": "(67999) 2000 XC32",
+      "relation": "discoverer or inventor",
+      "object": "Lincoln Near-Earth Asteroid Research",
+      "question": "Кто является первооткрывателем или изобретателем (67999) 2000 XC32?",
+      "options": {
+        "A": "Астероидная программа Индианы",
+        "B": "Астероидный и кометный обзор Уппсала-ESO",
+        "C": "Лаборатория поиска околоземных астероидов имени Линкольна",
+        "D": "Optical Gravitational Lensing Experiment"
+      },
+      "answer_text": "Лаборатория поиска околоземных астероидов имени Линкольна",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) program is indeed credited with the discovery of the asteroid (67999) 2000 XC32. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3041333|P178|Q14428",
+      "language": "ru",
+      "subject": "Dungeons & Dragons: Tower of Doom",
+      "relation": "developer",
+      "object": "Capcom",
+      "question": "Кто является разработчиком игры Dungeons & Dragons: Tower of Doom?",
+      "options": {
+        "A": "Capcom",
+        "B": "Steinberg",
+        "C": "Synapse Software",
+        "D": "Dow Jones Indexes"
+      },
+      "answer_text": "Capcom",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Capcom is indeed the developer of the game 'Dungeons & Dragons: Tower of Doom'. The other options are not related to the development of this game, making the dataset-labeled answer correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q28414954|P69|Q1074117",
+      "language": "ru",
+      "subject": "Wang Kai",
+      "relation": "educated at",
+      "object": "Renmin University of China",
+      "question": "В каком учебном заведении учился Ван Кай?",
+      "options": {
+        "A": "Китайский народный университет",
+        "B": "Университет Юты",
+        "C": "Страсбургский университет",
+        "D": "Австралийский национальный университет"
+      },
+      "answer_text": "Китайский народный университет",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the educational institution attended by Van Kai, but without additional context or information about who Van Kai is, it is difficult to determine the correct answer. Multiple options could be valid depending on the specific Van Kai in question, making the labeling ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q107285044|P170|Q3325495",
+      "language": "ru",
+      "subject": "Peasant dance in Soria",
+      "relation": "creator",
+      "object": "Valeriano Bécquer",
+      "question": "Кто является создателем крестьянского танца в Сории?",
+      "options": {
+        "A": "Майкл Арлен",
+        "B": "Валериано Домингес Беккер",
+        "C": "Эдвард Гжазда",
+        "D": "Жозе Мальоа"
+      },
+      "answer_text": "Валериано Домингес Беккер",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the creator of a specific dance in Soria, but it is unclear if this is a well-known fact or if the options provided are relevant to this context. Without additional context or knowledge about this specific dance, it is difficult to determine if the labeled answer is correct. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15164791|P61|Q1759008",
+      "language": "ru",
+      "subject": "(53262) 1999 FE6",
+      "relation": "discoverer or inventor",
+      "object": "OCA-DLR Asteroid Survey",
+      "question": "Кто обнаружил астероид (53262) 1999 FE6?",
+      "options": {
+        "A": "Обсерватория Неф",
+        "B": "астероидный обзор OCA-DLR",
+        "C": "Обсерватория Сайдинг-Спринг",
+        "D": "телескоп горизонта событий"
+      },
+      "answer_text": "астероидный обзор OCA-DLR",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer 'астероидный обзор OCA-DLR' is correct. The OCA-DLR Asteroid Survey is known for discovering asteroids, and there is no ambiguity or error in the question or options.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q22970111|P61|Q515838",
+      "language": "ru",
+      "subject": "(19712) 1999 TL220",
+      "relation": "discoverer or inventor",
+      "object": "Catalina Sky Survey",
+      "question": "Кто является первооткрывателем или изобретателем (19712) 1999 TL220?",
+      "options": {
+        "A": "Обзор Каталина",
+        "B": "Бернхард Ашнер",
+        "C": "Экспедиция Гарсиа де Нодаля",
+        "D": "Солон Ирвинг Бейли"
+      },
+      "answer_text": "Обзор Каталина",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The object (19712) 1999 TL220 is an asteroid discovered by the Catalina Sky Survey, which is referred to as 'Обзор Каталина' in Russian. The other options do not relate to the discovery of this asteroid. Therefore, the dataset-labeled answer is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q152000|P61|Q312448",
+      "language": "ru",
+      "subject": "369 Aëria",
+      "relation": "discoverer or inventor",
+      "object": "Alphonse Borrelly",
+      "question": "Кто является первооткрывателем или изобретателем Аэрии?",
+      "options": {
+        "A": "Готфрид Риттер фон Риттершайн",
+        "B": "Джеймс Френсис",
+        "C": "Альфонс Луис Николас Борелли",
+        "D": "Уильям Амброзия Коули"
+      },
+      "answer_text": "Альфонс Луис Николас Борелли",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is unclear because 'Аэрия' is not a well-defined term or concept in Russian or English, making it difficult to determine who its discoverer or inventor might be. Without additional context, multiple options could be valid or none at all.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q7818240|P30|Q49",
+      "language": "ru",
+      "subject": "Tomales Bay",
+      "relation": "continent",
+      "object": "North America",
+      "question": "На каком континенте находятся Томалес?",
+      "options": {
+        "A": "Азия",
+        "B": "Северная Америка",
+        "C": "Индийский субконтинент",
+        "D": "Южная Америка"
+      },
+      "answer_text": "Северная Америка",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Tomales is a town located in California, USA, which is on the continent of North America. Therefore, the dataset-labeled answer 'Северная Америка' (North America) is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q99521472|P30|Q49",
+      "language": "ru",
+      "subject": "Mendota Overlook",
+      "relation": "continent",
+      "object": "North America",
+      "question": "На каком континенте находится Mendota Overlook?",
+      "options": {
+        "A": "Северная Америка",
+        "B": "Азия",
+        "C": "Южная Америка",
+        "D": "Антарктида"
+      },
+      "answer_text": "Северная Америка",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Mendota Overlook is located in North America, specifically in the United States. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1289140|P19|Q84",
+      "language": "ru",
+      "subject": "Frederick Rolfe",
+      "relation": "place of birth",
+      "object": "London",
+      "question": "Где родился Барон Корво?",
+      "options": {
+        "A": "Портидж",
+        "B": "Саньтай",
+        "C": "Лондон",
+        "D": "Джэксон"
+      },
+      "answer_text": "Лондон",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Baron Corvo, the pseudonym of Frederick Rolfe, was born in London. The dataset-labeled answer 'Лондон' is correct, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3502|P17|Q38",
+      "language": "ru",
+      "subject": "Grauno",
+      "relation": "country",
+      "object": "Italy",
+      "question": "В каком государстве находится город Грауно?",
+      "options": {
+        "A": "Италия",
+        "B": "Лихтенштейн",
+        "C": "Таиланд",
+        "D": "Объединённые Арабские Эмираты"
+      },
+      "answer_text": "Италия",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The city of Grauno is located in Italy, specifically in the Trentino-Alto Adige/Südtirol region. None of the other options are correct, making the dataset-labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1907448|P30|Q46",
+      "language": "ru",
+      "subject": "Bustillo de Chaves",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "На каком континенте родился Рафаэль Бустильо-де-Чавес?",
+      "options": {
+        "A": "Центральная Америка",
+        "B": "Карибы",
+        "C": "Азия",
+        "D": "Европа"
+      },
+      "answer_text": "Европа",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the continent where Rafael Bustillo-de-Chavez was born, but the options include regions (Central America, Caribbean) and a continent (Asia, Europe). This makes the question ambiguous, as Central America and the Caribbean are not continents. Without additional context, it's unclear if Europe is the correct answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5425725|P84|Q121279",
+      "language": "ru",
+      "subject": "FIFA headquarters",
+      "relation": "architect",
+      "object": "Tilla Theus",
+      "question": "Кто является архитектором штаб-квартиры ФИФА?",
+      "options": {
+        "A": "Пьер Контан де Иври",
+        "B": "Кокцей Авкт",
+        "C": "Тилла Теус",
+        "D": "Минору Ямасаки"
+      },
+      "answer_text": "Тилла Теус",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Tilla Theus is indeed the architect of the FIFA headquarters. The other options are not related to this building, making the labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q16610417|P136|Q9778",
+      "language": "ru",
+      "subject": "Edgaras Žakevičius",
+      "relation": "genre",
+      "object": "electronic music",
+      "question": "Какой жанр музыки характеризует творчество Эдгараса Жакевичуса?",
+      "options": {
+        "A": "электронная музыка",
+        "B": "келтик-панк",
+        "C": "гком",
+        "D": "лаика"
+      },
+      "answer_text": "электронная музыка",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the music genre associated with Edgaras Žakevičius. The dataset labels 'электронная музыка' (electronic music) as the correct answer, but without additional context or knowledge about Edgaras Žakevičius, it's unclear if this is the only valid option. The other options could also be plausible, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6807675|P19|Q1156",
+      "language": "ru",
+      "subject": "Meera Vasudevan",
+      "relation": "place of birth",
+      "object": "Mumbai",
+      "question": "В каком городе родилась Мира Васудеван?",
+      "options": {
+        "A": "Паршалл",
+        "B": "Ковент-Гарден",
+        "C": "Мумбаи",
+        "D": "Булган"
+      },
+      "answer_text": "Мумбаи",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Mira Vasudevan was born in Mumbai, making option C the correct answer. The other options are not relevant to her birthplace.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1206523|P50|Q76412",
+      "language": "ru",
+      "subject": "The German lesson",
+      "relation": "author",
+      "object": "Siegfried Lenz",
+      "question": "Кто является автором учебника немецкого языка?",
+      "options": {
+        "A": "Дэвид Чалмерс",
+        "B": "Сельма Лагерлёф",
+        "C": "Джерард Дж. Хольцманн",
+        "D": "Зигфрид Ленц"
+      },
+      "answer_text": "Зигфрид Ленц",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is ambiguous because it does not specify which German language textbook is being referred to. Multiple authors could have written textbooks on the German language, and without additional context, it's unclear why Ziegfried Lenz is the correct answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1609839|P84|Q3701426",
+      "language": "ru",
+      "subject": "Church of the Immaculate Conception",
+      "relation": "architect",
+      "object": "Józef Plośko",
+      "question": "Кто является архитектором Церкви Непорочного Зачатия Пресвятой Девы Марии?",
+      "options": {
+        "A": "Жауме Борт-и-Мелиа",
+        "B": "Харальд Дейльманн",
+        "C": "Ян Сантини",
+        "D": "Плошко, Иосиф Касперович"
+      },
+      "answer_text": "Плошко, Иосиф Касперович",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of the Church of the Immaculate Conception of the Blessed Virgin Mary in Moscow is indeed Iosif Kasperovich Ploshko. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1512023|P108|Q156737",
+      "language": "ru",
+      "subject": "Gerhard Lagaly",
+      "relation": "employer",
+      "object": "Kiel University",
+      "question": "Кем был работодателем Герхарда Лагали?",
+      "options": {
+        "A": "Белорусский государственный университет",
+        "B": "университет Вупперталя",
+        "C": "Кильский университет",
+        "D": "Университет Папуа — Новой Гвинеи"
+      },
+      "answer_text": "Кильский университет",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the employer of Gerhard Lagaly, but without additional context or information, it is unclear why 'Кильский университет' is the correct answer over the other options. Multiple universities could potentially be valid employers, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6503270|P30|Q48",
+      "language": "ru",
+      "subject": "Yürekli",
+      "relation": "continent",
+      "object": "Asia",
+      "question": "На каком континенте находится Юрюкли?",
+      "options": {
+        "A": "Азия",
+        "B": "Антарктида",
+        "C": "Южная Америка",
+        "D": "Афроевразия"
+      },
+      "answer_text": "Азия",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Юрюкли находится в Азии, так как это населенный пункт в России, которая является частью азиатского континента. Ответ 'Азия' является правильным и единственно верным.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q119662|P176|Q156578",
+      "language": "ru",
+      "subject": "Volkswagen Pointer",
+      "relation": "manufacturer",
+      "object": "Volkswagen Group",
+      "question": "Кто является производителем автомобиля Volkswagen Pointer?",
+      "options": {
+        "A": "Comac",
+        "B": "HWA AG",
+        "C": "Pressed Steel Car Company",
+        "D": "Volkswagen"
+      },
+      "answer_text": "Volkswagen",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The Volkswagen Pointer is a car model produced by Volkswagen. Therefore, the dataset-labeled answer 'Volkswagen' is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1870882|P27|Q183",
+      "language": "ru",
+      "subject": "Lothar Krell",
+      "relation": "country of citizenship",
+      "object": "Germany",
+      "question": "Какое гражданство у Лотара Крелла?",
+      "options": {
+        "A": "Гватемала",
+        "B": "Бельгия",
+        "C": "Германия",
+        "D": "Кыргызстан"
+      },
+      "answer_text": "Германия",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Lothar Krell is a German musician and composer, making Germany the correct answer for his citizenship. The question is clear and unambiguous, and the dataset-labeled answer is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q134177485|P170|Q195796",
+      "language": "ru",
+      "subject": "Stolperstein dedicated to Ludwig März",
+      "relation": "creator",
+      "object": "Gunter Demnig",
+      "question": "Кто является создателем спотыкающегося камня, посвящённого Людвигу Мэрцу?",
+      "options": {
+        "A": "Цутому Нихэй",
+        "B": "Гюнтер Демниг",
+        "C": "Jo Koster",
+        "D": "Мартин Кейдин"
+      },
+      "answer_text": "Гюнтер Демниг",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks for the creator of a 'stumbling stone' (спотыкающийся камень), which is a type of memorial created by Gunter Demnig. The dataset-labeled answer 'Гюнтер Демниг' is correct, as he is known for initiating the Stolpersteine project. None of the other options are associated with this project.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q28127429|P178|Q1172164",
+      "language": "ru",
+      "subject": "The Witcher Battle Arena",
+      "relation": "developer",
+      "object": "CD Projekt RED",
+      "question": "Кто является разработчиком The Witcher Battle Arena?",
+      "options": {
+        "A": "Conectiva",
+        "B": "CD Projekt RED",
+        "C": "Capcom",
+        "D": "Вальтер Блюме"
+      },
+      "answer_text": "CD Projekt RED",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "CD Projekt RED is the developer of The Witcher Battle Arena, making the dataset-labeled answer correct. None of the other options are valid developers for this game.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q27536829|P57|Q65923686",
+      "language": "ru",
+      "subject": "Ozark Sharks",
+      "relation": "director",
+      "object": "Misty Talley",
+      "question": "Кто является режиссёром фильма «Акулы Озарка»?",
+      "options": {
+        "A": "Лим Пхиль Сон",
+        "B": "Мисти Таллей",
+        "C": "Джули Бертучелли",
+        "D": "Брюс МакДональд"
+      },
+      "answer_text": "Мисти Таллей",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Misty Talley is indeed the director of the film 'Ozark Sharks'. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1993027|P30|Q46",
+      "language": "ru",
+      "subject": "Turís",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "На каком континенте расположен Турин?",
+      "options": {
+        "A": "Средиземье",
+        "B": "Карибы",
+        "C": "Западная Африка",
+        "D": "Европа"
+      },
+      "answer_text": "Европа",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks about the continent where Turin is located. Turin is a city in Italy, which is in Europe. Therefore, the dataset-labeled answer 'Европа' is correct, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q130340667|P38|Q125999",
+      "language": "ru",
+      "subject": "Sovereign State of the Bektashi Order",
+      "relation": "currency",
+      "object": "Albanian lek",
+      "question": "Какова денежная единица Суверенного государства Ордена Бекташи?",
+      "options": {
+        "A": "албанский лек",
+        "B": "Ганский седи",
+        "C": "малагасийский франк",
+        "D": "испанский колониальный реаль"
+      },
+      "answer_text": "албанский лек",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is about the currency of the Sovereign State of the Bektashi Order, which is not a widely recognized sovereign state. The options provided are currencies of recognized countries, making the question ambiguous or underspecified.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q9935|P176|Q3295867",
+      "language": "ru",
+      "subject": "Fanta",
+      "relation": "manufacturer",
+      "object": "The Coca-Cola Company",
+      "question": "Кто является производителем напитка Фанта?",
+      "options": {
+        "A": "Axis Communications",
+        "B": "Teledyne Technologies",
+        "C": "The Coca-Cola Company",
+        "D": "Nintendo"
+      },
+      "answer_text": "The Coca-Cola Company",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The drink Fanta is produced by The Coca-Cola Company, making option C the correct and unambiguous answer. The other options are unrelated to beverage production.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q735133|P37|Q1412",
+      "language": "ru",
+      "subject": "Ikaalinen",
+      "relation": "official language",
+      "object": "Finnish",
+      "question": "Какой язык является официальным в Икаалинене?",
+      "options": {
+        "A": "французский язык",
+        "B": "дорийский диалект древнегреческого языка",
+        "C": "финский язык",
+        "D": "кыпчакские языки"
+      },
+      "answer_text": "финский язык",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Ikaalinen is a town in Finland, where Finnish is the official language. The dataset-labeled answer 'финский язык' (Finnish language) is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q19827640|P407|Q11051",
+      "language": "ru",
+      "subject": "Anil",
+      "relation": "language of work or name",
+      "object": "Hindustani",
+      "question": "На каком языке написан роман «Анил»?",
+      "options": {
+        "A": "ямайский креольский язык",
+        "B": "нюнорск",
+        "C": "хиндустани",
+        "D": "панджаби"
+      },
+      "answer_text": "хиндустани",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the language in which the novel 'Anil' is written, but without additional context or knowledge about the novel, it is difficult to determine the correct answer. The dataset labels 'хиндустани' as correct, but without further information, other options could also be plausible. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3456447|P38|Q1440737",
+      "language": "ru",
+      "subject": "Democratic Republic of Madagascar",
+      "relation": "currency",
+      "object": "Malagasy franc",
+      "question": "Какова денежная единица Демократической Республики Мадагаскар?",
+      "options": {
+        "A": "малагасийский франк",
+        "B": "венесуэльский боливар",
+        "C": "бразильский реал",
+        "D": "португальский эскудо"
+      },
+      "answer_text": "малагасийский франк",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The currency of the Democratic Republic of Madagascar was the Malagasy franc until 2005, when it was replaced by the Malagasy ariary. The question does not specify a time period, so the answer is correct for the historical context.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5958622|P178|Q652421",
+      "language": "ru",
+      "subject": "Hyperspeed",
+      "relation": "developer",
+      "object": "MicroProse",
+      "question": "Кто является разработчиком игры Hyperspeed?",
+      "options": {
+        "A": "ОКБ имени Яковлева",
+        "B": "Mistwalker",
+        "C": "Питер Хинтйенс",
+        "D": "MicroProse"
+      },
+      "answer_text": "MicroProse",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "MicroProse is indeed the developer of the game Hyperspeed, making the dataset-labeled answer correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1461091|P57|Q1530222",
+      "language": "ru",
+      "subject": "The 4th Floor",
+      "relation": "director",
+      "object": "Antonio Mercero",
+      "question": "Кто является режиссёром фильма «4-й этаж»?",
+      "options": {
+        "A": "Фаусто Брицци",
+        "B": "Антонио Мерсеро",
+        "C": "Сильвио Табе",
+        "D": "Джейкоб Аарон Эстес"
+      },
+      "answer_text": "Антонио Мерсеро",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The film '4th Floor' (\"El cuarto piso\") was directed by Antonio Mercero. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q45084|P50|Q316431",
+      "language": "ru",
+      "subject": "The Cleric Quintet",
+      "relation": "author",
+      "object": "R. A. Salvatore",
+      "question": "Кто является автором серии книг о Клерике?",
+      "options": {
+        "A": "Майкл Медведь",
+        "B": "Роберт Сальваторе",
+        "C": "Чимаманда Нгози Адичи",
+        "D": "Элизабет Гоудж"
+      },
+      "answer_text": "Роберт Сальваторе",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Robert Salvatore is indeed the author of the Cleric Quintet series, making the dataset-labeled answer correct. None of the other options are associated with this series.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q765764|P176|Q560947",
+      "language": "ru",
+      "subject": "Kobben-class submarine",
+      "relation": "manufacturer",
+      "object": "Nordseewerke",
+      "question": "Кто является производителем подводных лодок типа «Коббен»?",
+      "options": {
+        "A": "Tatung",
+        "B": "O.W. Timm Aircraft Company",
+        "C": "Metronome Records A/S",
+        "D": "Nordseewerke"
+      },
+      "answer_text": "Nordseewerke",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The 'Kobben' class submarines were indeed built by Nordseewerke, making the dataset-labeled answer correct. The other options are unrelated to submarine manufacturing.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3790681|P495|Q38",
+      "language": "ru",
+      "subject": "The Demons of St. Petersberg",
+      "relation": "country of origin",
+      "object": "Italy",
+      "question": "Из какой страны происходит фильм «Демоны Санкт Петербурга»?",
+      "options": {
+        "A": "Германская империя",
+        "B": "Объединённые Арабские Эмираты",
+        "C": "Королевство Пруссия",
+        "D": "Италия"
+      },
+      "answer_text": "Италия",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The film 'Demons of St. Petersburg' is an Italian film, making option D (Italy) the correct answer. The other options are incorrect as they do not relate to the film's country of origin.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6763293|P30|Q48",
+      "language": "ru",
+      "subject": "Egeköy",
+      "relation": "continent",
+      "object": "Asia",
+      "question": "На каком континенте находится Эгекёй?",
+      "options": {
+        "A": "Афроевразия",
+        "B": "Азия",
+        "C": "Северная Америка",
+        "D": "Южная Америка"
+      },
+      "answer_text": "Азия",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Эгекёй is a village in Cyprus, which is geographically part of Asia. Therefore, the dataset-labeled answer 'Азия' is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1002162|P37|Q1412",
+      "language": "ru",
+      "subject": "Valtimo",
+      "relation": "official language",
+      "object": "Finnish",
+      "question": "Какой язык является официальным языком Валтимо?",
+      "options": {
+        "A": "финский язык",
+        "B": "Воламо",
+        "C": "индонезийский язык",
+        "D": "венесуэльский испанский"
+      },
+      "answer_text": "финский язык",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Valtimo is a municipality in Finland, where Finnish is the official language. The dataset-labeled answer 'финский язык' (Finnish language) is correct, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q426119|P176|Q490480",
+      "language": "ru",
+      "subject": "GP32",
+      "relation": "manufacturer",
+      "object": "Game Park",
+      "question": "Кто является производителем GP32?",
+      "options": {
+        "A": "Linke-Hofmann",
+        "B": "Fuji Electric",
+        "C": "Таганрогский авиационный научно-технический комплекс имени Г. М. Бериева",
+        "D": "Game Park"
+      },
+      "answer_text": "Game Park",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The GP32 is a handheld gaming console developed by the South Korean company Game Park. Therefore, the dataset-labeled correct answer 'Game Park' is unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1463930|P27|Q183",
+      "language": "ru",
+      "subject": "Friedrich von Podewils",
+      "relation": "country of citizenship",
+      "object": "Germany",
+      "question": "Какое гражданство было у Фридриха фон Подевильса?",
+      "options": {
+        "A": "Германия",
+        "B": "Матарам",
+        "C": "Арагонская корона",
+        "D": "Австралия"
+      },
+      "answer_text": "Германия",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Friedrich von Podewils was a Prussian diplomat, and Prussia was part of what is now Germany. Therefore, the labeled answer 'Германия' is correct, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q7549230|P407|Q1860",
+      "language": "ru",
+      "subject": "So Fresh: The Hits of Summer 2002 Plus the Biggest Hits of 2001",
+      "relation": "language of work or name",
+      "object": "English",
+      "question": "На каком языке написаны песни в сборнике So Fresh: The Hits of Summer 2002 Plus the Biggest Hits of 2001?",
+      "options": {
+        "A": "английский язык",
+        "B": "ассамский язык",
+        "C": "мазандеранский язык",
+        "D": "древнерусский язык"
+      },
+      "answer_text": "английский язык",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The compilation 'So Fresh: The Hits of Summer 2002 Plus the Biggest Hits of 2001' features popular songs from English-speaking artists, so the songs are in English. The labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5312909|P69|Q1185955",
+      "language": "ru",
+      "subject": "Duke Williams",
+      "relation": "educated at",
+      "object": "University of Nevada, Reno",
+      "question": "В каком учебном заведении учился Дюк Уильямс?",
+      "options": {
+        "A": "AFI Conservatory",
+        "B": "Университет Невады",
+        "C": "педагогическое училище",
+        "D": "Каслтонский университет"
+      },
+      "answer_text": "Университет Невады",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the educational institution attended by Duke Williams, but without additional context or information about who Duke Williams is, it is difficult to determine the correct answer. Multiple options could be valid depending on which Duke Williams is being referred to.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15173336|P61|Q1140499",
+      "language": "ru",
+      "subject": "(63509) 2001 OW83",
+      "relation": "discoverer or inventor",
+      "object": "Near-Earth Asteroid Tracking",
+      "question": "Кто является первооткрывателем или изобретателем астероида (63509) 2001 OW83?",
+      "options": {
+        "A": "Dark Energy Survey",
+        "B": "Серро-Тололо",
+        "C": "Near-Earth Asteroid Tracking",
+        "D": "Outer Solar System Origins Survey"
+      },
+      "answer_text": "Near-Earth Asteroid Tracking",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The Near-Earth Asteroid Tracking (NEAT) program is known for discovering many asteroids, including (63509) 2001 OW83. The other options do not fit as they are not known for discovering this specific asteroid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q635744|P30|Q46",
+      "language": "ru",
+      "subject": "Ternes",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "На каком континенте находится Терн?",
+      "options": {
+        "A": "Вестерос",
+        "B": "Африка",
+        "C": "Европа",
+        "D": "Средиземье"
+      },
+      "answer_text": "Европа",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the continent where 'Терн' is located. 'Терн' is not a well-known geographical location, and without additional context, it is unclear whether it refers to a real place or a fictional one. This makes the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q18389228|P407|Q20923490",
+      "language": "ru",
+      "subject": "The Best of Big Bang 2006-2014",
+      "relation": "language of work or name",
+      "object": "multiple languages",
+      "question": "На каких языках создан сборник \"The Best of Big Bang 2006–2014\"?",
+      "options": {
+        "A": "несколько языков",
+        "B": "гойдельские языки",
+        "C": "бенгальский язык",
+        "D": "марокканский диалект арабского языка"
+      },
+      "answer_text": "несколько языков",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The phrase 'The Best of Big Bang 2006–2014' suggests a compilation likely involving multiple languages, especially given the international nature of music. The option 'несколько языков' (several languages) is the most plausible and general answer, while the other options are specific languages or dialects that do not fit the context. Thus, the labeled answer is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q8016465|P108|Q540672",
+      "language": "ru",
+      "subject": "William P. Harrison",
+      "relation": "employer",
+      "object": "Auburn University",
+      "question": "Кем был Уильям П. Харрисон?",
+      "options": {
+        "A": "Обернский университет",
+        "B": "Universal Pictures",
+        "C": "Kentucky Fried Chicken",
+        "D": "Кливлендский государственный университет"
+      },
+      "answer_text": "Обернский университет",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks who William P. Harrison was, but the options are institutions, not roles or professions. This makes the question ambiguous or underspecified, as it lacks the necessary context to determine the correct answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q7801402|P57|Q15846389",
+      "language": "ru",
+      "subject": "Tiger Eyes",
+      "relation": "director",
+      "object": "Lawrence Blume",
+      "question": "Кто является режиссёром фильма «Тигриные глаза»?",
+      "options": {
+        "A": "Хулио Брачо",
+        "B": "Лоуренс Блюме",
+        "C": "Адисорн Тресирикасем",
+        "D": "Надир Мокнешь"
+      },
+      "answer_text": "Лоуренс Блюме",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The film 'Tiger Eyes' is directed by Lawrence Blume, making option B the correct answer. No other options are valid, and the question is well-formed.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q961384|P30|Q46",
+      "language": "ru",
+      "subject": "Barcelona Metro line 4",
+      "relation": "continent",
+      "object": "Europe",
+      "question": "На каком континенте расположена Линия 4?",
+      "options": {
+        "A": "Северная Америка",
+        "B": "Европа",
+        "C": "Зеландия",
+        "D": "Австралия"
+      },
+      "answer_text": "Европа",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is ambiguous because 'Линия 4' could refer to various things, such as a metro line, a railway line, or something else entirely, in different locations around the world. Without additional context, it's unclear which 'Линия 4' is being referred to, making it impossible to definitively choose the correct continent.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q57069|P108|Q156725",
+      "language": "ru",
+      "subject": "Günter Ralfs",
+      "relation": "employer",
+      "object": "University of Hamburg",
+      "question": "Кем является работодатель Гюнтера Ральфса?",
+      "options": {
+        "A": "Гамбургский университет",
+        "B": "Университет Брешиа",
+        "C": "Московский государственный юридический университет",
+        "D": "Немецкий спортивный университет Кёльна"
+      },
+      "answer_text": "Гамбургский университет",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the employer of Günter Ralfs, but without additional context or information about who Günter Ralfs is, it is impossible to determine the correct answer from the options provided. The dataset-labeled answer may be correct, but the question lacks sufficient context to confirm this.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4355110|P27|Q145",
+      "language": "ru",
+      "subject": "Alan Harper",
+      "relation": "country of citizenship",
+      "object": "United Kingdom",
+      "question": "Какое гражданство у Алана Харпера?",
+      "options": {
+        "A": "Исландия эпохи народовластия",
+        "B": "Науру",
+        "C": "Кыргызстан",
+        "D": "Великобритания"
+      },
+      "answer_text": "Великобритания",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the citizenship of Alan Harper, but it does not specify which Alan Harper is being referred to. Without additional context, multiple options could be valid, making the question ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1996477|P17|Q408",
+      "language": "ru",
+      "subject": "Noongar people",
+      "relation": "country",
+      "object": "Australia",
+      "question": "В каком государстве проживает народ нунгар?",
+      "options": {
+        "A": "Королевство Кастилия и Леон",
+        "B": "Колумбия",
+        "C": "Эквадор",
+        "D": "Австралия"
+      },
+      "answer_text": "Австралия",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The Nungar people are indigenous to Australia, making option D the correct answer. The other options are unrelated to the Nungar people.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1233580|P69|Q156725",
+      "language": "ru",
+      "subject": "Sylvia Paletschek",
+      "relation": "educated at",
+      "object": "University of Hamburg",
+      "question": "В каком учебном заведении училась Сильвия Палечек?",
+      "options": {
+        "A": "Гамбургский университет",
+        "B": "Международный университет Троицы",
+        "C": "Университет Бетюн-Кукман",
+        "D": "Университет Гренобль 2"
+      },
+      "answer_text": "Гамбургский университет",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the educational institution attended by Sylvia Palecek, but without additional context or information, it is not possible to determine which option is correct. The dataset labels 'Гамбургский университет' as the correct answer, but without further evidence, this remains ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q123527|P108|Q152087",
+      "language": "ru",
+      "subject": "Claudia Schmölders",
+      "relation": "employer",
+      "object": "Humboldt-Universität zu Berlin",
+      "question": "В каком университете работала Клаудия Шмёльдерс?",
+      "options": {
+        "A": "философский факультет Карлова университета в Праге",
+        "B": "Берлинский университет",
+        "C": "Будапештский университет",
+        "D": "Киевский национальный университет культуры и искусств"
+      },
+      "answer_text": "Берлинский университет",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Claudia Schmölders is known to have worked at the Humboldt University of Berlin, which is commonly referred to as the Berlin University. Therefore, the dataset-labeled answer is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4542992|P61|Q814731",
+      "language": "ru",
+      "subject": "(31195) 1997 YG18",
+      "relation": "discoverer or inventor",
+      "object": "Beijing Schmidt CCD Asteroid Program",
+      "question": "Кто является первооткрывателем астероида (31195) 1997 YG18?",
+      "options": {
+        "A": "Эрнест Леонард Джонсон",
+        "B": "Сэмюель Вильсон",
+        "C": "Пекинская Шмидт-ПЗС астероидная программа",
+        "D": "Самуил Марокканский"
+      },
+      "answer_text": "Пекинская Шмидт-ПЗС астероидная программа",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset-labeled answer, 'Пекинская Шмидт-ПЗС астероидная программа,' is correct. This program is known for discovering several asteroids, including (31195) 1997 YG18. None of the other options are associated with this discovery.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q183|P38|Q4916",
+      "language": "ru",
+      "subject": "Germany",
+      "relation": "currency",
+      "object": "euro",
+      "question": "Какая денежная единица используется в Германии?",
+      "options": {
+        "A": "евро",
+        "B": "новый израильский шекель",
+        "C": "аргентинский реал",
+        "D": "исландская крона"
+      },
+      "answer_text": "евро",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The euro is the correct and unambiguous currency used in Germany. None of the other options are valid currencies for Germany.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q492348|P136|Q1054574",
+      "language": "ru",
+      "subject": "Syndrome",
+      "relation": "genre",
+      "object": "romance film",
+      "question": "К какому жанру относится фильм \"Синдром\"?",
+      "options": {
+        "A": "музыкальный фильм",
+        "B": "экранизация романа",
+        "C": "игровое обучение",
+        "D": "романтический фильм"
+      },
+      "answer_text": "романтический фильм",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the genre of the film 'Syndrome', but without additional context or information about the specific film, it is difficult to determine the correct genre. The labeled answer 'романтический фильм' (romantic film) could be correct, but without more context, other options might also be plausible. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q972852|P495|Q17",
+      "language": "ru",
+      "subject": "K",
+      "relation": "country of origin",
+      "object": "Japan",
+      "question": "Какова страна происхождения компании К?",
+      "options": {
+        "A": "Япония",
+        "B": "Германская империя",
+        "C": "Латвия",
+        "D": "Чехия"
+      },
+      "answer_text": "Япония",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is ambiguous because it does not specify which company 'К' refers to. Without this context, multiple options could be valid, and a competent reader would hesitate to choose an answer.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q819079|P178|Q215639",
+      "language": "ru",
+      "subject": "Opera Mini",
+      "relation": "developer",
+      "object": "Opera",
+      "question": "Кто является разработчиком Opera Mini?",
+      "options": {
+        "A": "Коста Панайи",
+        "B": "Opera Software",
+        "C": "Atari, Inc",
+        "D": "AQ Interactive"
+      },
+      "answer_text": "Opera Software",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Opera Mini is a web browser developed by Opera Software. The marked answer is correct and unambiguous, as none of the other options are related to the development of Opera Mini.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q95133|P20|Q65",
+      "language": "ru",
+      "subject": "Robert Aldrich",
+      "relation": "place of death",
+      "object": "Los Angeles",
+      "question": "В каком городе умер Роберт Олдрич?",
+      "options": {
+        "A": "Гуарапари",
+        "B": "Кальбе",
+        "C": "Хинтербрюль",
+        "D": "Лос-Анджелес"
+      },
+      "answer_text": "Лос-Анджелес",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Robert Aldrich, the American film director, died in Los Angeles. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5345654|P69|Q170027",
+      "language": "ru",
+      "subject": "Edward Tuddenham",
+      "relation": "educated at",
+      "object": "University of London",
+      "question": "В каком учебном заведении учился Эдуард Тадденхэм?",
+      "options": {
+        "A": "Фукусимский медицинский университет",
+        "B": "Лондонский университет",
+        "C": "ESC Rennes School of Business",
+        "D": "Университет Академии Искусств"
+      },
+      "answer_text": "Лондонский университет",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the educational institution where Eduard Taddenham studied, but without additional context or information about Eduard Taddenham, it is not possible to determine the correct answer. The dataset-labeled answer could be correct, but without further context, it is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4817549|P136|Q11401",
+      "language": "ru",
+      "subject": "Down to Earth",
+      "relation": "genre",
+      "object": "hip-hop",
+      "question": "К какому жанру музыки относится творчество Приземлённого?",
+      "options": {
+        "A": "хип-хоп",
+        "B": "боевик",
+        "C": "авангардная музыка",
+        "D": "казуальная игра"
+      },
+      "answer_text": "хип-хоп",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The question asks about the genre of music associated with 'Приземлённого'. The options include music genres and non-music genres. 'Хип-хоп' is a valid music genre, while 'боевик' and 'казуальная игра' are not music genres. 'Авангардная музыка' is a music genre but is not typically associated with 'Приземлённого'. Therefore, the labeled answer 'хип-хоп' is correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q456960|P84|Q3525458",
+      "language": "ru",
+      "subject": "Westminster Bridge",
+      "relation": "architect",
+      "object": "Thomas Page",
+      "question": "Кто является архитектором Вестминстерского моста?",
+      "options": {
+        "A": "Бартоломео Провалья",
+        "B": "Франсиско де Правес",
+        "C": "Сантьяго Лагунас",
+        "D": "Томас Пейдж"
+      },
+      "answer_text": "Томас Пейдж",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of Westminster Bridge is indeed Thomas Page, making option D the correct answer. The other options do not relate to the architect of Westminster Bridge.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3292679|P20|Q193877",
+      "language": "ru",
+      "subject": "Marie Mansart",
+      "relation": "place of death",
+      "object": "Ivry-sur-Seine",
+      "question": "В каком городе умерла Мари Мансар?",
+      "options": {
+        "A": "Рувре",
+        "B": "Турет-сюр-Лу",
+        "C": "Иври-сюр-Сен",
+        "D": "Морнас"
+      },
+      "answer_text": "Иври-сюр-Сен",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Marie Mansart, a French actress, died in Ivry-sur-Seine. The dataset-labeled answer is correct, and there is no ambiguity or error in the options provided.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q104031903|P20|Q220",
+      "language": "ru",
+      "subject": "Lucio Battistrada",
+      "relation": "place of death",
+      "object": "Rome",
+      "question": "В каком городе умер Лучо Баттистрада?",
+      "options": {
+        "A": "Ла-Рейна",
+        "B": "Гаррахов",
+        "C": "Рим",
+        "D": "Херольдсбах"
+      },
+      "answer_text": "Рим",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Lucio Battisti, an Italian singer-songwriter, died in Rome. The dataset-labeled answer 'Рим' (Rome) is correct, and no other options are valid. The question is well-formed.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q919515|P20|Q994372",
+      "language": "ru",
+      "subject": "Ring Lardner",
+      "relation": "place of death",
+      "object": "East Hampton",
+      "question": "В каком городе умер Рингголд Уилмер Ларднер?",
+      "options": {
+        "A": "Норвич",
+        "B": "Ист-Хамптон",
+        "C": "Маму",
+        "D": "Бернардстон"
+      },
+      "answer_text": "Ист-Хамптон",
+      "answer_index": 1,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Ringgold Wilmer Lardner, commonly known as Ring Lardner, died in East Hampton, New York. The dataset-labeled answer 'Ист-Хамптон' is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q4581519|P136|Q49451",
+      "language": "ru",
+      "subject": "1984",
+      "relation": "genre",
+      "object": "progressive rock",
+      "question": "Какой жанр наиболее точно описывает альбом Pink Floyd \"The Final Cut\", выпущенный в 1984 году?",
+      "options": {
+        "A": "религиозная музыка",
+        "B": "латин-джаз",
+        "C": "афробитс",
+        "D": "прогрессивный рок"
+      },
+      "answer_text": "прогрессивный рок",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The album 'The Final Cut' by Pink Floyd is widely recognized as a progressive rock album. The other options (religious music, Latin jazz, and afrobeats) do not accurately describe the genre of this album.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q23838605|P84|Q67031",
+      "language": "ru",
+      "subject": "The Interlace",
+      "relation": "architect",
+      "object": "Ole Scheeren",
+      "question": "Кто является архитектором жилого комплекса «Интерлейс»?",
+      "options": {
+        "A": "Николя Башелье",
+        "B": "Уильям Ф. Киз",
+        "C": "Ральф Таббс",
+        "D": "Оле Шеерен"
+      },
+      "answer_text": "Оле Шеерен",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The architect of the 'Interlace' residential complex is indeed Ole Scheeren. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6129834|P27|Q16",
+      "language": "ru",
+      "subject": "James Blackburn",
+      "relation": "country of citizenship",
+      "object": "Canada",
+      "question": "Какое гражданство у Джеймса Блэкберна?",
+      "options": {
+        "A": "Царство Польское",
+        "B": "вандалы",
+        "C": "Канада",
+        "D": "Азербайджан"
+      },
+      "answer_text": "Канада",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question lacks context about who James Blackburn is, making it difficult to determine his citizenship. Without additional information, multiple options could be plausible, or none might be correct. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3644504|P27|Q27",
+      "language": "ru",
+      "subject": "Brian Shelley",
+      "relation": "country of citizenship",
+      "object": "Ireland",
+      "question": "Какое гражданство у Брайана Шелли?",
+      "options": {
+        "A": "Новая Зеландия",
+        "B": "Тунис",
+        "C": "Ирландия",
+        "D": "Вольный город Франкфурт"
+      },
+      "answer_text": "Ирландия",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The dataset labels 'Ирландия' as the correct answer, which is accurate as Brian Shelley is known to be Irish. The other options do not apply to him, making the labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q1416312|P27|Q30",
+      "language": "ru",
+      "subject": "Don Self",
+      "relation": "country of citizenship",
+      "object": "United States",
+      "question": "Какое гражданство у Дона Селфа?",
+      "options": {
+        "A": "США",
+        "B": "Россия",
+        "C": "Галисия",
+        "D": "Сингапур"
+      },
+      "answer_text": "США",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question lacks context about who 'Дон Селф' is, making it impossible to determine his citizenship without additional information. Multiple options could be valid depending on the context.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q16940033|P136|Q1046768",
+      "language": "ru",
+      "subject": "Daniel Chaudon",
+      "relation": "genre",
+      "object": "música popular brasileira",
+      "question": "К какому жанру музыки относится творчество Даниэля Шодона?",
+      "options": {
+        "A": "бразильская популярная музыка",
+        "B": "лаунж",
+        "C": "австралийский хип-хоп",
+        "D": "музыка Ирландии"
+      },
+      "answer_text": "бразильская популярная музыка",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks about the genre of music associated with Daniel Chaudon. Without additional context or information about Daniel Chaudon, it is difficult to determine the correct genre. The dataset labels 'бразильская популярная музыка' as correct, but without further information, other options could also be plausible. Therefore, the question is ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6770319|P30|Q48",
+      "language": "ru",
+      "subject": "Duru",
+      "relation": "continent",
+      "object": "Asia",
+      "question": "На каком континенте находится река Дуру?",
+      "options": {
+        "A": "Азия",
+        "B": "Южная Америка",
+        "C": "Северная Америка",
+        "D": "Антарктида"
+      },
+      "answer_text": "Азия",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The river Douro (Дуру) is located in Europe, not Asia. None of the given options are correct, making the labeled answer incorrect.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q27859|P170|Q712401",
+      "language": "ru",
+      "subject": "indomie",
+      "relation": "creator",
+      "object": "Sudono Salim",
+      "question": "Кто является создателем Индоми́?",
+      "options": {
+        "A": "Судоно Салим",
+        "B": "Саломон Конинк",
+        "C": "Масаси Кисимото",
+        "D": "Эдмунд Лейтон"
+      },
+      "answer_text": "Судоно Салим",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The creator of Indomie, a popular brand of instant noodles, is indeed Sudono Salim. The other options are unrelated to Indomie, making the labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q126648|P176|Q689159",
+      "language": "ru",
+      "subject": "SS Storstad",
+      "relation": "manufacturer",
+      "object": "Armstrong Whitworth",
+      "question": "Кто является производителем СС «Сторстад»?",
+      "options": {
+        "A": "Армстронг Уитуорт",
+        "B": "Hozon Auto",
+        "C": "GTA Motor",
+        "D": "Scaled Composites"
+      },
+      "answer_text": "Армстронг Уитуорт",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The SS 'Storstad' was a ship built by Armstrong Whitworth, making option A correct. The other options are unrelated to the shipbuilding industry or the specific ship in question.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q832816|P57|Q51562",
+      "language": "ru",
+      "subject": "Carmen",
+      "relation": "director",
+      "object": "Ernst Lubitsch",
+      "question": "Кто был режиссёром фильма «Кармен»?",
+      "options": {
+        "A": "Эрнст Любич",
+        "B": "Марен Аде",
+        "C": "Винсент Ланно",
+        "D": "Питер Казенс"
+      },
+      "answer_text": "Эрнст Любич",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question is ambiguous because there have been multiple films titled \"Carmen\" directed by different people. Without specifying which version or year of \"Carmen\" is being referred to, it is impossible to determine the correct director from the options provided.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q5894138|P57|Q3392879",
+      "language": "ru",
+      "subject": "Hong Kong 1941",
+      "relation": "director",
+      "object": "Po-Chih Leong",
+      "question": "Кто является режиссёром фильма «Гонконг 1941»?",
+      "options": {
+        "A": "По-Чин Леонг",
+        "B": "Калеб Дешанель",
+        "C": "Крис Фишер",
+        "D": "Мэйбл Норманд"
+      },
+      "answer_text": "По-Чин Леонг",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The director of the film 'Hong Kong 1941' is indeed Po-Chih Leong, which corresponds to option A. The other options are not related to this film, making the labeled answer unambiguously correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3102904|P69|Q1137665",
+      "language": "ru",
+      "subject": "Georges Hulin de Loo",
+      "relation": "educated at",
+      "object": "Ghent University",
+      "question": "В каком учебном заведении учился Жорж Юлен де Лу?",
+      "options": {
+        "A": "Университет Роберта Морриса",
+        "B": "Католический университет Португалии",
+        "C": "Гентский университет",
+        "D": "Кейсовский университет Западного резервного района"
+      },
+      "answer_text": "Гентский университет",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Georges Ugeux, a Belgian businessman, studied at Ghent University. The dataset-labeled answer is correct and unambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q52769089|P170|Q195796",
+      "language": "ru",
+      "subject": "Stolperstein dedicated to Bruno Katz",
+      "relation": "creator",
+      "object": "Gunter Demnig",
+      "question": "Кто является создателем спотыкающегося камня, посвящённого Бруно Кацу?",
+      "options": {
+        "A": "Гюнтер Демниг",
+        "B": "Иосиф Константин Дрэган",
+        "C": "Альфонс Муха",
+        "D": "Лиззи Борден"
+      },
+      "answer_text": "Гюнтер Демниг",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "The creator of the 'stumbling stones' project, which includes stones dedicated to individuals like Bruno Katz, is indeed Gunter Demnig. The other options are unrelated to this project, making the labeled answer correct.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6190295|P27|Q145",
+      "language": "ru",
+      "subject": "Jez Smith",
+      "relation": "country of citizenship",
+      "object": "United Kingdom",
+      "question": "Какое гражданство у Джеза Смита?",
+      "options": {
+        "A": "Великобритания",
+        "B": "Германская империя",
+        "C": "Кыргызстан",
+        "D": "Гондурас"
+      },
+      "answer_text": "Великобритания",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question lacks context about who Джез Смит is, making it difficult to determine the correct citizenship. Without additional information, multiple options could be plausible, leading to ambiguity.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q11407709|P19|Q38283",
+      "language": "ru",
+      "subject": "Manabu Minami",
+      "relation": "place of birth",
+      "object": "Yokohama",
+      "question": "В каком городе родился Манабу Минами?",
+      "options": {
+        "A": "Дум-Дум (Индия)",
+        "B": "Калинополь",
+        "C": "Иокогама",
+        "D": "Такуара"
+      },
+      "answer_text": "Иокогама",
+      "answer_index": 2,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Manabu Minami was born in Yokohama, Japan. The dataset-labeled answer 'Иокогама' (Yokohama) is correct, and no other options are valid.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q774275|P17|Q142",
+      "language": "ru",
+      "subject": "Maruéjols-lès-Gardon",
+      "relation": "country",
+      "object": "France",
+      "question": "В каком государстве находится Марюжоль-ле-Гардон?",
+      "options": {
+        "A": "Франция",
+        "B": "Палестина",
+        "C": "Литва",
+        "D": "Американское Самоа"
+      },
+      "answer_text": "Франция",
+      "answer_index": 0,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Maruejols-les-Gardon is a commune in France, making option A the correct answer. The other options are incorrect as they refer to different regions or countries.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q6835422|P27|Q30",
+      "language": "ru",
+      "subject": "Michael Wolfe",
+      "relation": "country of citizenship",
+      "object": "United States",
+      "question": "Какое гражданство у Майкла Вулфа?",
+      "options": {
+        "A": "ФРГ",
+        "B": "Моденское герцогство",
+        "C": "Ботсвана",
+        "D": "США"
+      },
+      "answer_text": "США",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "A",
+        "rationale": "Michael Wolff is an American author and journalist, so the dataset-labeled answer 'США' (USA) is correct. The other options are not applicable to him.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q15284184|P170|Q5603",
+      "language": "ru",
+      "subject": "Silver Car Crash (Double Disaster)",
+      "relation": "creator",
+      "object": "Andy Warhol",
+      "question": "Кто является создателем произведения «Серебряная авария» (Двойная катастрофа)?",
+      "options": {
+        "A": "Эдвард Ходжес Бейли",
+        "B": "Мерри-Жозеф Блондель",
+        "C": "Филипп Беснар",
+        "D": "Энди Уорхол"
+      },
+      "answer_text": "Энди Уорхол",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "C",
+        "rationale": "The dataset-labeled answer 'Энди Уорхол' is incorrect. 'Серебряная авария' (Silver Car Crash) is indeed a work by Andy Warhol, but 'Двойная катастрофа' (Double Disaster) is not a known work by him. The question seems to be mixing titles or is otherwise incorrect, as none of the options match a known work titled 'Двойная катастрофа.'",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    },
+    {
+      "fact_id": "Q3218706|P19|Q42929",
+      "language": "ru",
+      "subject": "Laura Nicolini",
+      "relation": "place of birth",
+      "object": "Soresina",
+      "question": "В каком городе родилась Лора Николини?",
+      "options": {
+        "A": "Палми",
+        "B": "Понтевико",
+        "C": "Сант-Омеро",
+        "D": "Сорезина"
+      },
+      "answer_text": "Сорезина",
+      "answer_index": 3,
+      "llm_eval": {
+        "label": "B",
+        "rationale": "The question asks for the birthplace of Laura Nicolini, but without additional context or verification, it's unclear if 'Сорезина' is indeed correct. The question lacks sufficient context to confirm the answer, making it ambiguous.",
+        "model": "gpt-4o"
+      },
+      "human_eval": {
+        "label": null,
+        "notes": null,
+        "annotator": null
+      }
+    }
+  ]
+}
