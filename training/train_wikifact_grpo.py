@@ -15,22 +15,24 @@ For each fact:
 
 
 ## LORA WITH HF INFERENCE
-PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True CUDA_VISIBLE_DEVICES=7 
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True export CUDA_VISIBLE_DEVICES=2 
   
 python training/train_wikifact_grpo.py  \
-	--model_id olmo2-7b \
+	--model_id qwen2.5-7b \
 	--dataset_id jvonrad/PolyFact \
-	--per_device_train_batch_size 1 \
+	--per_device_train_batch_size 4 \
 	--num_train_epochs 1 \
-	--learning_rate 5e-5 \
-	--num_generations 8  \
+	--learning_rate 5e-6 \
+	--num_generations 4  \
 	--max_completion_length 32 \
-	--eval_steps 500  \
+	--eval_steps 100  \
 	--max_eval_wikifact 500 \
 	--bf16 \
 	--use_lora  \
-	--kl_coef 0.0 \
-	--max_train_samples 40000 
+	--kl_coef 0 \
+	--max_train_samples 20000 \
+    --max_eval_flores 0 \
+    --use_vllm --vllm_base_url http://localhost:8001 --vllm_sync_steps 10
 
 """
 
@@ -39,6 +41,7 @@ import re
 import json
 import math
 import random
+import time
 import argparse
 from typing import Dict, Any, List, Optional, Tuple
 import shutil                      # FIX 1: removed duplicate `import shutil`
@@ -72,8 +75,11 @@ MODEL_OUT_ROOT = "/data/jonathan/Lost-in-Mistranslation/models"
 MODEL_ALIASES = {
 	"olmo2-7b": "allenai/OLMo-2-1124-7B",
 	"olmo2-7b-instruct": "allenai/OLMo-2-1124-7B-Instruct",
+	"olmo2-7b-ted": "jvonrad/OLMo-2-1124-7B-TED",
 	"llama-3.1-8b": "meta-llama/Llama-3.1-8B",
+    "llama-3.1-8b-ted": "jvonrad/Llama-3.1-8B-TED",
 	"qwen2.5-7b": "Qwen/Qwen2.5-7B",
+	"qwen2.5-7b-ted": "jvonrad/Qwen-2.5-7B-TED",
 	"gemma-2-9b": "google/gemma-2-9b",
 }
 
@@ -82,13 +88,13 @@ def resolve_model_id(model_id_or_alias: str) -> str:
 	return MODEL_ALIASES.get(model_id_or_alias, model_id_or_alias)
 
 
-def default_run_name(model_id: str, learning_rate: float) -> str:
+def default_run_name(model_id: str, learning_rate: float, kl_coef: float) -> str:
 	model_name = model_id.split("/")[-1]
-	return f"{model_name}-poly-grpo-lr-{learning_rate}"
+	return f"{model_name}-poly-grpo-lr-{learning_rate}-kl-{kl_coef}"
 
 
-def default_output_dir(model_id: str, learning_rate: float) -> str:
-	return os.path.join(MODEL_OUT_ROOT, default_run_name(model_id, learning_rate))
+def default_output_dir(model_id: str, learning_rate: float, kl_coef: float) -> str:
+	return os.path.join(MODEL_OUT_ROOT, default_run_name(model_id, learning_rate, kl_coef))
 
 
 WANDB_PROJECT = "UnLock"
@@ -129,6 +135,21 @@ FLORES_LANG_MAP = {
 	"es": "spa_Latn", "fr": "fra_Latn", "id": "ind_Latn",
 	"ja": "jpn_Jpan", "pt": "por_Latn", "ru": "rus_Cyrl",
 	"sw": "swh_Latn", "zh": "zho_Hans", "en": "eng_Latn",
+}
+
+OPEN_GENERATION_PROMPTS = {
+	"en": "The capital of France is:",
+	"es": "La capital de Francia es:",
+	"fr": "La capitale de la France est :",
+	"de": "Die Hauptstadt von Frankreich ist:",
+	"id": "Ibu kota Prancis adalah:",
+	"pt": "A capital da Franca e:",
+	"ru": "Столица Франции —",
+	"zh": "法国的首都是：",
+	"ja": "フランスの首都は",
+	"ar": "عاصمة فرنسا هي:",
+	"sw": "Mji mkuu wa Ufaransa ni:",
+	"bn": "ফ্রান্সের রাজধানী হলো:",
 }
 
 # global-mmlu
@@ -179,9 +200,14 @@ def parse_args():
 
 	ap.add_argument("--coverage_reward_weight", type=float, default=0.05)
 	ap.add_argument("--valid_option_reward_weight", type=float, default=0.15)
-	ap.add_argument("--all_correct_bonus", type=float, default=0.25)
+	ap.add_argument("--all_correct_bonus", type=float, default=1)
 	ap.add_argument("--max_eval_flores", type=int, default=64)
 	ap.add_argument("--kl_coef", type=float, default=0.05)
+
+	ap.add_argument("--open_gen_steps", type=int, default=100,
+					help="Run 'capital of France' style open-ended generation probes every N optimizer steps. "
+						 "Set to 0 to disable.")
+	ap.add_argument("--open_gen_max_new_tokens", type=int, default=32)
 
 	ap.add_argument("--bf16", action="store_true", default=True)
 	ap.add_argument("--no_bf16", action="store_true")
@@ -221,26 +247,87 @@ def generate_via_vllm(
 	max_completion_length,
 	temperature,
 	top_p,
+	num_generations=1,
 	adapter_name="active-lora",
 ):
-	"""Batch generate via the vLLM OpenAI-compatible API."""
+	"""Batch generate via the vLLM OpenAI-compatible API.
+
+	`flat_prompts` typically contains each unique prompt repeated
+	`num_generations` times (one repetition per grouped rollout). When that
+	structure holds, dedupe and send with `n=num_generations` so vLLM shares
+	the prefill and only schedules `num_unique * n` decode sequences instead
+	of `num_unique * n * num_duplicates`. With LoRA on a single GPU the
+	punica kernels collapse under high concurrency, so cutting the live
+	sequence count by num_generations× is the dominant speedup.
+	"""
+	# Dedupe in first-seen order so we can re-expand results back to the
+	# caller's input order without reshuffling.
+	seen = {}
+	unique_prompts = []
+	for p in flat_prompts:
+		if p not in seen:
+			seen[p] = len(unique_prompts)
+			unique_prompts.append(p)
+
+	# Only use the n= path when every unique prompt is duplicated exactly
+	# num_generations times. Anything else (e.g. two facts coincidentally
+	# producing the same prompt string) would conflate samples across facts,
+	# so fall back to the original per-request path.
+	counts = [0] * len(unique_prompts)
+	for p in flat_prompts:
+		counts[seen[p]] += 1
+	dedup_ok = num_generations > 1 and all(c == num_generations for c in counts)
+
+	if dedup_ok:
+		prompts_to_send = unique_prompts
+		n = num_generations
+	else:
+		prompts_to_send = flat_prompts
+		n = 1
+
 	resp = requests.post(
 		f"{vllm_base_url}/v1/completions",
 		json={
 			"model": adapter_name,
-			"prompt": flat_prompts,          # send ALL prompts in one call
+			"prompt": prompts_to_send,
 			"max_tokens": max_completion_length,
 			"temperature": temperature,
 			"top_p": top_p,
-			"repetition_penalty": 1.5,
+			"n": n,
 		},
 	)
 	data = resp.json()
 	if "choices" not in data:
 		raise RuntimeError(f"vLLM error: {data}")
-	# Sort by index since vLLM may return out of order
-	choices = sorted(data["choices"], key=lambda x: x["index"])
-	return [c["text"] for c in choices]
+
+	if not dedup_ok:
+		# Single-sample path: `index` is a flat ordering, so sort and return.
+		choices = sorted(data["choices"], key=lambda x: x["index"])
+		return [c["text"] for c in choices]
+
+	# n>1 path: vLLM's `index` field resets per prompt (0..n-1), so we cannot
+	# use it for global ordering. Trust the response order: choices arrive in
+	# (prompt_idx, sample_idx) order with prompts in the order we sent them.
+	expected = len(unique_prompts) * n
+	if len(data["choices"]) != expected:
+		raise RuntimeError(
+			f"vLLM returned {len(data['choices'])} choices, expected {expected}"
+		)
+	samples_per_unique = [[] for _ in unique_prompts]
+	for i, choice in enumerate(data["choices"]):
+		samples_per_unique[i // n].append(choice["text"])
+
+	# Re-expand back to flat_prompts order. Each occurrence of a duplicate
+	# prompt consumes the next sample from its bucket; since duplicates appear
+	# in (gen_idx, lang) order in the caller, this preserves the original
+	# (fact, gen, lang) → sample mapping.
+	cursor = [0] * len(unique_prompts)
+	out = []
+	for p in flat_prompts:
+		u_idx = seen[p]
+		out.append(samples_per_unique[u_idx][cursor[u_idx]])
+		cursor[u_idx] += 1
+	return out
 
 def set_seed(seed: int):
 	random.seed(seed)
@@ -323,10 +410,7 @@ def log_sample_rollout_to_file(
 			if lang in grouped_preds[sample_key]:
 				pred = grouped_preds[sample_key][lang]
 				gold = meta_by_lang.get(lang, {}).get("gold_text", "?")
-				correct = "✓" if pred.strip() == gold.strip() or (
-					resolve_prediction_to_letter(pred, meta_by_lang[lang]["options"])[0]
-					== meta_by_lang[lang]["gold_letter"]
-				) else "✗"
+				correct = "✓" if is_correct_text_match(pred, gold) else "✗"
 				f.write(f"  [{lang}] {correct} pred: {pred}\n")
 				f.write(f"       gold: {gold}\n")
 		reward = group_rewards[sample_key]["reward"]
@@ -468,6 +552,66 @@ def load_flores_parallel_subset(target_langs, split="dev", max_samples=64):
 			"tgt_texts": ds[f"sentence_{FLORES_LANG_MAP[lang]}"],
 		}
 	return flores
+
+
+@torch.no_grad()
+def run_open_generation_probes(
+	model,
+	tokenizer,
+	prompts: Dict[str, str],
+	global_step: int,
+	max_new_tokens: int = 32,
+	report_to: str = "wandb",
+	log_path: Optional[str] = None,
+):
+	"""Greedy 'The capital of France is:' style probes across all languages.
+
+	Appends each completion to `log_path` (the same grpo_samples/<run_name> file
+	used for sample rollouts) and, if wandb is active, logs a Table so
+	degeneration is visible across the run. Restores model.train() at the end.
+	"""
+	was_training = model.training
+	model.eval()
+	device = next(model.parameters()).device
+
+	rows = []
+	for lang, prompt in prompts.items():
+		tok = tokenizer(
+			prompt,
+			return_tensors="pt",
+			truncation=True,
+			max_length=256,
+		).to(device)
+		gen = model.generate(
+			**tok,
+			max_new_tokens=max_new_tokens,
+			do_sample=False,
+			pad_token_id=tokenizer.pad_token_id,
+			eos_token_id=tokenizer.eos_token_id,
+		)
+		gen_only = gen[:, tok["input_ids"].shape[1]:]
+		completion = tokenizer.batch_decode(gen_only, skip_special_tokens=True)[0].strip()
+		rows.append([lang, prompt, completion])
+
+	if log_path is not None:
+		with open(log_path, "a", encoding="utf-8") as f:
+			f.write(f"\n{'='*60}\n")
+			f.write(f"open-gen probe @ step {global_step}\n")
+			f.write(f"{'='*60}\n")
+			for lang, prompt, completion in rows:
+				f.write(f"  [{lang}] {prompt} {completion}\n")
+
+	if report_to == "wandb" and wandb.run is not None:
+		wandb.log({
+			"open_generation": wandb.Table(
+				data=rows,
+				columns=["lang", "prompt", "completion"],
+			)
+		}, step=global_step)
+
+	if was_training:
+		model.train()
+
 
 @torch.no_grad()
 def compute_flores_bleu(
@@ -678,6 +822,16 @@ def extract_answer_text(text: str) -> str:
 	return text
 
 
+def is_correct_text_match(pred: str, gold: str) -> bool:
+	"""Closed-book correctness check: normalized first-line of `pred` equals
+	normalized `gold`. Used in place of MCQ letter-resolution since the
+	training prompt no longer shows options."""
+	gold_norm = normalize_text(gold)
+	if not gold_norm:
+		return False
+	return normalize_text(extract_answer_text(pred)) == gold_norm
+
+
 def resolve_prediction_to_letter(
     pred_text: str, option_map: Dict[str, str]
 ) -> Tuple[Optional[str], bool]:
@@ -692,6 +846,10 @@ def resolve_prediction_to_letter(
         if pred_norm == opt_norm:
             return letter, True
 
+    m = re.match(r"^([abcd])(?:[\.\)\]:\-\s]|$)", pred_norm)
+    if m:
+        return m.group(1).upper(), True
+
     candidates = []
     for letter, opt_norm in option_norm.items():
         if opt_norm and (pred_norm in opt_norm or opt_norm in pred_norm):
@@ -704,18 +862,13 @@ def resolve_prediction_to_letter(
 
 
 def build_single_language_prompt(lang: str, question: str, options: Dict[str, str]) -> str:
-	return (
-		f"You will be given one factual multiple-choice question in {LANG_TO_NAME[lang]}.\n"
-		f"Return only the full answer text in {LANG_TO_NAME[lang]}.\n"
-		f"Do not return the letter.\n"
-		f"Do not explain.\n\n"
-		f"Question: {question}\n"
-		f"A. {options['A']}\n"
-		f"B. {options['B']}\n"
-		f"C. {options['C']}\n"
-		f"D. {options['D']}\n\n"
-		f"Answer text:"
-	)
+	# Closed-book QA: options are intentionally hidden so the reward can only be
+	# obtained by retrieving the fact from the model's weights, not by elimination
+	# over a visible candidate set. Format matches evaluate/evaluate_consistency.py
+	# verbatim, so the LL eval and the trained policy see the same prompt.
+	# `lang`/`options` retained in the signature for caller compatibility; unused.
+	del lang, options
+	return f"Question: {question}\nAnswer:"
 
 
 def build_grouped_fact_item(ex: Dict[str, Any]) -> Dict[str, Any]:
@@ -793,33 +946,34 @@ def compute_group_reward(
 	valid_option_weight: float,
 	all_correct_bonus: float,
 ) -> Dict[str, float]:
+	# Closed-book reward: +1 per language for an in-language exact text match
+	# against gold_text (post-normalization). The previous "matched_valid"
+	# (resolved to one of the four options) signal no longer applies because
+	# the prompt no longer exposes options — n_valid is kept in the return
+	# shape for caller compatibility but mirrors n_pred (non-empty count).
+	# `coverage_weight` and `valid_option_weight` are accepted but unused;
+	# they were MCQ-format signals.
+	del coverage_weight, valid_option_weight
+
 	score = 0.0
 	n_correct = 0
-	n_valid = 0
 	n_pred = 0
 
 	for lang, meta in meta_by_lang.items():
 		pred = pred_text_by_lang.get(lang, "")
-		resolved_letter, matched_valid = resolve_prediction_to_letter(pred, meta["options"])
-
-		if resolved_letter == meta["gold_letter"]:
+		if is_correct_text_match(pred, meta.get("gold_text", "")):
 			n_correct += 1
 			score += 1.0
-		elif safe_strip(pred) and not matched_valid:
-			score -= 0.5  # hallucination penalty
-
-		if matched_valid:
-			n_valid += 1
 		if safe_strip(pred):
 			n_pred += 1
 
-	if n_correct == len(meta_by_lang):
-		score += 1.0
+	if meta_by_lang and n_correct == len(meta_by_lang):
+		score += all_correct_bonus
 
 	return {
 		"score": score,
 		"n_correct": n_correct,
-		"n_valid": n_valid,
+		"n_valid": n_pred,
 		"n_pred": n_pred,
 	}
 	
@@ -895,15 +1049,11 @@ def evaluate_wikifact_grouped(
 			total_slots += 1
 			per_lang_total[lang] += 1
 
-			resolved_letter, matched_valid = resolve_prediction_to_letter(
-				pred_text_by_lang.get(lang, ""),
-				meta_by_lang[lang]["options"],
-			)
+			pred = pred_text_by_lang.get(lang, "")
+			if safe_strip(pred):
+				total_valid += 1  # repurposed: non-empty prediction count
 
-			if matched_valid:
-				total_valid += 1
-
-			if resolved_letter is not None and resolved_letter == meta_by_lang[lang]["gold_letter"]:
+			if is_correct_text_match(pred, meta_by_lang[lang].get("gold_text", "")):
 				total_correct += 1
 				per_lang_correct[lang] += 1
 			else:
@@ -1107,7 +1257,28 @@ def generate_grouped_rollouts(
 			max_completion_length=max_completion_length,
 			temperature=temperature,
 			top_p=top_p,
+			num_generations=num_generations,
 		)
+
+		# Batched tokenization: one Rust call per stage instead of 2*N Python calls.
+		# flat_prompts contains num_generations duplicates of each unique prompt;
+		# dedupe before tokenizing so each unique prompt is processed once.
+		full_texts = [flat_prompts[i] + generated_texts[i] for i in range(len(flat_index))]
+		all_full_ids = tokenizer(
+			full_texts,
+			add_special_tokens=False,
+			truncation=True,
+			max_length=max_prompt_length + max_completion_length,
+		)["input_ids"]
+
+		unique_prompts = list({p: None for p in flat_prompts}.keys())  # dedupe, preserve order
+		unique_prompt_ids = tokenizer(
+			unique_prompts,
+			add_special_tokens=False,
+			truncation=True,
+			max_length=max_prompt_length,
+		)["input_ids"]
+		prompt_ids_by_text = dict(zip(unique_prompts, unique_prompt_ids))
 
 		results = {}
 		seq_payloads = []
@@ -1119,21 +1290,8 @@ def generate_grouped_rollouts(
 			results.setdefault(key, {})
 			results[key][lang] = extract_answer_text(gen_text)
 
-			# We still need token IDs for the logprob loss computation
-			full_text = flat_prompts[i] + gen_text
-			full_ids = tokenizer(
-				full_text,
-				add_special_tokens=False,
-				truncation=True,
-				max_length=max_prompt_length + max_completion_length,
-			)["input_ids"]
-
-			prompt_ids = tokenizer(
-				flat_prompts[i],
-				add_special_tokens=False,
-				truncation=True,
-				max_length=max_prompt_length,
-			)["input_ids"]
+			full_ids = all_full_ids[i]
+			prompt_ids = prompt_ids_by_text[flat_prompts[i]]
 
 			seq_payloads.append({
 				"fact_idx": fact_idx,
@@ -1310,7 +1468,11 @@ def compute_logprob_loss(
 			seq_loss = -advantage * gen_logprob_mean
 
 			if ref_token_logprobs is not None:
-				seq_kl = (token_logprobs[i, start:end] - ref_token_logprobs[i, start:end]).mean()
+				# Schulman k3 KL estimator: always >= 0, low variance, low bias.
+				# Using raw (log π − log π_ref) as the penalty is unsafe — it can go negative and
+				# then the optimizer is rewarded for driving the policy further from the reference.
+				log_diff = token_logprobs[i, start:end] - ref_token_logprobs[i, start:end]
+				seq_kl = (torch.exp(-log_diff) - 1 + log_diff).mean()
 				seq_loss = seq_loss + kl_coef * seq_kl
 				kls.append(float(seq_kl.detach().item()))
 
@@ -1338,8 +1500,8 @@ def main():
 		args.bf16 = False
 
 	args.model_id = resolve_model_id(args.model_id)
-	args.run_name = default_run_name(args.model_id, args.learning_rate)
-	args.output_dir = default_output_dir(args.model_id, args.learning_rate)
+	args.run_name = default_run_name(args.model_id, args.learning_rate, args.kl_coef)
+	args.output_dir = default_output_dir(args.model_id, args.learning_rate, args.kl_coef)
 
 	set_seed(args.seed)
 	os.makedirs(args.output_dir, exist_ok=True)
@@ -1411,12 +1573,15 @@ def main():
 		tokenizer.save_pretrained(args.lora_sync_dir)
 		print(f"Initial LoRA checkpoint saved to {args.lora_sync_dir}", flush=True)
 
-		# Load it into vLLM
+		# Load it into vLLM. load_inplace=True lets us overwrite a stale adapter
+		# left in vLLM's memory by a prior training run, so we don't serve the
+		# previous run's weights until the first sync_lora_to_vllm call.
 		resp = requests.post(
 			f"{args.vllm_base_url}/v1/load_lora_adapter",
 			json={
 				"lora_name": "active-lora",
 				"lora_path": args.lora_sync_dir,
+				"load_inplace": True,
 			},
 		)
 		if resp.status_code == 200:
@@ -1425,7 +1590,7 @@ def main():
 			print(f"WARNING: Failed to load initial adapter: {resp.text}", flush=True)    
 
 		
-	model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+	# model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
 	model.train()
 
 	ref_model = None
@@ -1496,8 +1661,24 @@ def main():
 	device = next(model.parameters()).device
 	global_step = 0
 
+	probe_log_path = os.path.join(
+		"/home/nvidia/jonathan/projects/Lost-in-Mistranslation/grpo_samples",
+		args.run_name,
+	)
+	# Baseline probe: capture pre-training open-ended generation behavior.
+	run_open_generation_probes(
+		model=model,
+		tokenizer=tokenizer,
+		prompts=OPEN_GENERATION_PROMPTS,
+		global_step=global_step,
+		max_new_tokens=args.open_gen_max_new_tokens,
+		report_to=args.report_to,
+		log_path=probe_log_path,
+	)
+
 	print("Starting grouped-rollout training ...", flush=True)
-	
+	train_start_time = time.time()
+
 	reward_ema = None
 	ema_alpha = 0.05
 
@@ -1581,15 +1762,24 @@ def main():
 					if args.report_to == "wandb":
 						wandb.log(log_data, step=global_step)
 
+					elapsed = time.time() - train_start_time
+					steps_per_sec = global_step / elapsed if elapsed > 0 else 0.0
+					remaining_steps = max(total_update_steps - global_step, 0)
+					eta_seconds = remaining_steps / steps_per_sec if steps_per_sec > 0 else 0
+					eta_h = int(eta_seconds // 3600)
+					eta_m = int((eta_seconds % 3600) // 60)
+
 					print(
 						{
-							"step": global_step,
+							"step": f"{global_step}/{total_update_steps}",
 							"loss": round(log_data["train/loss"], 4),
 							"lr": f"{log_data['train/learning_rate']:.3e}",
 							"reward_mean": round(log_data["train/reward_mean"], 4),
 							"reward_std": round(log_data["train/reward_std"], 4),
 							"adv_mean": round(log_data["train/adv_mean"], 4),
 							"kl": round(log_data["train/mean_kl"], 6),
+							"it/s": round(steps_per_sec, 3),
+							"eta": f"{eta_h}h{eta_m:02d}m",
 						},
 						flush=True,
 					)
@@ -1661,6 +1851,18 @@ def main():
 
 		if global_step >= total_update_steps:
 			break
+
+	# Post-training probe: same prompts as the baseline so degeneration / improvement
+	# is directly comparable across the two snapshots in grpo_samples/<run_name>.
+	run_open_generation_probes(
+		model=model,
+		tokenizer=tokenizer,
+		prompts=OPEN_GENERATION_PROMPTS,
+		global_step=global_step,
+		max_new_tokens=args.open_gen_max_new_tokens,
+		report_to=args.report_to,
+		log_path=probe_log_path,
+	)
 
 	print(f"Saving model to {args.output_dir} ...", flush=True)
 	model.save_pretrained(args.output_dir)

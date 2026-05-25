@@ -15,7 +15,24 @@ For each fact:
 
 ## LAUNCH (4× A100-80GB with LoRA):
 
-accelerate launch --num_processes 1 --multi_gpu cl-consistency/train_wikifact_grpo_accelerate.py     --model_id /data/jonathan/Lost-in-Mistranslation/models/olmo2-finetranslations-structured-lora-checkpoints/checkpoint-12400-merged     --dataset_id jonny-vr/WIKI-FACT     --output_dir /data/jonathan/Lost-in-Mistranslation/models/aligned-finetranslations-wikifact-grpo-new-lr     --per_device_train_batch_size 2     --num_train_epochs 2     --learning_rate 1e-5     --num_generations 6     --max_completion_length 24     --run_name finetranslations-wikifact-grpo-att-lr-1e-5     --eval_steps 200     --max_eval_wikifact 500     --bf16     --use_lora     --kl_coef 0.0     --max_train_samples 95000 --gen_micro_batch_size 192 --logprob_micro_batch_size 48
+accelerate launch --num_processes 2 --multi_gpu training/train_wikifact_grpo_accelerate.py \
+  --model_id jvonrad/Qwen-2.5-7B-TED \
+  --dataset_id jvonrad/WIKI-FACT \
+  --output_dir /data/jonathan/Lost-in-Mistranslation/models/qwen-2.5-7b-ted-grpo-accelerate \
+  --per_device_train_batch_size 1 \
+  --num_train_epochs 2 \
+  --learning_rate 1e-5 \
+  --num_generations 8 \
+  --max_completion_length 32 \
+  --run_name qwen-2.5-7b-ted-grpo-accelerate \
+  --eval_steps 200 \
+  --max_eval_wikifact 100 \
+  --bf16 \
+  --use_lora \
+  --kl_coef 0.0 \
+  --max_train_samples 20000 \
+  --gen_micro_batch_size 192 \
+  --logprob_micro_batch_size 48
 """
 
 import os
@@ -51,9 +68,9 @@ from accelerate.utils import set_seed as accelerate_set_seed
 # Constants
 # ─────────────────────────────────────────────
 
-MODEL_ID = "allenai/OLMo-2-1124-7B-Instruct"
+MODEL_ID = "Qwen/Qwen2.5-7B"
 HF_DATASET_ID = "jonny-vr/WIKI-FACT"
-OUTPUT_DIR = "/data/jonathan/Lost-in-Mistranslation/models/wikifact_grouped_rollout_grpo"
+OUTPUT_DIR = "/data/jonathan/Lost-in-Mistranslation/models/qwen2.5-7b-grpo-accelerate"
 WANDB_PROJECT = "UnLock"
 
 LANGS = ["en", "es", "fr", "de", "id", "pt", "ru", "zh", "ja", "ar", "sw", "bn"]
@@ -921,6 +938,8 @@ def main():
         model = base_model
 
     model.gradient_checkpointing_enable()
+    if args.use_lora:
+        model.enable_input_require_grads()
     model.train()
 
     # ── Reference model for KL (only if needed) ──
