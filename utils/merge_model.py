@@ -2,8 +2,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel, PeftConfig
 import torch
 
-adapter_path = "/data/jonathan/Lost-in-Mistranslation/models/olmo-base-wikifact-grpo-lr-1e-5/checkpoint-2500"
-output_path = "/data/jonathan/Lost-in-Mistranslation/models/olmo-base-wikifact-grpo-lr-1e-5/checkpoint-2500-merged"
+adapter_path = "/data/jonathan/Lost-in-Mistranslation/models/qwen-2.5-7b-grpo-accelerate/checkpoint-3000"
+output_path = "/data/jonathan/Lost-in-Mistranslation/models/qwen-2.5-7b-grpo-accelerate/checkpoint-3000-merged"
 
 # Read base model name from the adapter config
 peft_config = PeftConfig.from_pretrained(adapter_path)

@@ -12,11 +12,30 @@ ONLY_GRPO="jonny-vr/olmo-2-7b-wikifact-grpo"
 ONLY_SFT="jonny-vr/olmo-2-7B.wikifact-sft-consistent"
 ONLY_ALIGNED="jonny-vr/olmo-2-7b-finetranslations"
 
+# ---------- Base Models ----------
+OLMO_2_7B="allenai/OLMo-2-1124-7B"
+QWEN_2_5_7B="Qwen/Qwen2.5-7B"
+LLAMA_3_1_8B="meta-llama/Llama-3.1-8B"
+
+# ---------- TED Aligned Models ----------
+OLMO_2_7B_TED="jvonrad/OLMo-2-1124-7B-TED"
+QWEN_2_5_7B_TED="jvonrad/Qwen-2.5-7B-TED"
+LLAMA_3_1_8B_TED="jvonrad/Llama-3.1-8B-TED"
+GEMMA_2_9B_TED="jvonrad/Gemma-2-9B-TED"
+
+# ---------- PolyFact GRPO Models --------
+OLMO_2_7B_GRPO="jvonrad/OLMo-2-7B-grpo"
+QWEN_2_5_7B_GRPO="jvonrad/Qwen-2.5-7B-grpo"
+LLAMA_3_1_8B_GRPO="jvonrad/Llama-3.1-8B-grpo"
+OLMO_2_7B_TED_GRPO="jvonrad/OLMo-2-7B-TED-grpo"
+QWEN_2_5_7B_TED_GRPO="jvonrad/Qwen-2.5-7B-TED-grpo"
+LLAMA_3_1_8B_TED_GRPO="jvonrad/Llama-3.1-8B-TED-grpo"
+
 Example: (using hf dataset)
 python evaluate/evaluate_consistency.py \
-  --hf_dataset jonny-vr/WIKI-FACT \
+  --hf_dataset jvonrad/WIKI-FACT \
   --split test \
-  --model jonny-vr/olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint \
+  --model jvonrad/Llama-3.1-8B-grpo \
   --batch_size 8 \
   --score_mode avg
   

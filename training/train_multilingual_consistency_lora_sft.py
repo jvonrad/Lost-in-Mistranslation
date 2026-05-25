@@ -22,15 +22,15 @@ from peft import get_peft_model, LoraConfig, TaskType, PeftModel
 import wandb
 
 '''
-CUDA_VISIBLE_DEVICES=1 python cl-consistency/train_multilingual_consistency_lora_sft.py \
-  --hf_dataset_id jonny-vr/WIKI-FACT \
-  --model_id /data/jonathan/Lost-in-Mistranslation/models/olmo2-finetranslations-structured-lora-checkpoints/checkpoint-12400-merged \
+CUDA_VISIBLE_DEVICES=1 python training/train_multilingual_consistency_lora_sft.py \
+  --hf_dataset_id jvonrad/WIKI-FACT \
+  --model_id Qwen/Qwen2.5-7B \
   --facts_per_device_batch 8 \
   --gradient_accumulation_steps 8 \
   --num_epochs 1 \
-  --ckpt_dir /data/jonathan/Lost-in-Mistranslation/models/olmo_2_7b_aligned_wikifact_sft_consistent \
-  --output_dir /data/jonathan/Lost-in-Mistranslation/models/olmo_2_7b_aligned_wikifact_sft_consistent \
-  --run_name wiki-fact-sft-lora-consistent_aligned \
+  --ckpt_dir /data/jonathan/Lost-in-Mistranslation/models/qwen2.5-7b-sft \
+  --output_dir /data/jonathan/Lost-in-Mistranslation/models/qwen2.5-7b-sft-consistent \
+  --run_name qwen2.5-7b-sft-consistent \
   --use_preprocessed_data \
   --consistency_weight 0.5
 '''
@@ -567,6 +567,7 @@ def main():
         task_type=TaskType.CAUSAL_LM,
     )
     model = get_peft_model(base_model, peft_config)
+    model.enable_input_require_grads()
 
     training_args = TrainingArguments(
         output_dir=args.ckpt_dir,

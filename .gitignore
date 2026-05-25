@@ -7,3 +7,4 @@ package.json
 .claude
 training/__pycache__
 grpo_samples/
+results/
