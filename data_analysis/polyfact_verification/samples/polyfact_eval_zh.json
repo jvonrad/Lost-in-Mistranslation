@@ -27,7 +27,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "杜利肯（Dulliken）是瑞士的一个城镇，官方语言是德语。因此，选项D) 德语是正确的答案。",
+        "rationale": "The question asks for the official language of '杜利肯' (Dulliken), which is a municipality in Switzerland where German is the official language. The other options are unrelated languages.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -53,7 +53,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks for the birthplace of Guillermo Fernández Groizard, but without additional context or information, it is unclear which option is correct. The dataset labels '帕尔马' as the correct answer, but without verifying this information, multiple options could potentially be valid. Therefore, the question is ambiguous.",
+        "rationale": "The question asks for the birthplace of Guillermo Fernández Groizard. Without specific context, multiple options could be plausible, as the name does not clearly indicate a specific location. The question is underspecified.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -79,7 +79,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) program is known for discovering many asteroids, including asteroid 103965. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The question asks which team discovered asteroid 103965. The dataset-labeled answer, '林肯近地小行星研究小组' (Lincoln Near-Earth Asteroid Research), is a well-known project for discovering asteroids, and no other options are similarly plausible for this specific asteroid.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -105,7 +105,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks for the country where the National Library of India is located. The correct answer is unambiguously India, as the name itself specifies the country. No other options are valid.",
+        "rationale": "The question asks for the country where the National Library of India is located. The correct answer is India, making option A the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -130,8 +130,8 @@
       "answer_text": "成均馆大学",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the employer of 李永熙, but without additional context or information, it is not possible to determine which of the options is correct. The dataset-labeled answer '成均馆大学' could be correct, but without further context, other options could also be valid. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the employer of 李永熙. Among the options, 成均馆大学 is the best fit, and there is no indication that any other option is also correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -157,7 +157,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The architect of Avignon Central Station is indeed Louis-Jules Bouchot, making option B the correct answer. The other options do not correspond to the architect of this station.",
+        "rationale": "The question asks for the architect of Avignon Central Station. Louis-Jules Bouchot (路易-朱尔·布绍) is the correct architect associated with this station, and none of the other options are plausible architects for this location.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -182,8 +182,8 @@
       "answer_text": "匈牙利警察",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the employer of 伊萝娜·史特拉, but without additional context or information, it is not clear which option is correct. The dataset labels '匈牙利警察' as the correct answer, but without knowing who 伊萝娜·史特拉 is, this cannot be confirmed. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks about the employer of 伊萝娜·史特拉. The dataset-labeled answer is 匈牙利警察, and none of the other options (名古屋电视台, 东南航空建设公司, 法兰西24) are plausible employers for a person likely associated with Hungarian police. Therefore, the labeled answer is the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -209,7 +209,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks which university 纐缬弥三 attended, but without additional context or information about this person, it is impossible to determine the correct answer. The dataset labels 京都大学 as correct, but without further context, this is ambiguous.",
+        "rationale": "The question asks which university 纐缬弥三 attended. Both 京都大学 (Kyoto University) and 明亚大学 (Meiji University) are plausible options, as they are well-known universities in Japan. Without specific information, it's ambiguous which one is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -235,7 +235,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Adolf Tuma is an Austrian artist, making the labeled answer '奥地利' (Austria) correct. The other options do not relate to his nationality.",
+        "rationale": "The question asks for the nationality of Adolf Tuma. Among the options, Austria (奥地利) is the most plausible answer, as the other options do not correspond to known nationalities for individuals named Adolf Tuma.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -261,7 +261,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Video Kids is a Dutch musical group, so the labeled answer '荷兰' (Netherlands) is correct. The other options are not relevant to the origin of the group.",
+        "rationale": "Video Kids is a Dutch musical group, making '荷兰' (Netherlands) the correct answer. The other options are not plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -287,7 +287,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks which university Marian Fuks attended, but without additional context or information, it is not possible to determine the correct answer from the options provided. Multiple options could be valid, and the question lacks the necessary context to choose one.",
+        "rationale": "The question asks which university Marian Fuks attended. Both '黑尔姆施泰特大学' and '华沙大学' are plausible options, as Marian Fuks could have attended either. Without specific context, the question is ambiguous.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -312,8 +312,8 @@
       "answer_text": "苹果公司",
       "answer_index": 1,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question is ambiguous because '通讯录' (address book) is a generic term and could refer to various applications or features developed by different companies. Without specifying which '通讯录' is being referred to, multiple companies could potentially have developed an address book application. Therefore, the question lacks sufficient context to unambiguously determine the correct answer.",
+        "label": "A",
+        "rationale": "Apple Inc. (苹果公司) is known for developing the Contacts app, which is a type of address book. The other options do not have a known association with developing an address book application.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -338,8 +338,8 @@
       "answer_text": "挪威语",
       "answer_index": 2,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question is unclear because it does not specify which work by '泰根' is being referred to. Without this context, multiple options could potentially be valid, as '泰根' could refer to different artists or works. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks about the language used in the works of '泰根唱假'. The dataset-labeled answer is '挪威语', which is a plausible answer. The other options (巴伦西亚语, 吉拉基语, 白俄罗斯语) are less likely to be associated with this name, making the labeled answer the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -365,7 +365,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "C",
-        "rationale": "The word 'crocodile' in English is derived from the Greek word 'krokodilos'. Therefore, the correct origin is Greek, not English. The dataset-labeled answer is incorrect.",
+        "rationale": "The word 'crocodile' originates from the Greek word 'krokodilos,' not English. Therefore, the labeled answer '英语' (English) is incorrect.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -390,8 +390,8 @@
       "answer_text": "美国",
       "answer_index": 1,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the origin of '与星同居', but it is unclear what '与星同居' refers to. Without additional context, it is impossible to determine the correct answer, making the question ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the origin of '与星同居', which is a Chinese title for the American TV show 'Living with the Stars'. The dataset-labeled answer '美国' (United States) is correct, as the show is American.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -417,7 +417,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks which country '卡巴' belongs to, but '卡巴' is not a well-known entity or term that clearly belongs to any of the given options. Without additional context, it is ambiguous which option is correct.",
+        "rationale": "The question '卡巴属于哪个国家？' is ambiguous because '卡巴' could refer to multiple entities, such as a place or a person, and the options include countries and a historical region. Without more context, both '菲律宾' and '卢旺达' could be plausible answers.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -443,7 +443,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "DecapAttack is a video game developed by Vic Tokai, which is the correct answer labeled as 'Vic东海' in Chinese. The other options do not correspond to the developer of DecapAttack.",
+        "rationale": "DecapAttack was developed by Vic Tokai, which is the correct answer among the options provided. The other options are unrelated to the development of this game.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -469,7 +469,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer '林肯近地小行星研究小组' is correct. Asteroid 67999 was indeed discovered by the Lincoln Near-Earth Asteroid Research (LINEAR) team, which corresponds to option C.",
+        "rationale": "The dataset-labeled answer '林肯近地小行星研究小组' (Lincoln Near-Earth Asteroid Research) is the correct discoverer of asteroid 67999. No other options are plausible for this specific discovery.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -495,7 +495,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The game 'Dungeons & Dragons: Tower of Doom' was developed by Capcom, making option A the correct answer. The other options are unrelated to the development of this game.",
+        "rationale": "The question asks for the developer of 'Dungeons & Dragons: Tower of Doom', which is a game developed by Capcom. The other options are unrelated to game development or this specific game.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -521,7 +521,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks which university Wang Kai attended, but without additional context or information about Wang Kai, it is impossible to determine the correct answer. Multiple options could be valid, making the question ambiguous.",
+        "rationale": "The question asks which university Wang Kai attended. Without additional context, multiple options could be plausible, as 'Wang Kai' is a common name and could refer to different individuals. Both '中国人民大学' and other options could be correct for different people named Wang Kai.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -547,7 +547,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer '巴莱里亚诺·贝克尔' is correct. Valeriano Becquer is known for creating the 'Soria Farmers Dance'. The other options do not match this fact.",
+        "rationale": "The question asks for the creator of '索里亚农民舞蹈' (Soria Farmers' Dance). Among the options, 巴莱里亚诺·贝克尔 (Valeriano Becquer) is the most plausible answer, as the other names do not have a known connection to this work.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -573,7 +573,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer 'OCA-DLR小行星巡天' is correct. The OCA-DLR Asteroid Survey is known for discovering asteroids, including 53262.",
+        "rationale": "The OCA-DLR Asteroid Survey (OCA-DLR小行星巡天) is a plausible answer for the discovery of an asteroid, and none of the other options are known for discovering asteroids. The question is well-formed and the labeled answer is the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -599,7 +599,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The Catalina Sky Survey (卡特林那巡天系统) is indeed known for discovering many asteroids, including (19712) 1999 TL220. The other options do not correspond to known astronomical survey systems. Therefore, the labeled answer is correct.",
+        "rationale": "The question asks for the astronomical system that discovered asteroid (19712) 1999 TL220. The Catalina Sky Survey (卡特林那巡天系统) is a well-known astronomical survey system, making it the most plausible answer among the options provided.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -625,7 +625,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer, 阿方斯·路易·尼古拉斯·包瑞利, is indeed the astronomer who discovered asteroid 369. The other options do not correspond to the discoverer of this asteroid, making the labeled answer unambiguously correct.",
+        "rationale": "The question asks who discovered asteroid 369. Alphonse Louis Nicolas Borrelly (阿方斯·路易·尼古拉斯·包瑞利) is known for discovering several asteroids, making him the best fit among the options. The other options do not have a known connection to asteroid discoveries.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -651,7 +651,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Tamaulipas Bay, known as Tomares Bay in Chinese, is located in North America. The dataset-labeled answer '北美洲' (North America) is correct, and no other options are valid.",
+        "rationale": "Tomares Bay is located in North America, making option B the correct answer. The other options are incorrect as they refer to different continents.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -677,7 +677,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "Mendota Lookout Tower is located in North America, specifically in the United States. Therefore, the dataset-labeled correct answer '北美洲' (North America) is correct.",
+        "rationale": "Mendota Lighthouse is located in North America, specifically in the United States. The labeled answer is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -703,7 +703,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "Frederick Rolfe, also known as Baron Corvo, was born in London. The dataset-labeled answer '伦敦' is correct, and no other options are valid. The question is well-formed.",
+        "rationale": "Frederick Rolfe, also known as Baron Corvo, was born in London. The other options are unrelated locations, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -729,7 +729,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "格劳诺（Grano）是意大利的一个小镇，因此选项 B) 意大利 是正确的。其他选项都不符合。",
+        "rationale": "The question asks which country '格劳诺' belongs to. '格劳诺' is the Chinese name for 'Grano,' a municipality in Italy. Therefore, the labeled answer '意大利' (Italy) is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -755,7 +755,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "C",
-        "rationale": "The question asks about the continent where '布斯蒂略德查韦斯' is located. '布斯蒂略德查韦斯' (Bustillo de Chaves) is not a well-known place, and it does not appear to be located in Europe. The dataset-labeled answer '欧洲' (Europe) is incorrect. Without additional context, the correct answer cannot be determined from the given options.",
+        "rationale": "Bustillo de Chaves is located in Spain, which is in Europe. However, the dataset-labeled answer '欧洲' (Europe) is correct, so the labeling is correct. The question is well-formed and unambiguous.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -781,7 +781,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "C",
-        "rationale": "The FIFA headquarters was designed by the Swiss architect Tilla Theus, but the name '蒂拉·特尤斯' does not correspond to her name in Chinese. The correct Chinese name should be '蒂拉·特乌斯'. Therefore, the dataset-labeled answer is incorrect.",
+        "rationale": "The FIFA headquarters was designed by the Swiss architect Tilla Theus, not '蒂拉·特尤斯'. The name appears to be a mistranslation or incorrect transcription of Tilla Theus.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -806,8 +806,8 @@
       "answer_text": "电子音乐",
       "answer_index": 2,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the type of music associated with '埃德加斯·扎凯维丘斯', but without additional context or information about this person, it is difficult to determine the correct answer. The dataset labels '电子音乐' (electronic music) as correct, but without more context, other options could also be plausible. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks about the type of music associated with Edgars Zakevicius. Among the options, '电子音乐' (electronic music) is the most plausible answer, as the other options are specific genres that do not typically relate to this artist.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -832,8 +832,8 @@
       "answer_text": "孟买",
       "answer_index": 2,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks where Mira Viswanathan was born, but without additional context or information, it is unclear which option is correct. The dataset labels '孟买' (Mumbai) as the correct answer, but without verifying this fact, multiple options could potentially be valid. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the birthplace of 米拉·维苏德万, and the dataset labels 孟买 as the correct answer. The other options (布尔干, 科文特花园, 巴歇尔) are not plausible birthplaces for this individual, making 孟买 the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -859,7 +859,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The author of 'The German Lesson' (《德语课》) is Siegfried Lenz (齐格飞·蓝茨), making option B the correct answer. The other options are not related to this work.",
+        "rationale": "The author of 'The German Lesson' (《德语课》) is Siegfried Lenz (齐格飞·蓝茨). The other options are unrelated to this work.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -885,7 +885,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The architect of the Church of the Immaculate Conception is indeed Joseph Prószkowski (约瑟夫·普洛斯科). The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The dataset-labeled answer, 约瑟夫·普洛斯科, is the architect of the Church of the Immaculate Conception. The other options do not match this role for the church.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -910,8 +910,8 @@
       "answer_text": "基尔大学",
       "answer_index": 0,
       "llm_eval": {
-        "label": "A",
-        "rationale": "Gerhard Lagaly is known to have worked at Kiel University, making option A the correct answer. There is no indication that he worked at any of the other universities listed.",
+        "label": "B",
+        "rationale": "The question asks where Gerhard Lagaly works, and both '基尔大学' (Kiel University) and '伍珀塔尔大学' (University of Wuppertal) are plausible options. Without specific information, it's ambiguous.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -937,7 +937,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks about the continent where '于尔克利' is located, but '于尔克利' is not a recognizable name for a place in Chinese. Without additional context, it is unclear which continent it refers to, making the question ambiguous.",
+        "rationale": "The question asks about the continent where '于尔克利' is located. The options include '亚洲' (Asia) and '欧亚非大陆' (Eurasia-Africa continent), both of which could be plausible depending on the interpretation of '于尔克利'. The question is ambiguous as it does not specify clearly enough to distinguish between these options.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -963,7 +963,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks about the manufacturer of the Volkswagen Pointer, which is a car model produced by Volkswagen Group. The labeled answer '大众集团' (Volkswagen Group) is correct and unambiguous.",
+        "rationale": "The question asks which company manufactures the Volkswagen Pointer. The Volkswagen Group is the correct answer, as it is the manufacturer of the Volkswagen Pointer. None of the other options are plausible manufacturers for this vehicle.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -988,8 +988,8 @@
       "answer_text": "德国",
       "answer_index": 0,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the nationality of 洛萨·克雷尔, but without additional context or information about who this person is, it is impossible to determine the correct answer. Multiple options could be valid, and the question lacks sufficient context to choose one.",
+        "label": "A",
+        "rationale": "The question asks for the nationality of 洛萨·克雷尔. Among the options, only 德国 (Germany) is a plausible answer, as the other options are unrelated to any known entity by that name.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1015,7 +1015,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The creator of the 'Stolpersteine' (stumbling stones) project, which includes the work dedicated to Ludwig Marz, is Gunter Demnig. Therefore, the dataset-labeled answer is correct.",
+        "rationale": "The question asks for the creator of 'Stolpersteine for Ludwig Marz', which is a project by Gunter Demnig. None of the other options are associated with this project.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1041,7 +1041,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "CD Projekt RED is the correct developer of 'The Witcher: Battle Arena'. The other options are not related to this game, making the dataset-labeled answer unambiguously correct.",
+        "rationale": "CD Projekt RED is the developer of 'The Witcher: Battle Arena'. The other options are unrelated to this game.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1067,7 +1067,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Misty Talley is indeed the director of the film 'Ozark Sharks'. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "Misty Talley is the director of the film 'Ozark Sharks'. The other options do not match the director of this film.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1093,7 +1093,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "图里斯（Toulouse）是法国的一座城市，位于欧洲。因此，选项B（欧洲）是正确的，其他选项都不符合。",
+        "rationale": "图里斯（Tours）是法国的一个城市，位于欧洲。因此，选项B（欧洲）是正确的。其他选项明显不符合题意。",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1118,8 +1118,8 @@
       "answer_text": "阿尔巴尼亚列克",
       "answer_index": 0,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the currency used by a sovereign state of the Bektashi Order. The Bektashi Order is a Sufi order, not a sovereign state, making the question problematic. Without additional context, it's unclear why '阿尔巴尼亚列克' is the correct answer, as the Bektashi Order is not a country.",
+        "label": "A",
+        "rationale": "The Bektashi Order is primarily associated with Albania, where the currency is the Albanian Lek (阿尔巴尼亚列克). The other options do not relate to Albania or the Bektashi Order.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1145,7 +1145,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks which company manufactures Fanta. Fanta is a brand of fruit-flavored carbonated soft drinks created by The Coca-Cola Company. Therefore, the dataset-labeled answer '可口可乐公司' (The Coca-Cola Company) is correct, and no other options are valid.",
+        "rationale": "The question asks which company manufactures Fanta. The correct answer is '可口可乐公司' (Coca-Cola Company), as Fanta is a brand owned by Coca-Cola. None of the other options are plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1171,7 +1171,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks for the official language of Finland (\"伊卡利宁\" is a transliteration of \"Finland\" in Chinese). The correct answer is \"芬兰语\" (Finnish), which is unambiguously the official language of Finland. No other options are valid.",
+        "rationale": "The question asks for the official language of '伊卡利宁' (Ikalinen), which is a place in Finland. The correct official language is Finnish (芬兰语), making option B the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1197,7 +1197,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question is ambiguous because it does not specify which 'Anil' is being referred to, and without additional context, multiple options could be valid. The question lacks sufficient information to determine the correct language associated with 'Anil's work or name.",
+        "rationale": "The question is ambiguous because '阿尼尔' could refer to multiple individuals or entities, each potentially associated with different languages. Without specific context, both '印度斯坦语' and '旁遮普语' could be plausible answers.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1222,8 +1222,8 @@
       "answer_text": "马达加斯加法郎",
       "answer_index": 0,
       "llm_eval": {
-        "label": "C",
-        "rationale": "The currency of Madagascar is the Malagasy ariary, not the Malagasy franc. Therefore, the labeled answer is incorrect.",
+        "label": "A",
+        "rationale": "The question asks for the currency of the Democratic Republic of Madagascar. The correct currency is the Malagasy franc, which matches option A. The other options are unrelated currencies from different countries.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1249,7 +1249,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks which company developed '超光速' (faster-than-light technology), but none of the options clearly correspond to a known company associated with such technology. The dataset-labeled answer '微文公司' does not have a clear connection to the concept of faster-than-light technology, making the question ambiguous or underspecified.",
+        "rationale": "The question is ambiguous because it is unclear what '超光速' refers to, and none of the options clearly relate to a company known for developing something called '超光速'. The options include a company, an individual, and other unrelated entities, making it difficult to determine the correct answer.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1275,7 +1275,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The director of the film 'The Fourth Floor' is indeed Antonio Mercero, which corresponds to option C. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The dataset-labeled answer '安东尼奥·梅塞罗' is the correct director of the film '第四楼'. The other options do not match the director of this film.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1301,7 +1301,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "R.A. Salvatore is indeed the author of 'The Cleric Quintet' (《牧师五部曲》 in Chinese), making the dataset-labeled answer correct.",
+        "rationale": "R.A. Salvatore is known for writing 'The Cleric Quintet' series, which is the English title for 《牧师五部曲》. None of the other options are associated with this work.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1327,7 +1327,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The \"科本级潜艇\" (Kilo-class submarine) is indeed manufactured by \"北海造船公司\" (Beihai Shipbuilding Corporation), making the dataset-labeled answer correct. The other options are unrelated to submarine manufacturing.",
+        "rationale": "The question asks for the manufacturer of the Kilo-class submarine. '北海造船公司' (Beihai Shipbuilding Corporation) is a plausible answer, while the other options are unrelated to submarine manufacturing.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1352,8 +1352,8 @@
       "answer_text": "意大利",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the origin of '圣彼得堡的恶魔' (St. Petersburg's demon), but without additional context, it is unclear what this refers to. It could be a historical figure, a fictional character, or something else entirely. Without this context, it is impossible to determine the correct answer, making the question ambiguous.",
+        "label": "A",
+        "rationale": "The question asks about the origin country of '圣彼得堡的恶魔' (Demon of St. Petersburg). The dataset labels '意大利' (Italy) as the correct answer, which is plausible as it could refer to a work or concept originating from Italy. The other options do not fit as well, making the labeled answer the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1378,8 +1378,8 @@
       "answer_text": "亚洲",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the continent where '埃格科伊' is located, but '埃格科伊' is not a recognizable name for a place in Chinese. Without additional context or clarification, it is impossible to determine the correct answer. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks which continent Egkoi is located in. The labeled answer '亚洲' (Asia) is the best fit among the options, as Egkoi is a location in Asia. The other options do not apply.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1405,7 +1405,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks for the official language of Valtimo, which is a municipality in Finland. Therefore, the official language is Finnish (芬兰语), making option C the correct answer. The other options do not apply to Valtimo.",
+        "rationale": "The question asks for the official language of Valtimo, which is a place in Finland. Therefore, Finnish (芬兰语) is the correct answer.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1431,7 +1431,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The GP32 is a handheld game console developed by the South Korean company GamePark. The other options are unrelated to the GP32, making the dataset-labeled answer correct.",
+        "rationale": "The GP32 is a handheld game console developed by GamePark. None of the other options are related to the production of the GP32, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1457,7 +1457,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "Friedrich von Bodenstedt was a German writer and translator, making Germany the correct answer for his nationality. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "弗里德里希·冯·波德维尔斯是一个典型的德国名字，且没有其他选项与德国同样合理。",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1483,7 +1483,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks for the language of a music compilation album titled 'So Fresh: The Hits of Summer 2002 + The Biggest Hits of 2001'. Given the context of popular music compilations, it is reasonable to conclude that the language is English, as 'So Fresh' is a well-known English-language music series. The dataset-labeled answer '英语' (English) is correct.",
+        "rationale": "The question asks for the language of a music compilation album, which is likely to be in English given the context of popular songs from 2001 and 2002. The other options (Mazanderani, Old East Slavic, Assamese) are not plausible for this context.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1509,7 +1509,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks which university Duke Williams attended, but without additional context or information about Duke Williams, it is difficult to determine the correct answer. Multiple options could be valid, and the question lacks specificity.",
+        "rationale": "The question is ambiguous because '杜克·威廉姆斯' could refer to different individuals, and more than one option could be plausible depending on the context. Without specific context, both A and D could be plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1535,7 +1535,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer '近地小行星追踪' (Near-Earth Asteroid Tracking) is correct. The asteroid 63509 was indeed discovered by the Near-Earth Asteroid Tracking program, and no other options are valid for this discovery.",
+        "rationale": "The dataset-labeled answer '近地小行星追踪' (Near-Earth Asteroid Tracking) is the best fit among the options for the discovery of asteroid 63509. The other options do not specifically relate to the discovery of this asteroid.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1561,7 +1561,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "泰尔讷站是一个位于法国巴黎的地铁站，因此它位于欧洲。选项D“欧洲”是唯一正确的答案。其他选项涉及虚构的大陆或不相关的大陆。",
+        "rationale": "The question asks about the continent where Ternay station is located. '欧洲' (Europe) is the correct answer, as Ternay is a place in France, which is in Europe. The other options are fictional continents.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1587,7 +1587,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The title '生活大爆炸：2006-2014精选' suggests a collection related to 'The Big Bang Theory,' which is primarily in English but may include other languages in a 'selected' compilation. '多语种' (multilingual) is the most fitting option, as the other options are specific languages unlikely to be the primary language of this work.",
+        "rationale": "The title '生活大爆炸：2006-2014精选' suggests a collection related to 'The Big Bang Theory', which is likely to be in multiple languages. The other options are specific languages that do not fit the context, making '多语种' the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1613,7 +1613,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks where William P. Harrison works, but without additional context or information about who William P. Harrison is, multiple options could be valid. The dataset labels '欧本大学' (Auburn University) as correct, but without more context, it's impossible to confirm this as the only correct answer.",
+        "rationale": "The question is ambiguous because both '欧本大学' and '克里夫兰州立大学' could be plausible workplaces for someone named 威廉·P·哈里森. Without specific context, it's unclear which is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1639,7 +1639,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer '劳伦斯·布卢姆' is correct. Lawrence Blume is the director of the film 'Tiger Eyes'. The other options do not match the known director of this film.",
+        "rationale": "The dataset-labeled answer, 劳伦斯·布卢姆, is the correct director of the film 'Eye of the Tiger'. The other options do not match the known director of this film.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1665,7 +1665,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks about the continent where the Barcelona Metro Line 4 is located. Barcelona is a city in Spain, which is in Europe. Therefore, the correct answer is unambiguously A) 欧洲.",
+        "rationale": "The Barcelona Metro Line 4 is located in Europe, as Barcelona is a city in Spain, which is in Europe. The other options are incorrect continents for this location.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1690,8 +1690,8 @@
       "answer_text": "汉堡大学",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the university that employs Günter Rahlfs. Without additional context or information, it is not possible to determine which university is correct. The dataset labels '汉堡大学' (Hamburg University) as the correct answer, but this cannot be verified without further context. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the university that employs Günter Rahlfs. Among the options, only '汉堡大学' (Hamburg University) is a plausible answer, as the other options are unrelated or incorrect.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1717,7 +1717,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks for the nationality of '艾伦·哈珀', but without additional context, it is unclear who this refers to. There could be multiple individuals with this name, and the options provided do not help clarify which '艾伦·哈珀' is being referred to. Therefore, the question is ambiguous.",
+        "rationale": "The question is ambiguous because '艾伦·哈珀' could refer to multiple individuals, and without additional context, both '英国' and other options could be plausible. The question lacks specificity.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1742,8 +1742,8 @@
       "answer_text": "澳大利亚",
       "answer_index": 3,
       "llm_eval": {
-        "label": "C",
-        "rationale": "The question asks about the primary country of residence for the '农噶尔人' (Nungar people), who are an Indigenous group in Australia. However, the dataset-labeled answer '澳大利亚' (Australia) is correct, but the question is misleading because '农噶尔人' is not a recognized term for any group in Australia. The correct term should be 'Noongar' or 'Nyoongar'. Therefore, the labeling is incorrect due to the factual inaccuracy in the question.",
+        "label": "A",
+        "rationale": "The question asks about the primary country where the Nungar people reside. The Nungar (or Noongar) are an Indigenous Australian people, making Australia the correct answer.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1768,8 +1768,8 @@
       "answer_text": "汉堡大学",
       "answer_index": 0,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the university Sylvia Paletschek attended, but without additional context or information, it's unclear which option is correct. The dataset labels '汉堡大学' as correct, but without verifying this fact, multiple options could be plausible. Therefore, the question is underspecified.",
+        "label": "A",
+        "rationale": "The question asks which university Sylvia Paletschek attended. Among the options, only '汉堡大学' (University of Hamburg) is a plausible answer, as the other options are unrelated or incorrect.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1794,8 +1794,8 @@
       "answer_text": "柏林洪堡大学",
       "answer_index": 1,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks where Claudia Schmölders works, but without additional context or information, it's unclear which university is correct. The dataset labels 'Berlin Humboldt University' as correct, but without verifying this fact, multiple options could be plausible.",
+        "label": "A",
+        "rationale": "The question asks about the university where Claudia Schmölders works. The dataset-labeled answer, Humboldt University of Berlin, is a plausible and specific answer, and no other options are known to be correct for this individual.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1821,7 +1821,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer '北京天文台施密特CCD小行星计划' is correct. Options A, C, and D are names of individuals, not astronomical programs, making them unlikely to be correct answers to the question about which program discovered the asteroid.",
+        "rationale": "The question asks for the astronomical program that discovered asteroid 31195. The labeled answer, '北京天文台施密特CCD小行星计划' (Beijing Schmidt CCD Asteroid Program), is the only option that fits the description of an astronomical program. The other options are names of individuals, making them implausible answers.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1847,7 +1847,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks about the currency of Germany. The correct answer is the Euro (欧元), which is option D. The other options are currencies of different countries: Israel, Argentina, and Iceland. Therefore, the dataset-labeled answer is correct.",
+        "rationale": "The question asks for the currency of Germany. The correct answer is '欧元' (Euro), and none of the other options are plausible currencies for Germany.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1873,7 +1873,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks for a type of movie, and multiple options could be valid. Both '音乐片' (musical) and '爱情片' (romance) are common movie genres. '教育娱乐' (edutainment) and '小说改编电影' (film adaptation) could also be considered types of movies, depending on interpretation. The question lacks specificity to unambiguously select one correct answer.",
+        "rationale": "The question asks for a type of film, and both '爱情片' (romance film) and '音乐片' (musical film) are valid film genres. The options '教育娱乐' (edutainment) and '小说改编电影' (film adapted from a novel) are less standard as film genres, but the presence of two plausible genres makes the item ambiguous.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1899,7 +1899,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question 'K的故乡是？' is ambiguous because 'K' is not defined. Without additional context, it is impossible to determine which option is correct. The dataset-labeled answer '日本' could be correct if 'K' refers to a specific person or entity associated with Japan, but this is not clear from the question itself.",
+        "rationale": "The question 'K的故乡是？' is ambiguous because 'K' is not specified. Without context, multiple options could be plausible, such as '捷克' or '日本', depending on the intended reference for 'K'.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1925,7 +1925,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Opera Mini is a web browser developed by Opera Software, which is correctly identified as 'Opera软件公司' in the options. The other options do not relate to the development of Opera Mini, making the labeled answer unambiguously correct.",
+        "rationale": "Opera Mini is a web browser developed by Opera Software. The other options are unrelated to the development of Opera Mini.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1951,7 +1951,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Robert Aldrich, the American film director, died in Los Angeles. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The dataset-labeled answer '洛杉矶' is correct. Robert Aldrich, the American film director, died in Los Angeles. The other options are not plausible locations for his death.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1977,7 +1977,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks which university Edward Tudenham attended, but without additional context or information about Edward Tudenham, it is not possible to determine the correct answer. The dataset labels '伦敦大学' as correct, but this cannot be verified from the given options alone.",
+        "rationale": "The question asks which university Edward Tudenham attended. Both '伦敦大学' (London University) and '旧金山艺术大学' (San Francisco Art University) could be plausible options without more context, making the item ambiguous.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2003,7 +2003,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The phrase \"脚踏实地\" (down-to-earth) is commonly associated with hip-hop music, as it often emphasizes authenticity and real-life experiences. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The phrase '脚踏实地' (Down to Earth) is commonly associated with hip-hop music, which often emphasizes authenticity and real-life experiences. The other options do not fit this association as well.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2029,7 +2029,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The architect of Westminster Bridge is indeed Thomas Page, who was an engineer. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "Thomas Page (汤马斯·佩吉) is the known engineer associated with Westminster Bridge, making the dataset-labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2055,7 +2055,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer '塞纳河畔伊夫里' is correct. Marie Mansart, a French actress, died in Ivry-sur-Seine (塞纳河畔伊夫里). The other options do not match the known location of her death.",
+        "rationale": "The dataset-labeled answer '塞纳河畔伊夫里' is the best fit among the options for the question about where 玛丽·曼萨尔 died. There is no indication that any other option is also correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2081,7 +2081,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Lucio Battisti, an Italian singer-songwriter, passed away in Rome. The dataset-labeled answer '罗马' is correct and unambiguous.",
+        "rationale": "The question asks where Lucio Battistrada died. Among the options, '罗马' (Rome) is the most plausible answer, and there is no indication that any other option is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2107,7 +2107,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Lin Radner, also known as Lynn Redgrave, passed away in East Hampton, which corresponds to the option '东汉普顿镇'. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The question asks where Lin Radner died. The dataset-labeled answer '东汉普顿镇' (East Hampton) is the best fit among the options, with no other option being a plausible answer.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2133,7 +2133,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks about the genre of the album '1984' released in 1984, but it does not specify the artist. Multiple artists could have released albums titled '1984' in that year, making it ambiguous without additional context. Therefore, the labeling of '前卫摇滚' as the correct answer is not unambiguously right.",
+        "rationale": "The question is ambiguous because the album '1984' could refer to different works by different artists, each potentially belonging to different genres. Without specifying the artist, both '前卫摇滚' (progressive rock) and other genres could be plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2159,7 +2159,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The architect of the Interlace building is Ole Scheeren, which is 奥雷·舍人 in Chinese. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The question asks for the architect of 互联大厦 (Interlace Building), which is known to be designed by 奥雷·舍人 (Ole Scheeren). The other options do not match this building, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2184,8 +2184,8 @@
       "answer_text": "加拿大",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the nationality of James Blackburn, but without additional context, it is unclear which James Blackburn is being referred to. There could be multiple individuals with that name from different nationalities. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the nationality of James Blackburn. Among the options, '加拿大' (Canada) is the only plausible nationality. The other options do not represent nationalities or are incorrect in this context.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2211,7 +2211,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Brian Shelley is an Irish footballer, making the labeled answer '爱尔兰共和国' (Ireland) correct. No other options are valid.",
+        "rationale": "The question asks for the nationality of Brian Shelley. Among the options, Ireland (爱尔兰共和国) is the most plausible answer, as Brian Shelley is an Irish footballer. The other options do not fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2237,7 +2237,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "Don Self is a fictional character from the American TV series 'Prison Break', and he is portrayed as an American. Therefore, the dataset-labeled answer '美国' (United States) is correct.",
+        "rationale": "The question asks for the nationality of Don Self, and the dataset labels '美国' (United States) as the correct answer. The other options (加利西亚王国, 俄罗斯, 新加坡) are not plausible for a person named Don Self, who is a character from the American TV series 'Prison Break.' Therefore, the labeled answer is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2263,7 +2263,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Daniel Chaudon is known for Brazilian pop music, which aligns with option A. The other options do not match his music style.",
+        "rationale": "The question asks about the type of music associated with Daniel Chaudon. The labeled answer '巴西风流行音乐' (Brazilian pop music) is the best fit among the options, as the other options refer to different genres or regions that do not match.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2288,8 +2288,8 @@
       "answer_text": "亚洲",
       "answer_index": 0,
       "llm_eval": {
-        "label": "C",
-        "rationale": "The question asks which continent '杜鲁' belongs to. '杜鲁' is not a recognized geographical entity or location, making the dataset-labeled answer '亚洲' incorrect. The question is nonsensical as it stands.",
+        "label": "B",
+        "rationale": "The question is ambiguous because '杜鲁' could refer to multiple entities, and without additional context, both '亚洲' and '北美洲' could be plausible answers depending on the specific entity being referred to.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2315,7 +2315,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer '林绍良' is correct. '营多面' is a brand of instant noodles created by Indonesian businessman 林绍良 (Liem Sioe Liong). The other options are unrelated to this product.",
+        "rationale": "The question asks for the creator of '营多面', which is a brand of instant noodles. Lin Shaoliang (林绍良) is known for founding the company that produces 'Indomie', a well-known brand of instant noodles. The other options are unrelated to this context.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2340,8 +2340,8 @@
       "answer_text": "阿姆斯特朗惠特沃斯",
       "answer_index": 1,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the manufacturer of '斯托斯塔德号', but without additional context, it is unclear what '斯托斯塔德号' refers to. Multiple options could be valid depending on the context, making the question ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the manufacturer of '斯托斯塔德号'. Among the options, '阿姆斯特朗惠特沃斯' is the most plausible answer, as it is a known manufacturer of ships and aircraft, fitting the context of a vessel or vehicle. The other options do not fit as well.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2367,7 +2367,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "C",
-        "rationale": "The film '情因孽果' is directed by Peter Cousens, not Ernst Lubitsch. Therefore, the dataset-labeled answer is incorrect.",
+        "rationale": "Ernst Lubitsch (恩斯特·刘别谦) is not the director of the film '情因孽果' (also known as 'The Railway Man'). The correct director is Jonathan Teplitzky. None of the options provided are correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2393,7 +2393,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The film \"等待黎明\" (Wait Until Dawn) is directed by 梁普智 (Ringo Lam). The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The film '等待黎明' (Waiting for Dawn) is directed by 梁普智 (Leong Po-Chih), making the labeled answer correct. The other options are unrelated directors.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2419,7 +2419,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "George Uhlenbeck, a physicist, studied at Ghent University, making option C the correct answer. The question is clear and unambiguous.",
+        "rationale": "The question asks about the university attended by 乔治·于兰·德洛. Among the options, 根特大学 is the best fit, and no other option is plausibly correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2445,7 +2445,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks for the creator of 'Stolpersteine for Bruno Katz', which is a project by Gunter Demnig. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The question asks for the creator of 'Stolpersteine for Bruno Katz'. Gunter Demnig is known for creating the Stolpersteine project, which includes memorials for individuals like Bruno Katz. The other options are not associated with this project.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2471,7 +2471,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks for the nationality of '杰兹·史密斯', but without additional context or information about who this person is, it is impossible to determine the correct answer. The name alone does not provide enough information to unambiguously select '英国' or any other option as the correct nationality.",
+        "rationale": "The question asks for the nationality of Jez Smith, but without additional context, it's unclear which Jez Smith is being referred to. Multiple options could be plausible if there are different individuals with that name from different countries.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2496,8 +2496,8 @@
       "answer_text": "横滨市",
       "answer_index": 1,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the birthplace of '南満腹', but without additional context or information about who '南満腹' is, it is impossible to determine the correct answer. The dataset-labeled answer '横滨市' could be correct, but without more context, it is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the birthplace of 南満腹. Among the options, 横滨市 (Yokohama) is the only plausible answer, as the other options are unrelated locations. The dataset-labeled answer is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2523,7 +2523,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "马吕埃若尔莱加尔东（Marseille-lès-Aubigny）是一个位于法国的地名，因此选项A（法国）是正确的。其他选项与该地名无关。",
+        "rationale": "马吕埃若尔莱加尔东（Marolles-les-Gondreaux）是一个位于法国的地名，因此选项A（法国）是正确的。其他选项与该地名无关。",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2549,7 +2549,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Michael Wolff is an American author and journalist, so the dataset-labeled answer '美国' (United States) is correct. The other options do not apply to him.",
+        "rationale": "The question asks for the nationality of Michael Wolff. Among the options, '美国' (United States) is the most plausible answer, as Michael Wolff is known to be an American author and journalist. The other options do not fit his known nationality.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2575,7 +2575,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The artwork 'Silver Car Crash (Double Disaster)' was created by Andy Warhol, making option D the correct answer.",
+        "rationale": "The artwork 'Silver Car Crash' is indeed created by Andy Warhol, making option D the correct answer.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2600,8 +2600,8 @@
       "answer_text": "索雷西纳",
       "answer_index": 0,
       "llm_eval": {
-        "label": "A",
-        "rationale": "Laura Nicolini was born in Soresina, making option A the correct answer. The question is clear and unambiguous, and no other options are valid.",
+        "label": "B",
+        "rationale": "The question asks for the birthplace of Laura Nicolini. Both '索雷西纳' (Soresina) and '蓬泰维科' (Pontevico) are plausible options as potential birthplaces, making the item ambiguous.",
         "model": "gpt-4o"
       },
       "human_eval": {

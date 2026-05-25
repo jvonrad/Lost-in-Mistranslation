@@ -27,7 +27,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "Dulliken is a municipality in Switzerland where the official language is German. Therefore, the dataset-labeled answer 'немецкий язык' (German) is correct.",
+        "rationale": "Dulliken is a municipality in Switzerland where the official language is German. The other options are unrelated to the region.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -53,7 +53,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "Guillermo Fernández Groizard was born in Palma, making the dataset-labeled answer correct and unambiguous.",
+        "rationale": "The question asks for the birthplace of Guillermo Fernández Groizard. Among the options, 'Пальма' (Palma) is the most plausible answer, as it is a city in Spain, which aligns with the likely origin of the name. The other options are cities in different countries and are less likely to be correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -79,7 +79,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) program is indeed credited with the discovery of the asteroid (103965) 2000 DW78, making option C correct. No other options are valid for this discovery.",
+        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) project is known for discovering many asteroids, including (103965) 2000 DW78. The other options do not match this discovery, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -105,7 +105,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The National Library of India is indeed located in India, making option C the correct answer. The other options are unrelated countries.",
+        "rationale": "The National Library of India is located in India, making option C the correct answer. The other options are unrelated countries.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -130,8 +130,8 @@
       "answer_text": "Университет Сонгюнгван",
       "answer_index": 0,
       "llm_eval": {
-        "label": "C",
-        "rationale": "The question asks about a person, 'Ли Хён-хи', but the options are all universities. The dataset-labeled answer 'Университет Сонгюнгван' does not answer the question about who 'Ли Хён-хи' is. Therefore, the labeled answer is incorrect.",
+        "label": "B",
+        "rationale": "The question asks 'Who is Lee Hyun-hee?' but the options are universities, which suggests a mismatch between the question and the options. This makes the item ambiguous or underspecified.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -157,7 +157,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The architect of the Avignon-Centre station is indeed Louis-Jules Bouchot, making option C the correct answer. The other options do not correspond to the architect of this station.",
+        "rationale": "The question asks for the architect of Avignon-Centre station. Among the options, only Louis-Jules Bouchot (Луи-Жюль Бушо) is a plausible answer, as he is known for his work on French railway stations. The other options do not fit the context.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -183,7 +183,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "C",
-        "rationale": "Ilona Staller, known as Cicciolina, is an Italian-Hungarian porn star and politician. None of the options listed, including 'Полиция Венгрии' (Hungarian Police), are correct employers for her. The dataset-labeled answer is factually incorrect.",
+        "rationale": "Ilona Staller, known as Cicciolina, is not associated with the Hungarian Police. She is an Italian-Hungarian porn star and politician, and none of the options are correct employers for her.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -209,7 +209,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset labels 'Киотский университет' as the correct answer, which is indeed the institution where Ядзо Кокэцу studied. The other options are not related to him, making the labeled answer unambiguously correct.",
+        "rationale": "The question asks about the educational institution attended by Ядзо Кокэцу. Киотский университет is a plausible answer, and none of the other options are likely correct for this individual. The question is well-formed.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -235,7 +235,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Adolf Thuma was an Austrian painter, so the correct citizenship is Austria. The other options are not relevant to his nationality.",
+        "rationale": "The question asks about the citizenship of Adolf Tuma. Among the options, Austria is the most plausible answer, as the other options are unrelated or historically inaccurate for a person likely associated with Austria.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -261,7 +261,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The project Video Kids originated in the Netherlands, making option A the correct answer. The other options are not valid, as Video Kids is not associated with any of them.",
+        "rationale": "Video Kids is a Dutch musical project, making the labeled answer 'Нидерланды' correct. The other options are not plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -287,7 +287,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Marian Fuks was a Polish historian and journalist who studied at the University of Warsaw. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The question asks about the educational institution attended by Marian Fuks. Among the options, 'Варшавский университет' is the most plausible and specific answer, with no other options being equally plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -313,7 +313,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Apple Inc. is the correct and unambiguous developer of the iOS operating system. None of the other options are valid developers for iOS.",
+        "rationale": "Apple Inc. is the developer of the iOS operating system. The other options are unrelated to iOS development.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -339,7 +339,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The song 'Teigen synger Falsk' is in Norwegian, as indicated by the title. The dataset-labeled answer 'норвежский язык' is correct and unambiguous.",
+        "rationale": "The song title 'Teigen synger Falsk' is in Norwegian, making 'норвежский язык' the correct answer. The other options are unrelated languages.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -365,7 +365,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "C",
-        "rationale": "The book 'Krokodil' was originally written in Russian by Fyodor Dostoevsky. The dataset-labeled answer 'английский язык' (English) is incorrect.",
+        "rationale": "The original language of the book 'Крокодил' by Fyodor Dostoevsky is Russian, not English. None of the options correctly reflect this.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -391,7 +391,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The TV series 'Married... with Children', which 'Счастливы вместе' is based on, first aired in the USA. Therefore, the labeled answer 'США' is correct.",
+        "rationale": "The series 'Счастливы вместе' is the Russian adaptation of the American TV show 'Married... with Children,' which originally aired in the USA. Therefore, the labeled answer 'США' is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -416,8 +416,8 @@
       "answer_text": "Филиппины",
       "answer_index": 3,
       "llm_eval": {
-        "label": "C",
-        "rationale": "The question asks about 'Каба' as a state, but none of the options are correct. 'Каба' is not a state in the Philippines or any of the other listed countries. The dataset-labeled answer is incorrect.",
+        "label": "A",
+        "rationale": "The question asks about the location of 'Каба' as a state, and the dataset labels 'Филиппины' as the correct answer. Given the options, 'Филиппины' is the most plausible answer, as the other options do not correspond to a known state named 'Каба.'",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -443,7 +443,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "C",
-        "rationale": "The correct developer of DecapAttack is Vic Tokai, not Tokai Communications Corporation. Therefore, the labeled answer is incorrect.",
+        "rationale": "The correct developer of DecapAttack is Vic Tokai, not Tokai Communications Corporation. This is a naming divergence issue, but it affects answerability because Tokai Communications Corporation is a different entity.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -469,7 +469,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) program is indeed credited with the discovery of the asteroid (67999) 2000 XC32. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The Lincoln Near-Earth Asteroid Research (LINEAR) program is known for discovering many asteroids, including (67999) 2000 XC32. The other options are different asteroid or astronomical surveys, but LINEAR is the correct one for this specific asteroid.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -495,7 +495,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Capcom is indeed the developer of the game 'Dungeons & Dragons: Tower of Doom'. The other options are not related to the development of this game, making the dataset-labeled answer correct.",
+        "rationale": "Capcom is the correct developer of the game 'Dungeons & Dragons: Tower of Doom'. The other options are unrelated to the game development industry or the specific game.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -521,7 +521,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks about the educational institution attended by Van Kai, but without additional context or information about who Van Kai is, it is difficult to determine the correct answer. Multiple options could be valid depending on the specific Van Kai in question, making the labeling ambiguous.",
+        "rationale": "The question is about the educational institution attended by Van Kai. Without additional context, it is unclear which Van Kai is being referred to, and multiple options could be plausible. The question is underspecified.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -546,8 +546,8 @@
       "answer_text": "Валериано Домингес Беккер",
       "answer_index": 1,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the creator of a specific dance in Soria, but it is unclear if this is a well-known fact or if the options provided are relevant to this context. Without additional context or knowledge about this specific dance, it is difficult to determine if the labeled answer is correct. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the creator of a specific dance in Soria. Among the options, Valeriano Domínguez Bécquer is the most plausible answer, as the other options do not have a known connection to this context.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -573,7 +573,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer 'астероидный обзор OCA-DLR' is correct. The OCA-DLR Asteroid Survey is known for discovering asteroids, and there is no ambiguity or error in the question or options.",
+        "rationale": "The dataset-labeled answer 'астероидный обзор OCA-DLR' is the best fit among the options. The other options are either unrelated or incorrect for the discovery of an asteroid.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -599,7 +599,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The object (19712) 1999 TL220 is an asteroid discovered by the Catalina Sky Survey, which is referred to as 'Обзор Каталина' in Russian. The other options do not relate to the discovery of this asteroid. Therefore, the dataset-labeled answer is correct.",
+        "rationale": "The question asks for the discoverer or inventor of (19712) 1999 TL220, which is an asteroid. The Catalina Sky Survey (Обзор Каталина) is known for discovering asteroids, making it the best fit among the options. The other options do not relate to asteroid discovery.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -624,8 +624,8 @@
       "answer_text": "Альфонс Луис Николас Борелли",
       "answer_index": 2,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question is unclear because 'Аэрия' is not a well-defined term or concept in Russian or English, making it difficult to determine who its discoverer or inventor might be. Without additional context, multiple options could be valid or none at all.",
+        "label": "A",
+        "rationale": "Alphonse Louis Nicolas Borrelly is known for his work in astronomy, not for discovering or inventing 'Aeria'. The question likely refers to a different context or entity, but given the options, Borrelly is the best fit as the dataset-labeled answer.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -651,7 +651,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Tomales is a town located in California, USA, which is on the continent of North America. Therefore, the dataset-labeled answer 'Северная Америка' (North America) is correct.",
+        "rationale": "Tomales is a location in California, which is in North America. The labeled answer is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -677,7 +677,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Mendota Overlook is located in North America, specifically in the United States. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "Mendota Overlook is located in North America, specifically in the United States. The labeled answer is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -703,7 +703,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Baron Corvo, the pseudonym of Frederick Rolfe, was born in London. The dataset-labeled answer 'Лондон' is correct, and no other options are valid.",
+        "rationale": "Baron Corvo, also known as Frederick Rolfe, was born in London. The other options are unrelated locations, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -729,7 +729,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The city of Grauno is located in Italy, specifically in the Trentino-Alto Adige/Südtirol region. None of the other options are correct, making the dataset-labeled answer unambiguously correct.",
+        "rationale": "The city of Grauno is located in Italy. None of the other options are plausible, as Grauno is not in Liechtenstein, Thailand, or the United Arab Emirates.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -754,8 +754,8 @@
       "answer_text": "Европа",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the continent where Rafael Bustillo-de-Chavez was born, but the options include regions (Central America, Caribbean) and a continent (Asia, Europe). This makes the question ambiguous, as Central America and the Caribbean are not continents. Without additional context, it's unclear if Europe is the correct answer.",
+        "label": "A",
+        "rationale": "The question asks about the continent where Rafael Bustillo de Chavez was born. Europe is the only option that is a continent, making it the best fit among the given options.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -781,7 +781,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Tilla Theus is indeed the architect of the FIFA headquarters. The other options are not related to this building, making the labeled answer unambiguously correct.",
+        "rationale": "Tilla Theus is the architect of the FIFA headquarters. The other options are not related to this building, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -806,8 +806,8 @@
       "answer_text": "электронная музыка",
       "answer_index": 0,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the music genre associated with Edgaras Žakevičius. The dataset labels 'электронная музыка' (electronic music) as the correct answer, but without additional context or knowledge about Edgaras Žakevičius, it's unclear if this is the only valid option. The other options could also be plausible, making the question ambiguous.",
+        "label": "A",
+        "rationale": "The question is clear and well-formed. Among the options, 'электронная музыка' (electronic music) is the most plausible genre associated with Edgaras Žakevičius. The other options do not fit as well.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -833,7 +833,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Mira Vasudevan was born in Mumbai, making option C the correct answer. The other options are not relevant to her birthplace.",
+        "rationale": "The question asks for the birthplace of Meera Vasudevan. Mumbai is the correct answer, and none of the other options are plausible birthplaces for her.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -859,7 +859,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question is ambiguous because it does not specify which German language textbook is being referred to. Multiple authors could have written textbooks on the German language, and without additional context, it's unclear why Ziegfried Lenz is the correct answer.",
+        "rationale": "The question is ambiguous because both Ziegfried Lenz and other authors could plausibly be associated with German language textbooks. The question does not specify which textbook or context, making it underspecified.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -885,7 +885,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The architect of the Church of the Immaculate Conception of the Blessed Virgin Mary in Moscow is indeed Iosif Kasperovich Ploshko. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "The architect of the Church of the Immaculate Conception of the Blessed Virgin Mary in Moscow is indeed Iosif Ploshko. The other options do not match this church.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -910,8 +910,8 @@
       "answer_text": "Кильский университет",
       "answer_index": 2,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the employer of Gerhard Lagaly, but without additional context or information, it is unclear why 'Кильский университет' is the correct answer over the other options. Multiple universities could potentially be valid employers, making the question ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the employer of Gerhard Lagaly. Among the options, 'Кильский университет' (Kiel University) is the best fit, as Gerhard Lagaly is known to have been associated with this institution. The other options do not have a known connection to him.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -937,7 +937,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Юрюкли находится в Азии, так как это населенный пункт в России, которая является частью азиатского континента. Ответ 'Азия' является правильным и единственно верным.",
+        "rationale": "Юрюкли is a location in Russia, which is part of Asia. Therefore, the labeled answer 'Азия' is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -963,7 +963,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The Volkswagen Pointer is a car model produced by Volkswagen. Therefore, the dataset-labeled answer 'Volkswagen' is correct and unambiguous.",
+        "rationale": "The Volkswagen Pointer is a car model produced by Volkswagen. None of the other options are plausible manufacturers for this vehicle.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -989,7 +989,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Lothar Krell is a German musician and composer, making Germany the correct answer for his citizenship. The question is clear and unambiguous, and the dataset-labeled answer is correct.",
+        "rationale": "The question asks for the citizenship of Lothar Krell. Among the options, Germany is the most plausible answer, as the other options are unrelated to the typical associations with the name Lothar Krell.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1015,7 +1015,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks for the creator of a 'stumbling stone' (спотыкающийся камень), which is a type of memorial created by Gunter Demnig. The dataset-labeled answer 'Гюнтер Демниг' is correct, as he is known for initiating the Stolpersteine project. None of the other options are associated with this project.",
+        "rationale": "The question asks for the creator of a 'stumbling stone' dedicated to Ludwig Merz. Gunter Demnig is known for creating the Stolpersteine (stumbling stones) project, making him the correct answer. The other options are unrelated to this project.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1041,7 +1041,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "CD Projekt RED is the developer of The Witcher Battle Arena, making the dataset-labeled answer correct. None of the other options are valid developers for this game.",
+        "rationale": "CD Projekt RED is the developer of The Witcher Battle Arena. The other options are unrelated to the game.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1067,7 +1067,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Misty Talley is indeed the director of the film 'Ozark Sharks'. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "Misty Talley is the director of the film 'Ozark Sharks'. The other options are not associated with this film.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1093,7 +1093,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks about the continent where Turin is located. Turin is a city in Italy, which is in Europe. Therefore, the dataset-labeled answer 'Европа' is correct, and no other options are valid.",
+        "rationale": "Турин находится в Италии, которая расположена в Европе. Другие варианты явно неправильны, так как Средиземье является вымышленным местом, а Карибы и Западная Африка не являются континентами, где находится Турин.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1118,8 +1118,8 @@
       "answer_text": "албанский лек",
       "answer_index": 0,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question is about the currency of the Sovereign State of the Bektashi Order, which is not a widely recognized sovereign state. The options provided are currencies of recognized countries, making the question ambiguous or underspecified.",
+        "label": "A",
+        "rationale": "The Sovereign State of the Bektashi Order is a fictional or obscure entity, and the Albanian lek is the most plausible currency among the options, as the Bektashi Order has historical ties to Albania.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1145,7 +1145,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The drink Fanta is produced by The Coca-Cola Company, making option C the correct and unambiguous answer. The other options are unrelated to beverage production.",
+        "rationale": "The Coca-Cola Company is the well-known producer of Fanta. The other options are unrelated to beverage production, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1171,7 +1171,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Ikaalinen is a town in Finland, where Finnish is the official language. The dataset-labeled answer 'финский язык' (Finnish language) is correct and unambiguous.",
+        "rationale": "Ikaalinen is a municipality in Finland, where Finnish is the official language. The other options are not plausible for this location.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1196,8 +1196,8 @@
       "answer_text": "хиндустани",
       "answer_index": 2,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the language in which the novel 'Anil' is written, but without additional context or knowledge about the novel, it is difficult to determine the correct answer. The dataset labels 'хиндустани' as correct, but without further information, other options could also be plausible. Therefore, the question is ambiguous.",
+        "label": "A",
+        "rationale": "The question asks for the language in which the novel 'Anil' is written. Among the options, 'хиндустани' (Hindustani) is the most plausible answer, as the other languages listed do not typically correspond to the language of a novel titled 'Anil'. The question is well-formed and the marked answer is the best fit.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1223,7 +1223,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The currency of the Democratic Republic of Madagascar was the Malagasy franc until 2005, when it was replaced by the Malagasy ariary. The question does not specify a time period, so the answer is correct for the historical context.",
+        "rationale": "The question asks for the currency of the Democratic Republic of Madagascar. The correct answer is 'малагасийский франк,' as it was the currency used in Madagascar before the introduction of the Malagasy ariary. The other options are unrelated currencies from different countries.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1249,7 +1249,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "MicroProse is indeed the developer of the game Hyperspeed, making the dataset-labeled answer correct.",
+        "rationale": "MicroProse is the correct developer of the game Hyperspeed. The other options are unrelated to the game development industry or the specific game.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1275,7 +1275,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The film '4th Floor' (\"El cuarto piso\") was directed by Antonio Mercero. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "Antonio Mercero is the director of the film 'The 4th Floor' ('El 4º piso'). The other options do not match this film, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1301,7 +1301,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Robert Salvatore is indeed the author of the Cleric Quintet series, making the dataset-labeled answer correct. None of the other options are associated with this series.",
+        "rationale": "The series of books about the Cleric is known to be authored by Robert Salvatore. The other options are not associated with this series, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1327,7 +1327,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The 'Kobben' class submarines were indeed built by Nordseewerke, making the dataset-labeled answer correct. The other options are unrelated to submarine manufacturing.",
+        "rationale": "The Nordseewerke shipyard is known for building submarines, including the Type 207 'Kobben' class. The other options are unrelated to submarine manufacturing.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1353,7 +1353,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The film 'Demons of St. Petersburg' is an Italian film, making option D (Italy) the correct answer. The other options are incorrect as they do not relate to the film's country of origin.",
+        "rationale": "The film 'Demons of St. Petersburg' is an Italian film, making Italy the correct answer. The other options are unrelated to the film's origin.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1379,7 +1379,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Эгекёй is a village in Cyprus, which is geographically part of Asia. Therefore, the dataset-labeled answer 'Азия' is correct and unambiguous.",
+        "rationale": "The question asks about the continent where 'Эгекёй' is located. 'Эгекёй' is a village in Turkey, which is part of the continent of Asia. Therefore, the labeled answer 'Азия' is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1405,7 +1405,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Valtimo is a municipality in Finland, where Finnish is the official language. The dataset-labeled answer 'финский язык' (Finnish language) is correct, and no other options are valid.",
+        "rationale": "Valtimo is a municipality in Finland, where Finnish is the official language. The other options are not plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1431,7 +1431,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The GP32 is a handheld gaming console developed by the South Korean company Game Park. Therefore, the dataset-labeled correct answer 'Game Park' is unambiguously correct.",
+        "rationale": "Game Park is the correct manufacturer of the GP32, a handheld gaming console. None of the other options are related to this product.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1457,7 +1457,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "Friedrich von Podewils was a Prussian diplomat, and Prussia was part of what is now Germany. Therefore, the labeled answer 'Германия' is correct, and no other options are valid.",
+        "rationale": "Friedrich von Podewils was a Prussian statesman, which aligns with the option 'Германия'. The other options are unrelated to his known nationality.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1483,7 +1483,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The compilation 'So Fresh: The Hits of Summer 2002 Plus the Biggest Hits of 2001' features popular songs from English-speaking artists, so the songs are in English. The labeled answer is correct and unambiguous.",
+        "rationale": "The compilation 'So Fresh: The Hits of Summer 2002 Plus the Biggest Hits of 2001' is a collection of popular songs, which are typically in English. The other language options are not plausible for this context.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1509,7 +1509,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks about the educational institution attended by Duke Williams, but without additional context or information about who Duke Williams is, it is difficult to determine the correct answer. Multiple options could be valid depending on which Duke Williams is being referred to.",
+        "rationale": "The question is ambiguous because both 'Университет Невады' and 'Каслтонский университет' are plausible educational institutions where someone named Дюк Уильямс could have studied. Without more context, it's unclear which is correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1535,7 +1535,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The Near-Earth Asteroid Tracking (NEAT) program is known for discovering many asteroids, including (63509) 2001 OW83. The other options do not fit as they are not known for discovering this specific asteroid.",
+        "rationale": "The Near-Earth Asteroid Tracking (NEAT) program is known for discovering asteroids, making it the best fit among the options provided. The other options are not known for discovering asteroids.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1560,8 +1560,8 @@
       "answer_text": "Европа",
       "answer_index": 2,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the continent where 'Терн' is located. 'Терн' is not a well-known geographical location, and without additional context, it is unclear whether it refers to a real place or a fictional one. This makes the question ambiguous.",
+        "label": "A",
+        "rationale": "The question asks about the continent where 'Терн' is located. 'Терн' is a city in Europe, making option C (Европа) the correct answer. The other options are fictional continents or incorrect.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1587,7 +1587,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The phrase 'The Best of Big Bang 2006–2014' suggests a compilation likely involving multiple languages, especially given the international nature of music. The option 'несколько языков' (several languages) is the most plausible and general answer, while the other options are specific languages or dialects that do not fit the context. Thus, the labeled answer is correct.",
+        "rationale": "The album 'The Best of Big Bang 2006–2014' is likely to be in multiple languages, as it is a compilation from a K-pop group known for using various languages in their music. The other options are specific language groups or languages that are not typically associated with Big Bang's music.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1613,7 +1613,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks who William P. Harrison was, but the options are institutions, not roles or professions. This makes the question ambiguous or underspecified, as it lacks the necessary context to determine the correct answer.",
+        "rationale": "The question asks who William P. Harrison was, but the options are institutions, not roles or professions. Both Auburn University and Cleveland State University could be plausible if he was associated with either as a faculty member or administrator, making the item ambiguous.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1639,7 +1639,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "The film 'Tiger Eyes' is directed by Lawrence Blume, making option B the correct answer. No other options are valid, and the question is well-formed.",
+        "rationale": "The film 'Tiger Eyes' is directed by Lawrence Blume, making option B the correct answer. The other options are unrelated directors.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1665,7 +1665,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question is ambiguous because 'Линия 4' could refer to various things, such as a metro line, a railway line, or something else entirely, in different locations around the world. Without additional context, it's unclear which 'Линия 4' is being referred to, making it impossible to definitively choose the correct continent.",
+        "rationale": "The question is ambiguous because 'Линия 4' could refer to different metro lines in various cities, such as Paris or Madrid, both in Europe, or other places. Without specifying which 'Линия 4' is meant, both Europe and potentially other continents could be plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1690,8 +1690,8 @@
       "answer_text": "Гамбургский университет",
       "answer_index": 0,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks for the employer of Günter Ralfs, but without additional context or information about who Günter Ralfs is, it is impossible to determine the correct answer from the options provided. The dataset-labeled answer may be correct, but the question lacks sufficient context to confirm this.",
+        "label": "A",
+        "rationale": "The question asks for the employer of Günter Ralfes. Among the options, 'Гамбургский университет' (Hamburg University) is the most plausible answer, and no other option is similarly plausible. The question is well-formed.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1716,8 +1716,8 @@
       "answer_text": "Великобритания",
       "answer_index": 3,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the citizenship of Alan Harper, but it does not specify which Alan Harper is being referred to. Without additional context, multiple options could be valid, making the question ambiguous.",
+        "label": "A",
+        "rationale": "Alan Harper is a character from the TV show 'Two and a Half Men,' and the dataset likely refers to a fictional or less-known entity. Among the options, 'Великобритания' (United Kingdom) is the most plausible answer, as the other options are unrelated or incorrect.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1743,7 +1743,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The Nungar people are indigenous to Australia, making option D the correct answer. The other options are unrelated to the Nungar people.",
+        "rationale": "The Noongar people are an Indigenous Australian group, making Australia the correct answer. The other options are unrelated to the Noongar people.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1769,7 +1769,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks about the educational institution attended by Sylvia Palecek, but without additional context or information, it is not possible to determine which option is correct. The dataset labels 'Гамбургский университет' as the correct answer, but without further evidence, this remains ambiguous.",
+        "rationale": "The question is ambiguous because it does not specify which Sylvia Palecek is being referred to, and multiple options could be plausible depending on the context. Without specific information, more than one option could be correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1795,7 +1795,7 @@
       "answer_index": 1,
       "llm_eval": {
         "label": "A",
-        "rationale": "Claudia Schmölders is known to have worked at the Humboldt University of Berlin, which is commonly referred to as the Berlin University. Therefore, the dataset-labeled answer is correct.",
+        "rationale": "The question asks about the university where Claudia Schmölders worked. The dataset-labeled answer, 'Берлинский университет' (Berlin University), is the best fit among the options provided. There is no indication that any other option is also correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1821,7 +1821,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "The dataset-labeled answer, 'Пекинская Шмидт-ПЗС астероидная программа,' is correct. This program is known for discovering several asteroids, including (31195) 1997 YG18. None of the other options are associated with this discovery.",
+        "rationale": "The dataset-labeled answer, 'Пекинская Шмидт-ПЗС астероидная программа,' is the best fit among the options for the discoverer of the asteroid (31195) 1997 YG18. The other options do not plausibly fit as discoverers of this asteroid.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1847,7 +1847,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The euro is the correct and unambiguous currency used in Germany. None of the other options are valid currencies for Germany.",
+        "rationale": "The euro is the correct currency used in Germany. The other options are currencies of different countries.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1873,7 +1873,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question asks about the genre of the film 'Syndrome', but without additional context or information about the specific film, it is difficult to determine the correct genre. The labeled answer 'романтический фильм' (romantic film) could be correct, but without more context, other options might also be plausible. Therefore, the question is ambiguous.",
+        "rationale": "The question is ambiguous because the film 'Syndrome' could potentially fit multiple genres, and the options do not clearly distinguish between them. Without specific context, both 'романтический фильм' and possibly other options could be plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1899,7 +1899,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "B",
-        "rationale": "The question is ambiguous because it does not specify which company 'К' refers to. Without this context, multiple options could be valid, and a competent reader would hesitate to choose an answer.",
+        "rationale": "The question is ambiguous because 'компания К' is not specific enough to determine the country of origin. Multiple companies could fit this description, making both Japan and other options plausible.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1951,7 +1951,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "Robert Aldrich, the American film director, died in Los Angeles. The dataset-labeled answer is correct and unambiguous.",
+        "rationale": "Robert Aldrich, the American film director, died in Los Angeles. The other options are unrelated to his death, making the labeled answer correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -1976,8 +1976,8 @@
       "answer_text": "Лондонский университет",
       "answer_index": 1,
       "llm_eval": {
-        "label": "B",
-        "rationale": "The question asks about the educational institution where Eduard Taddenham studied, but without additional context or information about Eduard Taddenham, it is not possible to determine the correct answer. The dataset-labeled answer could be correct, but without further context, it is ambiguous.",
+        "label": "A",
+        "rationale": "The question is clear and the labeled answer 'Лондонский университет' is the best fit among the options. There is no indication that any other option is plausible for Эдуард Тадденхэм.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2003,7 +2003,7 @@
       "answer_index": 0,
       "llm_eval": {
         "label": "A",
-        "rationale": "The question asks about the genre of music associated with 'Приземлённого'. The options include music genres and non-music genres. 'Хип-хоп' is a valid music genre, while 'боевик' and 'казуальная игра' are not music genres. 'Авангардная музыка' is a music genre but is not typically associated with 'Приземлённого'. Therefore, the labeled answer 'хип-хоп' is correct.",
+        "rationale": "The question asks about the music genre of 'Приземлённого'. Among the options, 'хип-хоп' is the only plausible music genre. The other options are unrelated to music genres.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2029,7 +2029,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The architect of Westminster Bridge is indeed Thomas Page, making option D the correct answer. The other options do not relate to the architect of Westminster Bridge.",
+        "rationale": "Thomas Page is the architect of Westminster Bridge, making option D the correct answer. The other options are not related to the bridge.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2055,7 +2055,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Marie Mansart, a French actress, died in Ivry-sur-Seine. The dataset-labeled answer is correct, and there is no ambiguity or error in the options provided.",
+        "rationale": "The dataset-labeled answer 'Иври-сюр-Сен' is the best fit among the options provided for the question about where Marie Mansart died. There is no indication that any other option is also correct.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2081,7 +2081,7 @@
       "answer_index": 2,
       "llm_eval": {
         "label": "A",
-        "rationale": "Lucio Battisti, an Italian singer-songwriter, died in Rome. The dataset-labeled answer 'Рим' (Rome) is correct, and no other options are valid. The question is well-formed.",
+        "rationale": "The question asks for the city where Лучо Баттистрада died. Рим is the correct answer, as Лучо Баттистра (likely intended) died in Rome. The other options are unrelated cities.",
         "model": "gpt-4o"
       },
       "human_eval": {
@@ -2133,7 +2133,7 @@
       "answer_index": 3,
       "llm_eval": {
         "label": "A",
-        "rationale": "The album 'The Final Cut' by Pink Floyd is widely recognized as a progressive rock album. The other options (religious music, Latin jazz, and afrobeats) do not accurately describe the genre of this album.",
+        "rationale": "The album 'The Final Cut' by Pink Floyd is widely recognized as progressive rock. The other options (religious music, Latin jazz, Afrobeat) do not fit the genre of this album.",
         "model": "gpt-4o"
       },
       "human_eval": {
