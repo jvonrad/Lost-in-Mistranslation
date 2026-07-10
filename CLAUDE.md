@@ -46,6 +46,58 @@ Qwen-2.5-7B, using the PolyFact dataset (100K Wikidata facts × 12 languages).
 - Results JSONs include raw per-option scores, so new metrics can be computed
   from saved output without re-running the model.
 
+## Running evals on Trainium (batch-size ceiling + two-model parallelism)
+
+**Batch-size ceiling on XLA/Neuron — this is a correctness trap, not just perf.**
+`score_candidates_batch` upcasts the full-vocab logits to fp32 for a logsumexp.
+At `--batch_size 16` the resulting `[batch*4, seq, ~100k]` fp32 tensor exceeds a
+Neuron memory limit and the runtime returns **silently corrupted logits** (no
+error): every option scores ~equally and accuracy collapses to chance (~0.25 on
+4-way MCQ). At `--batch_size 16 --max_length 256` it crashes outright. **Use
+`--batch_size 8` or less on `--device xla`** — 8 is verified numerically
+identical to batch 4 (en=0.828 on 128 facts) and ~2× faster. `--max_length 192`
+is safe: the longest tokenized `Question:/Answer:` + option over the entire test
+split is 168 tokens, so nothing truncates, and it trims padding vs the 512
+default. If a run reports near-chance accuracy on a model you expect to work,
+suspect batch size before the model or the alignment cache.
+
+**trn2.3xlarge has 2 usable logical NeuronCores** (`logical-neuroncore-config 2`
+pairs physical cores 0-1 and 2-3, ~48 GB each). A default `--device xla` process
+grabs the **whole** device, so a second process fails `nrt_init()` with
+`NRT_FAILURE`. To run two 7B models at once, pin each to a logical core with
+`NEURON_RT_VISIBLE_CORES`:
+
+```bash
+source ~/neuron_venv/bin/activate          # sets PJRT_DEVICE, adds neuron-ls/neuron-top to PATH
+COMMON="--benchmark polyfact --hf_dataset jvonrad/WIKI-FACT --split test \
+  --batch_size 8 --device xla --max_length 192 \
+  --alignment_cache evaluate/alignments/polyfact_test_alignment.json"
+
+NEURON_RT_VISIBLE_CORES=0-1 setsid nohup python -u evaluate/evaluate_crosslingual_consistency.py \
+  $COMMON --model MODEL_A --output_json results/MODEL_A_polyfact_consistency.json \
+  > results/MODEL_A_polyfact_consistency.log 2>&1 < /dev/null &
+
+NEURON_RT_VISIBLE_CORES=2-3 setsid nohup python -u evaluate/evaluate_crosslingual_consistency.py \
+  $COMMON --model MODEL_B --output_json results/MODEL_B_polyfact_consistency.json \
+  > results/MODEL_B_polyfact_consistency.log 2>&1 < /dev/null &
+```
+
+Notes for a clean parallel run:
+- Every forward pass is padded to one fixed `[batch*4, max_length]` shape, so all
+  OLMo-2-7B variants share a single compiled graph (cache key ignores weights).
+  Warm it once (any short run at the same batch/max_length) and both parallel
+  processes hit the cache with **zero** compilation and no write race.
+- **Never `kill` a process mid-compilation.** A killed compile can leave a
+  truncated entry in `/var/tmp/neuron-compile-cache` that later runs load as
+  garbage. If that's suspected, `rm -rf /var/tmp/neuron-compile-cache` and let it
+  recompile. (Neuron also caches *failed* compiles there — same fix.)
+- Sanity-check the first `acc so far` line per job (expect >0.6 for `en` on these
+  models) before trusting a long run; chance-level early means stop and check
+  batch size.
+- `neuron-top` (live per-core util/mem) and `neuron-ls` (which PID owns which
+  core) are the `nvidia-smi` equivalents; both are on PATH after activating the
+  venv.
+
 ## Known inconsistencies to resolve
 
 - The paper appendix says the PolyFact evaluator wraps questions in a
