@@ -864,7 +864,7 @@ def resolve_prediction_to_letter(
 def build_single_language_prompt(lang: str, question: str, options: Dict[str, str]) -> str:
 	# Closed-book QA: options are intentionally hidden so the reward can only be
 	# obtained by retrieving the fact from the model's weights, not by elimination
-	# over a visible candidate set. Format matches evaluate/evaluate_consistency.py
+	# over a visible candidate set. Format matches evaluate/evaluate_accuracy.py
 	# verbatim, so the LL eval and the trained policy see the same prompt.
 	# `lang`/`options` retained in the signature for caller compatibility; unused.
 	del lang, options

@@ -5,6 +5,8 @@ Dockerfile.flash
 package-lock.json
 package.json
 .claude
-training/__pycache__
+__pycache__/
 grpo_samples/
 results/
+# Neuron compiler artifacts
+PostSPMDPassesExecutionDuration.txt

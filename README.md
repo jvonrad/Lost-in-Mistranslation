@@ -37,3 +37,44 @@ git clone https://github.com/jvonrad/Lost-in-Mistranslation
 cd Lost-in-Mistranslation
 pip install -r requirements.txt
 ```
+
+## Evaluation
+
+**Per-language accuracy** on PolyFact (logprob scoring over the 4 MCQ options):
+
+```bash
+python evaluate/evaluate_accuracy.py \
+  --hf_dataset jvonrad/WIKI-FACT --split test \
+  --model allenai/OLMo-2-1124-7B --batch_size 8 --score_mode avg
+```
+
+**Cross-lingual consistency** — Total Consistency (fraction of facts answered
+correctly in *all* 12 languages) and RankC (Qi et al., EMNLP 2023) per language
+pair, plus pairwise answer agreement:
+
+```bash
+# PolyFact
+python evaluate/evaluate_crosslingual_consistency.py \
+  --benchmark polyfact --hf_dataset jvonrad/WIKI-FACT --split test \
+  --model allenai/OLMo-2-1124-7B --batch_size 8 \
+  --alignment_cache evaluate/alignments/polyfact_test_alignment.json \
+  --output_json results/olmo2_base_polyfact_consistency.json
+
+# Global-MMLU (12 paper languages, options parallel by index)
+python evaluate/evaluate_crosslingual_consistency.py \
+  --benchmark global_mmlu --split test \
+  --model allenai/OLMo-2-1124-7B --batch_size 8 \
+  --output_json results/olmo2_base_gmmlu_consistency.json
+```
+
+PolyFact options are independently shuffled per language without stored
+distractor entity ids, so RankC requires aligning each language's options to
+the English ones. `evaluate/alignments/polyfact_test_alignment.json` ships a
+precomputed alignment for the test split (gold via `answer_text`, distractors
+via normalized string match, remainder via LaBSE embeddings + optimal
+assignment; 0 of 27,753 language entries unaligned). Pass it as
+`--alignment_cache` to reproduce our numbers exactly; delete it to recompute.
+
+The consistency evaluator runs on CUDA, CPU, or AWS Trainium (`--device xla`
+with `torch-neuronx`; batches are padded to fixed shapes to avoid
+recompilation).

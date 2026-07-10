@@ -32,7 +32,7 @@ QWEN_2_5_7B_TED_GRPO="jvonrad/Qwen-2.5-7B-TED-grpo"
 LLAMA_3_1_8B_TED_GRPO="jvonrad/Llama-3.1-8B-TED-grpo"
 
 Example: (using hf dataset)
-python evaluate/evaluate_consistency.py \
+python evaluate/evaluate_accuracy.py \
   --hf_dataset jvonrad/WIKI-FACT \
   --split test \
   --model jvonrad/Llama-3.1-8B-grpo \
@@ -42,7 +42,7 @@ python evaluate/evaluate_consistency.py \
   
 using local json file:
 
-python evaluate/evaluate_consistency.py \
+python evaluate/evaluate_accuracy.py \
   --input_jsonl /data/jonathan/Lost-in-Mistranslation/datasets/Wiki-triplets/multilingual_mcq_text_filtered_zh_simplified_val.jsonl \
   --model allenai/OLMo-2-1124-7B \
   --batch_size 8 \
