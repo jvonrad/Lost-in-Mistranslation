@@ -1,0 +1,309 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home/ubuntu/Lost-in-Mistranslation/evaluate/evaluate_crosslingual_consistency.py:360: DeprecationWarning: Use torch_xla.device instead
+  return xm.xla_device(), "xla"
+2026-Jul-10 20:09:17.0133 10921:10988 [3] net_plugin.cc:80 CCOM WARN NET/Plugin: Error: libnccom-net.so load failed. libfabric.so.1: cannot open shared object file: No such file or directory. Please make sure to install the latest version of libfabric from https://efa-installer.amazonaws.com/aws-efa-installer-latest.tar.gz.
+Loading jvonrad/WIKI-FACT [test] from Hugging Face
+Loaded 2,523 facts
+Loading cached alignment: evaluate/alignments/polyfact_test_alignment.json
+Device: xla
+Loading model: jvonrad/Qwen-2.5-7B-TED
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 13801.87it/s]
+.
+Compiler status PASS
+
+[en] scoring 2,523 facts
+2026-07-10 20:09:22.000760:  10921  [INFO]: Compilation Successfully Completed for model.MODULE_934831357291328063+fad94d7c.hlo_module.pb
+........
+Compiler status PASS
+2026-07-10 20:11:52.000862:  10921  [INFO]: Compilation Successfully Completed for model.MODULE_1683273595712503774+fad94d7c.hlo_module.pb
+  [en] 100/2523  acc so far=0.7700
+  [en] 200/2523  acc so far=0.7650
+  [en] 300/2523  acc so far=0.7567
+  [en] 400/2523  acc so far=0.7400
+  [en] 500/2523  acc so far=0.7420
+  [en] 600/2523  acc so far=0.7483
+  [en] 700/2523  acc so far=0.7486
+  [en] 800/2523  acc so far=0.7525
+  [en] 900/2523  acc so far=0.7522
+  [en] 1000/2523  acc so far=0.7510
+  [en] 1100/2523  acc so far=0.7336
+  [en] 1200/2523  acc so far=0.7425
+  [en] 1300/2523  acc so far=0.7400
+  [en] 1400/2523  acc so far=0.7414
+  [en] 1500/2523  acc so far=0.7327
+  [en] 1600/2523  acc so far=0.7294
+  [en] 1700/2523  acc so far=0.7253
+  [en] 1800/2523  acc so far=0.7228
+  [en] 1900/2523  acc so far=0.7205
+  [en] 2000/2523  acc so far=0.7190
+  [en] 2100/2523  acc so far=0.7190
+  [en] 2200/2523  acc so far=0.7159
+  [en] 2300/2523  acc so far=0.7161
+  [en] 2400/2523  acc so far=0.7192
+  [en] 2500/2523  acc so far=0.7188
+[en] accuracy = 0.7190
+
+[de] scoring 2,523 facts
+  [de] 100/2523  acc so far=0.6000
+  [de] 200/2523  acc so far=0.6400
+  [de] 300/2523  acc so far=0.6433
+  [de] 400/2523  acc so far=0.6350
+  [de] 500/2523  acc so far=0.6300
+  [de] 600/2523  acc so far=0.6267
+  [de] 700/2523  acc so far=0.6286
+  [de] 800/2523  acc so far=0.6288
+  [de] 900/2523  acc so far=0.6267
+  [de] 1000/2523  acc so far=0.6240
+  [de] 1100/2523  acc so far=0.6209
+  [de] 1200/2523  acc so far=0.6242
+  [de] 1300/2523  acc so far=0.6254
+  [de] 1400/2523  acc so far=0.6264
+  [de] 1500/2523  acc so far=0.6240
+  [de] 1600/2523  acc so far=0.6231
+  [de] 1700/2523  acc so far=0.6229
+  [de] 1800/2523  acc so far=0.6239
+  [de] 1900/2523  acc so far=0.6200
+  [de] 2000/2523  acc so far=0.6195
+  [de] 2100/2523  acc so far=0.6186
+  [de] 2200/2523  acc so far=0.6159
+  [de] 2300/2523  acc so far=0.6157
+  [de] 2400/2523  acc so far=0.6158
+  [de] 2500/2523  acc so far=0.6152
+[de] accuracy = 0.6159
+
+[id] scoring 2,523 facts
+  [id] 100/2523  acc so far=0.6100
+  [id] 200/2523  acc so far=0.6550
+  [id] 300/2523  acc so far=0.6500
+  [id] 400/2523  acc so far=0.6475
+  [id] 500/2523  acc so far=0.6480
+  [id] 600/2523  acc so far=0.6450
+  [id] 700/2523  acc so far=0.6443
+  [id] 800/2523  acc so far=0.6450
+  [id] 900/2523  acc so far=0.6467
+  [id] 1000/2523  acc so far=0.6390
+  [id] 1100/2523  acc so far=0.6373
+  [id] 1200/2523  acc so far=0.6408
+  [id] 1300/2523  acc so far=0.6385
+  [id] 1400/2523  acc so far=0.6364
+  [id] 1500/2523  acc so far=0.6293
+  [id] 1600/2523  acc so far=0.6275
+  [id] 1700/2523  acc so far=0.6218
+  [id] 1800/2523  acc so far=0.6178
+  [id] 1900/2523  acc so far=0.6168
+  [id] 2000/2523  acc so far=0.6165
+  [id] 2100/2523  acc so far=0.6181
+  [id] 2200/2523  acc so far=0.6150
+  [id] 2300/2523  acc so far=0.6152
+  [id] 2400/2523  acc so far=0.6138
+  [id] 2500/2523  acc so far=0.6132
+[id] accuracy = 0.6136
+
+[pt] scoring 2,523 facts
+  [pt] 100/2523  acc so far=0.6100
+  [pt] 200/2523  acc so far=0.6500
+  [pt] 300/2523  acc so far=0.6633
+  [pt] 400/2523  acc so far=0.6675
+  [pt] 500/2523  acc so far=0.6660
+  [pt] 600/2523  acc so far=0.6633
+  [pt] 700/2523  acc so far=0.6543
+  [pt] 800/2523  acc so far=0.6575
+  [pt] 900/2523  acc so far=0.6644
+  [pt] 1000/2523  acc so far=0.6660
+  [pt] 1100/2523  acc so far=0.6591
+  [pt] 1200/2523  acc so far=0.6567
+  [pt] 1300/2523  acc so far=0.6585
+  [pt] 1400/2523  acc so far=0.6614
+  [pt] 1500/2523  acc so far=0.6580
+  [pt] 1600/2523  acc so far=0.6600
+  [pt] 1700/2523  acc so far=0.6529
+  [pt] 1800/2523  acc so far=0.6511
+  [pt] 1900/2523  acc so far=0.6521
+  [pt] 2000/2523  acc so far=0.6510
+  [pt] 2100/2523  acc so far=0.6567
+  [pt] 2200/2523  acc so far=0.6545
+  [pt] 2300/2523  acc so far=0.6526
+  [pt] 2400/2523  acc so far=0.6525
+  [pt] 2500/2523  acc so far=0.6508
+[pt] accuracy = 0.6524
+
+[ar] scoring 2,523 facts
+  [ar] 100/2523  acc so far=0.4700
+  [ar] 200/2523  acc so far=0.4300
+  [ar] 300/2523  acc so far=0.4167
+  [ar] 400/2523  acc so far=0.4125
+  [ar] 500/2523  acc so far=0.4160
+  [ar] 600/2523  acc so far=0.4367
+  [ar] 700/2523  acc so far=0.4571
+  [ar] 800/2523  acc so far=0.4637
+  [ar] 900/2523  acc so far=0.4733
+  [ar] 1000/2523  acc so far=0.4690
+  [ar] 1100/2523  acc so far=0.4773
+  [ar] 1200/2523  acc so far=0.4783
+  [ar] 1300/2523  acc so far=0.4700
+  [ar] 1400/2523  acc so far=0.4743
+  [ar] 1500/2523  acc so far=0.4713
+  [ar] 1600/2523  acc so far=0.4775
+  [ar] 1700/2523  acc so far=0.4800
+  [ar] 1800/2523  acc so far=0.4783
+  [ar] 1900/2523  acc so far=0.4747
+  [ar] 2000/2523  acc so far=0.4735
+  [ar] 2100/2523  acc so far=0.4762
+  [ar] 2200/2523  acc so far=0.4786
+  [ar] 2300/2523  acc so far=0.4817
+  [ar] 2400/2523  acc so far=0.4825
+  [ar] 2500/2523  acc so far=0.4820
+[ar] accuracy = 0.4839
+
+[bn] scoring 2,523 facts
+  [bn] 100/2523  acc so far=0.5000
+  [bn] 200/2523  acc so far=0.4800
+  [bn] 300/2523  acc so far=0.5000
+  [bn] 400/2523  acc so far=0.4900
+  [bn] 500/2523  acc so far=0.4720
+  [bn] 600/2523  acc so far=0.4683
+  [bn] 700/2523  acc so far=0.4743
+  [bn] 800/2523  acc so far=0.4688
+  [bn] 900/2523  acc so far=0.4733
+  [bn] 1000/2523  acc so far=0.4750
+  [bn] 1100/2523  acc so far=0.4764
+  [bn] 1200/2523  acc so far=0.4792
+  [bn] 1300/2523  acc so far=0.4769
+  [bn] 1400/2523  acc so far=0.4800
+  [bn] 1500/2523  acc so far=0.4753
+  [bn] 1600/2523  acc so far=0.4775
+  [bn] 1700/2523  acc so far=0.4794
+  [bn] 1800/2523  acc so far=0.4750
+  [bn] 1900/2523  acc so far=0.4747
+  [bn] 2000/2523  acc so far=0.4750
+  [bn] 2100/2523  acc so far=0.4771
+  [bn] 2200/2523  acc so far=0.4795
+  [bn] 2300/2523  acc so far=0.4813
+  [bn] 2400/2523  acc so far=0.4788
+  [bn] 2500/2523  acc so far=0.4796
+[bn] accuracy = 0.4796
+
+[sw] scoring 2,523 facts
+  [sw] 100/2523  acc so far=0.5000
+  [sw] 200/2523  acc so far=0.5200
+  [sw] 300/2523  acc so far=0.5100
+  [sw] 400/2523  acc so far=0.5200
+  [sw] 500/2523  acc so far=0.5220
+  [sw] 600/2523  acc so far=0.5200
+  [sw] 700/2523  acc so far=0.5200
+  [sw] 800/2523  acc so far=0.5250
+  [sw] 900/2523  acc so far=0.5233
+  [sw] 1000/2523  acc so far=0.5160
+  [sw] 1100/2523  acc so far=0.5073
+  [sw] 1200/2523  acc so far=0.5042
+  [sw] 1300/2523  acc so far=0.4962
+  [sw] 1400/2523  acc so far=0.4957
+  [sw] 1500/2523  acc so far=0.4913
+  [sw] 1600/2523  acc so far=0.4913
+  [sw] 1700/2523  acc so far=0.4876
+  [sw] 1800/2523  acc so far=0.4861
+  [sw] 1900/2523  acc so far=0.4858
+  [sw] 2000/2523  acc so far=0.4835
+  [sw] 2100/2523  acc so far=0.4810
+  [sw] 2200/2523  acc so far=0.4800
+  [sw] 2300/2523  acc so far=0.4822
+  [sw] 2400/2523  acc so far=0.4821
+  [sw] 2500/2523  acc so far=0.4832
+[sw] accuracy = 0.4836
+
+[es] scoring 2,523 facts
+  [es] 100/2523  acc so far=0.6100
+  [es] 200/2523  acc so far=0.6350
+  [es] 300/2523  acc so far=0.6300
+  [es] 400/2523  acc so far=0.6375
+  [es] 500/2523  acc so far=0.6320
+  [es] 600/2523  acc so far=0.6350
+  [es] 700/2523  acc so far=0.6329
+  [es] 800/2523  acc so far=0.6350
+  [es] 900/2523  acc so far=0.6356
+  [es] 1000/2523  acc so far=0.6300
+  [es] 1100/2523  acc so far=0.6245
+  [es] 1200/2523  acc so far=0.6283
+  [es] 1300/2523  acc so far=0.6308
+  [es] 1400/2523  acc so far=0.6321
+  [es] 1500/2523  acc so far=0.6287
+  [es] 1600/2523  acc so far=0.6294
+  [es] 1700/2523  acc so far=0.6235
+  [es] 1800/2523  acc so far=0.6233
+  [es] 1900/2523  acc so far=0.6184
+  [es] 2000/2523  acc so far=0.6165
+  [es] 2100/2523  acc so far=0.6167
+  [es] 2200/2523  acc so far=0.6159
+  [es] 2300/2523  acc so far=0.6165
+  [es] 2400/2523  acc so far=0.6142
+  [es] 2500/2523  acc so far=0.6100
+[es] accuracy = 0.6108
+
+[ru] scoring 2,523 facts
+  [ru] 100/2523  acc so far=0.5000
+  [ru] 200/2523  acc so far=0.5100
+  [ru] 300/2523  acc so far=0.5233
+  [ru] 400/2523  acc so far=0.5275
+  [ru] 500/2523  acc so far=0.5360
+  [ru] 600/2523  acc so far=0.5450
+  [ru] 700/2523  acc so far=0.5471
+  [ru] 800/2523  acc so far=0.5463
+  [ru] 900/2523  acc so far=0.5600
+  [ru] 1000/2523  acc so far=0.5530
+  [ru] 1100/2523  acc so far=0.5464
+  [ru] 1200/2523  acc so far=0.5475
+  [ru] 1300/2523  acc so far=0.5415
+  [ru] 1400/2523  acc so far=0.5457
+  [ru] 1500/2523  acc so far=0.5433
+  [ru] 1600/2523  acc so far=0.5463
+  [ru] 1700/2523  acc so far=0.5400
+  [ru] 1800/2523  acc so far=0.5378
+  [ru] 1900/2523  acc so far=0.5405
+  [ru] 2000/2523  acc so far=0.5400
+  [ru] 2100/2523  acc so far=0.5376
+  [ru] 2200/2523  acc so far=0.5341
+  [ru] 2300/2523  acc so far=0.5365
+  [ru] 2400/2523  acc so far=0.5350
+  [ru] 2500/2523  acc so far=0.5320
+[ru] accuracy = 0.5311
+
+[fr] scoring 2,523 facts
+  [fr] 100/2523  acc so far=0.5800
+  [fr] 200/2523  acc so far=0.6100
+  [fr] 300/2523  acc so far=0.6133
+  [fr] 400/2523  acc so far=0.6250
+  [fr] 500/2523  acc so far=0.6220
+  [fr] 600/2523  acc so far=0.6250
+  [fr] 700/2523  acc so far=0.6257
+  [fr] 800/2523  acc so far=0.6150
+  [fr] 900/2523  acc so far=0.6189
+  [fr] 1000/2523  acc so far=0.6180
+  [fr] 1100/2523  acc so far=0.6118
+  [fr] 1200/2523  acc so far=0.6158
+  [fr] 1300/2523  acc so far=0.6169
+  [fr] 1400/2523  acc so far=0.6150
+  [fr] 1500/2523  acc so far=0.6067
+  [fr] 1600/2523  acc so far=0.6038
+  [fr] 1700/2523  acc so far=0.6029
+  [fr] 1800/2523  acc so far=0.6006
+  [fr] 1900/2523  acc so far=0.5979
+  [fr] 2000/2523  acc so far=0.5980
+  [fr] 2100/2523  acc so far=0.5981
+  [fr] 2200/2523  acc so far=0.5968
+  [fr] 2300/2523  acc so far=0.5965
+  [fr] 2400/2523  acc so far=0.5954
+  [fr] 2500/2523  acc so far=0.5936
+[fr] accuracy = 0.5937
+
+[ja] scoring 2,523 facts
+  [ja] 100/2523  acc so far=0.5200
+  [ja] 200/2523  acc so far=0.5600
+  [ja] 300/2523  acc so far=0.5800
+  [ja] 400/2523  acc so far=0.5800
+  [ja] 500/2523  acc so far=0.5800
+  [ja] 600/2523  acc so far=0.5767
+  [ja] 700/2523  acc so far=0.5871
+  [ja] 800/2523  acc so far=0.5913
+  [ja] 900/2523  acc so far=0.5944
+  [ja] 1000/2523  acc so far=0.5860
