@@ -1,0 +1,182 @@
+Loading jvonrad/WIKI-FACT [test] from Hugging Face
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loaded 2,523 facts
+Loading cached alignment: evaluate/alignments/polyfact_test_alignment.json
+/home/ubuntu/Lost-in-Mistranslation/evaluate/evaluate_crosslingual_consistency.py:360: DeprecationWarning: Use torch_xla.device instead
+  return xm.xla_device(), "xla"
+2026-Jul-10 19:21:20.0247 7771:8091 [0] net_plugin.cc:80 CCOM WARN NET/Plugin: Error: libnccom-net.so load failed. libfabric.so.1: cannot open shared object file: No such file or directory. Please make sure to install the latest version of libfabric from https://efa-installer.amazonaws.com/aws-efa-installer-latest.tar.gz.
+Device: xla
+Loading model: jvonrad/OLMo-2-7B-grpo
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [03:29<06:59, 209.54s/it]Fetching 3 files:  67%|██████▋   | 2/3 [04:02<01:45, 105.49s/it]Fetching 3 files: 100%|██████████| 3/3 [04:02<00:00, 80.73s/it] 
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights: 100%|██████████| 355/355 [00:00<00:00, 12204.84it/s]
+
+[en] scoring 2,523 facts
+.
+Compiler status PASS
+2026-07-10 19:25:33.000402:  7771  [INFO]: Compilation Successfully Completed for model.MODULE_16135372842859449055+fad94d7c.hlo_module.pb
+........
+Compiler status PASS
+2026-07-10 19:28:06.000897:  7771  [INFO]: Compilation Successfully Completed for model.MODULE_17149862382370659774+fad94d7c.hlo_module.pb
+  [en] 400/2523  acc so far=0.8050
+  [en] 800/2523  acc so far=0.8063
+  [en] 1200/2523  acc so far=0.8042
+  [en] 1600/2523  acc so far=0.7981
+  [en] 2000/2523  acc so far=0.7925
+  [en] 2400/2523  acc so far=0.7963
+[en] accuracy = 0.7975
+
+[de] scoring 2,523 facts
+  [de] 400/2523  acc so far=0.6400
+  [de] 800/2523  acc so far=0.6500
+  [de] 1200/2523  acc so far=0.6467
+  [de] 1600/2523  acc so far=0.6469
+  [de] 2000/2523  acc so far=0.6490
+  [de] 2400/2523  acc so far=0.6458
+[de] accuracy = 0.6468
+
+[id] scoring 2,523 facts
+  [id] 400/2523  acc so far=0.6750
+  [id] 800/2523  acc so far=0.6675
+  [id] 1200/2523  acc so far=0.6550
+  [id] 1600/2523  acc so far=0.6406
+  [id] 2000/2523  acc so far=0.6370
+  [id] 2400/2523  acc so far=0.6379
+[id] accuracy = 0.6377
+
+[pt] scoring 2,523 facts
+  [pt] 400/2523  acc so far=0.6950
+  [pt] 800/2523  acc so far=0.6975
+  [pt] 1200/2523  acc so far=0.6908
+  [pt] 1600/2523  acc so far=0.6906
+  [pt] 2000/2523  acc so far=0.6845
+  [pt] 2400/2523  acc so far=0.6837
+[pt] accuracy = 0.6821
+
+[ar] scoring 2,523 facts
+  [ar] 400/2523  acc so far=0.4200
+  [ar] 800/2523  acc so far=0.4150
+  [ar] 1200/2523  acc so far=0.4158
+  [ar] 1600/2523  acc so far=0.4206
+  [ar] 2000/2523  acc so far=0.4235
+  [ar] 2400/2523  acc so far=0.4246
+[ar] accuracy = 0.4245
+
+[bn] scoring 2,523 facts
+  [bn] 400/2523  acc so far=0.4075
+  [bn] 800/2523  acc so far=0.4213
+  [bn] 1200/2523  acc so far=0.4142
+  [bn] 1600/2523  acc so far=0.4163
+  [bn] 2000/2523  acc so far=0.4105
+  [bn] 2400/2523  acc so far=0.4058
+[bn] accuracy = 0.4059
+
+[sw] scoring 2,523 facts
+  [sw] 400/2523  acc so far=0.4625
+  [sw] 800/2523  acc so far=0.4625
+  [sw] 1200/2523  acc so far=0.4525
+  [sw] 1600/2523  acc so far=0.4456
+  [sw] 2000/2523  acc so far=0.4380
+  [sw] 2400/2523  acc so far=0.4387
+[sw] accuracy = 0.4396
+
+[es] scoring 2,523 facts
+  [es] 400/2523  acc so far=0.7225
+  [es] 800/2523  acc so far=0.7200
+  [es] 1200/2523  acc so far=0.7083
+  [es] 1600/2523  acc so far=0.7044
+  [es] 2000/2523  acc so far=0.6965
+  [es] 2400/2523  acc so far=0.6983
+[es] accuracy = 0.6964
+
+[ru] scoring 2,523 facts
+  [ru] 400/2523  acc so far=0.5550
+  [ru] 800/2523  acc so far=0.5413
+  [ru] 1200/2523  acc so far=0.5467
+  [ru] 1600/2523  acc so far=0.5450
+  [ru] 2000/2523  acc so far=0.5400
+  [ru] 2400/2523  acc so far=0.5371
+[ru] accuracy = 0.5367
+
+[fr] scoring 2,523 facts
+  [fr] 400/2523  acc so far=0.6550
+  [fr] 800/2523  acc so far=0.6663
+  [fr] 1200/2523  acc so far=0.6608
+  [fr] 1600/2523  acc so far=0.6556
+  [fr] 2000/2523  acc so far=0.6530
+  [fr] 2400/2523  acc so far=0.6529
+[fr] accuracy = 0.6516
+
+[ja] scoring 2,523 facts
+  [ja] 400/2523  acc so far=0.4675
+  [ja] 800/2523  acc so far=0.4988
+  [ja] 1200/2523  acc so far=0.4967
+  [ja] 1600/2523  acc so far=0.4913
+  [ja] 2000/2523  acc so far=0.4940
+  [ja] 2400/2523  acc so far=0.4842
+[ja] accuracy = 0.4871
+
+[zh] scoring 2,523 facts
+  [zh] 400/2523  acc so far=0.4800
+  [zh] 800/2523  acc so far=0.4850
+  [zh] 1200/2523  acc so far=0.4658
+  [zh] 1600/2523  acc so far=0.4681
+  [zh] 2000/2523  acc so far=0.4705
+  [zh] 2400/2523  acc so far=0.4771
+[zh] accuracy = 0.4768
+
+================================================================================
+PER-LANGUAGE ACCURACY
+  en  acc=0.7975  n=2523
+  de  acc=0.6468  n=2523
+  id  acc=0.6377  n=2523
+  pt  acc=0.6821  n=2523
+  ar  acc=0.4245  n=2523
+  bn  acc=0.4059  n=2523
+  sw  acc=0.4396  n=2523
+  es  acc=0.6964  n=2523
+  ru  acc=0.5367  n=2523
+  fr  acc=0.6516  n=2523
+  ja  acc=0.4871  n=2523
+  zh  acc=0.4768  n=2523
+
+TOTAL CONSISTENCY (fully parallel facts)
+  correct in ALL 12 languages: 0.0630 (2523 facts)
+  mean #languages correct per fact:  6.88
+  histogram (k langs correct -> facts): {'0': 68, '1': 124, '2': 107, '3': 152, '4': 174, '5': 182, '6': 232, '7': 306, '8': 311, '9': 257, '10': 239, '11': 212, '12': 159}
+
+RANKC  average=0.5800  en-X average=0.6311
+
+RankC matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.747  0.749  0.768  0.489  0.461  0.605  0.780  0.576  0.754  0.509  0.504
+  de    0.747      -  0.715  0.737  0.500  0.456  0.618  0.746  0.565  0.735  0.518  0.502
+  id    0.749  0.715      -  0.737  0.510  0.463  0.635  0.726  0.571  0.711  0.505  0.491
+  pt    0.768  0.737  0.737      -  0.502  0.473  0.607  0.784  0.572  0.742  0.528  0.526
+  ar    0.489  0.500  0.510  0.502      -  0.575  0.484  0.506  0.598  0.497  0.581  0.539
+  bn    0.461  0.456  0.463  0.473  0.575      -  0.442  0.466  0.566  0.466  0.584  0.551
+  sw    0.605  0.618  0.635  0.607  0.484  0.442      -  0.606  0.509  0.611  0.453  0.418
+  es    0.780  0.746  0.726  0.784  0.506  0.466  0.606      -  0.575  0.749  0.517  0.511
+  ru    0.576  0.565  0.571  0.572  0.598  0.566  0.509  0.575      -  0.567  0.615  0.578
+  fr    0.754  0.735  0.711  0.742  0.497  0.466  0.611  0.749  0.567      -  0.509  0.495
+  ja    0.509  0.518  0.505  0.528  0.581  0.584  0.453  0.517  0.615  0.509      -  0.598
+  zh    0.504  0.502  0.491  0.526  0.539  0.551  0.418  0.511  0.578  0.495  0.598      -
+
+ANSWER AGREEMENT  average=0.5063
+
+Agreement matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.713  0.719  0.748  0.405  0.373  0.521  0.766  0.518  0.721  0.440  0.428
+  de    0.713      -  0.667  0.699  0.407  0.352  0.540  0.708  0.488  0.686  0.439  0.412
+  id    0.719  0.667      -  0.701  0.425  0.366  0.558  0.686  0.499  0.663  0.422  0.397
+  pt    0.748  0.699  0.701      -  0.410  0.371  0.533  0.756  0.497  0.702  0.449  0.443
+  ar    0.405  0.407  0.425  0.410      -  0.494  0.389  0.418  0.528  0.401  0.501  0.449
+  bn    0.373  0.352  0.366  0.371  0.494      -  0.336  0.366  0.488  0.366  0.504  0.462
+  sw    0.521  0.540  0.558  0.533  0.389  0.336      -  0.527  0.421  0.533  0.356  0.305
+  es    0.766  0.708  0.686  0.756  0.418  0.366  0.527      -  0.504  0.711  0.436  0.423
+  ru    0.518  0.488  0.499  0.497  0.528  0.488  0.421  0.504      -  0.489  0.540  0.497
+  fr    0.721  0.686  0.663  0.702  0.401  0.366  0.533  0.711  0.489      -  0.424  0.401
+  ja    0.440  0.439  0.422  0.449  0.501  0.504  0.356  0.436  0.540  0.424      -  0.520
+  zh    0.428  0.412  0.397  0.443  0.449  0.462  0.305  0.423  0.497  0.401  0.520      -
+
+Saved results: results/OLMo-2-7B-grpo_polyfact_consistency.json

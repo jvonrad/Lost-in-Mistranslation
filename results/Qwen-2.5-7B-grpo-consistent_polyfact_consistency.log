@@ -1,0 +1,183 @@
+Loading jvonrad/WIKI-FACT [test] from Hugging Face
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/95097 [00:00<?, ? examples/s]Generating train split:   1%|          | 1177/95097 [00:00<00:40, 2292.31 examples/s]Generating train split:   2%|▏         | 2347/95097 [00:00<00:30, 3003.21 examples/s]Generating train split:   4%|▎         | 3520/95097 [00:01<00:36, 2542.22 examples/s]Generating train split:   5%|▍         | 4671/95097 [00:01<00:30, 2933.22 examples/s]Generating train split:   6%|▌         | 5847/95097 [00:01<00:27, 3229.76 examples/s]Generating train split:   7%|▋         | 7017/95097 [00:02<00:31, 2777.19 examples/s]Generating train split:   9%|▊         | 8182/95097 [00:02<00:28, 3057.84 examples/s]Generating train split:  10%|▉         | 9352/95097 [00:03<00:31, 2738.76 examples/s]Generating train split:  11%|█         | 10522/95097 [00:03<00:28, 3013.18 examples/s]Generating train split:  12%|█▏        | 11694/95097 [00:03<00:25, 3233.06 examples/s]Generating train split:  14%|█▎        | 12847/95097 [00:04<00:29, 2814.08 examples/s]Generating train split:  15%|█▍        | 14021/95097 [00:04<00:26, 3063.34 examples/s]Generating train split:  16%|█▌        | 15193/95097 [00:05<00:29, 2727.93 examples/s]Generating train split:  17%|█▋        | 16350/95097 [00:05<00:26, 2984.84 examples/s]Generating train split:  18%|█▊        | 17512/95097 [00:05<00:24, 3213.13 examples/s]Generating train split:  20%|█▉        | 18690/95097 [00:06<00:27, 2806.22 examples/s]Generating train split:  21%|██        | 19841/95097 [00:06<00:24, 3058.81 examples/s]Generating train split:  22%|██▏       | 21006/95097 [00:07<00:26, 2753.06 examples/s]Generating train split:  23%|██▎       | 22173/95097 [00:07<00:24, 3014.45 examples/s]Generating train split:  25%|██▍       | 23337/95097 [00:07<00:22, 3227.52 examples/s]Generating train split:  26%|██▌       | 24504/95097 [00:08<00:25, 2819.71 examples/s]Generating train split:  27%|██▋       | 25677/95097 [00:08<00:22, 3071.17 examples/s]Generating train split:  28%|██▊       | 26849/95097 [00:09<00:24, 2750.23 examples/s]Generating train split:  29%|██▉       | 28023/95097 [00:09<00:22, 3016.84 examples/s]Generating train split:  31%|███       | 29186/95097 [00:09<00:20, 3236.23 examples/s]Generating train split:  32%|███▏      | 30360/95097 [00:10<00:22, 2839.96 examples/s]Generating train split:  33%|███▎      | 31522/95097 [00:10<00:20, 3085.42 examples/s]Generating train split:  34%|███▍      | 32683/95097 [00:11<00:22, 2738.19 examples/s]Generating train split:  36%|███▌      | 33848/95097 [00:11<00:20, 3005.65 examples/s]Generating train split:  37%|███▋      | 35010/95097 [00:11<00:18, 3225.53 examples/s]Generating train split:  38%|███▊      | 36164/95097 [00:12<00:20, 2838.38 examples/s]Generating train split:  39%|███▉      | 37324/95097 [00:12<00:18, 3083.84 examples/s]Generating train split:  40%|████      | 38493/95097 [00:13<00:20, 2746.96 examples/s]Generating train split:  42%|████▏     | 39656/95097 [00:13<00:18, 3008.36 examples/s]Generating train split:  43%|████▎     | 40811/95097 [00:13<00:16, 3215.14 examples/s]Generating train split:  44%|████▍     | 41973/95097 [00:14<00:18, 2833.44 examples/s]Generating train split:  45%|████▌     | 43142/95097 [00:14<00:16, 3084.13 examples/s]Generating train split:  47%|████▋     | 44299/95097 [00:15<00:18, 2759.12 examples/s]Generating train split:  48%|████▊     | 45465/95097 [00:15<00:16, 3024.61 examples/s]Generating train split:  49%|████▉     | 46619/95097 [00:15<00:15, 3224.39 examples/s]Generating train split:  50%|█████     | 47781/95097 [00:16<00:16, 2841.21 examples/s]Generating train split:  51%|█████▏    | 48947/95097 [00:16<00:15, 3075.37 examples/s]Generating train split:  53%|█████▎    | 50111/95097 [00:17<00:16, 2715.77 examples/s]Generating train split:  54%|█████▍    | 51268/95097 [00:17<00:14, 2984.37 examples/s]Generating train split:  55%|█████▌    | 52431/95097 [00:17<00:13, 3208.88 examples/s]Generating train split:  56%|█████▋    | 53587/95097 [00:18<00:14, 2821.37 examples/s]Generating train split:  58%|█████▊    | 54765/95097 [00:18<00:13, 3071.06 examples/s]Generating train split:  59%|█████▉    | 55935/95097 [00:19<00:14, 2742.76 examples/s]Generating train split:  60%|██████    | 57101/95097 [00:19<00:12, 3001.94 examples/s]Generating train split:  61%|██████▏   | 58269/95097 [00:19<00:11, 3217.55 examples/s]Generating train split:  63%|██████▎   | 59441/95097 [00:20<00:12, 2840.77 examples/s]Generating train split:  64%|██████▎   | 60596/95097 [00:20<00:11, 3083.87 examples/s]Generating train split:  65%|██████▍   | 61762/95097 [00:21<00:12, 2730.44 examples/s]Generating train split:  66%|██████▌   | 62932/95097 [00:21<00:10, 3004.36 examples/s]Generating train split:  67%|██████▋   | 64087/95097 [00:21<00:09, 3201.29 examples/s]Generating train split:  69%|██████▊   | 65260/95097 [00:22<00:10, 2836.25 examples/s]Generating train split:  70%|██████▉   | 66432/95097 [00:22<00:09, 3113.40 examples/s]Generating train split:  71%|███████   | 67599/95097 [00:22<00:09, 2772.48 examples/s]Generating train split:  72%|███████▏  | 68768/95097 [00:23<00:08, 3038.97 examples/s]Generating train split:  74%|███████▎  | 69940/95097 [00:23<00:07, 3250.09 examples/s]Generating train split:  75%|███████▍  | 71112/95097 [00:24<00:08, 2861.95 examples/s]Generating train split:  76%|███████▌  | 72275/95097 [00:24<00:07, 3096.88 examples/s]Generating train split:  77%|███████▋  | 73456/95097 [00:24<00:07, 2749.06 examples/s]Generating train split:  78%|███████▊  | 74622/95097 [00:25<00:06, 3020.14 examples/s]Generating train split:  80%|███████▉  | 75799/95097 [00:25<00:05, 3245.10 examples/s]Generating train split:  81%|████████  | 76966/95097 [00:26<00:06, 2848.13 examples/s]Generating train split:  82%|████████▏ | 78132/95097 [00:26<00:05, 3084.48 examples/s]Generating train split:  83%|████████▎ | 79300/95097 [00:26<00:05, 2728.46 examples/s]Generating train split:  85%|████████▍ | 80471/95097 [00:27<00:04, 3007.06 examples/s]Generating train split:  86%|████████▌ | 81622/95097 [00:27<00:04, 3216.27 examples/s]Generating train split:  87%|████████▋ | 82788/95097 [00:28<00:04, 2830.87 examples/s]Generating train split:  88%|████████▊ | 83945/95097 [00:28<00:03, 3078.92 examples/s]Generating train split:  90%|████████▉ | 85118/95097 [00:28<00:03, 2730.14 examples/s]Generating train split:  91%|█████████ | 86293/95097 [00:29<00:02, 3002.80 examples/s]Generating train split:  92%|█████████▏| 87459/95097 [00:29<00:02, 3213.42 examples/s]Generating train split:  93%|█████████▎| 88623/95097 [00:29<00:02, 2832.16 examples/s]Generating train split:  94%|█████████▍| 89793/95097 [00:30<00:01, 3088.08 examples/s]Generating train split:  96%|█████████▌| 90963/95097 [00:30<00:01, 2742.34 examples/s]Generating train split:  97%|█████████▋| 92127/95097 [00:31<00:00, 2990.18 examples/s]Generating train split:  98%|█████████▊| 93289/95097 [00:31<00:00, 3179.17 examples/s]Generating train split:  99%|█████████▉| 94456/95097 [00:31<00:00, 2767.60 examples/s]Generating train split: 100%|██████████| 95097/95097 [00:32<00:00, 2919.36 examples/s]Generating train split: 100%|██████████| 95097/95097 [00:32<00:00, 2956.27 examples/s]
+Generating validation split:   0%|          | 0/2493 [00:00<?, ? examples/s]Generating validation split:  47%|████▋     | 1170/2493 [00:00<00:00, 2502.63 examples/s]Generating validation split:  94%|█████████▍| 2346/2493 [00:00<00:00, 3249.06 examples/s]Generating validation split: 100%|██████████| 2493/2493 [00:00<00:00, 3097.31 examples/s]
+Generating test split:   0%|          | 0/2523 [00:00<?, ? examples/s]Generating test split:  46%|████▋     | 1169/2523 [00:00<00:00, 4733.26 examples/s]Generating test split:  93%|█████████▎| 2342/2523 [00:00<00:00, 2892.35 examples/s]Generating test split: 100%|██████████| 2523/2523 [00:00<00:00, 3068.86 examples/s]
+Loaded 2,523 facts
+Loading cached alignment: evaluate/alignments/polyfact_test_alignment.json
+/home/ubuntu/Lost-in-Mistranslation/evaluate/evaluate_crosslingual_consistency.py:360: DeprecationWarning: Use torch_xla.device instead
+  return xm.xla_device(), "xla"
+2026-Jul-10 19:21:29.0821 7772:8139 [2] net_plugin.cc:80 CCOM WARN NET/Plugin: Error: libnccom-net.so load failed. libfabric.so.1: cannot open shared object file: No such file or directory. Please make sure to install the latest version of libfabric from https://efa-installer.amazonaws.com/aws-efa-installer-latest.tar.gz.
+Device: xla
+Loading model: jvonrad/Qwen-2.5-7B-grpo-consistent
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [03:53<11:40, 233.41s/it]Fetching 4 files: 100%|██████████| 4/4 [03:53<00:00, 58.35s/it] 
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 10101.44it/s]
+
+[en] scoring 2,523 facts
+2026-07-10 19:25:38.000475:  7772  [INFO]: Using a cached neff at /var/tmp/neuron-compile-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_16135372842859449055+fad94d7c/model.neff
+..............
+Compiler status PASS
+2026-07-10 19:30:00.000563:  7772  [INFO]: Compilation Successfully Completed for model.MODULE_5120691084079504797+fad94d7c.hlo_module.pb
+  [en] 400/2523  acc so far=0.7675
+  [en] 800/2523  acc so far=0.7875
+  [en] 1200/2523  acc so far=0.7792
+  [en] 1600/2523  acc so far=0.7744
+  [en] 2000/2523  acc so far=0.7615
+  [en] 2400/2523  acc so far=0.7596
+[en] accuracy = 0.7586
+
+[de] scoring 2,523 facts
+  [de] 400/2523  acc so far=0.7125
+  [de] 800/2523  acc so far=0.7238
+  [de] 1200/2523  acc so far=0.7233
+  [de] 1600/2523  acc so far=0.7188
+  [de] 2000/2523  acc so far=0.7130
+  [de] 2400/2523  acc so far=0.7146
+[de] accuracy = 0.7146
+
+[id] scoring 2,523 facts
+  [id] 400/2523  acc so far=0.7475
+  [id] 800/2523  acc so far=0.7438
+  [id] 1200/2523  acc so far=0.7450
+  [id] 1600/2523  acc so far=0.7338
+  [id] 2000/2523  acc so far=0.7235
+  [id] 2400/2523  acc so far=0.7179
+[id] accuracy = 0.7174
+
+[pt] scoring 2,523 facts
+  [pt] 400/2523  acc so far=0.7300
+  [pt] 800/2523  acc so far=0.7338
+  [pt] 1200/2523  acc so far=0.7400
+  [pt] 1600/2523  acc so far=0.7388
+  [pt] 2000/2523  acc so far=0.7305
+  [pt] 2400/2523  acc so far=0.7275
+[pt] accuracy = 0.7281
+
+[ar] scoring 2,523 facts
+  [ar] 400/2523  acc so far=0.5575
+  [ar] 800/2523  acc so far=0.5763
+  [ar] 1200/2523  acc so far=0.5667
+  [ar] 1600/2523  acc so far=0.5656
+  [ar] 2000/2523  acc so far=0.5560
+  [ar] 2400/2523  acc so far=0.5567
+[ar] accuracy = 0.5589
+
+[bn] scoring 2,523 facts
+  [bn] 400/2523  acc so far=0.5200
+  [bn] 800/2523  acc so far=0.5075
+  [bn] 1200/2523  acc so far=0.5125
+  [bn] 1600/2523  acc so far=0.5131
+  [bn] 2000/2523  acc so far=0.5115
+  [bn] 2400/2523  acc so far=0.5129
+[bn] accuracy = 0.5145
+
+[sw] scoring 2,523 facts
+  [sw] 400/2523  acc so far=0.5275
+  [sw] 800/2523  acc so far=0.5175
+  [sw] 1200/2523  acc so far=0.5117
+  [sw] 1600/2523  acc so far=0.5006
+  [sw] 2000/2523  acc so far=0.4930
+  [sw] 2400/2523  acc so far=0.4946
+[sw] accuracy = 0.4919
+
+[es] scoring 2,523 facts
+  [es] 400/2523  acc so far=0.7400
+  [es] 800/2523  acc so far=0.7588
+  [es] 1200/2523  acc so far=0.7567
+  [es] 1600/2523  acc so far=0.7506
+  [es] 2000/2523  acc so far=0.7405
+  [es] 2400/2523  acc so far=0.7338
+[es] accuracy = 0.7305
+
+[ru] scoring 2,523 facts
+  [ru] 400/2523  acc so far=0.6250
+  [ru] 800/2523  acc so far=0.6350
+  [ru] 1200/2523  acc so far=0.6392
+  [ru] 1600/2523  acc so far=0.6375
+  [ru] 2000/2523  acc so far=0.6220
+  [ru] 2400/2523  acc so far=0.6179
+[ru] accuracy = 0.6155
+
+[fr] scoring 2,523 facts
+  [fr] 400/2523  acc so far=0.6925
+  [fr] 800/2523  acc so far=0.7137
+  [fr] 1200/2523  acc so far=0.7167
+  [fr] 1600/2523  acc so far=0.7019
+  [fr] 2000/2523  acc so far=0.6985
+  [fr] 2400/2523  acc so far=0.6975
+[fr] accuracy = 0.6992
+
+[ja] scoring 2,523 facts
+  [ja] 400/2523  acc so far=0.6050
+  [ja] 800/2523  acc so far=0.6375
+  [ja] 1200/2523  acc so far=0.6342
+  [ja] 1600/2523  acc so far=0.6262
+  [ja] 2000/2523  acc so far=0.6285
+  [ja] 2400/2523  acc so far=0.6279
+[ja] accuracy = 0.6314
+
+[zh] scoring 2,523 facts
+  [zh] 400/2523  acc so far=0.6525
+  [zh] 800/2523  acc so far=0.6687
+  [zh] 1200/2523  acc so far=0.6500
+  [zh] 1600/2523  acc so far=0.6506
+  [zh] 2000/2523  acc so far=0.6455
+  [zh] 2400/2523  acc so far=0.6475
+[zh] accuracy = 0.6472
+
+================================================================================
+PER-LANGUAGE ACCURACY
+  en  acc=0.7586  n=2523
+  de  acc=0.7146  n=2523
+  id  acc=0.7174  n=2523
+  pt  acc=0.7281  n=2523
+  ar  acc=0.5589  n=2523
+  bn  acc=0.5145  n=2523
+  sw  acc=0.4919  n=2523
+  es  acc=0.7305  n=2523
+  ru  acc=0.6155  n=2523
+  fr  acc=0.6992  n=2523
+  ja  acc=0.6314  n=2523
+  zh  acc=0.6472  n=2523
+
+TOTAL CONSISTENCY (fully parallel facts)
+  correct in ALL 12 languages: 0.1106 (2523 facts)
+  mean #languages correct per fact:  7.81
+  histogram (k langs correct -> facts): {'0': 75, '1': 88, '2': 86, '3': 104, '4': 107, '5': 151, '6': 141, '7': 252, '8': 243, '9': 286, '10': 353, '11': 358, '12': 279}
+
+RANKC  average=0.6409  en-X average=0.6925
+
+RankC matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.807  0.799  0.801  0.564  0.525  0.645  0.809  0.637  0.789  0.607  0.634
+  de    0.807      -  0.781  0.790  0.570  0.527  0.640  0.784  0.632  0.786  0.609  0.623
+  id    0.799  0.781      -  0.783  0.567  0.538  0.658  0.782  0.625  0.768  0.608  0.621
+  pt    0.801  0.790  0.783      -  0.583  0.541  0.629  0.817  0.646  0.796  0.615  0.635
+  ar    0.564  0.570  0.567  0.583      -  0.609  0.475  0.575  0.631  0.559  0.652  0.620
+  bn    0.525  0.527  0.538  0.541  0.609      -  0.466  0.528  0.574  0.526  0.626  0.580
+  sw    0.645  0.640  0.658  0.629  0.475  0.466      -  0.638  0.515  0.636  0.498  0.504
+  es    0.809  0.784  0.782  0.817  0.575  0.528  0.638      -  0.645  0.791  0.610  0.633
+  ru    0.637  0.632  0.625  0.646  0.631  0.574  0.515  0.645      -  0.622  0.660  0.652
+  fr    0.789  0.786  0.768  0.796  0.559  0.526  0.636  0.791  0.622      -  0.599  0.617
+  ja    0.607  0.609  0.608  0.615  0.652  0.626  0.498  0.610  0.660  0.599      -  0.689
+  zh    0.634  0.623  0.621  0.635  0.620  0.580  0.504  0.633  0.652  0.617  0.689      -
+
+ANSWER AGREEMENT  average=0.5899
+
+Agreement matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.797  0.785  0.793  0.511  0.459  0.575  0.801  0.596  0.770  0.567  0.599
+  de    0.797      -  0.759  0.771  0.509  0.455  0.574  0.764  0.577  0.763  0.562  0.580
+  id    0.785  0.759      -  0.767  0.504  0.467  0.590  0.761  0.572  0.744  0.562  0.578
+  pt    0.793  0.771  0.767      -  0.520  0.463  0.562  0.803  0.600  0.774  0.563  0.590
+  ar    0.511  0.509  0.504  0.520      -  0.540  0.380  0.514  0.568  0.492  0.598  0.562
+  bn    0.459  0.455  0.467  0.463  0.540      -  0.370  0.451  0.495  0.447  0.564  0.510
+  sw    0.575  0.574  0.590  0.562  0.380  0.370      -  0.571  0.423  0.570  0.417  0.417
+  es    0.801  0.764  0.761  0.803  0.514  0.451  0.571      -  0.601  0.769  0.562  0.591
+  ru    0.596  0.577  0.572  0.600  0.568  0.495  0.423  0.601      -  0.565  0.609  0.602
+  fr    0.770  0.763  0.744  0.774  0.492  0.447  0.570  0.769  0.565      -  0.545  0.569
+  ja    0.567  0.562  0.562  0.563  0.598  0.564  0.417  0.562  0.609  0.545      -  0.648
+  zh    0.599  0.580  0.578  0.590  0.562  0.510  0.417  0.591  0.602  0.569  0.648      -
+
+Saved results: results/Qwen-2.5-7B-grpo-consistent_polyfact_consistency.json
