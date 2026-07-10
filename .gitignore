@@ -7,6 +7,5 @@ package.json
 .claude
 __pycache__/
 grpo_samples/
-results/
 # Neuron compiler artifacts
 PostSPMDPassesExecutionDuration.txt
