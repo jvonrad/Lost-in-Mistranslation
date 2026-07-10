@@ -78,3 +78,20 @@ assignment; 0 of 27,753 language entries unaligned). Pass it as
 The consistency evaluator runs on CUDA, CPU, or AWS Trainium (`--device xla`
 with `torch-neuronx`; batches are padded to fixed shapes to avoid
 recompilation).
+
+### Running on AWS Trainium (trn1/trn2)
+
+`bash setup_trainium.sh` bootstraps a bare Ubuntu instance end to end: Neuron
+apt repo + driver (including a source patch needed on kernel ≥ 7.0), runtime
+and tools, missing system libraries on Ubuntu 26.04, and a Python 3.11 venv
+at `~/neuron_venv` with `torch-neuronx`. It is idempotent and finishes with a
+device sanity check. Then:
+
+```bash
+source ~/neuron_venv/bin/activate   # also sets PJRT_DEVICE=NEURON
+python evaluate/evaluate_crosslingual_consistency.py --device xla ...
+```
+
+If a Neuron compilation ever fails due to a missing library, fix it and then
+delete `/var/tmp/neuron-compile-cache` — Neuron caches failed compilations
+and will replay the old error otherwise.
