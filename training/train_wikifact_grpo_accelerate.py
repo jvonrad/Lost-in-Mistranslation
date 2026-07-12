@@ -140,7 +140,10 @@ def parse_args():
 
     ap.add_argument("--coverage_reward_weight", type=float, default=0.05)
     ap.add_argument("--valid_option_reward_weight", type=float, default=0.15)
-    ap.add_argument("--all_correct_bonus", type=float, default=0.25)
+    ap.add_argument("--all_correct_bonus", type=float, default=1.0,
+                    help="Reward added when ALL languages are correct (cross-lingual "
+                         "consistency bonus). Ablation: 0.0 disables it, 5.0 amplifies it. "
+                         "Was previously hardcoded to 1.0.")
     ap.add_argument("--max_eval_flores", type=int, default=32)
     ap.add_argument("--kl_coef", type=float, default=0.05)
 
@@ -315,7 +318,7 @@ def compute_group_reward(
             n_pred += 1
 
     if n_correct == len(meta_by_lang):
-        score += 1.0
+        score += all_correct_bonus  # cross-lingual consistency bonus (was hardcoded 1.0)
 
     return {"score": score, "n_correct": n_correct, "n_valid": n_valid, "n_pred": n_pred}
 

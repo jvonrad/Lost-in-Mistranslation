@@ -98,6 +98,47 @@ Notes for a clean parallel run:
   core) are the `nvidia-smi` equivalents; both are on PATH after activating the
   venv.
 
+## Session findings (2026-07-11/12, trn2.48xlarge)
+
+- **HBM compile limit is 24 GB per compiled graph on trn2**, not the ~48 GB a
+  paired logical core nominally has — `neuronx-cc` rejects graphs above 24 GB
+  peak (`NCC_EOOM002`). Qwen (152k vocab) OOMs at batch 2 / max_length 1024;
+  OLMo (100k vocab) fits. Verified-fitting Global-MMLU-Lite configs:
+  **OLMo `--batch_size 2 --max_length 1024`, Qwen `--batch_size 2 --max_length 768`**.
+- `--benchmark global_mmlu_lite` (CohereLabs/Global-MMLU-Lite) added to
+  `evaluate_crosslingual_consistency.py`. Lite has **no Russian** config — pass
+  `--langs en,de,id,pt,ar,bn,sw,es,fr,ja,zh` (11 langs). 400 fully parallel
+  facts/lang, split `test`. Long Bengali tail (max ~2.8k tokens): ~1.5 % of
+  prompts right-truncate at these max_lengths (model-agnostic, affects all
+  models equally).
+- On trn2.48xlarge (`logical-neuroncore-config 2`): 16 devices × 4 physical
+  cores = 32 logical cores; pin jobs with `NEURON_RT_VISIBLE_CORES=0-1`, `2-3`,
+  … `62-63`. Root volume is only ~7 GB — mount an instance-store NVMe and point
+  `HF_HOME`, `UV_CACHE_DIR`, `TMPDIR`, and the Neuron cache
+  (`NEURON_CC_FLAGS=--cache_dir=...`) at it (done in `~/neuron_venv/bin/activate`).
+- **GRPO training is not runnable on Trainium**: on-policy generation is
+  structurally blocked (per-token recompilation in manual fixed-shape decode;
+  HF `generate` emits ops neuronx-cc lacks — `sort` from `torch.isin`, int64
+  `dot` — and with `--disable-hlo-operand-type-check=evrf_035` one generate
+  graph compiled >30 min without finishing). transformers-neuronx supports no
+  Qwen/OLMo arch; NxD-Inference supports qwen2 but would need a two-model
+  loop with per-step weight sync. Run the bonus ablation on GPU.
+- `--all_correct_bonus` in `train_wikifact_grpo_accelerate.py` was **dead code**
+  (bonus hardcoded `+1.0`); now wired, default 1.0 preserves paper behavior.
+  Ablation: `--all_correct_bonus 0.0` vs `5.0` (launch commands in chat/rebuttal
+  notes; needs CUDA GPUs, e.g. 4×A100 with `--use_lora`).
+- **Checkpoint discrepancy (unresolved)**: all committed "OLMo GRPO" consistency
+  results evaluate `jvonrad/OLMo-2-7B-grpo`, but the README model list says the
+  paper's GRPO is `jvonrad/olmo-2-7b-grpo-att-mlp-full` (both repos exist). This
+  may explain OLMo SFT > GRPO on PolyFact in the new tables (paper claims the
+  reverse). Re-evaluate att-mlp-full before quoting OLMo GRPO numbers.
+- `data_analysis/significance_analysis.py` recomputes per-fact metrics from the
+  saved score JSONs (validated against reported aggregates) and produces paired
+  fact-level bootstrap CIs / p-values → `results/significance/significance_report.md`.
+  Headline: OLMo GRPO on Global-MMLU-Lite improves RankC +3.3pp and agreement
+  +4.2pp (p≈1e-4) with flat accuracy; Qwen GRPO on PolyFact +2.4–4.0pp on all
+  metrics (p≈1e-4).
+
 ## Known inconsistencies to resolve
 
 - The paper appendix says the PolyFact evaluator wraps questions in a
@@ -107,8 +148,9 @@ Notes for a clean parallel run:
 
 ## Rebuttal work outstanding (from ACL ARR reviews, July 2026)
 
-Done: direct consistency metrics (RankC + total consistency) on PolyFact and
-Global-MMLU. Still requested by reviewers: CLC-enhancement baselines (DCO,
+Done: direct consistency metrics (RankC + total consistency + agreement) for
+all 12 models on PolyFact AND Global-MMLU-Lite (results/*_consistency.json);
+bootstrap CIs + paired significance tests (results/significance/). Still requested by reviewers: CLC-enhancement baselines (DCO,
 EN-pivot DPO / CM-Align, representation intervention), a GRPO ablation without
 the all-language consistency bonus, expanded related work (Qi et al. 2023,
 Fierro & Søgaard 2022, X-FACTR, Paths Not Taken), training/token cost
