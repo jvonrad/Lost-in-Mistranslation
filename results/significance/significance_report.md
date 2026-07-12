@@ -12,7 +12,7 @@ Point estimates with 95% percentile bootstrap CIs (10,000 resamples of facts; fa
 | OLMo | CPT | 37.70 [35.00, 40.39] | 0.75 [0.00, 1.75] | 52.79 [51.48, 54.07] | 42.73 [41.01, 44.48] |
 | OLMo | SFT | 44.05 [41.09, 46.98] | 3.25 [1.50, 5.01] | 57.99 [56.54, 59.48] | 49.79 [47.80, 51.85] |
 | OLMo | CPT+SFT | 42.36 [39.43, 45.36] | 4.00 [2.25, 6.00] | 58.26 [56.77, 59.74] | 50.03 [48.00, 52.07] |
-| OLMo | GRPO | 44.05 [41.05, 47.09] | 4.75 [2.75, 7.00] | 58.44 [56.89, 60.01] | 50.65 [48.51, 52.86] |
+| OLMo | GRPO | 43.84 [40.91, 46.70] | 3.00 [1.50, 4.75] | 56.34 [54.91, 57.84] | 47.43 [45.51, 49.43] |
 | OLMo | CPT+GRPO | 43.86 [40.91, 46.77] | 3.00 [1.50, 4.75] | 58.03 [56.59, 59.53] | 49.66 [47.70, 51.71] |
 | Qwen | Base | 63.20 [59.95, 66.43] | 13.50 [10.25, 17.00] | 69.70 [68.18, 71.30] | 64.49 [62.33, 66.75] |
 | Qwen | CPT | 60.61 [57.36, 63.89] | 13.25 [10.00, 16.75] | 68.28 [66.74, 69.84] | 62.85 [60.67, 65.13] |
@@ -33,10 +33,10 @@ Point estimates with 95% percentile bootstrap CIs (10,000 resamples of facts; fa
 | OLMo | CPT − Base | Total consistency | -2.75 * | [-4.50, -1.00] | 0.0014 |
 | OLMo | CPT − Base | RankC | -2.34 * | [-3.74, -0.97] | 0.0010 |
 | OLMo | CPT − Base | Answer agreement | -3.75 * | [-5.70, -1.84] | 0.0002 |
-| OLMo | GRPO − Base | Avg accuracy | -0.70 | [-1.75, +0.36] | 0.1948 |
-| OLMo | GRPO − Base | Total consistency | +1.25 | [-0.25, +3.00] | 0.1582 |
-| OLMo | GRPO − Base | RankC | +3.32 * | [+2.48, +4.19] | 0.0001 |
-| OLMo | GRPO − Base | Answer agreement | +4.17 * | [+2.91, +5.46] | 0.0001 |
+| OLMo | GRPO − Base | Avg accuracy | -0.91 | [-3.14, +1.32] | 0.4292 |
+| OLMo | GRPO − Base | Total consistency | -0.50 | [-2.50, +1.25] | 0.6716 |
+| OLMo | GRPO − Base | RankC | +1.22 | [-0.16, +2.60] | 0.0842 |
+| OLMo | GRPO − Base | Answer agreement | +0.95 | [-1.03, +2.91] | 0.3492 |
 | OLMo | CPT+SFT − Base | Avg accuracy | -2.39 | [-5.16, +0.39] | 0.0936 |
 | OLMo | CPT+SFT − Base | Total consistency | +0.50 | [-2.00, +3.00] | 0.7744 |
 | OLMo | CPT+SFT − Base | RankC | +3.14 * | [+1.56, +4.69] | 0.0001 |
@@ -45,10 +45,10 @@ Point estimates with 95% percentile bootstrap CIs (10,000 resamples of facts; fa
 | OLMo | CPT+GRPO − Base | Total consistency | -0.50 | [-2.25, +1.25] | 0.6332 |
 | OLMo | CPT+GRPO − Base | RankC | +2.91 * | [+1.54, +4.23] | 0.0001 |
 | OLMo | CPT+GRPO − Base | Answer agreement | +3.18 * | [+1.24, +5.05] | 0.0006 |
-| OLMo | GRPO − SFT | Avg accuracy | +0.00 | [-2.73, +2.73] | 0.9908 |
-| OLMo | GRPO − SFT | Total consistency | +1.50 | [-0.75, +3.75] | 0.2344 |
-| OLMo | GRPO − SFT | RankC | +0.45 | [-1.21, +2.16] | 0.6004 |
-| OLMo | GRPO − SFT | Answer agreement | +0.86 | [-1.55, +3.31] | 0.4814 |
+| OLMo | GRPO − SFT | Avg accuracy | -0.20 | [-2.55, +2.18] | 0.8772 |
+| OLMo | GRPO − SFT | Total consistency | -0.25 | [-2.25, +1.75] | 0.9032 |
+| OLMo | GRPO − SFT | RankC | -1.65 * | [-3.11, -0.16] | 0.0302 |
+| OLMo | GRPO − SFT | Answer agreement | -2.36 * | [-4.39, -0.31] | 0.0266 |
 | Qwen | SFT − Base | Avg accuracy | -2.16 * | [-4.18, -0.20] | 0.0324 |
 | Qwen | SFT − Base | Total consistency | -4.50 * | [-7.75, -1.25] | 0.0076 |
 | Qwen | SFT − Base | RankC | -2.07 * | [-3.42, -0.76] | 0.0022 |
@@ -87,7 +87,7 @@ Point estimates with 95% percentile bootstrap CIs (10,000 resamples of facts; fa
 | OLMo | CPT | 47.91 [46.89, 48.90] | 2.93 [2.30, 3.61] | 53.39 [52.88, 53.90] | 44.27 [43.57, 44.98] |
 | OLMo | SFT | 60.21 [59.16, 61.22] | 6.50 [5.55, 7.49] | 59.40 [58.81, 59.99] | 52.58 [51.75, 53.40] |
 | OLMo | CPT+SFT | 59.23 [58.20, 60.24] | 6.46 [5.51, 7.41] | 58.77 [58.16, 59.36] | 51.65 [50.81, 52.47] |
-| OLMo | GRPO | 57.36 [56.29, 58.38] | 6.30 [5.35, 7.29] | 58.00 [57.41, 58.59] | 50.63 [49.81, 51.45] |
+| OLMo | GRPO | 60.99 [59.90, 62.04] | 10.66 [9.47, 11.89] | 60.26 [59.61, 60.89] | 53.98 [53.06, 54.87] |
 | OLMo | CPT+GRPO | 61.30 [60.23, 62.35] | 10.42 [9.27, 11.61] | 60.33 [59.69, 60.97] | 54.08 [53.18, 54.97] |
 | Qwen | Base | 61.89 [60.82, 62.92] | 7.09 [6.06, 8.09] | 61.66 [61.06, 62.25] | 55.48 [54.65, 56.31] |
 | Qwen | CPT | 57.98 [56.93, 58.99] | 5.23 [4.36, 6.10] | 59.23 [58.67, 59.79] | 52.14 [51.35, 52.91] |
@@ -108,10 +108,10 @@ Point estimates with 95% percentile bootstrap CIs (10,000 resamples of facts; fa
 | OLMo | CPT − Base | Total consistency | -4.28 * | [-5.23, -3.37] | 0.0001 |
 | OLMo | CPT − Base | RankC | -4.92 * | [-5.36, -4.49] | 0.0001 |
 | OLMo | CPT − Base | Answer agreement | -6.83 * | [-7.46, -6.21] | 0.0001 |
-| OLMo | GRPO − Base | Avg accuracy | -0.61 * | [-0.77, -0.45] | 0.0001 |
-| OLMo | GRPO − Base | Total consistency | -0.91 * | [-1.35, -0.52] | 0.0001 |
-| OLMo | GRPO − Base | RankC | -0.31 * | [-0.43, -0.20] | 0.0001 |
-| OLMo | GRPO − Base | Answer agreement | -0.47 * | [-0.65, -0.29] | 0.0001 |
+| OLMo | GRPO − Base | Avg accuracy | +3.02 * | [+2.61, +3.44] | 0.0001 |
+| OLMo | GRPO − Base | Total consistency | +3.45 * | [+2.58, +4.36] | 0.0001 |
+| OLMo | GRPO − Base | RankC | +1.94 * | [+1.65, +2.24] | 0.0001 |
+| OLMo | GRPO − Base | Answer agreement | +2.87 * | [+2.44, +3.31] | 0.0001 |
 | OLMo | CPT+SFT − Base | Avg accuracy | +1.27 * | [+0.80, +1.72] | 0.0001 |
 | OLMo | CPT+SFT − Base | Total consistency | -0.75 | [-1.70, +0.16] | 0.1240 |
 | OLMo | CPT+SFT − Base | RankC | +0.46 * | [+0.12, +0.79] | 0.0070 |
@@ -120,10 +120,10 @@ Point estimates with 95% percentile bootstrap CIs (10,000 resamples of facts; fa
 | OLMo | CPT+GRPO − Base | Total consistency | +3.21 * | [+2.34, +4.12] | 0.0001 |
 | OLMo | CPT+GRPO − Base | RankC | +2.02 * | [+1.71, +2.33] | 0.0001 |
 | OLMo | CPT+GRPO − Base | Answer agreement | +2.97 * | [+2.52, +3.44] | 0.0001 |
-| OLMo | GRPO − SFT | Avg accuracy | -2.85 * | [-3.28, -2.43] | 0.0001 |
-| OLMo | GRPO − SFT | Total consistency | -0.20 | [-1.03, +0.63] | 0.6858 |
-| OLMo | GRPO − SFT | RankC | -1.40 * | [-1.70, -1.09] | 0.0001 |
-| OLMo | GRPO − SFT | Answer agreement | -1.95 * | [-2.40, -1.49] | 0.0001 |
+| OLMo | GRPO − SFT | Avg accuracy | +0.78 * | [+0.29, +1.27] | 0.0018 |
+| OLMo | GRPO − SFT | Total consistency | +4.16 * | [+3.17, +5.19] | 0.0001 |
+| OLMo | GRPO − SFT | RankC | +0.86 * | [+0.52, +1.21] | 0.0001 |
+| OLMo | GRPO − SFT | Answer agreement | +1.40 * | [+0.90, +1.90] | 0.0001 |
 | Qwen | SFT − Base | Avg accuracy | +5.33 * | [+4.90, +5.75] | 0.0001 |
 | Qwen | SFT − Base | Total consistency | +5.95 * | [+4.91, +6.98] | 0.0001 |
 | Qwen | SFT − Base | RankC | +4.21 * | [+3.88, +4.55] | 0.0001 |

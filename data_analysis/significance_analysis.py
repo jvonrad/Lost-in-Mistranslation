@@ -33,7 +33,9 @@ FAMILIES = {
         "CPT": "OLMo-2-1124-7B-TED",
         "SFT": "olmo-2-7b-wikifact-sft",
         "CPT+SFT": "olmo-2-7b-aligned-wikifact-sft",
-        "GRPO": "OLMo-2-7B-grpo",
+        # Paper's GRPO checkpoint per README + delta-vs-base match (2026-07-12);
+        # jvonrad/OLMo-2-7B-grpo is a different (weaker) run — do not use.
+        "GRPO": "olmo-2-7b-grpo-att-mlp-full",
         "CPT+GRPO": "olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint",
     },
     "Qwen": {
