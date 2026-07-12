@@ -1,0 +1,179 @@
+=== JOB model=jvonrad/Qwen-2.5-7B-TED-SFT bench=polyfact cores=4-5 out=/home/ubuntu/Lost-in-Mistranslation/results/Qwen-2.5-7B-TED-SFT_polyfact_consistency.json 14:01:29 ===
+Loading jvonrad/WIKI-FACT [test] from Hugging Face
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loaded 2,523 facts
+Loading cached alignment: evaluate/alignments/polyfact_test_alignment.json
+/home/ubuntu/Lost-in-Mistranslation/evaluate/evaluate_crosslingual_consistency.py:370: DeprecationWarning: Use torch_xla.device instead
+  return xm.xla_device(), "xla"
+2026-Jul-11 14:01:41.0207 31250:32712 [4] net_plugin.cc:80 CCOM WARN NET/Plugin: Error: libnccom-net.so load failed. libfabric.so.1: cannot open shared object file: No such file or directory. Please make sure to install the latest version of libfabric from https://efa-installer.amazonaws.com/aws-efa-installer-latest.tar.gz.
+Device: xla
+Loading model: jvonrad/Qwen-2.5-7B-TED-SFT
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 12955.29it/s]
+
+[en] scoring 2,523 facts
+2026-07-11 14:01:44.000659:  31250  [INFO]: Using a cached neff at /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_16135372842859449055+fad94d7c/model.neff
+2026-07-11 14:01:46.000090:  31250  [INFO]: Using a cached neff at /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_5120691084079504797+fad94d7c/model.neff
+  [en] 400/2523  acc so far=0.7400
+  [en] 800/2523  acc so far=0.7550
+  [en] 1200/2523  acc so far=0.7517
+  [en] 1600/2523  acc so far=0.7362
+  [en] 2000/2523  acc so far=0.7290
+  [en] 2400/2523  acc so far=0.7329
+[en] accuracy = 0.7313
+
+[de] scoring 2,523 facts
+  [de] 400/2523  acc so far=0.5875
+  [de] 800/2523  acc so far=0.5837
+  [de] 1200/2523  acc so far=0.5850
+  [de] 1600/2523  acc so far=0.5925
+  [de] 2000/2523  acc so far=0.5910
+  [de] 2400/2523  acc so far=0.5871
+[de] accuracy = 0.5866
+
+[id] scoring 2,523 facts
+  [id] 400/2523  acc so far=0.6600
+  [id] 800/2523  acc so far=0.6512
+  [id] 1200/2523  acc so far=0.6583
+  [id] 1600/2523  acc so far=0.6500
+  [id] 2000/2523  acc so far=0.6395
+  [id] 2400/2523  acc so far=0.6358
+[id] accuracy = 0.6342
+
+[pt] scoring 2,523 facts
+  [pt] 400/2523  acc so far=0.5775
+  [pt] 800/2523  acc so far=0.5800
+  [pt] 1200/2523  acc so far=0.5733
+  [pt] 1600/2523  acc so far=0.5769
+  [pt] 2000/2523  acc so far=0.5650
+  [pt] 2400/2523  acc so far=0.5687
+[pt] accuracy = 0.5672
+
+[ar] scoring 2,523 facts
+  [ar] 400/2523  acc so far=0.3625
+  [ar] 800/2523  acc so far=0.3875
+  [ar] 1200/2523  acc so far=0.3967
+  [ar] 1600/2523  acc so far=0.3975
+  [ar] 2000/2523  acc so far=0.3990
+  [ar] 2400/2523  acc so far=0.4133
+[ar] accuracy = 0.4162
+
+[bn] scoring 2,523 facts
+  [bn] 400/2523  acc so far=0.4400
+  [bn] 800/2523  acc so far=0.4213
+  [bn] 1200/2523  acc so far=0.4350
+  [bn] 1600/2523  acc so far=0.4369
+  [bn] 2000/2523  acc so far=0.4380
+  [bn] 2400/2523  acc so far=0.4404
+[bn] accuracy = 0.4407
+
+[sw] scoring 2,523 facts
+  [sw] 400/2523  acc so far=0.4975
+  [sw] 800/2523  acc so far=0.4975
+  [sw] 1200/2523  acc so far=0.4900
+  [sw] 1600/2523  acc so far=0.4838
+  [sw] 2000/2523  acc so far=0.4740
+  [sw] 2400/2523  acc so far=0.4746
+[sw] accuracy = 0.4748
+
+[es] scoring 2,523 facts
+  [es] 400/2523  acc so far=0.5925
+  [es] 800/2523  acc so far=0.6038
+  [es] 1200/2523  acc so far=0.5967
+  [es] 1600/2523  acc so far=0.5956
+  [es] 2000/2523  acc so far=0.5880
+  [es] 2400/2523  acc so far=0.5829
+[es] accuracy = 0.5779
+
+[ru] scoring 2,523 facts
+  [ru] 400/2523  acc so far=0.4775
+  [ru] 800/2523  acc so far=0.4725
+  [ru] 1200/2523  acc so far=0.4733
+  [ru] 1600/2523  acc so far=0.4794
+  [ru] 2000/2523  acc so far=0.4710
+  [ru] 2400/2523  acc so far=0.4658
+[ru] accuracy = 0.4610
+
+[fr] scoring 2,523 facts
+  [fr] 400/2523  acc so far=0.5900
+  [fr] 800/2523  acc so far=0.5900
+  [fr] 1200/2523  acc so far=0.5892
+  [fr] 1600/2523  acc so far=0.5787
+  [fr] 2000/2523  acc so far=0.5795
+  [fr] 2400/2523  acc so far=0.5792
+[fr] accuracy = 0.5771
+
+[ja] scoring 2,523 facts
+  [ja] 400/2523  acc so far=0.5325
+  [ja] 800/2523  acc so far=0.5587
+  [ja] 1200/2523  acc so far=0.5667
+  [ja] 1600/2523  acc so far=0.5637
+  [ja] 2000/2523  acc so far=0.5680
+  [ja] 2400/2523  acc so far=0.5679
+[ja] accuracy = 0.5715
+
+[zh] scoring 2,523 facts
+  [zh] 400/2523  acc so far=0.5050
+  [zh] 800/2523  acc so far=0.5212
+  [zh] 1200/2523  acc so far=0.5183
+  [zh] 1600/2523  acc so far=0.5125
+  [zh] 2000/2523  acc so far=0.5110
+  [zh] 2400/2523  acc so far=0.5133
+[zh] accuracy = 0.5133
+
+================================================================================
+PER-LANGUAGE ACCURACY
+  en  acc=0.7313  n=2523
+  de  acc=0.5866  n=2523
+  id  acc=0.6342  n=2523
+  pt  acc=0.5672  n=2523
+  ar  acc=0.4162  n=2523
+  bn  acc=0.4407  n=2523
+  sw  acc=0.4748  n=2523
+  es  acc=0.5779  n=2523
+  ru  acc=0.4610  n=2523
+  fr  acc=0.5771  n=2523
+  ja  acc=0.5715  n=2523
+  zh  acc=0.5133  n=2523
+
+TOTAL CONSISTENCY (fully parallel facts)
+  correct in ALL 12 languages: 0.0380 (2523 facts)
+  mean #languages correct per fact:  6.55
+  histogram (k langs correct -> facts): {'0': 81, '1': 125, '2': 144, '3': 148, '4': 162, '5': 199, '6': 250, '7': 330, '8': 324, '9': 305, '10': 218, '11': 141, '12': 96}
+
+RANKC  average=0.5686  en-X average=0.6342
+
+RankC matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.745  0.770  0.714  0.481  0.487  0.649  0.731  0.542  0.727  0.578  0.554
+  de    0.745      -  0.701  0.679  0.462  0.463  0.630  0.690  0.531  0.714  0.536  0.520
+  id    0.770  0.701      -  0.691  0.475  0.495  0.677  0.692  0.532  0.701  0.557  0.533
+  pt    0.714  0.679  0.691      -  0.465  0.456  0.596  0.746  0.546  0.706  0.511  0.502
+  ar    0.481  0.462  0.475  0.465      -  0.535  0.445  0.471  0.528  0.451  0.550  0.485
+  bn    0.487  0.463  0.495  0.456  0.535      -  0.473  0.451  0.501  0.468  0.582  0.510
+  sw    0.649  0.630  0.677  0.596  0.445  0.473      -  0.604  0.487  0.623  0.488  0.471
+  es    0.731  0.690  0.692  0.746  0.471  0.451  0.604      -  0.550  0.707  0.521  0.506
+  ru    0.542  0.531  0.532  0.546  0.528  0.501  0.487  0.550      -  0.552  0.568  0.554
+  fr    0.727  0.714  0.701  0.706  0.451  0.468  0.623  0.707  0.552      -  0.523  0.521
+  ja    0.578  0.536  0.557  0.511  0.550  0.582  0.488  0.521  0.568  0.523      -  0.623
+  zh    0.554  0.520  0.533  0.502  0.485  0.510  0.471  0.506  0.554  0.521  0.623      -
+
+ANSWER AGREEMENT  average=0.4890
+
+Agreement matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.703  0.739  0.661  0.394  0.404  0.580  0.683  0.462  0.683  0.520  0.484
+  de    0.703      -  0.646  0.616  0.359  0.365  0.552  0.628  0.441  0.658  0.461  0.432
+  id    0.739  0.646      -  0.632  0.378  0.408  0.612  0.637  0.446  0.649  0.493  0.455
+  pt    0.661  0.616  0.632      -  0.361  0.345  0.508  0.700  0.462  0.648  0.421  0.408
+  ar    0.394  0.359  0.378  0.361      -  0.440  0.344  0.371  0.428  0.345  0.463  0.379
+  bn    0.404  0.365  0.408  0.345  0.440      -  0.373  0.347  0.394  0.370  0.507  0.416
+  sw    0.580  0.552  0.612  0.508  0.344  0.373      -  0.521  0.386  0.547  0.402  0.368
+  es    0.683  0.628  0.637  0.700  0.371  0.347  0.521      -  0.473  0.650  0.441  0.416
+  ru    0.462  0.441  0.446  0.462  0.428  0.394  0.386  0.473      -  0.470  0.489  0.469
+  fr    0.683  0.658  0.649  0.648  0.345  0.370  0.547  0.650  0.470      -  0.443  0.437
+  ja    0.520  0.461  0.493  0.421  0.463  0.507  0.402  0.441  0.489  0.443      -  0.556
+  zh    0.484  0.432  0.455  0.408  0.379  0.416  0.368  0.416  0.469  0.437  0.556      -
+
+Saved results: /home/ubuntu/Lost-in-Mistranslation/results/Qwen-2.5-7B-TED-SFT_polyfact_consistency.json
+JOB_EXIT=0 model=jvonrad/Qwen-2.5-7B-TED-SFT 14:55:16

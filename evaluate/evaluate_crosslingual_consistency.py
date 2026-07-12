@@ -78,7 +78,14 @@ LANGS = ["en", "de", "id", "pt", "ar", "bn", "sw", "es", "ru", "fr", "ja", "zh"]
 REF_LANG = "en"
 N_OPTIONS = 4
 
-GMMLU_DATASET = "CohereLabs/Global-MMLU"
+GMMLU_DATASETS = {
+    "global_mmlu": "CohereLabs/Global-MMLU",
+    "global_mmlu_lite": "CohereLabs/Global-MMLU-Lite",
+}
+
+
+def is_gmmlu(benchmark: str) -> bool:
+    return benchmark in GMMLU_DATASETS
 
 
 # --------------------------------------------------------------------------
@@ -162,16 +169,19 @@ def load_polyfact_facts(args):
     return facts
 
 
-def load_gmmlu_facts(args):
+def load_gmmlu_facts(args, langs):
     """
     Returns: dict sample_id -> lang -> {"question", "options", "gold_idx"}
     Options are parallel by index across languages; gold is the answer letter.
+    Global-MMLU-Lite has no Russian config, so the caller passes the language
+    subset to iterate (see --langs); we never hardcode the full LANGS here.
     """
+    dataset = GMMLU_DATASETS[args.benchmark]
     letter_to_idx = {"A": 0, "B": 1, "C": 2, "D": 3}
     facts = defaultdict(dict)
-    for lang in LANGS:
-        print(f"Loading {GMMLU_DATASET} [{lang}] split={args.split}")
-        ds = load_dataset(GMMLU_DATASET, lang, split=args.split)
+    for lang in langs:
+        print(f"Loading {dataset} [{lang}] split={args.split}")
+        ds = load_dataset(dataset, lang, split=args.split)
         for row in ds:
             gold_idx = letter_to_idx.get((row.get("answer") or "").strip())
             options = [
@@ -570,7 +580,9 @@ def print_pair_matrix(title, pairwise, langs):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--benchmark", choices=["polyfact", "global_mmlu"], default="polyfact")
+    ap.add_argument("--benchmark",
+                    choices=["polyfact", "global_mmlu", "global_mmlu_lite"],
+                    default="polyfact")
     ap.add_argument("--hf_dataset", default="jvonrad/WIKI-FACT")
     ap.add_argument("--hf_config", default=None)
     ap.add_argument("--split", default="test")
@@ -597,7 +609,7 @@ def main():
     if args.benchmark == "polyfact":
         facts = load_polyfact_facts(args)
     else:
-        facts = load_gmmlu_facts(args)
+        facts = load_gmmlu_facts(args, langs)
     print(f"Loaded {len(facts):,} facts")
 
     if args.max_facts > 0:
@@ -644,7 +656,7 @@ def main():
             item = per_lang.get(lang)
             if not item:
                 continue
-            if args.benchmark == "global_mmlu":
+            if is_gmmlu(args.benchmark):
                 prompt = build_gmmlu_letter_prompt(item)
                 options = ["A", "B", "C", "D"]
             else:

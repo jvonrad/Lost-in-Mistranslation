@@ -1,0 +1,158 @@
+=== JOB model=jvonrad/Qwen-2.5-7B-TED bench=global_mmlu_lite cores=20-21 out=/home/ubuntu/Lost-in-Mistranslation/results/Qwen-2.5-7B-TED_gmmlu_lite_consistency.json 18:32:33 ===
+Loading CohereLabs/Global-MMLU-Lite [en] split=test
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading CohereLabs/Global-MMLU-Lite [de] split=test
+Loading CohereLabs/Global-MMLU-Lite [id] split=test
+Loading CohereLabs/Global-MMLU-Lite [pt] split=test
+Loading CohereLabs/Global-MMLU-Lite [ar] split=test
+Loading CohereLabs/Global-MMLU-Lite [bn] split=test
+Loading CohereLabs/Global-MMLU-Lite [sw] split=test
+Loading CohereLabs/Global-MMLU-Lite [es] split=test
+Loading CohereLabs/Global-MMLU-Lite [fr] split=test
+Loading CohereLabs/Global-MMLU-Lite [ja] split=test
+Loading CohereLabs/Global-MMLU-Lite [zh] split=test
+Loaded 400 facts
+/home/ubuntu/Lost-in-Mistranslation/evaluate/evaluate_crosslingual_consistency.py:370: DeprecationWarning: Use torch_xla.device instead
+  return xm.xla_device(), "xla"
+2026-Jul-11 18:32:58.0449 70022:75449 [20] net_plugin.cc:80 CCOM WARN NET/Plugin: Error: libnccom-net.so load failed. libfabric.so.1: cannot open shared object file: No such file or directory. Please make sure to install the latest version of libfabric from https://efa-installer.amazonaws.com/aws-efa-installer-latest.tar.gz.
+Device: xla
+Loading model: jvonrad/Qwen-2.5-7B-TED
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 16573.06it/s]
+
+[en] scoring 400 facts
+2026-07-11 18:33:02.000398:  70022  [INFO]: Using a cached neff at /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_14145273692944497853+fad94d7c/model.neff
+2026-07-11 18:33:03.000314:  70022  [INFO]: Using a cached neff at /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_9407786206369431582+fad94d7c/model.neff
+  [en] 100/400  acc so far=0.7600
+  [en] 200/400  acc so far=0.7600
+  [en] 300/400  acc so far=0.7767
+  [en] 400/400  acc so far=0.7425
+[en] accuracy = 0.7425
+
+[de] scoring 400 facts
+  [de] 100/400  acc so far=0.6100
+  [de] 200/400  acc so far=0.6350
+  [de] 300/400  acc so far=0.6600
+  [de] 400/400  acc so far=0.6350
+[de] accuracy = 0.6350
+
+[id] scoring 400 facts
+  [id] 100/400  acc so far=0.6300
+  [id] 200/400  acc so far=0.6150
+  [id] 300/400  acc so far=0.6333
+  [id] 400/400  acc so far=0.6100
+[id] accuracy = 0.6100
+
+[pt] scoring 400 facts
+  [pt] 100/400  acc so far=0.6100
+  [pt] 200/400  acc so far=0.6700
+  [pt] 300/400  acc so far=0.7067
+  [pt] 400/400  acc so far=0.6675
+[pt] accuracy = 0.6675
+
+[ar] scoring 400 facts
+  [ar] 100/400  acc so far=0.5900
+  [ar] 200/400  acc so far=0.5800
+  [ar] 300/400  acc so far=0.5800
+  [ar] 400/400  acc so far=0.5725
+[ar] accuracy = 0.5725
+
+[bn] scoring 400 facts
+2026-07-11 18:49:25.000449:  70022  [INFO]: Another process must be compiling /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_11384176833922317605+fad94d7c/model.hlo_module.pb, been waiting for: 1.0 minutes
+2026-07-11 18:50:25.000451:  70022  [INFO]: Another process must be compiling /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_11384176833922317605+fad94d7c/model.hlo_module.pb, been waiting for: 2.0 minutes
+2026-07-11 18:51:25.000454:  70022  [INFO]: Another process must be compiling /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_11384176833922317605+fad94d7c/model.hlo_module.pb, been waiting for: 3.0 minutes
+2026-07-11 18:51:40.000582:  70022  [INFO]: Using a cached neff at /mnt/nvme/neuron-cache/neuronxcc-2.26.6360.0+6f180f47/MODULE_11384176833922317605+fad94d7c/model.neff
+  [bn] 100/400  acc so far=0.3400
+  [bn] 200/400  acc so far=0.3850
+  [bn] 300/400  acc so far=0.4300
+  [bn] 400/400  acc so far=0.4150
+[bn] accuracy = 0.4150
+
+[sw] scoring 400 facts
+  [sw] 100/400  acc so far=0.3500
+  [sw] 200/400  acc so far=0.3600
+  [sw] 300/400  acc so far=0.3800
+  [sw] 400/400  acc so far=0.3850
+[sw] accuracy = 0.3850
+
+[es] scoring 400 facts
+  [es] 100/400  acc so far=0.6500
+  [es] 200/400  acc so far=0.6650
+  [es] 300/400  acc so far=0.7033
+  [es] 400/400  acc so far=0.6700
+[es] accuracy = 0.6700
+
+[fr] scoring 400 facts
+  [fr] 100/400  acc so far=0.6400
+  [fr] 200/400  acc so far=0.6450
+  [fr] 300/400  acc so far=0.6767
+  [fr] 400/400  acc so far=0.6600
+[fr] accuracy = 0.6600
+
+[ja] scoring 400 facts
+  [ja] 100/400  acc so far=0.6000
+  [ja] 200/400  acc so far=0.6000
+  [ja] 300/400  acc so far=0.6300
+  [ja] 400/400  acc so far=0.6075
+[ja] accuracy = 0.6075
+
+[zh] scoring 400 facts
+  [zh] 100/400  acc so far=0.6900
+  [zh] 200/400  acc so far=0.7000
+  [zh] 300/400  acc so far=0.7333
+  [zh] 400/400  acc so far=0.7025
+[zh] accuracy = 0.7025
+
+================================================================================
+PER-LANGUAGE ACCURACY
+  en  acc=0.7425  n=400
+  de  acc=0.6350  n=400
+  id  acc=0.6100  n=400
+  pt  acc=0.6675  n=400
+  ar  acc=0.5725  n=400
+  bn  acc=0.4150  n=400
+  sw  acc=0.3850  n=400
+  es  acc=0.6700  n=400
+  fr  acc=0.6600  n=400
+  ja  acc=0.6075  n=400
+  zh  acc=0.7025  n=400
+
+TOTAL CONSISTENCY (fully parallel facts)
+  correct in ALL 11 languages: 0.1325 (400 facts)
+  mean #languages correct per fact:  6.67
+  histogram (k langs correct -> facts): {'0': 38, '1': 22, '2': 20, '3': 11, '4': 18, '5': 25, '6': 30, '7': 32, '8': 33, '9': 56, '10': 62, '11': 53}
+
+RANKC  average=0.6828  en-X average=0.7161
+
+RankC matrix:
+           en     de     id     pt     ar     bn     sw     es     fr     ja     zh
+  en        -  0.763  0.754  0.776  0.693  0.582  0.526  0.790  0.749  0.731  0.796
+  de    0.763      -  0.754  0.757  0.715  0.604  0.563  0.776  0.772  0.710  0.727
+  id    0.754  0.754      -  0.733  0.707  0.600  0.559  0.760  0.743  0.711  0.728
+  pt    0.776  0.757  0.733      -  0.723  0.617  0.542  0.835  0.787  0.725  0.759
+  ar    0.693  0.715  0.707  0.723      -  0.587  0.540  0.723  0.727  0.685  0.693
+  bn    0.582  0.604  0.600  0.617  0.587      -  0.530  0.595  0.585  0.606  0.575
+  sw    0.526  0.563  0.559  0.542  0.540  0.530      -  0.555  0.565  0.564  0.520
+  es    0.790  0.776  0.760  0.835  0.723  0.595  0.555      -  0.791  0.724  0.753
+  fr    0.749  0.772  0.743  0.787  0.727  0.585  0.565  0.791      -  0.709  0.726
+  ja    0.731  0.710  0.711  0.725  0.685  0.606  0.564  0.724  0.709      -  0.730
+  zh    0.796  0.727  0.728  0.759  0.693  0.575  0.520  0.753  0.726  0.730      -
+
+ANSWER AGREEMENT  average=0.6285
+
+Agreement matrix:
+           en     de     id     pt     ar     bn     sw     es     fr     ja     zh
+  en        -  0.730  0.720  0.750  0.650  0.510  0.440  0.765  0.718  0.695  0.785
+  de    0.730      -  0.720  0.718  0.672  0.527  0.480  0.743  0.740  0.655  0.693
+  id    0.720  0.720      -  0.682  0.657  0.527  0.470  0.723  0.705  0.662  0.698
+  pt    0.750  0.718  0.682      -  0.670  0.542  0.453  0.807  0.752  0.675  0.725
+  ar    0.650  0.672  0.657  0.670      -  0.505  0.440  0.680  0.688  0.632  0.650
+  bn    0.510  0.527  0.527  0.542  0.505      -  0.435  0.512  0.497  0.527  0.490
+  sw    0.440  0.480  0.470  0.453  0.440  0.435      -  0.472  0.477  0.480  0.427
+  es    0.765  0.743  0.723  0.807  0.680  0.512  0.472      -  0.757  0.677  0.728
+  fr    0.718  0.740  0.705  0.752  0.688  0.497  0.477  0.757      -  0.655  0.685
+  ja    0.695  0.655  0.662  0.675  0.632  0.527  0.480  0.677  0.655      -  0.690
+  zh    0.785  0.693  0.698  0.725  0.650  0.490  0.427  0.728  0.685  0.690      -
+
+Saved results: /home/ubuntu/Lost-in-Mistranslation/results/Qwen-2.5-7B-TED_gmmlu_lite_consistency.json
+JOB_EXIT=0 model=jvonrad/Qwen-2.5-7B-TED 19:09:14
