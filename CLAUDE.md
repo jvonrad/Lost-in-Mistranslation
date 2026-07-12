@@ -127,17 +127,47 @@ Notes for a clean parallel run:
   (bonus hardcoded `+1.0`); now wired, default 1.0 preserves paper behavior.
   Ablation: `--all_correct_bonus 0.0` vs `5.0` (launch commands in chat/rebuttal
   notes; needs CUDA GPUs, e.g. 4×A100 with `--use_lora`).
-- **Checkpoint discrepancy (unresolved)**: all committed "OLMo GRPO" consistency
-  results evaluate `jvonrad/OLMo-2-7B-grpo`, but the README model list says the
-  paper's GRPO is `jvonrad/olmo-2-7b-grpo-att-mlp-full` (both repos exist). This
-  may explain OLMo SFT > GRPO on PolyFact in the new tables (paper claims the
-  reverse). Re-evaluate att-mlp-full before quoting OLMo GRPO numbers.
+- **Checkpoint discrepancy (RESOLVED 2026-07-12)**: the paper's OLMo GRPO is
+  `jvonrad/olmo-2-7b-grpo-att-mlp-full` (as the README says) — its PolyFact
+  delta-vs-base (+3.0 avg12, +3.5 TotCons, p=1e-4) matches the paper's WIKI-FACT
+  GRPO uplift, and it beats SFT on all metrics. `jvonrad/OLMo-2-7B-grpo` is a
+  different, weaker run (flat/below base) — its results
+  (`results/OLMo-2-7B-grpo_*`) should NOT be quoted as the paper's GRPO.
+  `significance_analysis.py` and the report now use att-mlp-full.
 - `data_analysis/significance_analysis.py` recomputes per-fact metrics from the
   saved score JSONs (validated against reported aggregates) and produces paired
   fact-level bootstrap CIs / p-values → `results/significance/significance_report.md`.
-  Headline: OLMo GRPO on Global-MMLU-Lite improves RankC +3.3pp and agreement
-  +4.2pp (p≈1e-4) with flat accuracy; Qwen GRPO on PolyFact +2.4–4.0pp on all
-  metrics (p≈1e-4).
+  Headline (with the correct att-mlp-full GRPO checkpoint): on PolyFact, GRPO is
+  the only method improving ALL consistency metrics, every GRPO−Base and
+  GRPO−SFT delta significant (p≤0.002; TotCons +4.16pp over SFT); SFT raises
+  accuracy (+2.25pp) but NOT total consistency (−0.71pp n.s.) — the
+  "accuracy-without-consistency" contrast used in the rebuttal. Qwen replicates
+  (+2.4–4.0pp, p≤1e-4). On Global-MMLU-Lite, GRPO accuracy is unchanged
+  (−0.9pp, CI [−3.1,+1.3]) and consistency is directionally positive but n.s.
+  (RankC +1.2pp) — do NOT claim significant OOD consistency gains.
+- **KLAR generation eval runs on Trainium** (`evaluate/evaluate_klar.py`,
+  `--device xla`): its `_greedy_xla` uses a fixed prompt window (`--max-length
+  448`) and one compiled graph per decode step (`--max-new-tokens 10` → 10
+  graphs, compile-once then cached for every model of the same family). The
+  int64-dot compiler error (`NCC_EVRF035`) it hits is fixed by appending
+  `--disable-hlo-operand-type-check=evrf_035` to `NEURON_CC_FLAGS` (safe here:
+  the int64 dot is over position indices ≪ 2^24, exactly representable in fp).
+  This flag does NOT rescue HF `generate()` (its graph compiles >30 min,
+  unusable) — only this manual fixed-shape loop.
+- `evaluate_klar.py --tokenizer` used to default to the OLMo tokenizer instead
+  of `--model` (silent garbage for Qwen); fixed to default to the model. Pass
+  `--contamination-labels evaluate/alignments/klar_polyfact_contamination.json`
+  and `--output-json` for per-sample records; aggregate clean-vs-contaminated
+  splits across models with `data_analysis/klar_contamination_split.py`
+  (overall / contaminated / clean-shared / non-shared subsets, from
+  `results/klar/*_klar.json`).
+- KLAR clean-subset motivation: 157/1,207 KLAR facts in PolyFact-shared
+  relations have their exact triple in PolyFact-train (13.0% of shared, 6.0% of
+  all 2,619) — reviewers asked whether GRPO's KLAR gains survive on the
+  non-overlapping subset. 12-model KLAR runs were in flight at session end
+  (2026-07-12); outputs land in `results/klar/<model>_klar.{json,log}`;
+  launcher pattern: one model per `NEURON_RT_VISIBLE_CORES` pair, warm one
+  OLMo + one Qwen job first (graph families differ by vocab), then the rest.
 
 ## Known inconsistencies to resolve
 
