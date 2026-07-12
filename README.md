@@ -95,3 +95,27 @@ python evaluate/evaluate_crosslingual_consistency.py --device xla ...
 If a Neuron compilation ever fails due to a missing library, fix it and then
 delete `/var/tmp/neuron-compile-cache` — Neuron caches failed compilations
 and will replay the old error otherwise.
+
+Global-MMLU results use eval on Global-MMLU-Lite 
+
+Model List:
+---
+Olmo-2-1124-7B
+---
+Base: allenai/OLMo-2-1124-7B
+CPT: jvonrad/OLMo-2-1124-7B-TED
+SFT: jvonrad/olmo-2-7b-wikifact-sft
+CPT + SFT: jvonrad/olmo-2-7b-aligned-wikifact-sft
+GRPO: jvonrad/olmo-2-7b-grpo-att-mlp-full
+CPT + GRPO: jvonrad/olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint
+---
+Qwen2.5-7B
+---
+Base: Qwen/Qwen2.5-7B
+CPT: jvonrad/Qwen-2.5-7B-TED
+SFT: jvonrad/Qwen-2.5-7B-SFT-CE-random
+CPT + SFT: jvonrad/Qwen-2.5-7B-TED-SFT
+GRPO: jvonrad/Qwen-2.5-7B-grpo-consistent
+CPT + GRPO: jvonrad/Qwen-2.5-7B-TED-grpo
+
+

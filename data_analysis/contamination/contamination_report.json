@@ -1,0 +1,180 @@
+{
+  "generated_utc": "2026-07-11T13:58:08+00:00",
+  "polyfact": "jvonrad/PolyFact:parallel",
+  "klar": "mingyang26/KLAR-CLC",
+  "global_mmlu": "CohereLabs/Global-MMLU",
+  "part1_split_integrity": {
+    "validation": {
+      "n_facts": 2493,
+      "exact_triple_in_train": 0,
+      "exact_triple_in_train_pct": 0.0,
+      "subject_relation_in_train": 0,
+      "subject_relation_in_train_pct": 0.0,
+      "subject_entity_in_train_pct": 10.52,
+      "object_entity_in_train_pct": 72.2,
+      "property_in_train_pct": 100.0,
+      "n_unique_properties": 19
+    },
+    "test": {
+      "n_facts": 2523,
+      "exact_triple_in_train": 3,
+      "exact_triple_in_train_pct": 0.119,
+      "subject_relation_in_train": 3,
+      "subject_relation_in_train_pct": 0.119,
+      "subject_entity_in_train_pct": 11.67,
+      "object_entity_in_train_pct": 73.44,
+      "property_in_train_pct": 100.0,
+      "n_unique_properties": 19
+    }
+  },
+  "part2_klar": {
+    "polyfact_relations": 19,
+    "klar_relations": 20,
+    "shared_relations": [
+      "P176",
+      "P178",
+      "P19",
+      "P20",
+      "P27",
+      "P30",
+      "P37",
+      "P407"
+    ],
+    "n_shared_relations": 8,
+    "klar_facts_in_shared_relations": 1207,
+    "by_polyfact_split": {
+      "train": {
+        "polyfact_facts_in_shared_relations": 42927,
+        "exact_fact_triples_shared_with_klar": 157,
+        "subject_relation_pairs_shared_with_klar": 168,
+        "subject_entities_shared_with_klar": 223,
+        "object_entities_shared_with_klar": 154
+      },
+      "test": {
+        "polyfact_facts_in_shared_relations": 1139,
+        "exact_fact_triples_shared_with_klar": 8,
+        "subject_relation_pairs_shared_with_klar": 8,
+        "subject_entities_shared_with_klar": 10,
+        "object_entities_shared_with_klar": 86
+      }
+    },
+    "klar_side": {
+      "n_klar_eval_facts_shared_relations": 1207,
+      "klar_facts_exact_in_polyfact_train": 157,
+      "klar_facts_exact_in_polyfact_train_pct": 13.007,
+      "klar_facts_subject_relation_in_polyfact_train": 180,
+      "klar_facts_subject_relation_in_polyfact_train_pct": 14.913
+    }
+  },
+  "part3_gmmlu": {
+    "n_gmmlu_items": 14042,
+    "polyfact_unique_entities_indexed": 113386,
+    "entity_max_ngram": 6,
+    "items_mentioning_a_polyfact_subject": 11687,
+    "items_mentioning_a_polyfact_subject_pct": 83.229,
+    "items_co_mentioning_full_fact": 328,
+    "items_co_mentioning_full_fact_pct": 2.336,
+    "co_mention_by_category": {
+      "Humanities": 268,
+      "Social Sciences": 38,
+      "Other": 14,
+      "Medical": 4,
+      "STEM": 3,
+      "Business": 1
+    },
+    "co_mention_examples": [
+      {
+        "sample_id": "astronomy/test/58",
+        "subject_category": "STEM",
+        "n_facts": 1,
+        "example_fact_id": "Q2471091|P495|Q30"
+      },
+      {
+        "sample_id": "college_medicine/test/89",
+        "subject_category": "Medical",
+        "n_facts": 3,
+        "example_fact_id": "Q18614408|P407|Q1860"
+      },
+      {
+        "sample_id": "elementary_mathematics/test/262",
+        "subject_category": "STEM",
+        "n_facts": 1,
+        "example_fact_id": "Q1526838|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/0",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q41630|P50|Q9215"
+      },
+      {
+        "sample_id": "formal_logic/test/2",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q830268|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/4",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q16860229|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/5",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q830268|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/22",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q830268|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/47",
+        "subject_category": "Humanities",
+        "n_facts": 5,
+        "example_fact_id": "Q161491|P37|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/49",
+        "subject_category": "Humanities",
+        "n_facts": 2,
+        "example_fact_id": "Q16928008|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/59",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q258|P30|Q15"
+      },
+      {
+        "sample_id": "formal_logic/test/60",
+        "subject_category": "Humanities",
+        "n_facts": 3,
+        "example_fact_id": "Q161491|P37|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/62",
+        "subject_category": "Humanities",
+        "n_facts": 2,
+        "example_fact_id": "Q16860229|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/69",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q830268|P407|Q1860"
+      },
+      {
+        "sample_id": "formal_logic/test/80",
+        "subject_category": "Humanities",
+        "n_facts": 1,
+        "example_fact_id": "Q258|P30|Q15"
+      }
+    ],
+    "verbatim_question_8gram_overlap_items": 7,
+    "verbatim_question_8gram_overlap_pct": 0.05
+  }
+}
