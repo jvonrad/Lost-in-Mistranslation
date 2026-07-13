@@ -242,21 +242,38 @@ def _greedy_xla(model, tokenizer, prompts, max_new_tokens, device, max_length):
         [enc["input_ids"], torch.full((B, max_new_tokens), pad_id, dtype=torch.long)], dim=1)
     am = torch.cat(
         [enc["attention_mask"], torch.zeros((B, max_new_tokens), dtype=torch.long)], dim=1)
-    ids, am = ids.to(device), am.to(device)
+    # Position ids are fully determined by the (left-padded) prompt lengths and
+    # never change during decoding: prompt token i keeps its position, and the
+    # token generated at column max_length+t has position n_prompt+t. Computing
+    # them ONCE on CPU avoids any on-device cumsum — whose int64 `dot` lowering
+    # the Neuron compiler either rejects (NCC_EVRF035) or compiles pathologically
+    # slowly (~50 min/graph) even when the operand-type check is disabled.
+    n_prompt = enc["attention_mask"].sum(-1)                       # [B]
+    pos_prompt = (enc["attention_mask"].cumsum(-1) - 1).clamp(min=0)
+    pos_future = n_prompt.unsqueeze(1) + torch.arange(max_new_tokens).unsqueeze(0)
+    pos_ids = torch.cat([pos_prompt, pos_future], dim=1).to(torch.long)
+    ids, am, pos_ids = ids.to(device), am.to(device), pos_ids.to(device)
 
+    B_dev = ids.shape[0]
     gen_cols = []
     with torch.no_grad():
         for t in range(max_new_tokens):
-            # cumsum lowers to a matmul; keep it in fp32 so it is not an int64
-            # `dot` (which the Neuron compiler rejects, NCC_EVRF035).
-            pos_ids = (am.to(torch.float32).cumsum(-1) - 1).clamp(min=0).to(torch.long)
+            # The read/write positions are passed as DEVICE TENSORS, not Python
+            # ints, so every step traces the identical graph: one compilation
+            # per model family instead of one per decode step.
+            read_idx = torch.full((B_dev, 1), max_length - 1 + t,
+                                  dtype=torch.long).to(device)
+            write_idx = torch.full((B_dev, 1), max_length + t,
+                                   dtype=torch.long).to(device)
             out = model(input_ids=ids, attention_mask=am,
                         position_ids=pos_ids, use_cache=False)
-            read = max_length - 1 + t          # logits here predict column max_length+t
-            nxt = out.logits[:, read, :].argmax(-1)
-            col = max_length + t
-            ids[:, col] = nxt
-            am[:, col] = 1
+            step_logits = torch.gather(
+                out.logits, 1,
+                read_idx.unsqueeze(-1).expand(-1, -1, out.logits.shape[-1]),
+            ).squeeze(1)                        # [B, vocab] at column read_idx
+            nxt = step_logits.argmax(-1)
+            ids = ids.scatter(1, write_idx, nxt.unsqueeze(1))
+            am = am.scatter(1, write_idx, torch.ones_like(write_idx))
             gen_cols.append(nxt.unsqueeze(1))
             xm.mark_step()
 

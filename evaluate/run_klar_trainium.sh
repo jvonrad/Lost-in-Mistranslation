@@ -8,10 +8,10 @@ cd /home/ubuntu/Lost-in-Mistranslation
 
 L () { # cores model basename
   local cores="$1" model="$2" base="$3"
-  NEURON_RT_VISIBLE_CORES="$cores" NEURON_CC_FLAGS="--cache_dir=/mnt/nvme/neuron-cache --disable-hlo-operand-type-check=evrf_035" \
+  NEURON_RT_VISIBLE_CORES="$cores" NEURON_CC_FLAGS="--cache_dir=/mnt/nvme/neuron-cache" \
   setsid bash -c "source ~/neuron_venv/bin/activate && python -u evaluate/evaluate_klar.py \
     --model '$model' --tokenizer '$model' --device xla --klar-root datasets/KLAR-CLC \
-    --batch-size 32 \
+    --batch-size 16 \
     --contamination-labels evaluate/alignments/klar_polyfact_contamination.json \
     --output-json '$R/${base}_klar.json'" > "$R/${base}_klar.log" 2>&1 < /dev/null &
 }

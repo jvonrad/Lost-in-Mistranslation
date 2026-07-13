@@ -164,10 +164,26 @@ Notes for a clean parallel run:
 - KLAR clean-subset motivation: 157/1,207 KLAR facts in PolyFact-shared
   relations have their exact triple in PolyFact-train (13.0% of shared, 6.0% of
   all 2,619) — reviewers asked whether GRPO's KLAR gains survive on the
-  non-overlapping subset. 12-model KLAR runs were in flight at session end
-  (2026-07-12); outputs land in `results/klar/<model>_klar.{json,log}`;
-  launcher pattern: one model per `NEURON_RT_VISIBLE_CORES` pair, warm one
-  OLMo + one Qwen job first (graph families differ by vocab), then the rest.
+  non-overlapping subset.
+- **KLAR 12-model results (2026-07-12, done)**: `results/klar/<model>_klar.{json,log}`
+  + `results/klar/contamination_split_report.txt` (6 langs es,fr,ru,zh,ja,ar;
+  3-shot template 1; greedy 10 tok; bs16). Headlines: contaminated subset is
+  clearly inflated (Qwen base 55.1 vs 42.5 clean-shared). **Qwen GRPO gains
+  survive decontamination** (vs base: clean-shared +2.3pp, non-shared +1.5pp;
+  vs SFT: +2.7pp on both clean subsets). **OLMo CPT+GRPO survives strongly**
+  (vs base: clean-shared +8.3pp, non-shared +2.7pp). CAVEAT: plain OLMo GRPO
+  (att-mlp-full) scores BELOW base on KLAR here (14.1 vs 18.2 overall) —
+  opposite of the paper's KLAR table; protocol differs from the paper's KLAR
+  eval (template/n-shot/matching), so reconcile before quoting OLMo plain-GRPO
+  KLAR numbers. OLMo SFT's KLAR drop (14.2 vs 18.2) replicates the paper's
+  direction; Qwen CPT+SFT collapses to 12.5 (worth a look).
+- `evaluate_klar.py` `_greedy_xla` was rewritten (2026-07-12) to compile ONE
+  graph per model family: position_ids precomputed on CPU (no on-device cumsum
+  → no int64 dot, no compiler flag needed) and per-step logit-read/token-write
+  done via gather/scatter with runtime index tensors (no Python-int positions
+  baked into the graph). Compile is ~4 min/family at bs16 (bs32 exceeds the
+  24 GB HBM ceiling). The earlier per-step-graph variants compiled ~50 min PER
+  STEP — never revert to Python-int indexing in this loop.
 
 ## Known inconsistencies to resolve
 
