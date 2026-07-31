@@ -38,7 +38,7 @@ configs:
 
 The recommended clean subset of [`jvonrad/PolyFact`](https://huggingface.co/datasets/jvonrad/PolyFact):
 parallel multilingual factual multiple-choice QA grounded in Wikidata, with the
-three highest-ambiguity relations removed.
+highest-ambiguity relations removed and split integrity repaired.
 
 **{n_facts:,} facts × 12 languages** ({train:,} train / {validation:,} validation / {test:,} test),
 fully aligned by `fact_id` across all per-language configs.
@@ -47,22 +47,59 @@ fully aligned by `fact_id` across all per-language configs.
 
 Quality verification of PolyFact (LLM-as-judge plus human review; see Appendix D.2 of
 the paper) found ambiguity concentrated in a small number of relations, where a
-subject can plausibly take several correct objects. PolyFact-Clean excludes the three
-relations reported there as most ambiguous:
+subject can plausibly take several correct objects. PolyFact-Clean excludes four
+relations:
 
-| Relation | Wikidata property | Facts removed |
-|---|---|---|
-| country of origin | `P495` | 5,704 |
-| genre | `P136` | 5,693 |
-| place of birth | `P19` | 5,710 |
-| **Total** | | **17,107 ({pct}% of 100,113)** |
+| Relation | Wikidata property | Facts removed | Reason |
+|---|---|---|---|
+| country of origin | `P495` | 5,704 | highest judged ambiguity (35%) |
+| place of birth | `P19` | 5,710 | highest judged ambiguity (25%) |
+| genre | `P136` | 5,693 | highest judged ambiguity (25%) |
+| employer | `P108` | 5,700 | semantically many-to-one; see below |
+| **Total** | | **22,737 ({pct}% of 100,113)** | |
 
-Nothing else is changed: rows that survive the filter are byte-identical to their
-PolyFact counterparts, the schema is unchanged, and the 16 remaining relations keep
-their full fact sets. The filter is applied on `property_id`, so all 13 configs
-(12 languages + `parallel`) contain exactly the same {n_facts:,} facts.
+The first three are the top-3 relations by judged ambiguity (Appendix D.2, Table 7).
+`employer` is excluded on separate, explicit grounds rather than by that ranking: a
+person may hold several jobs over time, so retaining a single gold object is
+arbitrary, and in the source release this relation contained **every** known
+split-integrity defect (all 73 duplicated training rows and all 3 facts that
+appeared in both `train` and `test`). Removing it eliminates those defects entirely.
 
-Reproduce it with `build-poly-fact/build_polyfact_clean.py` in the code release.
+Surviving rows are byte-identical to their PolyFact counterparts and the schema is
+unchanged; the 15 remaining relations keep their full fact sets. The filter is
+applied on `property_id`, so all 13 configs (12 languages + `parallel`) contain
+exactly the same {n_facts:,} facts.
+
+Verified in this release: **0** duplicate rows in any split, **0** `fact_id`
+overlap between `train`, `validation` and `test`, 0 duplicate options, 0
+`answer_text`/`answer_index` mismatches, and gold-answer position within 0.6pp of
+uniform in every language.
+
+Reproduce it with `build-poly-fact/build_polyfact_clean.py --exclude_employer
+--fix_integrity` in the code release.
+
+## Known label-quality caveat: `suspect_labels.json`
+
+An audit of gold labels found a small number containing a Latin-script fragment
+directly adjacent to native script with no separator (e.g. Bengali
+`লিঙ্কনNear-Earth গ্রহাণু গবেষণা` for "Lincoln Near-Earth Asteroid Research"), i.e.
+partially transliterated entity names produced during multilingual generation.
+These are listed per language in `suspect_labels.json` so they can be filtered or
+repaired:
+
+| lang | affected facts | distinct labels | note |
+|---|---|---|---|
+| bn | 2,937 (3.8%) | 313 | one label (the LINEAR survey) covers ~2.3k of them |
+| zh | 1,045 (1.4%) | 266 | includes conventional acronym prefixes (e.g. `SOM建筑设计事务所`) |
+| ja | 704 (0.9%) | 169 | includes conventional acronym prefixes (e.g. `AGヴェーザー`) |
+| ar | 65 (0.1%) | 33 | |
+| ru | 13 (0.0%) | 13 | |
+
+The Chinese and Japanese counts are noisy: CJK does not use spaces, so an acronym
+prefixed to native script is normal orthography rather than an error. The Arabic
+and Bengali counts are reliable indicators of genuine corruption. Entity-label
+consistency is otherwise excellent — across 20,150 distinct answer entities, at most
+3 per language ever appear under more than one gold string.
 
 ## Usage
 
@@ -86,18 +123,15 @@ description. Per-language configs are flat (one row per fact/language, with
 config has one row per fact with a `translations` dict keyed by language code, plus
 the Wikidata `subject_id` / `property_id` / `object_id` grounding.
 
-## Known issues inherited from PolyFact
+## Relation coverage
 
-These are present in the source dataset and are **not** introduced by the filter.
-They are documented here rather than silently repaired, so that PolyFact-Clean stays
-exactly the relation-level filter described in the paper. The affected ids are listed
-in `known_issues.json`.
-
-- **3 facts appear in both `train` and `test`** (all `employer`/`P108`):
-  `Q30279183|P108|Q36188`, `Q1890643|P108|Q214341`, `Q3158256|P108|Q156598`.
-  Drop them from `test` for a strictly leakage-free evaluation (0.14% of the test split).
-- **61 `fact_id`s are duplicated within `train`** (73 excess rows), also all
-  `employer`/`P108`.
+The release contains 19 relations (15 after this filter). Three relations named in
+the paper's construction description — `capital` (P36), `shares border with` (P47)
+and `platform` (P400) — are absent from PolyFact itself. They are eliminated by the
+`--require_unique_subject_property` construction constraint, which keeps only
+(subject, relation) pairs with exactly one object: those properties are
+intrinsically multi-valued in Wikidata (12 of 20 major countries carry more than
+one `P36` value once historical capitals are included, e.g. Japan has 9).
 
 ## Citation
 
