@@ -9,3 +9,14 @@ __pycache__/
 grpo_samples/
 # Neuron compiler artifacts
 PostSPMDPassesExecutionDuration.txt
+
+# Core dumps (an 831 MB aarch64 dump landed in the repo root once)
+core
+core.[0-9]*
+*.core
+
+# Cluster runtime state and watcher logs -- ephemeral job ids / run output.
+# The .sbatch and .sh launch scripts in cluster/ ARE tracked.
+cluster/state/
+cluster/*.log
+cluster/*.out

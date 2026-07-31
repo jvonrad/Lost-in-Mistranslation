@@ -1,0 +1,134 @@
+Loading jvonrad/WIKI-FACT [test] from Hugging Face
+Loaded 2,523 facts
+Loading cached alignment: evaluate/alignments/polyfact_test_alignment.json
+Device: cuda
+Loading model: /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/models/olmo-cmalign-dpo/merged
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:   1%|          | 3/355 [00:00<00:11, 29.52it/s]Loading weights:   7%|▋         | 25/355 [00:00<00:02, 126.83it/s]Loading weights:  11%|█         | 38/355 [00:00<00:03, 94.70it/s] Loading weights:  14%|█▎        | 48/355 [00:00<00:03, 94.83it/s]Loading weights:  17%|█▋        | 60/355 [00:00<00:02, 98.43it/s]Loading weights:  22%|██▏       | 78/355 [00:00<00:02, 121.77it/s]Loading weights:  29%|██▊       | 102/355 [00:00<00:01, 153.26it/s]Loading weights:  34%|███▍      | 122/355 [00:00<00:01, 166.89it/s]Loading weights:  41%|████      | 145/355 [00:01<00:01, 183.75it/s]Loading weights:  48%|████▊     | 169/355 [00:01<00:00, 195.97it/s]Loading weights:  54%|█████▍    | 191/355 [00:01<00:00, 202.00it/s]Loading weights:  62%|██████▏   | 220/355 [00:01<00:00, 226.85it/s]Loading weights:  68%|██████▊   | 243/355 [00:01<00:00, 212.40it/s]Loading weights:  75%|███████▌  | 267/355 [00:01<00:00, 218.48it/s]Loading weights:  82%|████████▏ | 291/355 [00:01<00:00, 219.94it/s]Loading weights:  90%|████████▉ | 319/355 [00:01<00:00, 235.49it/s]Loading weights:  97%|█████████▋| 343/355 [00:01<00:00, 223.28it/s]Loading weights: 100%|██████████| 355/355 [00:01<00:00, 181.74it/s]
+
+[en] scoring 2,523 facts
+  [en] 800/2523  acc so far=0.8237
+  [en] 1600/2523  acc so far=0.8144
+  [en] 2400/2523  acc so far=0.8058
+[en] accuracy = 0.8062
+
+[de] scoring 2,523 facts
+  [de] 800/2523  acc so far=0.7275
+  [de] 1600/2523  acc so far=0.7156
+  [de] 2400/2523  acc so far=0.7137
+[de] accuracy = 0.7134
+
+[id] scoring 2,523 facts
+  [id] 800/2523  acc so far=0.7037
+  [id] 1600/2523  acc so far=0.6894
+  [id] 2400/2523  acc so far=0.6871
+[id] accuracy = 0.6885
+
+[pt] scoring 2,523 facts
+  [pt] 800/2523  acc so far=0.7113
+  [pt] 1600/2523  acc so far=0.7106
+  [pt] 2400/2523  acc so far=0.6971
+[pt] accuracy = 0.6960
+
+[ar] scoring 2,523 facts
+  [ar] 800/2523  acc so far=0.4213
+  [ar] 1600/2523  acc so far=0.4375
+  [ar] 2400/2523  acc so far=0.4487
+[ar] accuracy = 0.4514
+
+[bn] scoring 2,523 facts
+  [bn] 800/2523  acc so far=0.4350
+  [bn] 1600/2523  acc so far=0.4350
+  [bn] 2400/2523  acc so far=0.4204
+[bn] accuracy = 0.4225
+
+[sw] scoring 2,523 facts
+  [sw] 800/2523  acc so far=0.5012
+  [sw] 1600/2523  acc so far=0.4881
+  [sw] 2400/2523  acc so far=0.4788
+[sw] accuracy = 0.4756
+
+[es] scoring 2,523 facts
+  [es] 800/2523  acc so far=0.7400
+  [es] 1600/2523  acc so far=0.7256
+  [es] 2400/2523  acc so far=0.7208
+[es] accuracy = 0.7186
+
+[ru] scoring 2,523 facts
+  [ru] 800/2523  acc so far=0.5613
+  [ru] 1600/2523  acc so far=0.5606
+  [ru] 2400/2523  acc so far=0.5583
+[ru] accuracy = 0.5561
+
+[fr] scoring 2,523 facts
+  [fr] 800/2523  acc so far=0.7338
+  [fr] 1600/2523  acc so far=0.7288
+  [fr] 2400/2523  acc so far=0.7242
+[fr] accuracy = 0.7233
+
+[ja] scoring 2,523 facts
+  [ja] 800/2523  acc so far=0.5162
+  [ja] 1600/2523  acc so far=0.5056
+  [ja] 2400/2523  acc so far=0.5071
+[ja] accuracy = 0.5101
+
+[zh] scoring 2,523 facts
+  [zh] 800/2523  acc so far=0.4888
+  [zh] 1600/2523  acc so far=0.4800
+  [zh] 2400/2523  acc so far=0.4896
+[zh] accuracy = 0.4907
+
+================================================================================
+PER-LANGUAGE ACCURACY
+  en  acc=0.8062  n=2523
+  de  acc=0.7134  n=2523
+  id  acc=0.6885  n=2523
+  pt  acc=0.6960  n=2523
+  ar  acc=0.4514  n=2523
+  bn  acc=0.4225  n=2523
+  sw  acc=0.4756  n=2523
+  es  acc=0.7186  n=2523
+  ru  acc=0.5561  n=2523
+  fr  acc=0.7233  n=2523
+  ja  acc=0.5101  n=2523
+  zh  acc=0.4907  n=2523
+
+TOTAL CONSISTENCY (fully parallel facts)
+  correct in ALL 12 languages: 0.0935 (2523 facts)
+  mean #languages correct per fact:  7.25
+  histogram (k langs correct -> facts): {'0': 61, '1': 100, '2': 104, '3': 122, '4': 146, '5': 194, '6': 217, '7': 317, '8': 275, '9': 252, '10': 240, '11': 259, '12': 236}
+
+RANKC  average=0.6007  en-X average=0.6551
+
+RankC matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.794  0.780  0.780  0.508  0.479  0.631  0.794  0.594  0.800  0.528  0.519
+  de    0.794      -  0.763  0.759  0.518  0.481  0.638  0.785  0.592  0.785  0.536  0.526
+  id    0.780  0.763      -  0.749  0.513  0.483  0.647  0.756  0.591  0.755  0.528  0.517
+  pt    0.780  0.759  0.749      -  0.509  0.503  0.635  0.802  0.601  0.775  0.529  0.541
+  ar    0.508  0.518  0.513  0.509      -  0.575  0.470  0.511  0.601  0.519  0.604  0.556
+  bn    0.479  0.481  0.483  0.503  0.575      -  0.461  0.483  0.587  0.489  0.584  0.563
+  sw    0.631  0.638  0.647  0.635  0.470  0.461      -  0.626  0.533  0.621  0.459  0.458
+  es    0.794  0.785  0.756  0.802  0.511  0.483  0.626      -  0.594  0.787  0.532  0.524
+  ru    0.594  0.592  0.591  0.601  0.601  0.587  0.533  0.594      -  0.592  0.633  0.598
+  fr    0.800  0.785  0.755  0.775  0.519  0.489  0.621  0.787  0.592      -  0.539  0.522
+  ja    0.528  0.536  0.528  0.529  0.604  0.584  0.459  0.532  0.633  0.539      -  0.603
+  zh    0.519  0.526  0.517  0.541  0.556  0.563  0.458  0.524  0.598  0.522  0.603      -
+
+ANSWER AGREEMENT  average=0.5341
+
+Agreement matrix:
+           en     de     id     pt     ar     bn     sw     es     ru     fr     ja     zh
+  en        -  0.779  0.760  0.763  0.430  0.394  0.559  0.785  0.540  0.784  0.461  0.448
+  de    0.779      -  0.735  0.728  0.432  0.386  0.570  0.761  0.529  0.757  0.459  0.442
+  id    0.760  0.735      -  0.713  0.426  0.390  0.579  0.727  0.528  0.725  0.452  0.432
+  pt    0.763  0.728  0.713      -  0.413  0.409  0.568  0.776  0.535  0.749  0.446  0.460
+  ar    0.430  0.432  0.426  0.413      -  0.495  0.375  0.423  0.530  0.432  0.530  0.471
+  bn    0.394  0.386  0.390  0.409  0.495      -  0.363  0.387  0.518  0.397  0.506  0.477
+  sw    0.559  0.570  0.579  0.568  0.375  0.363      -  0.553  0.453  0.547  0.363  0.359
+  es    0.785  0.761  0.727  0.776  0.423  0.387  0.553      -  0.531  0.765  0.457  0.437
+  ru    0.540  0.529  0.528  0.535  0.530  0.518  0.453  0.531      -  0.525  0.570  0.524
+  fr    0.784  0.757  0.725  0.749  0.432  0.397  0.547  0.765  0.525      -  0.465  0.438
+  ja    0.461  0.459  0.452  0.446  0.530  0.506  0.363  0.457  0.570  0.465      -  0.529
+  zh    0.448  0.442  0.432  0.460  0.471  0.477  0.359  0.437  0.524  0.438  0.529      -
+
+Saved results: /home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/results/olmo-cmalign-dpo_polyfact_consistency.json

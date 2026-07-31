@@ -1,0 +1,101 @@
+Loading CohereLabs/Global-MMLU-Lite [en] split=test
+Loading CohereLabs/Global-MMLU-Lite [de] split=test
+Loading CohereLabs/Global-MMLU-Lite [id] split=test
+Loading CohereLabs/Global-MMLU-Lite [pt] split=test
+Loading CohereLabs/Global-MMLU-Lite [ar] split=test
+Loading CohereLabs/Global-MMLU-Lite [bn] split=test
+Loading CohereLabs/Global-MMLU-Lite [sw] split=test
+Loading CohereLabs/Global-MMLU-Lite [es] split=test
+Loading CohereLabs/Global-MMLU-Lite [fr] split=test
+Loading CohereLabs/Global-MMLU-Lite [ja] split=test
+Loading CohereLabs/Global-MMLU-Lite [zh] split=test
+Loaded 400 facts
+Device: cuda
+Loading model: /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/models/olmo-cmalign-dpo/merged
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:   6%|▌         | 20/355 [00:00<00:01, 179.73it/s]Loading weights:  12%|█▏        | 42/355 [00:00<00:01, 199.19it/s]Loading weights:  18%|█▊        | 65/355 [00:00<00:01, 210.24it/s]Loading weights:  25%|██▍       | 87/355 [00:00<00:01, 198.93it/s]Loading weights:  30%|███       | 108/355 [00:00<00:01, 188.22it/s]Loading weights:  36%|███▌      | 127/355 [00:00<00:01, 184.36it/s]Loading weights:  41%|████▏     | 147/355 [00:00<00:01, 182.55it/s]Loading weights:  47%|████▋     | 168/355 [00:00<00:01, 177.68it/s]Loading weights:  54%|█████▎    | 190/355 [00:01<00:00, 176.82it/s]Loading weights:  60%|█████▉    | 212/355 [00:01<00:00, 182.34it/s]Loading weights:  66%|██████▌   | 234/355 [00:01<00:00, 189.29it/s]Loading weights:  72%|███████▏  | 254/355 [00:01<00:00, 188.30it/s]Loading weights:  77%|███████▋  | 273/355 [00:01<00:00, 181.83it/s]Loading weights:  82%|████████▏ | 292/355 [00:01<00:00, 174.77it/s]Loading weights:  88%|████████▊ | 312/355 [00:01<00:00, 176.21it/s]Loading weights:  94%|█████████▍| 333/355 [00:01<00:00, 181.63it/s]Loading weights: 100%|██████████| 355/355 [00:01<00:00, 186.65it/s]
+
+[en] scoring 400 facts
+[en] accuracy = 0.6600
+
+[de] scoring 400 facts
+[de] accuracy = 0.4825
+
+[id] scoring 400 facts
+[id] accuracy = 0.4300
+
+[pt] scoring 400 facts
+[pt] accuracy = 0.4675
+
+[ar] scoring 400 facts
+[ar] accuracy = 0.3225
+
+[bn] scoring 400 facts
+[bn] accuracy = 0.2700
+
+[sw] scoring 400 facts
+[sw] accuracy = 0.3275
+
+[es] scoring 400 facts
+[es] accuracy = 0.5025
+
+[fr] scoring 400 facts
+[fr] accuracy = 0.5025
+
+[ja] scoring 400 facts
+[ja] accuracy = 0.3875
+
+[zh] scoring 400 facts
+[zh] accuracy = 0.3700
+
+================================================================================
+PER-LANGUAGE ACCURACY
+  en  acc=0.6600  n=400
+  de  acc=0.4825  n=400
+  id  acc=0.4300  n=400
+  pt  acc=0.4675  n=400
+  ar  acc=0.3225  n=400
+  bn  acc=0.2700  n=400
+  sw  acc=0.3275  n=400
+  es  acc=0.5025  n=400
+  fr  acc=0.5025  n=400
+  ja  acc=0.3875  n=400
+  zh  acc=0.3700  n=400
+
+TOTAL CONSISTENCY (fully parallel facts)
+  correct in ALL 11 languages: 0.0250 (400 facts)
+  mean #languages correct per fact:  4.72
+  histogram (k langs correct -> facts): {'0': 38, '1': 44, '2': 41, '3': 34, '4': 35, '5': 42, '6': 37, '7': 44, '8': 30, '9': 19, '10': 26, '11': 10}
+
+RANKC  average=0.5731  en-X average=0.5635
+
+RankC matrix:
+           en     de     id     pt     ar     bn     sw     es     fr     ja     zh
+  en        -  0.631  0.612  0.631  0.478  0.431  0.486  0.648  0.633  0.527  0.558
+  de    0.631      -  0.644  0.642  0.528  0.473  0.542  0.664  0.691  0.569  0.615
+  id    0.612  0.644      -  0.669  0.517  0.467  0.521  0.644  0.637  0.560  0.590
+  pt    0.631  0.642  0.669      -  0.563  0.505  0.541  0.720  0.687  0.583  0.602
+  ar    0.478  0.528  0.517  0.563      -  0.583  0.561  0.531  0.515  0.607  0.551
+  bn    0.431  0.473  0.467  0.505  0.583      -  0.502  0.490  0.487  0.585  0.538
+  sw    0.486  0.542  0.521  0.541  0.561  0.502      -  0.538  0.527  0.536  0.517
+  es    0.648  0.664  0.644  0.720  0.531  0.490  0.538      -  0.722  0.577  0.579
+  fr    0.633  0.691  0.637  0.687  0.515  0.487  0.527  0.722      -  0.552  0.582
+  ja    0.527  0.569  0.560  0.583  0.607  0.585  0.536  0.577  0.552      -  0.629
+  zh    0.558  0.615  0.590  0.602  0.551  0.538  0.517  0.579  0.582  0.629      -
+
+ANSWER AGREEMENT  average=0.4845
+
+Agreement matrix:
+           en     de     id     pt     ar     bn     sw     es     fr     ja     zh
+  en        -  0.570  0.545  0.565  0.370  0.312  0.380  0.590  0.562  0.435  0.468
+  de    0.570      -  0.575  0.570  0.432  0.357  0.445  0.615  0.637  0.482  0.542
+  id    0.545  0.575      -  0.608  0.410  0.352  0.410  0.578  0.562  0.468  0.497
+  pt    0.565  0.570  0.608      -  0.465  0.407  0.443  0.665  0.623  0.500  0.525
+  ar    0.370  0.432  0.410  0.465      -  0.487  0.465  0.422  0.398  0.525  0.450
+  bn    0.312  0.357  0.352  0.407  0.487      -  0.380  0.380  0.380  0.507  0.432
+  sw    0.380  0.445  0.410  0.443  0.465  0.380      -  0.432  0.422  0.443  0.400
+  es    0.590  0.615  0.578  0.665  0.422  0.380  0.432      -  0.665  0.497  0.497
+  fr    0.562  0.637  0.562  0.623  0.398  0.380  0.422  0.665      -  0.455  0.492
+  ja    0.435  0.482  0.468  0.500  0.525  0.507  0.443  0.497  0.455      -  0.547
+  zh    0.468  0.542  0.497  0.525  0.450  0.432  0.400  0.497  0.492  0.547      -
+
+Saved results: /home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/results/olmo-cmalign-dpo_gmmlu_lite_consistency.json

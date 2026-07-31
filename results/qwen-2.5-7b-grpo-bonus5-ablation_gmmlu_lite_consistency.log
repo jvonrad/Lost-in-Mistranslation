@@ -1,0 +1,101 @@
+Loading CohereLabs/Global-MMLU-Lite [en] split=test
+Loading CohereLabs/Global-MMLU-Lite [de] split=test
+Loading CohereLabs/Global-MMLU-Lite [id] split=test
+Loading CohereLabs/Global-MMLU-Lite [pt] split=test
+Loading CohereLabs/Global-MMLU-Lite [ar] split=test
+Loading CohereLabs/Global-MMLU-Lite [bn] split=test
+Loading CohereLabs/Global-MMLU-Lite [sw] split=test
+Loading CohereLabs/Global-MMLU-Lite [es] split=test
+Loading CohereLabs/Global-MMLU-Lite [fr] split=test
+Loading CohereLabs/Global-MMLU-Lite [ja] split=test
+Loading CohereLabs/Global-MMLU-Lite [zh] split=test
+Loaded 400 facts
+Device: cuda
+Loading model: /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/models/qwen-grpo-bonus50-ablation/merged
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<00:39,  8.55it/s]Loading weights:   5%|▌         | 18/339 [00:00<00:03, 96.72it/s]Loading weights:  12%|█▏        | 41/339 [00:00<00:02, 143.78it/s]Loading weights:  19%|█▉        | 64/339 [00:00<00:01, 152.91it/s]Loading weights:  27%|██▋       | 90/339 [00:00<00:01, 182.14it/s]Loading weights:  33%|███▎      | 113/339 [00:00<00:01, 194.22it/s]Loading weights:  40%|████      | 136/339 [00:00<00:00, 203.15it/s]Loading weights:  46%|████▋     | 157/339 [00:00<00:00, 204.46it/s]Loading weights:  53%|█████▎    | 178/339 [00:01<00:00, 198.87it/s]Loading weights:  59%|█████▊    | 199/339 [00:01<00:00, 190.75it/s]Loading weights:  65%|██████▌   | 221/339 [00:01<00:00, 189.28it/s]Loading weights:  72%|███████▏  | 244/339 [00:01<00:00, 197.47it/s]Loading weights:  78%|███████▊  | 264/339 [00:01<00:00, 197.40it/s]Loading weights:  84%|████████▍ | 284/339 [00:01<00:00, 179.61it/s]Loading weights:  90%|████████▉ | 304/339 [00:01<00:00, 183.63it/s]Loading weights:  95%|█████████▌| 323/339 [00:01<00:00, 167.39it/s]Loading weights: 100%|██████████| 339/339 [00:01<00:00, 176.63it/s]
+
+[en] scoring 400 facts
+[en] accuracy = 0.7525
+
+[de] scoring 400 facts
+[de] accuracy = 0.6600
+
+[id] scoring 400 facts
+[id] accuracy = 0.6525
+
+[pt] scoring 400 facts
+[pt] accuracy = 0.6850
+
+[ar] scoring 400 facts
+[ar] accuracy = 0.5850
+
+[bn] scoring 400 facts
+[bn] accuracy = 0.4025
+
+[sw] scoring 400 facts
+[sw] accuracy = 0.2975
+
+[es] scoring 400 facts
+[es] accuracy = 0.6825
+
+[fr] scoring 400 facts
+[fr] accuracy = 0.7000
+
+[ja] scoring 400 facts
+[ja] accuracy = 0.6325
+
+[zh] scoring 400 facts
+[zh] accuracy = 0.6775
+
+================================================================================
+PER-LANGUAGE ACCURACY
+  en  acc=0.7525  n=400
+  de  acc=0.6600  n=400
+  id  acc=0.6525  n=400
+  pt  acc=0.6850  n=400
+  ar  acc=0.5850  n=400
+  bn  acc=0.4025  n=400
+  sw  acc=0.2975  n=400
+  es  acc=0.6825  n=400
+  fr  acc=0.7000  n=400
+  ja  acc=0.6325  n=400
+  zh  acc=0.6775  n=400
+
+TOTAL CONSISTENCY (fully parallel facts)
+  correct in ALL 11 languages: 0.0775 (400 facts)
+  mean #languages correct per fact:  6.73
+  histogram (k langs correct -> facts): {'0': 37, '1': 18, '2': 20, '3': 15, '4': 12, '5': 21, '6': 30, '7': 31, '8': 42, '9': 69, '10': 74, '11': 31}
+
+RANKC  average=0.6858  en-X average=0.7413
+
+RankC matrix:
+           en     de     id     pt     ar     bn     sw     es     fr     ja     zh
+  en        -  0.787  0.800  0.833  0.735  0.556  0.476  0.833  0.821  0.767  0.805
+  de    0.787      -  0.783  0.780  0.736  0.580  0.494  0.800  0.806  0.761  0.741
+  id    0.800  0.783      -  0.796  0.715  0.583  0.482  0.788  0.782  0.769  0.742
+  pt    0.833  0.780  0.796      -  0.712  0.575  0.491  0.835  0.812  0.758  0.757
+  ar    0.735  0.736  0.715  0.712      -  0.555  0.477  0.731  0.739  0.725  0.723
+  bn    0.556  0.580  0.583  0.575  0.555      -  0.535  0.541  0.577  0.578  0.543
+  sw    0.476  0.494  0.482  0.491  0.477  0.535      -  0.475  0.471  0.482  0.444
+  es    0.833  0.800  0.788  0.835  0.731  0.541  0.475      -  0.829  0.752  0.768
+  fr    0.821  0.806  0.782  0.812  0.739  0.577  0.471  0.829      -  0.766  0.761
+  ja    0.767  0.761  0.769  0.758  0.725  0.578  0.482  0.752  0.766      -  0.755
+  zh    0.805  0.741  0.742  0.757  0.723  0.543  0.444  0.768  0.761  0.755      -
+
+ANSWER AGREEMENT  average=0.6159
+
+Agreement matrix:
+           en     de     id     pt     ar     bn     sw     es     fr     ja     zh
+  en        -  0.743  0.765  0.802  0.685  0.450  0.355  0.800  0.795  0.718  0.767
+  de    0.743      -  0.738  0.735  0.685  0.482  0.378  0.757  0.772  0.710  0.685
+  id    0.765  0.738      -  0.760  0.650  0.487  0.362  0.740  0.743  0.725  0.688
+  pt    0.802  0.735  0.760      -  0.645  0.475  0.375  0.802  0.772  0.703  0.705
+  ar    0.685  0.685  0.650  0.645      -  0.448  0.355  0.667  0.685  0.662  0.670
+  bn    0.450  0.482  0.487  0.475  0.448      -  0.430  0.422  0.477  0.475  0.427
+  sw    0.355  0.378  0.362  0.375  0.355  0.430      -  0.350  0.350  0.365  0.312
+  es    0.800  0.757  0.740  0.802  0.667  0.422  0.350      -  0.792  0.693  0.718
+  fr    0.795  0.772  0.743  0.772  0.685  0.477  0.350  0.792      -  0.715  0.708
+  ja    0.718  0.710  0.725  0.703  0.662  0.475  0.365  0.693  0.715      -  0.698
+  zh    0.767  0.685  0.688  0.705  0.670  0.427  0.312  0.718  0.708  0.698      -
+
+Saved results: /home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/results/qwen-2.5-7b-grpo-bonus5-ablation_gmmlu_lite_consistency.json

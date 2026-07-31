@@ -42,6 +42,7 @@ import math
 import random
 import time
 import argparse
+import itertools
 from typing import Dict, Any, List, Optional, Tuple
 import shutil
 import numpy as np
@@ -102,6 +103,52 @@ LORA_R = 64
 LORA_ALPHA = 128
 
 
+ACCELERATE_STATE_MARKERS = ("pytorch_model.bin", "model.safetensors", "optimizer.bin")
+
+
+def save_training_stats(path: str, global_step: int, cumulative_rollout_tokens: int,
+                        cumulative_wall_seconds: float, num_gpus: int) -> None:
+    """Cost-reporting sidecar (rollout tokens, wall-clock, GPU-hours) written
+    next to each checkpoint, so a crash+resume doesn't lose the running total —
+    reviewers asked for training/token cost figures alongside accuracy."""
+    stats = {
+        "global_step": global_step,
+        "cumulative_rollout_tokens": cumulative_rollout_tokens,
+        "cumulative_wall_seconds": cumulative_wall_seconds,
+        "cumulative_gpu_hours": cumulative_wall_seconds * num_gpus / 3600,
+        "num_gpus": num_gpus,
+        "last_updated": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    }
+    os.makedirs(path, exist_ok=True)
+    with open(os.path.join(path, "training_stats.json"), "w") as f:
+        json.dump(stats, f, indent=2)
+
+
+def load_training_stats(path: str) -> Dict[str, Any]:
+    stats_path = os.path.join(path, "training_stats.json")
+    if os.path.exists(stats_path):
+        with open(stats_path) as f:
+            return json.load(f)
+    return {}
+
+
+def find_latest_checkpoint(output_dir: str) -> Optional[str]:
+    """Return the highest-step checkpoint-<step> dir that has a full
+    accelerator.save_state (not just an adapter/tokenizer dump from an older
+    checkpoint format) — falls through to the next-highest so one stale dir
+    doesn't force a full restart when a good, older checkpoint is available."""
+    if not os.path.isdir(output_dir):
+        return None
+    ckpts = [d for d in os.listdir(output_dir)
+             if d.startswith("checkpoint-") and d.split("-")[-1].isdigit()]
+    ckpts.sort(key=lambda x: int(x.split("-")[-1]), reverse=True)
+    for d in ckpts:
+        path = os.path.join(output_dir, d)
+        if any(os.path.exists(os.path.join(path, m)) for m in ACCELERATE_STATE_MARKERS):
+            return path
+    return None
+
+
 # ─────────────────────────────────────────────
 # Arg parsing
 # ─────────────────────────────────────────────
@@ -131,10 +178,31 @@ def parse_args():
     ap.add_argument("--top_p", type=float, default=0.95)
     ap.add_argument("--gen_micro_batch_size", type=int, default=12,
                     help="Number of prompts to generate at once during rollouts (reduce if OOM)")
+    ap.add_argument("--gen_cache_implementation", type=str, default="static",
+                    help="KV-cache implementation for rollout/eval generation. 'static' "
+                         "preallocates the cache once per generate() call instead of the "
+                         "default DynamicCache's per-step reallocation — ~2x faster rollout "
+                         "generation on GH200 at the batch-96/short-completion regime here, "
+                         "with byte-identical greedy output (verified). Pass 'none' to fall "
+                         "back to the dynamic cache.")
 
     ap.add_argument("--logging_steps", type=int, default=10)
     ap.add_argument("--eval_steps", type=int, default=200)
+    ap.add_argument(
+        "--skip_periodic_eval", action="store_true",
+        help="At each eval_steps boundary, write a resumable checkpoint without "
+             "running the memory-intensive benchmark evaluation first.",
+    )
     ap.add_argument("--max_eval_wikifact", type=int, default=250)
+    ap.add_argument("--max_eval_mmlu", type=int, default=MAX_EVAL_SAMPLES_PER_LANG,
+                    help="Global-MMLU eval samples PER LANGUAGE at each eval_steps "
+                         "boundary (×12 langs). Default 1000 (=12k forward passes/eval) is "
+                         "the dominant periodic-eval cost and does NOT affect training — "
+                         "drop to e.g. 200 to reclaim wall-clock, or raise --eval_steps.")
+    ap.add_argument("--resume_from_checkpoint", type=str, default="auto",
+                    help="'auto' resumes from the latest checkpoint-<step> dir under "
+                         "--output_dir if one exists, 'none' always starts fresh, or "
+                         "pass an explicit checkpoint dir.")
 
     ap.add_argument("--min_languages", type=int, default=12)
 
@@ -374,8 +442,9 @@ def log_sample_rollout_to_file(
     group_rewards: Dict,
     batch: Dict,
 ):
-    os.makedirs(output_dir, exist_ok=True)
-    log_path = os.path.join("/home/nvidia/jonathan/projects/Lost-in-Mistranslation/grpo_samples", "finetranslations_att.txt")
+    sample_dir = os.path.join(output_dir, "grpo_samples")
+    os.makedirs(sample_dir, exist_ok=True)
+    log_path = os.path.join(sample_dir, "rollout_samples.txt")
     sample_key = sorted(grouped_preds.keys())[0]
     sample_fact_idx, sample_gen_idx = sample_key
 
@@ -425,12 +494,12 @@ def format_global_mmlu_example(ex, tokenizer):
     }
 
 
-def load_global_mmlu_dev_eval_by_lang(langs, tokenizer):
+def load_global_mmlu_dev_eval_by_lang(langs, tokenizer, max_samples=MAX_EVAL_SAMPLES_PER_LANG):
     eval_sets = {}
     for lang in langs:
         ds = load_dataset("CohereLabs/Global-MMLU", lang, split="test")
-        if MAX_EVAL_SAMPLES_PER_LANG is not None:
-            ds = ds.select(range(min(MAX_EVAL_SAMPLES_PER_LANG, len(ds))))
+        if max_samples is not None:
+            ds = ds.select(range(min(max_samples, len(ds))))
         ds = ds.map(
             lambda ex: format_global_mmlu_example(ex, tokenizer),
             remove_columns=ds.column_names,
@@ -553,10 +622,17 @@ def compute_flores_hidden_cosine(model, tokenizer, flores_sets, device, batch_si
 # ─────────────────────────────────────────────
 
 @torch.no_grad()
-def evaluate_wikifact_grouped(model, tokenizer, eval_ds, max_prompt_length, max_completion_length):
+def evaluate_wikifact_grouped(model, tokenizer, eval_ds, max_prompt_length,
+                              max_completion_length, cache_implementation="static"):
     was_training = model.training
     model.eval()
     device = next(model.parameters()).device
+    gen_kwargs = dict(
+        max_new_tokens=max_completion_length, do_sample=False,
+        pad_token_id=tokenizer.pad_token_id, eos_token_id=tokenizer.eos_token_id,
+    )
+    if cache_implementation:
+        gen_kwargs["cache_implementation"] = cache_implementation
 
     total_examples = total_slots = total_correct = total_valid = total_all_correct = 0
     per_lang_correct = {lang: 0 for lang in LANGS}
@@ -571,10 +647,7 @@ def evaluate_wikifact_grouped(model, tokenizer, eval_ds, max_prompt_length, max_
         inputs = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=max_prompt_length).to(device)
         input_len = inputs["input_ids"].shape[1]
 
-        outputs = model.generate(
-            **inputs, max_new_tokens=max_completion_length, do_sample=False,
-            pad_token_id=tokenizer.pad_token_id, eos_token_id=tokenizer.eos_token_id,
-        )
+        outputs = model.generate(**inputs, **gen_kwargs)
 
         pred_text_by_lang = {}
         for i, lang in enumerate(langs):
@@ -616,6 +689,165 @@ def evaluate_wikifact_grouped(model, tokenizer, eval_ds, max_prompt_length, max_
 
 
 # ─────────────────────────────────────────────
+# RankC (Qi et al., EMNLP 2023) — periodic training-time monitoring
+# ─────────────────────────────────────────────
+
+RANKC_N_OPT = 4
+RANKC_WEIGHTS = [math.exp(RANKC_N_OPT - j) for j in range(1, RANKC_N_OPT + 1)]
+_RANKC_Z = sum(RANKC_WEIGHTS)
+RANKC_WEIGHTS = [w / _RANKC_Z for w in RANKC_WEIGHTS]
+
+
+def rankc_pair_wikifact(slots_a: List[int], slots_b: List[int]) -> float:
+    score = 0.0
+    for j in range(1, RANKC_N_OPT + 1):
+        top_a, top_b = set(slots_a[:j]), set(slots_b[:j])
+        score += RANKC_WEIGHTS[j - 1] * len(top_a & top_b) / j
+    return score
+
+
+def _greedy_align(sim: np.ndarray) -> List[int]:
+    """sim[i, j] = similarity of this language's option i to English's option j.
+    1:1 greedy max-similarity assignment; exact for the well-separated 4x4 case
+    and avoids pulling in scipy just for a 4-item Hungarian assignment."""
+    sim = sim.copy()
+    n = sim.shape[0]
+    align = [-1] * n
+    for _ in range(n):
+        i, j = np.unravel_index(np.argmax(sim), sim.shape)
+        align[i] = int(j)
+        sim[i, :] = -1e9
+        sim[:, j] = -1e9
+    return align
+
+
+@torch.no_grad()
+def compute_rankc_wikifact(model, tokenizer, eval_ds, max_prompt_length, device):
+    """RankC computed during periodic training eval (not the paper's final
+    number -- that comes from evaluate_crosslingual_consistency.py with the
+    committed alignment cache; this is a lighter in-loop monitoring signal).
+
+    Needs two things evaluate_wikifact_grouped doesn't have: (1) a full rank
+    over all 4 options per language, not just the greedy top-1 generation, so
+    options are scored by avg length-normalized logprob (same technique as
+    evaluate_accuracy.py's score_candidates_batch); (2) cross-lingual option
+    alignment, since options are independently shuffled per language with no
+    stored correspondence -- solved here via cosine similarity of the model's
+    OWN mean-pooled hidden states over just the option tokens (same idea as
+    compute_flores_hidden_cosine), so no separate embedder/dependency is
+    needed. Each language is aligned to English's option order; RankC between
+    two non-English languages is then computed by comparing their
+    English-slot-mapped rankings.
+    """
+    was_training = model.training
+    model.eval()
+    n_layers = model.config.num_hidden_layers
+    mid_layer = n_layers // 2
+
+    facts = []
+    for ex in eval_ds:
+        prompts_by_lang = json.loads(ex["prompts_by_lang_json"])
+        meta_by_lang = json.loads(ex["meta_by_lang_json"])
+        langs = [l for l in LANGS if l in prompts_by_lang and l in meta_by_lang]
+        if "en" not in langs or len(langs) < 2:
+            continue
+        facts.append((prompts_by_lang, meta_by_lang, langs))
+
+    if not facts:
+        if was_training:
+            model.train()
+        return {}
+
+    items = []
+    for fi, (prompts_by_lang, meta_by_lang, langs) in enumerate(facts):
+        for lang in langs:
+            prompt = prompts_by_lang[lang]
+            prompt_ids = tokenizer(
+                prompt, add_special_tokens=True,
+                truncation=True, max_length=max_prompt_length,
+            )["input_ids"]
+            for oi, opt in enumerate(meta_by_lang[lang]["options"]):
+                opt_ids = tokenizer(" " + opt, add_special_tokens=False)["input_ids"]
+                items.append({
+                    "fi": fi, "lang": lang, "oi": oi,
+                    "ids": prompt_ids + opt_ids, "plen": len(prompt_ids),
+                })
+
+    scores: Dict[Tuple[int, str], List[float]] = {}
+    embeds: Dict[Tuple[int, str], List[Any]] = {}
+    micro_bs = 64
+    for start in range(0, len(items), micro_bs):
+        chunk = items[start:start + micro_bs]
+        ids_list = [torch.tensor(x["ids"], dtype=torch.long) for x in chunk]
+        input_ids = pad_sequence(ids_list, batch_first=True, padding_value=tokenizer.pad_token_id).to(device)
+        attention_mask = torch.zeros_like(input_ids)
+        for i, x in enumerate(chunk):
+            attention_mask[i, :len(x["ids"])] = 1
+
+        out = model(input_ids=input_ids, attention_mask=attention_mask,
+                    output_hidden_states=True, use_cache=False)
+        logits = out.logits[:, :-1, :].float()
+        target = input_ids[:, 1:]
+        opt_mask = attention_mask[:, 1:].clone().float()
+        for i, x in enumerate(chunk):
+            keep_from = max(x["plen"] - 1, 0)
+            opt_mask[i, :keep_from] = 0.0
+        logp = torch.log_softmax(logits, dim=-1)
+        tok_lp = torch.gather(logp, -1, target.unsqueeze(-1)).squeeze(-1) * opt_mask
+        opt_len = opt_mask.sum(-1).clamp(min=1)
+        avg_lp = (tok_lp.sum(-1) / opt_len).detach().cpu()
+
+        hidden = out.hidden_states[mid_layer][:, :-1, :].float()
+        pooled = ((hidden * opt_mask.unsqueeze(-1)).sum(1) / opt_len.unsqueeze(-1)).detach().cpu()
+
+        for i, x in enumerate(chunk):
+            key = (x["fi"], x["lang"])
+            scores.setdefault(key, [0.0] * RANKC_N_OPT)[x["oi"]] = float(avg_lp[i].item())
+            embeds.setdefault(key, [None] * RANKC_N_OPT)[x["oi"]] = pooled[i]
+
+        del out, logits, target, opt_mask, logp, tok_lp, hidden, pooled
+        torch.cuda.empty_cache()
+
+    rc_sum_all = rc_n_all = 0.0
+    rc_sum_enx = rc_n_enx = 0.0
+    for fi, (prompts_by_lang, meta_by_lang, langs) in enumerate(facts):
+        en_key = (fi, "en")
+        if en_key not in embeds:
+            continue
+        en_emb = F.normalize(torch.stack(embeds[en_key]), dim=-1)
+        en_order = sorted(range(RANKC_N_OPT), key=lambda i: scores[en_key][i], reverse=True)
+
+        slot_rank = {"en": en_order}
+        for lang in langs:
+            if lang == "en":
+                continue
+            key = (fi, lang)
+            if key not in embeds:
+                continue
+            emb = F.normalize(torch.stack(embeds[key]), dim=-1)
+            sim = (emb @ en_emb.T).numpy()
+            align = _greedy_align(sim)
+            order = sorted(range(RANKC_N_OPT), key=lambda i: scores[key][i], reverse=True)
+            slot_rank[lang] = [align[i] for i in order]
+
+        for a, b in itertools.combinations(slot_rank.keys(), 2):
+            rc = rankc_pair_wikifact(slot_rank[a], slot_rank[b])
+            rc_sum_all += rc
+            rc_n_all += 1
+            if a == "en" or b == "en":
+                rc_sum_enx += rc
+                rc_n_enx += 1
+
+    if was_training:
+        model.train()
+
+    return {
+        "consistency/rankc_avg": rc_sum_all / max(rc_n_all, 1),
+        "consistency/rankc_avg_en_x": rc_sum_enx / max(rc_n_enx, 1),
+    }
+
+
+# ─────────────────────────────────────────────
 # Full evaluation (runs only on main process)
 # ─────────────────────────────────────────────
 
@@ -623,6 +855,7 @@ def evaluate_wikifact_grouped(model, tokenizer, eval_ds, max_prompt_length, max_
 def run_full_eval(
     model, tokenizer, wikifact_val_ds, flores_eval_sets, mmlu_eval_sets,
     max_prompt_length, max_completion_length, device, global_step,
+    cache_implementation="static",
 ):
     metrics = {}
 
@@ -630,6 +863,11 @@ def run_full_eval(
     metrics.update(evaluate_wikifact_grouped(
         model=model, tokenizer=tokenizer, eval_ds=wikifact_val_ds,
         max_prompt_length=max_prompt_length, max_completion_length=max_completion_length,
+        cache_implementation=cache_implementation,
+    ))
+    metrics.update(compute_rankc_wikifact(
+        model=model, tokenizer=tokenizer, eval_ds=wikifact_val_ds,
+        max_prompt_length=max_prompt_length, device=device,
     ))
 
     # FLORES BLEU + hidden cosine (run every eval)
@@ -721,19 +959,33 @@ def gather_rollout_prompts(
 def generate_grouped_rollouts(
     model, tokenizer, batch, num_generations,
     max_prompt_length, max_completion_length, temperature, top_p,
-    gen_micro_batch_size=4,
+    gen_micro_batch_size=4, cache_implementation="static",
 ):
     """Generate rollouts using unwrapped model, micro-batched to avoid OOM.
 
     gen_micro_batch_size: how many prompts to generate at once.
     Default 4 — conservative for DDP where each GPU already holds a full
     model copy + optimizer states.  Increase if you have headroom.
+
+    cache_implementation: passed straight to model.generate(). "static"
+    preallocates the KV cache once per call rather than reallocating it every
+    decode step (the DynamicCache default), which roughly halves rollout
+    generation time at this batch-96/short-completion regime on GH200 while
+    producing byte-identical greedy output. Pass None for the dynamic cache.
     """
     device = next(model.parameters()).device
     flat_prompts, flat_index = gather_rollout_prompts(batch, num_generations)
 
     was_training = model.training
     model.eval()
+
+    gen_kwargs = dict(
+        do_sample=True, temperature=temperature, top_p=top_p,
+        max_new_tokens=max_completion_length, pad_token_id=tokenizer.pad_token_id,
+        repetition_penalty=1.3, eos_token_id=tokenizer.eos_token_id,
+    )
+    if cache_implementation:
+        gen_kwargs["cache_implementation"] = cache_implementation
 
     results = {}
     seq_payloads = []
@@ -749,11 +1001,7 @@ def generate_grouped_rollouts(
         ).to(device)
         input_len = inputs["input_ids"].shape[1]
 
-        outputs = model.generate(
-            **inputs, do_sample=True, temperature=temperature, top_p=top_p,
-            max_new_tokens=max_completion_length, pad_token_id=tokenizer.pad_token_id,
-            repetition_penalty=1.3, eos_token_id=tokenizer.eos_token_id,
-        )
+        outputs = model.generate(**inputs, **gen_kwargs)
 
         for i, (fact_idx, gen_idx, lang) in enumerate(chunk_index):
             generated_ids = outputs[i][input_len:]
@@ -763,6 +1011,11 @@ def generate_grouped_rollouts(
             results.setdefault(key, {})
             results[key][lang] = extract_answer_text(generated_text)
 
+            # Non-pad token count in the completion — HF generate right-pads every
+            # sequence in a micro-batch to the longest one, so this (not
+            # total_len - input_len) is the actual rollout cost for this sequence.
+            num_generated_tokens = int((generated_ids != tokenizer.pad_token_id).sum().item())
+
             seq_payloads.append({
                 "fact_idx": fact_idx,
                 "gen_idx": gen_idx,
@@ -771,6 +1024,7 @@ def generate_grouped_rollouts(
                 "input_len": input_len,
                 "total_len": int(outputs[i].shape[0]),
                 "generated_text": generated_text,
+                "num_generated_tokens": num_generated_tokens,
             })
 
         # Free GPU memory between micro-batches
@@ -873,6 +1127,11 @@ def main():
     if args.no_bf16:
         args.bf16 = False
 
+    # "none"/"" -> None (dynamic cache); anything else passed to generate() as-is.
+    gen_cache_impl = args.gen_cache_implementation
+    if gen_cache_impl in (None, "", "none", "None"):
+        gen_cache_impl = None
+
     # ── Accelerator ──────────────────────────
     # Increase NCCL timeout to handle long eval periods where only rank 0 is active.
     from datetime import timedelta
@@ -912,11 +1171,25 @@ def main():
     if is_main:
         print("Loading eval datasets ...", flush=True)
 
-    flores_eval_sets = load_flores_parallel_subset(
-        target_langs=["ar", "bn", "de", "es", "fr", "id", "ja", "pt", "ru", "sw", "zh"],
-        split="dev", max_samples=args.max_eval_flores,
-    )
-    mmlu_eval_sets = load_global_mmlu_dev_eval_by_lang(LANGS, tokenizer)
+    # FLORES-200 is a script-based dataset; datasets>=4 dropped script loading, so
+    # this raises on newer stacks. It only feeds the auxiliary BLEU/hidden-cosine
+    # eval, so degrade gracefully to {} (those eval fns no-op on an empty set)
+    # rather than kill training.
+    try:
+        flores_eval_sets = load_flores_parallel_subset(
+            target_langs=["ar", "bn", "de", "es", "fr", "id", "ja", "pt", "ru", "sw", "zh"],
+            split="dev", max_samples=args.max_eval_flores,
+        )
+    except Exception as e:
+        if is_main:
+            print(f"[warn] FLORES eval disabled (could not load: {e})", flush=True)
+        flores_eval_sets = {}
+    try:
+        mmlu_eval_sets = load_global_mmlu_dev_eval_by_lang(LANGS, tokenizer, max_samples=args.max_eval_mmlu)
+    except Exception as e:
+        if is_main:
+            print(f"[warn] Global-MMLU eval disabled (could not load: {e})", flush=True)
+        mmlu_eval_sets = {}
 
     # ── Model ────────────────────────────────
     if is_main:
@@ -1022,6 +1295,41 @@ def main():
     reward_ema = None
     ema_alpha = 0.05
 
+    # Cost-reporting counters (rollout tokens, wall-clock -> GPU-hours). "prior_*"
+    # carries totals from before this process started (restored from a checkpoint
+    # sidecar on resume), so a crash+relaunch doesn't reset the running cost figures
+    # reported for the paper's training/token-efficiency section.
+    cumulative_rollout_tokens = 0
+    prior_wall_seconds = 0.0
+
+    # ── Resume from checkpoint (model, optimizer, scheduler, RNG) ──
+    # Older checkpoints (pre-accelerator.save_state) only have adapter/tokenizer
+    # files, not accelerate's own state artifacts (pytorch_model.bin etc.) — fall
+    # back to a fresh start rather than crashing every rank if load_state can't
+    # find what it expects.
+    resume_dir = None
+    if args.resume_from_checkpoint == "auto":
+        resume_dir = find_latest_checkpoint(args.output_dir)
+    elif args.resume_from_checkpoint not in (None, "none"):
+        resume_dir = args.resume_from_checkpoint
+    if resume_dir is not None:
+        step_from_dir = int(os.path.basename(resume_dir).split("-")[-1])
+        try:
+            accelerator.load_state(resume_dir)
+            global_step = step_from_dir
+            prior_stats = load_training_stats(resume_dir)
+            cumulative_rollout_tokens = prior_stats.get("cumulative_rollout_tokens", 0)
+            prior_wall_seconds = prior_stats.get("cumulative_wall_seconds", 0.0)
+            if is_main:
+                print(f"Resumed from checkpoint {resume_dir} (global_step={global_step}, "
+                      f"prior_rollout_tokens={cumulative_rollout_tokens}, "
+                      f"prior_wall_hours={prior_wall_seconds / 3600:.2f}) ...", flush=True)
+        except Exception as e:
+            if is_main:
+                print(f"[warn] could not resume from {resume_dir} ({e!r}); "
+                      f"starting fresh from global_step=0.", flush=True)
+            accelerator.wait_for_everyone()
+
     if is_main:
         print(f"Total update steps: {total_update_steps}", flush=True)
         print("Starting grouped-rollout training ...", flush=True)
@@ -1047,7 +1355,18 @@ def main():
                 temperature=args.temperature,
                 top_p=args.top_p,
                 gen_micro_batch_size=args.gen_micro_batch_size,
+                cache_implementation=gen_cache_impl,
             )
+
+            # Rollout token cost, summed across ranks (each rank generates a
+            # different shard of the batch under DDP) — accumulated every
+            # micro-step, not just on optimizer-sync steps, since every rollout
+            # burns compute regardless of gradient accumulation.
+            step_tokens = sum(p["num_generated_tokens"] for p in seq_payloads)
+            step_tokens_total = accelerator.reduce(
+                torch.tensor(step_tokens, device=device, dtype=torch.long), reduction="sum",
+            ).item()
+            cumulative_rollout_tokens += step_tokens_total
 
             # ── Rewards & advantages ──
             group_rewards, group_stats = compute_group_advantages(
@@ -1092,6 +1411,10 @@ def main():
                     else:
                         reward_ema = ema_alpha * reward_mean + (1 - ema_alpha) * reward_ema
 
+                    elapsed = time.time() - train_start_time
+                    wall_seconds = prior_wall_seconds + elapsed
+                    gpu_hours = wall_seconds * accelerator.num_processes / 3600
+
                     log_data = {
                         "train/loss": float(loss.detach().item()),
                         "train/grad_norm": float(grad_norm.detach().item() if torch.is_tensor(grad_norm) else grad_norm),
@@ -1102,12 +1425,14 @@ def main():
                         "train/adv_mean": float(sum(advs) / len(advs)) if advs else 0.0,
                         "train/mean_kl": loss_stats.get("mean_kl", 0.0),
                         "train/global_step": global_step,
+                        "cost/cumulative_rollout_tokens": cumulative_rollout_tokens,
+                        "cost/wall_clock_hours": wall_seconds / 3600,
+                        "cost/gpu_hours": gpu_hours,
                     }
 
                     if args.report_to == "wandb":
                         wandb.log(log_data, step=global_step)
 
-                    elapsed = time.time() - train_start_time
                     steps_per_sec = global_step / elapsed
                     remaining_steps = total_update_steps - global_step
                     eta_seconds = remaining_steps / steps_per_sec if steps_per_sec > 0 else 0
@@ -1124,6 +1449,8 @@ def main():
                         "kl": round(log_data["train/mean_kl"], 6),
                         "it/s": round(steps_per_sec, 3),
                         "eta": f"{eta_h}h{eta_m:02d}m",
+                        "rollout_tok": cumulative_rollout_tokens,
+                        "gpu_h": round(gpu_hours, 2),
                     }, flush=True)
 
                     # Sample rollout
@@ -1153,25 +1480,47 @@ def main():
                     if is_main:
                         torch.cuda.empty_cache()
                         eval_model = accelerator.unwrap_model(model)
-                        eval_metrics = run_full_eval(
-                            model=eval_model,
-                            tokenizer=tokenizer,
-                            wikifact_val_ds=val_ds,
-                            flores_eval_sets=flores_eval_sets,
-                            mmlu_eval_sets=mmlu_eval_sets,
-                            max_prompt_length=args.max_prompt_length,
-                            max_completion_length=args.max_completion_length,
-                            device=device,
-                            global_step=global_step,
-                        )
-                        print(f"\n[eval @ step {global_step}] {eval_metrics}", flush=True)
-                        if args.report_to == "wandb":
-                            wandb.log(eval_metrics, step=global_step)
+                        if args.skip_periodic_eval:
+                            print(
+                                f"\n[checkpoint-only @ step {global_step}] "
+                                "skipping periodic benchmark evaluation",
+                                flush=True,
+                            )
+                        else:
+                            eval_metrics = run_full_eval(
+                                model=eval_model,
+                                tokenizer=tokenizer,
+                                wikifact_val_ds=val_ds,
+                                flores_eval_sets=flores_eval_sets,
+                                mmlu_eval_sets=mmlu_eval_sets,
+                                max_prompt_length=args.max_prompt_length,
+                                max_completion_length=args.max_completion_length,
+                                device=device,
+                                global_step=global_step,
+                                cache_implementation=gen_cache_impl,
+                            )
+                            print(f"\n[eval @ step {global_step}] {eval_metrics}", flush=True)
+                            if args.report_to == "wandb":
+                                wandb.log(eval_metrics, step=global_step)
 
-                        # Checkpointing
-                        checkpoint_dir = os.path.join(args.output_dir, f"checkpoint-{global_step}")
+                        torch.cuda.empty_cache()
+
+                    # accelerator.save_state is a collective call (gathers/syncs across
+                    # ranks) — must run on every process, not just rank 0, or non-main
+                    # ranks hang waiting on the barrier it uses internally.
+                    checkpoint_dir = os.path.join(args.output_dir, f"checkpoint-{global_step}")
+                    accelerator.save_state(checkpoint_dir)
+
+                    if is_main:
+                        # Plain adapter + tokenizer save for easy downstream loading/merging
+                        # without needing accelerate's full-state loader.
                         eval_model.save_pretrained(checkpoint_dir)
                         tokenizer.save_pretrained(checkpoint_dir)
+                        save_training_stats(
+                            checkpoint_dir, global_step, cumulative_rollout_tokens,
+                            prior_wall_seconds + (time.time() - train_start_time),
+                            accelerator.num_processes,
+                        )
                         checkpoints = sorted(
                             [d for d in os.listdir(args.output_dir)
                              if d.startswith("checkpoint-") and d.split("-")[-1].isdigit()],
@@ -1179,8 +1528,6 @@ def main():
                         )
                         for old in checkpoints[:-3]:
                             shutil.rmtree(os.path.join(args.output_dir, old))
-
-                        torch.cuda.empty_cache()
 
                     accelerator.wait_for_everyone()
                     model.train()
@@ -1198,6 +1545,17 @@ def main():
         unwrapped = accelerator.unwrap_model(model)
         unwrapped.save_pretrained(args.output_dir)
         tokenizer.save_pretrained(args.output_dir)
+        final_wall_seconds = prior_wall_seconds + (time.time() - train_start_time)
+        save_training_stats(
+            args.output_dir, global_step, cumulative_rollout_tokens,
+            final_wall_seconds, accelerator.num_processes,
+        )
+        print(
+            f"Training cost: {cumulative_rollout_tokens:,} rollout tokens, "
+            f"{final_wall_seconds / 3600:.2f}h wall-clock, "
+            f"{final_wall_seconds * accelerator.num_processes / 3600:.2f} GPU-hours "
+            f"({accelerator.num_processes} GPUs)", flush=True,
+        )
 
         if args.report_to == "wandb":
             wandb.finish()

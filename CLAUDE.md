@@ -185,6 +185,67 @@ Notes for a clean parallel run:
   24 GB HBM ceiling). The earlier per-step-graph variants compiled ~50 min PER
   STEP — never revert to Python-int indexing in this loop.
 
+## GRPO rollout generation speed (2026-07-15, GH200)
+
+- **Root cause of slow GRPO: rollouts generated with NO KV cache.** The model
+  has `gradient_checkpointing_enable()` set; even though `generate_grouped_rollouts`
+  calls `model.eval()`, transformers still refuses the default cache during
+  rollouts, so decoding is quadratic. Fix: pass `cache_implementation="static"`
+  to `model.generate()`, which forces a real (preallocated) KV cache back on.
+- **New flag `--gen_cache_implementation` (default `static`)** in
+  `train_wikifact_grpo_accelerate.py`, threaded into both the rollout path
+  (`generate_grouped_rollouts`) and periodic eval (`evaluate_wikifact_grouped`).
+  Pass `none` for the old dynamic/no-cache behavior. Existing launch commands
+  need no change — they pick up the speedup automatically.
+- **Measured (Qwen-2.5-7B + LoRA, batch 96 = 1 fact × 8 gens, real trainer code
+  path, isolated GH200):** generation `none` 3.80s → `static` 1.98s (~1.9×).
+  Standalone micro-bench at the same batch: 4.17s → 2.06s. Greedy output is
+  **byte-identical** static-vs-dynamic on both Qwen and OLMo-2-1124-7B (0/24
+  mismatches each) — safe, no quality change. The `` `use_cache` incompatible
+  with gradient checkpointing`` warning that still prints comes from the
+  training forward pass, NOT generation — ignore it.
+- Throughput is **batch-starved at 96 sequences** (GH200 idle): with static
+  cache, 96→2.06s, 192→3.66s, 384→7.03s (seq/s 46→52→55). Raising
+  `per_device_train_batch_size` to 2 (→192 prompts/gen-call) is a further ~1.4×
+  on generation, but it also doubles the optimizer batch (changes training
+  semantics / the paper's "1 fact/step") — only do it deliberately.
+- **vLLM: not adopted.** vLLM 0.25.1 (latest aarch64 wheel) hard-pins
+  `torch==2.11.0`, but the `grpo` env runs torch 2.12.1 — co-installing would
+  downgrade torch and break transformers 5.13 / the aarch64 build. That forces a
+  separate-env vLLM *server* + per-step policy-weight sync (the heavyweight
+  verl/TRL pattern), whose sync overhead for these tiny 96×≤48-token rollouts is
+  exactly why an earlier in-place vLLM attempt "wasn't quicker". Static cache
+  gives the 2× with zero new deps, in-process. Revisit vLLM only if moving to
+  much larger rollout batches/longer completions where its continuous batching
+  would dominate the sync cost.
+- **The per-step compute is otherwise near-optimal.** Profiled (Qwen-7B, 96
+  rollouts, static-cache gen): gen 2.1s / logprob-fwd 1.3s / backward 2.8s /
+  ~6.0s total, 36 GB peak. Backward dominates via gradient-checkpointing
+  recompute, but every attempt to cut it lost: grad-ckpt-off OOMs (the loss fn
+  retains all 96 sequences' autograd graphs before one backward); restructuring
+  to backward-per-micro-batch + no-ckpt fits only at mbs≤16 and is *slower*
+  (6.98–7.79s — small batches underutilize the GPU worse than recompute costs);
+  bigger logprob micro-batch (48→96) and length-sorting change nothing (the loss
+  pass is compute-bound). Grad checkpointing at mbs 48–96 is the right tradeoff;
+  leave it on. The loss pass is inherent GRPO cost (full 7B fwd+bwd over all
+  rollouts) — no free lunch there.
+- **Periodic-eval cost knob `--max_eval_mmlu` (default 1000).** The MMLU eval
+  scores `max_eval_mmlu × 12 langs` examples every `--eval_steps` (200) — 12k
+  forward passes/eval at the default, the dominant periodic cost, and it does
+  NOT affect training. Drop to ~200 (or raise `--eval_steps`) to reclaim
+  wall-clock with zero risk.
+- **Bigger batch (`--per_device_train_batch_size 2`) is a *modest* lever, not the
+  1.4× it looks like from gen-throughput alone.** Measured (Qwen, static cache):
+  batch-2 = 11.59s/2 facts = **5.80s/fact vs 6.04s/fact at batch-1, ~4% faster**
+  — only generation amortizes (2.07→1.84s/fact), the loss pass is compute-bound
+  and linear (unchanged). Verified it runs clean (peak 48 GB). It doubles the
+  optimizer batch vs the paper's 1-fact/step, so it's opt-in — keep default 1.
+- **/home is chronically near its 101 GB quota** (~85 GB is the HF model cache).
+  A `pip install` defaults its wheel cache to `~/.cache/pip` on /home and can
+  push it over quota (breaks file writes with `EDQUOT`). Set
+  `PIP_CACHE_DIR`/`TMPDIR` to `$SCRATCH` for any big install, and
+  `rm -rf ~/.cache/pip` to reclaim.
+
 ## Known inconsistencies to resolve
 
 - The paper appendix says the PolyFact evaluator wraps questions in a
@@ -197,7 +258,43 @@ Notes for a clean parallel run:
 Done: direct consistency metrics (RankC + total consistency + agreement) for
 all 12 models on PolyFact AND Global-MMLU-Lite (results/*_consistency.json);
 bootstrap CIs + paired significance tests (results/significance/). Still requested by reviewers: CLC-enhancement baselines (DCO,
-EN-pivot DPO / CM-Align, representation intervention), a GRPO ablation without
-the all-language consistency bonus, expanded related work (Qi et al. 2023,
-Fierro & Søgaard 2022, X-FACTR, Paths Not Taken), training/token cost
-reporting, and confidence intervals for the small Global-MMLU deltas.
+EN-pivot DPO / CM-Align, representation intervention), expanded related work
+(Qi et al. 2023, Fierro & Søgaard 2022, X-FACTR, Paths Not Taken), and
+confidence intervals for the small Global-MMLU deltas.
+
+Training/token cost reporting: `train_wikifact_grpo_accelerate.py` now tracks
+and persists this itself (2026-07-13) — cumulative rollout tokens (non-pad
+completion tokens, summed across DDP ranks every micro-step), wall-clock
+seconds, and GPU-hours (wall-clock × `accelerator.num_processes`). Logged to
+wandb (`cost/*`) and printed every `--logging_steps`; a `training_stats.json`
+sidecar is written next to every checkpoint AND the final `output_dir`, and
+its `cumulative_*` fields are restored on `--resume_from_checkpoint auto` so
+the totals stay correct across crashes/restarts (see the checkpoint/resume
+work below). Still needs: pulling these numbers out of a finished run's
+`training_stats.json` into the paper's actual cost table.
+
+## EN-pivot DPO / CM-Align baseline (`training/train_wikifact_cmalign_dpo.py`)
+
+Self-contained implementation of the reviewer-requested EN-pivot DPO baseline,
+adapting CM-Align (Zhang et al., EMNLP 2025 Findings, arXiv:2509.08541;
+github.com/XZhang00/CM-Align) to the WIKI-FACT MCQ setting. Self-supervised —
+never uses gold labels.
+- **Phase `construct`**: sample K free-text answers/lang (same single-language
+  prompts as the GRPO trainer), pick the most self-consistent English candidate
+  as the pivot (max mean cosine among English candidates, LaBSE embeddings),
+  then per other language chosen=argmax / rejected=argmin cosine-to-pivot.
+  Preference pairs cached via `save_to_disk` at `--pref_data_path`.
+- **Phase `train`**: hand-rolled DPO (no `trl` — it isn't installed; the older
+  `train_polyfact_dapo.py` depends on it and is NOT runnable here). LoRA policy
+  r=64/α=128; the reference distribution is the same model with the adapter
+  disabled (`model.disable_adapter()`), so no second model copy. Objective
+  `L_DPO + gamma*L_NLL`, defaults β=0.1, γ=0.0 (CM-Align GIF task).
+- **Embedder**: defaults to `sentence-transformers/LaBSE` (this project's
+  cross-lingual encoder, cached; CM-Align's original was gte-multilingual-base,
+  swap via `--embedding_model`). `sentence-transformers` was pip-installed into
+  the `grpo` env for this.
+- Launch: `sbatch cluster/cmalign_dpo.sbatch` (Qwen base, 1 GPU, offline; runs
+  both phases). OLMo via `--export=ALL,MODEL_ID=allenai/OLMo-2-1124-7B,TAG=olmo`.
+  Logic unit-tested (scratchpad): dpo_loss = -log(0.5) at LoRA zero-init confirms
+  the disable_adapter reference path. Then eval the `merged/` output with
+  `evaluate/evaluate_crosslingual_consistency.py`.
