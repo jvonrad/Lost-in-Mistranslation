@@ -56,7 +56,8 @@ relations:
 | place of birth | `P19` | 5,710 | highest judged ambiguity (25%) |
 | genre | `P136` | 5,693 | highest judged ambiguity (25%) |
 | employer | `P108` | 5,700 | semantically many-to-one; see below |
-| **Total** | | **22,737 ({pct}% of 100,113)** | |
+| *(label defects)* | — | 3,018 | corrupt or inverted items; see below |
+| **Total** | | **25,831 ({pct}% of 100,113)** | |
 
 The first three are the top-3 relations by judged ambiguity (Appendix D.2, Table 7).
 `employer` is excluded on separate, explicit grounds rather than by that ranking: a
@@ -66,40 +67,63 @@ split-integrity defect (all 73 duplicated training rows and all 3 facts that
 appeared in both `train` and `test`). Removing it eliminates those defects entirely.
 
 Surviving rows are byte-identical to their PolyFact counterparts and the schema is
-unchanged; the 15 remaining relations keep their full fact sets. The filter is
-applied on `property_id`, so all 13 configs (12 languages + `parallel`) contain
-exactly the same {n_facts:,} facts.
+unchanged. All 13 configs (12 languages + `parallel`) contain exactly the same
+{n_facts:,} facts.
 
 Verified in this release: **0** duplicate rows in any split, **0** `fact_id`
-overlap between `train`, `validation` and `test`, 0 duplicate options, 0
-`answer_text`/`answer_index` mismatches, and gold-answer position within 0.6pp of
-uniform in every language.
+overlap between `train`, `validation` and `test`, **0** duplicate options, **0**
+`answer_text`/`answer_index` mismatches, **0** entities carrying more than one gold
+label in any language, **0** remaining intra-word transliteration corruption in
+ar/bn/ru, and gold-answer position within 0.6pp of uniform in every language.
 
-Reproduce it with `build-poly-fact/build_polyfact_clean.py --exclude_employer
---fix_integrity` in the code release.
+Reproduce with, in order:
 
-## Known label-quality caveat: `suspect_labels.json`
+```bash
+python build-poly-fact/build_polyfact_clean.py --exclude_employer --fix_integrity \
+  --raw_dir <PolyFact> --out_dir <tmp>
+python build-poly-fact/build_label_repairs.py --data_dir <tmp> --out repairs.json
+python build-poly-fact/apply_label_repairs.py --data_dir <tmp> --repairs repairs.json \
+  --out_dir <final>
+```
 
-An audit of gold labels found a small number containing a Latin-script fragment
-directly adjacent to native script with no separator (e.g. Bengali
-`লিঙ্কনNear-Earth গ্রহাণু গবেষণা` for "Lincoln Near-Earth Asteroid Research"), i.e.
-partially transliterated entity names produced during multilingual generation.
-These are listed per language in `suspect_labels.json` so they can be filtered or
-repaired:
+## Label-quality repairs
 
-| lang | affected facts | distinct labels | note |
-|---|---|---|---|
-| bn | 2,937 (3.8%) | 313 | one label (the LINEAR survey) covers ~2.3k of them |
-| zh | 1,045 (1.4%) | 266 | includes conventional acronym prefixes (e.g. `SOM建筑设计事务所`) |
-| ja | 704 (0.9%) | 169 | includes conventional acronym prefixes (e.g. `AGヴェーザー`) |
-| ar | 65 (0.1%) | 33 | |
-| ru | 13 (0.0%) | 13 | |
+A further **3,018 facts** were removed for label defects found by auditing gold
+answers against their Wikidata entity ids. Both classes proved unrepairable, so
+the items were dropped rather than rewritten; the affected `fact_id`s and the
+rationale are recorded in `label_repairs_applied.json`.
 
-The Chinese and Japanese counts are noisy: CJK does not use spaces, so an acronym
-prefixed to native script is normal orthography rather than an error. The Arabic
-and Bengali counts are reliable indicators of genuine corruption. Entity-label
-consistency is otherwise excellent — across 20,150 distinct answer entities, at most
-3 per language ever appear under more than one gold string.
+**Transliteration corruption (3,015 facts).** Gold labels in which a Latin-script
+fragment sits inside a native-script word — Bengali
+`লিঙ্কনNear-Earth গ্রহাণু গবেষণা` ("Lincoln Near-Earth Asteroid Research"), Arabic
+`ماtejكو` (Matejko), Russian `cтатер` (Latin `c` for Cyrillic `с`). Wikidata holds
+no label for these entities in these languages, so there is no ground truth to
+repair from and inventing a translation for a released dataset is not acceptable.
+Counts before removal: bn 2,937, ar 65, ru 13.
+
+Chinese and Japanese were deliberately left untouched. Wikidata agrees verbatim
+with 142 of 168 flagged Japanese labels, confirming that an acronym prefixed to
+native script (`AGヴェーザー`, `SOM建筑设计事务所`) is conventional orthography in a
+script that does not use spaces, not an error. Wikidata's `zh` labels are also
+frequently Traditional while this dataset is standardised on Simplified, so
+"repairing" from them would have been a regression.
+
+**Negation-inverted questions (13 facts).** Detected as one `object_id` carrying
+two different gold strings within a language. Inspection showed the question, not
+the label, is wrong: e.g. ru *"Какой язык **не является** официальным языком
+Соединённых Штатов Колумбии?"* ("which language is **not** an official language…")
+with gold `нюнорск` (Nynorsk), and ja *"オランダ代表**ではない**国はどれですか？"*
+with gold `バルバドス` (Barbados). These items do not test the stored Wikidata
+triple at all, and their nominally correct answer already appears among the other
+options, so they cannot be fixed by relabelling. Note that questions are generated
+per language independently, so an inversion in one language breaks parallelism for
+that fact.
+
+This detector only surfaces inversions that happen to collide with another gold
+label for the same entity, so it is a lower bound; a small number of
+negation-inverted questions may remain. Most apparent negations in the corpus are
+false positives from work titles (e.g. *"Who is the author of 'Do not go gentle
+into that good night'?"*), which are not defects.
 
 ## Usage
 
