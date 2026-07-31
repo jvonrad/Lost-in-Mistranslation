@@ -57,7 +57,8 @@ relations:
 | genre | `P136` | 5,693 | highest judged ambiguity (25%) |
 | employer | `P108` | 5,700 | semantically many-to-one; see below |
 | *(label defects)* | — | 3,018 | corrupt or inverted items; see below |
-| **Total** | | **25,831 ({pct}% of 100,113)** | |
+| *(question defects)* | — | 6,667 | leaked or ambiguous items; see below |
+| **Total** | | **32,498 ({pct}% of 100,113)** | |
 
 The first three are the top-3 relations by judged ambiguity (Appendix D.2, Table 7).
 `employer` is excluded on separate, explicit grounds rather than by that ranking: a
@@ -74,16 +75,19 @@ Verified in this release: **0** duplicate rows in any split, **0** `fact_id`
 overlap between `train`, `validation` and `test`, **0** duplicate options, **0**
 `answer_text`/`answer_index` mismatches, **0** entities carrying more than one gold
 label in any language, **0** remaining intra-word transliteration corruption in
-ar/bn/ru, and gold-answer position within 0.6pp of uniform in every language.
+ar/bn/ru, **0** questions containing their own answer, **0** question strings with
+conflicting gold answers, and gold-answer position within 0.6pp of uniform in every
+language.
 
 Reproduce with, in order:
 
 ```bash
 python build-poly-fact/build_polyfact_clean.py --exclude_employer --fix_integrity \
-  --raw_dir <PolyFact> --out_dir <tmp>
-python build-poly-fact/build_label_repairs.py --data_dir <tmp> --out repairs.json
-python build-poly-fact/apply_label_repairs.py --data_dir <tmp> --repairs repairs.json \
-  --out_dir <final>
+  --raw_dir <PolyFact> --out_dir <s1>
+python build-poly-fact/build_label_repairs.py --data_dir <s1> --out repairs.json
+python build-poly-fact/apply_label_repairs.py --data_dir <s1> --repairs repairs.json \
+  --out_dir <s2>
+python build-poly-fact/filter_question_defects.py --data_dir <s2> --out_dir <final>
 ```
 
 ## Label-quality repairs
@@ -146,6 +150,38 @@ description. Per-language configs are flat (one row per fact/language, with
 `question`, `option_a`..`option_d`, `answer_text`, `answer_index`); the `parallel`
 config has one row per fact with a `translations` dict keyed by language code, plus
 the Wikidata `subject_id` / `property_id` / `object_id` grounding.
+
+## Question-quality filtering
+
+A further **6,667 facts** were removed for defects in the question itself, listed
+in `question_defects_removed.json`. A fact is dropped if it is defective in ANY
+language: the corpus is parallel and the consistency metrics read all 12
+languages, so a fact that leaks in French but not Chinese still corrupts the
+cross-lingual measurement.
+
+**Answer leakage (4,550 facts).** The gold answer occurs verbatim inside the
+question, so the item is solvable by copying with no factual knowledge — "Who
+manufactured the Nokia 5000?" → `Nokia`, "Who developed the Sega TeraDrive?" →
+`Sega`. In 97% of cases this is because the subject's name contains the object's
+name, which concentrated the problem in `manufacturer` (21.1% of its items) and
+`developer` (7.7%).
+
+This mattered more than the raw rate suggests. A copied answer is byte-identical
+in every language, so a leaked item scores as perfectly cross-lingually consistent
+no matter what the model knows — inflating precisely the consistency metrics this
+dataset exists to measure, and potentially differently for models that differ in
+how readily they copy from the prompt.
+
+Matching is word-boundary aware for space-using scripts (so a short gold inside a
+longer unrelated word is not a false positive) and plain-substring for Japanese
+and Chinese, which are written without spaces.
+
+**Ambiguous questions (2,341 facts).** One question string carrying more than one
+gold answer, because the subject label does not identify the entity: *"Who is the
+creator of the self-portrait?"* has **25** distinct golds across 25 different
+paintings, *"Who is the creator of the painting Madonna and Child?"* has 4, and
+*"On which continent is Danişment located?"* is answered both Asia and Europe.
+Such items are unanswerable as posed.
 
 ## Relation coverage
 
