@@ -1,0 +1,5478 @@
+{
+ "pool_size": 55903,
+ "strata_sizes": {
+  "translit": 48201,
+  "semantic": 7702
+ },
+ "cutoff": 60,
+ "seed": 20260731,
+ "sample": {
+  "semantic": [
+   {
+    "qid": "Q3903895",
+    "lang": "ar",
+    "label": "بيترو فرانسيسكو",
+    "en": "Pietro Francesco",
+    "relation": "architect",
+    "sim": 58.33333333333333,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q16543765",
+    "lang": "ar",
+    "label": "معهد باري الموسيقي",
+    "en": "Conservatory of Bari",
+    "relation": "educated at",
+    "sim": 33.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1338253",
+    "lang": "ar",
+    "label": "مارسيل إيشاك",
+    "en": "Marcel Ichac",
+    "relation": "director",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q749712",
+    "lang": "ar",
+    "label": "جان ميشيل شوفوتيه",
+    "en": "Jean-Michel Chevotet",
+    "relation": "architect",
+    "sim": 58.06451612903225,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2416304",
+    "lang": "zh",
+    "label": "圣埃斯泰夫",
+    "en": "Saint-Estèphe",
+    "relation": "place of death",
+    "sim": 52.63157894736843,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3379582",
+    "lang": "ar",
+    "label": "فيليب شيامباريتّا",
+    "en": "Philippe Chiambaretta",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3509289",
+    "lang": "ar",
+    "label": "جامعة كالابار",
+    "en": "University of Calabar",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2302336",
+    "lang": "bn",
+    "label": "মন্টানা বিশ্ববিদ্যালয়",
+    "en": "University of Montana",
+    "relation": "educated at",
+    "sim": 41.379310344827594,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4094046",
+    "lang": "id",
+    "label": "Sekolah Penerbang Tinggi Borisoglebsk",
+    "en": "Borisoglebsk Higher Aviators School",
+    "relation": "educated at",
+    "sim": 52.77777777777778,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4197782",
+    "lang": "zh",
+    "label": "塔伊西娅·伊古门采娃",
+    "en": "Taisia Igumentseva",
+    "relation": "director",
+    "sim": 56.52173913043479,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4718041",
+    "lang": "bn",
+    "label": "অ্যালেক্স জ্যাম",
+    "en": "Alex Zamm",
+    "relation": "director",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5920281",
+    "lang": "zh",
+    "label": "霍华德·麦基",
+    "en": "Howard Mackie",
+    "relation": "creator",
+    "sim": 53.84615384615385,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3158480",
+    "lang": "bn",
+    "label": "জ্যাক সেলেরিয়ে",
+    "en": "Jacques Cellerier",
+    "relation": "architect",
+    "sim": 56.25,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q390551",
+    "lang": "bn",
+    "label": "মার্কিন যুক্তরাষ্ট্রের জাতীয় স্বাস্থ্য ইনস্টিটিউট",
+    "en": "United States National Institutes of Health",
+    "relation": "developer",
+    "sim": 48.837209302325576,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1273105",
+    "lang": "zh",
+    "label": "德拉吉沙·布拉绍万",
+    "en": "Dragiša Brašovan",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2628140",
+    "lang": "bn",
+    "label": "বেলারুশীয় রাষ্ট্রীয় অর্থনৈতিক বিশ্ববিদ্যালয়",
+    "en": "Belarusian State Economic University",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q11518883",
+    "lang": "zh",
+    "label": "木村信一",
+    "en": "Shin'ichi Kimura",
+    "relation": "author",
+    "sim": 48.275862068965516,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q549387",
+    "lang": "ar",
+    "label": "جينو كوبيدي",
+    "en": "Gino Coppedè",
+    "relation": "architect",
+    "sim": 33.333333333333336,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q52154711",
+    "lang": "ar",
+    "label": "بول فريدريك ليفيكومت",
+    "en": "Paul Frédéric Levicomte",
+    "relation": "architect",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q245456",
+    "lang": "ar",
+    "label": "الخامسة خلية",
+    "en": "5th Cell",
+    "relation": "developer",
+    "sim": 37.5,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2339568",
+    "lang": "zh",
+    "label": "保罗·考希",
+    "en": "Paul Cauchie",
+    "relation": "architect",
+    "sim": 38.46153846153846,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q384011",
+    "lang": "pt",
+    "label": "Ferrovias Nacionais do Japão",
+    "en": "Japanese National Railways",
+    "relation": "manufacturer",
+    "sim": 51.06382978723405,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q10291418",
+    "lang": "ar",
+    "label": "تسجيلات إليتريكاس أس. أ.",
+    "en": "Gravações Elétricas S.A.",
+    "relation": "manufacturer",
+    "sim": 53.333333333333336,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q13344",
+    "lang": "bn",
+    "label": "বোর্দো বিশ্ববিদ্যালয়",
+    "en": "University of Bordeaux",
+    "relation": "educated at",
+    "sim": 37.03703703703704,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6147859",
+    "lang": "ar",
+    "label": "جامعة الدفاع الوطني لبلا",
+    "en": "PLA National Defence University",
+    "relation": "educated at",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q10383947",
+    "lang": "ja",
+    "label": "トレーシー・ウィグフィールド",
+    "en": "Tracey Wigfield",
+    "relation": "creator",
+    "sim": 47.61904761904761,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4458251",
+    "lang": "zh",
+    "label": "维克多·季托夫",
+    "en": "Viktor Titov",
+    "relation": "director",
+    "sim": 43.75,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q44752275",
+    "lang": "zh",
+    "label": "马里奥·龙科罗尼",
+    "en": "Mario Roncoroni",
+    "relation": "director",
+    "sim": 52.63157894736843,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q722976",
+    "lang": "sw",
+    "label": "Kiwi ya Uzalishaji Mfululizo cha Antonov",
+    "en": "Antonov Serial Production Plant",
+    "relation": "manufacturer",
+    "sim": 47.88732394366197,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1782948",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Jimbo la Tennessee",
+    "en": "Tennessee State University",
+    "relation": "educated at",
+    "sim": 51.42857142857143,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1685286",
+    "lang": "ar",
+    "label": "جان-رودولف بيرونيه",
+    "en": "Jean-Rodolphe Perronet",
+    "relation": "architect",
+    "sim": 58.06451612903225,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3062604",
+    "lang": "zh",
+    "label": "波尔莫斯",
+    "en": "Polmos",
+    "relation": "manufacturer",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1163234",
+    "lang": "bn",
+    "label": "মধ্যযুগীয় ল্যাটিন",
+    "en": "medieval Latin",
+    "relation": "language of work or name",
+    "sim": 57.14285714285714,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2601879",
+    "lang": "bn",
+    "label": "মেয়নুথ বিশ্ববিদ্যালয়",
+    "en": "Maynooth University",
+    "relation": "educated at",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q36582",
+    "lang": "ar",
+    "label": "بالايك",
+    "en": "Palaic",
+    "relation": "official language",
+    "sim": 28.57142857142857,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2615597",
+    "lang": "bn",
+    "label": "নিফি অ্যান্ড লেভি",
+    "en": "Neafie & Levy",
+    "relation": "manufacturer",
+    "sim": 42.10526315789473,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1549757",
+    "lang": "ar",
+    "label": "شركة سكوتس لبناء السفن والهندسة",
+    "en": "Scotts Shipbuilding and Engineering Company",
+    "relation": "manufacturer",
+    "sim": 40.816326530612244,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q27048360",
+    "lang": "ja",
+    "label": "マシュー・ロペス",
+    "en": "Matthew López",
+    "relation": "director",
+    "sim": 56.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q15430915",
+    "lang": "ja",
+    "label": "カール・リーザー",
+    "en": "Karl Lieser",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1165635",
+    "lang": "sw",
+    "label": "Utafutaji wa Vitu vya Karibu na Dunia wa Chuo cha Utafiti cha Lowell",
+    "en": "Lowell Observatory Near-Earth-Object Search",
+    "relation": "discoverer or inventor",
+    "sim": 42.85714285714286,
+    "n_facts": 47
+   },
+   {
+    "qid": "Q995077",
+    "lang": "ar",
+    "label": "غراتشاتش",
+    "en": "Gračac",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q875147",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Muziki na Sanaa za Maonyesho Graz",
+    "en": "University of Music and Performing Arts Graz",
+    "relation": "educated at",
+    "sim": 44.73684210526315,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q805116",
+    "lang": "bn",
+    "label": "বল অ্যারোস্পেস অ্যান্ড টেকনোলজিস",
+    "en": "Ball Aerospace & Technologies",
+    "relation": "manufacturer",
+    "sim": 59.45945945945945,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q194420",
+    "lang": "sw",
+    "label": "Wilaya ya 16 ya Paris",
+    "en": "16th arrondissement of Paris",
+    "relation": "place of death",
+    "sim": 47.82608695652174,
+    "n_facts": 10
+   },
+   {
+    "qid": "Q1329478",
+    "lang": "bn",
+    "label": "প্রাগ প্রযুক্তি বিশ্ববিদ্যালয়",
+    "en": "Czech Technical University in Prague",
+    "relation": "educated at",
+    "sim": 31.999999999999996,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4304102",
+    "lang": "id",
+    "label": "Universitas Negara Moskow Seni Percetakan",
+    "en": "Moscow State University of Printing Arts",
+    "relation": "educated at",
+    "sim": 59.25925925925926,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2108911",
+    "lang": "bn",
+    "label": "ডল্ফ ভ্যান জেন্ড্ট",
+    "en": "Dolf van Gendt",
+    "relation": "architect",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6841942",
+    "lang": "ar",
+    "label": "مدرسة ميدلسكس",
+    "en": "Middlesex School",
+    "relation": "educated at",
+    "sim": 52.63157894736843,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1403641",
+    "lang": "zh",
+    "label": "塔代乌什·托尔维任斯基",
+    "en": "Tadeusz Tołwiński",
+    "relation": "architect",
+    "sim": 50.98039215686274,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4314794",
+    "lang": "id",
+    "label": "Akademi Urusan Dalam Negeri Nasional Ukraina",
+    "en": "National Academy of Internal Affairs of Ukraine",
+    "relation": "educated at",
+    "sim": 56.81818181818182,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1056289",
+    "lang": "sw",
+    "label": "Shule ya Sanaa Nzuri",
+    "en": "École des Beaux-Arts",
+    "relation": "educated at",
+    "sim": 41.666666666666664,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1010519",
+    "lang": "bn",
+    "label": "ইঙ্গ্ৰেভিং এবং প্রিন্টিং ব্যুরো",
+    "en": "Bureau of Engraving and Printing",
+    "relation": "manufacturer",
+    "sim": 58.82352941176471,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q103000",
+    "lang": "zh",
+    "label": "弗里茨·翁格尔特",
+    "en": "Fritz Umgelter",
+    "relation": "director",
+    "sim": 44.44444444444444,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1347780",
+    "lang": "bn",
+    "label": "ক্লেť পর্যবেক্ষণশালা",
+    "en": "Kleť Observatory",
+    "relation": "discoverer or inventor",
+    "sim": 58.33333333333333,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1078073",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Wakayama",
+    "en": "Wakayama University",
+    "relation": "educated at",
+    "sim": 59.25925925925926,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2497377",
+    "lang": "ja",
+    "label": "ディーフェル",
+    "en": "Diever",
+    "relation": "place of death",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q10750587",
+    "lang": "zh",
+    "label": "纳尔西索·帕斯夸尔·科洛梅尔",
+    "en": "Narciso Pascual Colomer",
+    "relation": "architect",
+    "sim": 58.06451612903225,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q568692",
+    "lang": "bn",
+    "label": "স্টুটগার্ট সঙ্গীত ও নাট্যকলা বিশ্ববিদ্যালয়",
+    "en": "State University of Music and Performing Arts Stuttgart",
+    "relation": "educated at",
+    "sim": 41.1764705882353,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q11524663",
+    "lang": "bn",
+    "label": "টোকিও বিশ্ববিদ্যালয় হাসপাতাল",
+    "en": "The University of Tokyo Hospital",
+    "relation": "place of death",
+    "sim": 55.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q330911",
+    "lang": "zh",
+    "label": "沃姆斯的亚伯拉罕",
+    "en": "Abraham of Worms",
+    "relation": "author",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7436256",
+    "lang": "zh",
+    "label": "斯科特·德雷夫斯",
+    "en": "Scott Draves",
+    "relation": "developer",
+    "sim": 45.45454545454546,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3568958",
+    "lang": "bn",
+    "label": "উইলিয়াম সিনক্লেয়ার, কেইথনেসের প্রথম আর্ল",
+    "en": "William Sinclair, 1st Earl of Caithness",
+    "relation": "architect",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q745019",
+    "lang": "sw",
+    "label": "Kampuni ya Utengenezaji ya Colt",
+    "en": "Colt's Manufacturing Company",
+    "relation": "manufacturer",
+    "sim": 50.0,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2065466",
+    "lang": "zh",
+    "label": "终端现实",
+    "en": "Terminal Reality",
+    "relation": "developer",
+    "sim": 34.78260869565217,
+    "n_facts": 8
+   },
+   {
+    "qid": "Q5149833",
+    "lang": "ja",
+    "label": "フー基金工学部および応用科学部",
+    "en": "Fu Foundation School of Engineering and Applied Science",
+    "relation": "educated at",
+    "sim": 40.625,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6076918",
+    "lang": "zh",
+    "label": "穆拉特·萨拉乔卢",
+    "en": "Murat Saraçoğlu",
+    "relation": "director",
+    "sim": 59.45945945945945,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q65923686",
+    "lang": "zh",
+    "label": "米斯蒂·塔利",
+    "en": "Misty Talley",
+    "relation": "director",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3805816",
+    "lang": "ja",
+    "label": "ヤコベッロ・ダッレ・マゼーニェ",
+    "en": "Jacobello dalle Masegne",
+    "relation": "architect",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q18330716",
+    "lang": "zh",
+    "label": "苏黎世工艺美术学校",
+    "en": "Kunstgewerbeschule Zürich",
+    "relation": "educated at",
+    "sim": 34.04255319148937,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q19544787",
+    "lang": "zh",
+    "label": "约翰·哈德尔斯",
+    "en": "John Huddles",
+    "relation": "director",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q61352032",
+    "lang": "zh",
+    "label": "克拉伦斯·H·拉塞尔",
+    "en": "Clarence H. Russell",
+    "relation": "architect",
+    "sim": 41.379310344827594,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4412193",
+    "lang": "sw",
+    "label": "Ofisi ya Ubunifu ya Severnoye",
+    "en": "Severnoye Design Bureau",
+    "relation": "developer",
+    "sim": 57.142857142857146,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1934911",
+    "lang": "bn",
+    "label": "রাশিয়ান সশস্ত্র বাহিনীর জেনারেল স্টাফের সামরিক একাডেমি",
+    "en": "Military Academy of the General Staff of the Armed Forces of Russia",
+    "relation": "educated at",
+    "sim": 44.705882352941174,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q168515",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Utah",
+    "en": "University of Utah",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 9
+   },
+   {
+    "qid": "Q667386",
+    "lang": "bn",
+    "label": "জোহেন ভাসকেজ",
+    "en": "Jhonen Vasquez",
+    "relation": "creator",
+    "sim": 59.25925925925925,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q65560029",
+    "lang": "ru",
+    "label": "Жак Делюр",
+    "en": "Jacques Delrue",
+    "relation": "architect",
+    "sim": 55.55555555555556,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q7894380",
+    "lang": "zh",
+    "label": "塞尔吉培联邦大学",
+    "en": "Federal University of Sergipe",
+    "relation": "educated at",
+    "sim": 39.02439024390244,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q9017492",
+    "lang": "ar",
+    "label": "كيفن بيجيل",
+    "en": "Kevin Biegel",
+    "relation": "creator",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3060280",
+    "lang": "zh",
+    "label": "尤金妮·尼布瓦耶",
+    "en": "Eugénie Niboyet",
+    "relation": "director",
+    "sim": 55.172413793103445,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q10291418",
+    "lang": "zh",
+    "label": "电声唱片公司",
+    "en": "Gravações Elétricas S.A.",
+    "relation": "manufacturer",
+    "sim": 38.46153846153846,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q3052536",
+    "lang": "bn",
+    "label": "হারবিন বিমান উৎপাদন কর্পোরেশন",
+    "en": "Harbin Aircraft Manufacturing Corporation",
+    "relation": "manufacturer",
+    "sim": 56.52173913043479,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q3379031",
+    "lang": "zh",
+    "label": "菲利普·路易斯·普拉特利",
+    "en": "Philip Louis Pratley",
+    "relation": "architect",
+    "sim": 56.25,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q681",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Sayansi za Maisha cha Warsaw",
+    "en": "Warsaw University of Life Sciences",
+    "relation": "educated at",
+    "sim": 43.83561643835616,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2868900",
+    "lang": "ar",
+    "label": "ورش بناء إيسي ليه مولينو",
+    "en": "Issy-les-Moulineaux Construction Workshops",
+    "relation": "manufacturer",
+    "sim": 48.64864864864865,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1070388",
+    "lang": "bn",
+    "label": "ইউক্রেনের জাতীয় ব্যাংক",
+    "en": "National Bank of Ukraine",
+    "relation": "manufacturer",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2044013",
+    "lang": "bn",
+    "label": "প্রাচীন ভাষা",
+    "en": "Elder Speech",
+    "relation": "official language",
+    "sim": 35.29411764705882,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6381586",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Samford",
+    "en": "Samford University",
+    "relation": "educated at",
+    "sim": 56.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2565941",
+    "lang": "sw",
+    "label": "Chuo Kikuu Kijeshi cha Kifalme cha Kanada",
+    "en": "Royal Military College of Canada",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q601299",
+    "lang": "sw",
+    "label": "Mfumo wa Video",
+    "en": "Video System",
+    "relation": "developer",
+    "sim": 58.82352941176471,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q4119319",
+    "lang": "ja",
+    "label": "コム神学校",
+    "en": "Qom Seminary",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3577832",
+    "lang": "bn",
+    "label": "সাউমুরের অশ্বারোহী প্রশিক্ষণ বিদ্যালয়",
+    "en": "Cavalry Training School Saumur",
+    "relation": "educated at",
+    "sim": 38.297872340425535,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q17998137",
+    "lang": "bn",
+    "label": "জিভরোদ ইয়ানকোভিচ",
+    "en": "Živorad Janković",
+    "relation": "architect",
+    "sim": 58.06451612903225,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1961160",
+    "lang": "ar",
+    "label": "جامعة موسكو الحكومية للتعدين",
+    "en": "Moscow State Mining University",
+    "relation": "educated at",
+    "sim": 37.2093023255814,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1058956",
+    "lang": "ar",
+    "label": "جامعة هيلونغجيانغ",
+    "en": "Heilongjiang University",
+    "relation": "educated at",
+    "sim": 56.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q178913",
+    "lang": "bn",
+    "label": "ট্রেবিজন্ড সাম্রাজ্য",
+    "en": "Empire of Trebizond",
+    "relation": "place of death",
+    "sim": 51.282051282051285,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1616636",
+    "lang": "zh",
+    "label": "休·沃森",
+    "en": "Hewett Watson",
+    "relation": "creator",
+    "sim": 53.333333333333336,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q736727",
+    "lang": "bn",
+    "label": "সিয়েনা প্রজাতন্ত্র",
+    "en": "Republic of Siena",
+    "relation": "country of citizenship",
+    "sim": 41.666666666666664,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2001088",
+    "lang": "ar",
+    "label": "جامعة ولاية شمالي داكوتا",
+    "en": "Northern State University",
+    "relation": "educated at",
+    "sim": 23.80952380952381,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q12132952",
+    "lang": "id",
+    "label": "Universitas Nasional Pendidikan Fisik dan Olahraga Ukraina",
+    "en": "National University of Physical Education and Sport of Ukraine",
+    "relation": "educated at",
+    "sim": 59.82905982905983,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q71685",
+    "lang": "zh",
+    "label": "古斯塔夫·弗里德里希·赫奇",
+    "en": "Gustav Friedrich Hetsch",
+    "relation": "architect",
+    "sim": 47.27272727272728,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3594364",
+    "lang": "bn",
+    "label": "যিভ রেখটার",
+    "en": "Zeev Rechter",
+    "relation": "architect",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3651548",
+    "lang": "ar",
+    "label": "كاميلو موريجيا",
+    "en": "Camillo Morigia",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q475539",
+    "lang": "id",
+    "label": "Pabrik Senjata dan Amunisi Jerman",
+    "en": "German Arms and Ammunition Factory",
+    "relation": "manufacturer",
+    "sim": 53.73134328358209,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1646874",
+    "lang": "ar",
+    "label": "جامعة هلسنكي للتكنولوجيا",
+    "en": "Helsinki University of Technology",
+    "relation": "educated at",
+    "sim": 52.38095238095239,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q4160420",
+    "lang": "zh",
+    "label": "克里斯·琼斯",
+    "en": "Chris Jones",
+    "relation": "developer",
+    "sim": 47.61904761904761,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1509396",
+    "lang": "zh",
+    "label": "格奥尔吉奥斯·阿夫利霍斯",
+    "en": "Georgios Avlichos",
+    "relation": "creator",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1525553",
+    "lang": "ar",
+    "label": "جورجيو ستيجاني",
+    "en": "Giorgio Stegani",
+    "relation": "director",
+    "sim": 47.61904761904761,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1474105",
+    "lang": "bn",
+    "label": "ওয়েস্টার্ন কেন্টাকি বিশ্ববিদ্যালয়",
+    "en": "Western Kentucky University",
+    "relation": "educated at",
+    "sim": 57.14285714285714,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q421739",
+    "lang": "id",
+    "label": "Universitas Terbuka Nasional",
+    "en": "National University of Distance Education",
+    "relation": "educated at",
+    "sim": 52.17391304347826,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1909342",
+    "lang": "zh",
+    "label": "马泰奥·阿尔贝蒂",
+    "en": "Matteo Alberti",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q659918",
+    "lang": "sw",
+    "label": "Pembe",
+    "en": "Horn",
+    "relation": "place of death",
+    "sim": 0.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1117829",
+    "lang": "ar",
+    "label": "جيوفاني بيترو دي بوميس",
+    "en": "Giovanni Pietro de Pomis",
+    "relation": "architect",
+    "sim": 51.42857142857142,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q739552",
+    "lang": "bn",
+    "label": "স্কোয়ার",
+    "en": "Square",
+    "relation": "developer",
+    "sim": 50.0,
+    "n_facts": 24
+   },
+   {
+    "qid": "Q386065",
+    "lang": "ar",
+    "label": "الشركة البريطانية للسيارات",
+    "en": "British Motor Corporation",
+    "relation": "manufacturer",
+    "sim": 38.888888888888886,
+    "n_facts": 14
+   },
+   {
+    "qid": "Q1191335",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Colgate",
+    "en": "Colgate University",
+    "relation": "educated at",
+    "sim": 56.00000000000001,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q6083792",
+    "lang": "sw",
+    "label": "Taasisi ya Utafiti na Uendelezaji wa Viwanda vya Ulinzi ya TÜBİTAK",
+    "en": "TÜBİTAK Defense Industries Research and Development Institute",
+    "relation": "developer",
+    "sim": 46.753246753246756,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5655762",
+    "lang": "ar",
+    "label": "أكاديمية فيتي",
+    "en": "Académie Vitti",
+    "relation": "educated at",
+    "sim": 47.05882352941176,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1666594",
+    "lang": "sw",
+    "label": "Mfuko wa Kimataifa wa Ustawi wa Wanyama",
+    "en": "International Fund for Animal Welfare",
+    "relation": "creator",
+    "sim": 42.857142857142854,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2044013",
+    "lang": "zh",
+    "label": "长老语",
+    "en": "Elder Speech",
+    "relation": "official language",
+    "sim": 28.57142857142857,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4484266",
+    "lang": "zh",
+    "label": "莫斯科国立大学语言学系",
+    "en": "Philological Faculty of Moscow State University",
+    "relation": "educated at",
+    "sim": 40.67796610169492,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7922183",
+    "lang": "zh",
+    "label": "弗农·马奇",
+    "en": "Vernon March",
+    "relation": "architect",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2080076",
+    "lang": "bn",
+    "label": "বিহেভিয়ার ইন্টারেক্টিভ",
+    "en": "Behaviour Interactive",
+    "relation": "developer",
+    "sim": 57.14285714285714,
+    "n_facts": 13
+   },
+   {
+    "qid": "Q11325179",
+    "lang": "sw",
+    "label": "Mtengenezaji wa Uchi",
+    "en": "Nude Maker",
+    "relation": "developer",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q737289",
+    "lang": "ar",
+    "label": "كريس جيرولمو",
+    "en": "Chris Gerolmo",
+    "relation": "creator",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q32746",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Kitaifa cha Taiwan",
+    "en": "National Taiwan University",
+    "relation": "educated at",
+    "sim": 48.78048780487805,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3635324",
+    "lang": "ar",
+    "label": "بارتولوميو بيريتشي",
+    "en": "Bartolommeo Berrecci",
+    "relation": "architect",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1134606",
+    "lang": "bn",
+    "label": "ম্যাসি বিশ্ববিদ্যালয়",
+    "en": "Massey University",
+    "relation": "educated at",
+    "sim": 48.484848484848484,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q309733",
+    "lang": "ar",
+    "label": "فينشنزو سكاموتزي",
+    "en": "Vincenzo Scamozzi",
+    "relation": "architect",
+    "sim": 51.85185185185186,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q5468082",
+    "lang": "ru",
+    "label": "Юридическая школа Фордхемского университета",
+    "en": "Fordham University School of Law",
+    "relation": "educated at",
+    "sim": 58.62068965517242,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2060678",
+    "lang": "bn",
+    "label": "ক্যাম্পিনাস বিশ্ববিদ্যালয়",
+    "en": "University of Campinas",
+    "relation": "educated at",
+    "sim": 48.484848484848484,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q500740",
+    "lang": "bn",
+    "label": "লিল বিশ্ববিদ্যালয় বিজ্ঞান ও প্রযুক্তি",
+    "en": "Lille University of Science and Technology",
+    "relation": "educated at",
+    "sim": 43.47826086956522,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4684083",
+    "lang": "zh",
+    "label": "阿道夫·艾克勒",
+    "en": "Adolf Eichler",
+    "relation": "architect",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q688872",
+    "lang": "ja",
+    "label": "アレクサンデル・ゼルヴェロヴィチ国立演劇芸術アカデミー",
+    "en": "Aleksander Zelwerowicz National Academy of Dramatic Art",
+    "relation": "educated at",
+    "sim": 53.57142857142857,
+    "n_facts": 9
+   },
+   {
+    "qid": "Q7342815",
+    "lang": "zh",
+    "label": "罗伯特·凯里·朗二世",
+    "en": "Robert Cary Long, Jr.",
+    "relation": "architect",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q8032103",
+    "lang": "ar",
+    "label": "تشين وون سوك",
+    "en": "Wonsuk Chin",
+    "relation": "director",
+    "sim": 47.05882352941176,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q500606",
+    "lang": "bn",
+    "label": "সাউথ ফ্লোরিডা বিশ্ববিদ্যালয়",
+    "en": "University of South Florida",
+    "relation": "educated at",
+    "sim": 51.162790697674424,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3502001",
+    "lang": "zh",
+    "label": "斯特凡·彭克雷阿克",
+    "en": "Stéphane Pencréac'h",
+    "relation": "architect",
+    "sim": 59.45945945945945,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3003137",
+    "lang": "zh",
+    "label": "鳄鱼",
+    "en": "Croc",
+    "relation": "creator",
+    "sim": 0.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4314795",
+    "lang": "sw",
+    "label": "Akademia ya Kitaifa ya Utawala wa Serikali",
+    "en": "National Academy of State Administration",
+    "relation": "educated at",
+    "sim": 48.10126582278481,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6003289",
+    "lang": "ar",
+    "label": "إيمنجي ستوديوز",
+    "en": "Imangi Studios",
+    "relation": "developer",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q672664",
+    "lang": "ja",
+    "label": "ブラックロックスタジオ",
+    "en": "Black Rock Studio",
+    "relation": "developer",
+    "sim": 50.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q45890346",
+    "lang": "zh",
+    "label": "雅各布·M·费尔森",
+    "en": "Jacob M. Felson",
+    "relation": "architect",
+    "sim": 58.33333333333333,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q511291",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Sanaa cha Kifalme",
+    "en": "Royal Academy of Art",
+    "relation": "educated at",
+    "sim": 42.42424242424242,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q7436460",
+    "lang": "zh",
+    "label": "斯科特·汉密尔顿·肯尼迪",
+    "en": "Scott Hamilton Kennedy",
+    "relation": "director",
+    "sim": 54.054054054054056,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q15998788",
+    "lang": "ja",
+    "label": "ウォルター・ダンフォース・ブリス",
+    "en": "Walter Danforth Bliss",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q631066",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Clemson",
+    "en": "Clemson University",
+    "relation": "educated at",
+    "sim": 56.00000000000001,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q1291884",
+    "lang": "bn",
+    "label": "ওসলো জাতীয় শিল্পকলা একাডেমি",
+    "en": "Oslo National Academy of the Arts",
+    "relation": "educated at",
+    "sim": 57.692307692307686,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q783582",
+    "lang": "sw",
+    "label": "Baraza la Jengo la Kijani la Marekani",
+    "en": "U.S. Green Building Council",
+    "relation": "developer",
+    "sim": 41.02564102564102,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q16268416",
+    "lang": "ar",
+    "label": "دومينيكو جونتي",
+    "en": "Domenico Giunti",
+    "relation": "architect",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q8043217",
+    "lang": "ja",
+    "label": "ザビエル・カレッジ",
+    "en": "Xavier College",
+    "relation": "educated at",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q699561",
+    "lang": "ja",
+    "label": "エベンゼー強制収容所",
+    "en": "Ebensee concentration camp",
+    "relation": "place of death",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q14846923",
+    "lang": "ar",
+    "label": "كلود بايار",
+    "en": "Claude Paillard",
+    "relation": "architect",
+    "sim": 47.05882352941176,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q66724",
+    "lang": "zh",
+    "label": "本尼迪克特·雷伊特",
+    "en": "Benedikt Rejt",
+    "relation": "architect",
+    "sim": 56.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q252733",
+    "lang": "sw",
+    "label": "Kikundi cha Usimamizi wa Vituko",
+    "en": "Object Management Group",
+    "relation": "developer",
+    "sim": 30.434782608695656,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1342858",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Latvia cha Sayansi na Teknolojia ya Maisha",
+    "en": "Latvia University of Life Sciences and Technologies",
+    "relation": "educated at",
+    "sim": 48.07692307692308,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3299812",
+    "lang": "bn",
+    "label": "ম্যাথিউ ওয়ার্কাস",
+    "en": "Matthew Warchus",
+    "relation": "director",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6108307",
+    "lang": "zh",
+    "label": "里卡多·马科斯·鲍萨",
+    "en": "Ricardo Marcos Bausá",
+    "relation": "director",
+    "sim": 56.52173913043479,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q623503",
+    "lang": "ar",
+    "label": "ويليام بيردمور وشركته",
+    "en": "William Beardmore and Company",
+    "relation": "manufacturer",
+    "sim": 51.28205128205128,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q3247520",
+    "lang": "bn",
+    "label": "সিলভেস্টার ওয়েভার",
+    "en": "Sylvester Weaver",
+    "relation": "creator",
+    "sim": 56.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5541262",
+    "lang": "ja",
+    "label": "ジョージ・カイスター",
+    "en": "George Keister",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q495015",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Fudan",
+    "en": "Fudan University",
+    "relation": "educated at",
+    "sim": 47.61904761904762,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2822452",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Sanaa cha Kifalme cha Liège",
+    "en": "Royal Academy of Arts of Liège",
+    "relation": "educated at",
+    "sim": 52.83018867924528,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2994578",
+    "lang": "bn",
+    "label": "নিস কনজারভেটরি",
+    "en": "Conservatory of Nice",
+    "relation": "educated at",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3108131",
+    "lang": "ar",
+    "label": "جوزيبي بورتا",
+    "en": "Giuseppe Porta",
+    "relation": "creator",
+    "sim": 35.29411764705882,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1225428",
+    "lang": "bn",
+    "label": "ফাররা ডি’ইসনজো astronomical পর্যবেক্ষণাগার",
+    "en": "Astronomical Observatory of Farra d'Isonzo",
+    "relation": "discoverer or inventor",
+    "sim": 53.333333333333336,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q5112013",
+    "lang": "ar",
+    "label": "كريستوفر بيرج",
+    "en": "Christopher Burge",
+    "relation": "developer",
+    "sim": 56.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q30118283",
+    "lang": "ja",
+    "label": "クロード・ジャコテ",
+    "en": "Claude Jaccottet",
+    "relation": "architect",
+    "sim": 48.275862068965516,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q706712",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Kitaifa cha Walimu wa Taiwan",
+    "en": "National Taiwan Normal University",
+    "relation": "educated at",
+    "sim": 41.666666666666664,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3356511",
+    "lang": "sw",
+    "label": "Akademia ya Taifa ya Sanaa Nzuri ya Norway",
+    "en": "Norwegian National Academy of Fine Arts",
+    "relation": "educated at",
+    "sim": 48.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q113788",
+    "lang": "bn",
+    "label": "কাজান ফেডারেল বিশ্ববিদ্যালয়",
+    "en": "Kazan Federal University",
+    "relation": "educated at",
+    "sim": 54.16666666666667,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q634984",
+    "lang": "ru",
+    "label": "Федеральная судостроительная и докостроительная компания",
+    "en": "Federal Shipbuilding and Drydock Company",
+    "relation": "manufacturer",
+    "sim": 52.459016393442624,
+    "n_facts": 12
+   },
+   {
+    "qid": "Q36960",
+    "lang": "zh",
+    "label": "旺卡克丘亚语",
+    "en": "Wanka Quechua",
+    "relation": "official language",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1146700",
+    "lang": "bn",
+    "label": "যিশু কলেজ",
+    "en": "Jesus College",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q238990",
+    "lang": "sw",
+    "label": "Makumbusho ya Kumbukumbu ya Holocaust ya Marekani",
+    "en": "United States Holocaust Memorial Museum",
+    "relation": "author",
+    "sim": 55.38461538461539,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q608262",
+    "lang": "ja",
+    "label": "ジョージ・ヴォーン・マドックス",
+    "en": "George Vaughan Maddox",
+    "relation": "architect",
+    "sim": 51.28205128205128,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7417507",
+    "lang": "zh",
+    "label": "童仰世",
+    "en": "Sandy Tung",
+    "relation": "director",
+    "sim": 44.44444444444444,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q381120",
+    "lang": "sw",
+    "label": "Chama cha Majaribio ya Anga",
+    "en": "Aerial Experiment Association",
+    "relation": "manufacturer",
+    "sim": 32.55813953488372,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3026228",
+    "lang": "zh",
+    "label": "宣传游戏",
+    "en": "Propaganda Games",
+    "relation": "developer",
+    "sim": 31.999999999999996,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q847384",
+    "lang": "bn",
+    "label": "ইউট্রেখ্ট কনজার্ভেটোরিয়াম",
+    "en": "Utrechts Conservatorium",
+    "relation": "educated at",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3175096",
+    "lang": "ja",
+    "label": "ジャン・ヴァルター",
+    "en": "Jean Walter",
+    "relation": "architect",
+    "sim": 47.61904761904761,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1289058",
+    "lang": "zh",
+    "label": "詹姆斯·M·罗伊",
+    "en": "James M. Roe",
+    "relation": "discoverer or inventor",
+    "sim": 54.54545454545454,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q4711079",
+    "lang": "zh",
+    "label": "阿尔伯特·兰道夫·罗斯",
+    "en": "Albert Randolph Ross",
+    "relation": "architect",
+    "sim": 51.28205128205128,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q58803520",
+    "lang": "zh",
+    "label": "皮埃尔·吉约",
+    "en": "Pierre Guillot",
+    "relation": "creator",
+    "sim": 48.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1778277",
+    "lang": "sw",
+    "label": "Umelodi wa Chuma wa Odense",
+    "en": "Odense Steel Shipyard",
+    "relation": "manufacturer",
+    "sim": 54.54545454545455,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2738622",
+    "lang": "bn",
+    "label": "সালফোর্ড বিশ্ববিদ্যালয়",
+    "en": "University of Salford",
+    "relation": "educated at",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q13581128",
+    "lang": "ar",
+    "label": "جروف ستريت جيمز",
+    "en": "Grove Street Games",
+    "relation": "developer",
+    "sim": 59.25925925925925,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q3766425",
+    "lang": "ar",
+    "label": "جيوفاني أنتسنوري",
+    "en": "Giovanni Antinori",
+    "relation": "architect",
+    "sim": 52.17391304347826,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7818334",
+    "lang": "ar",
+    "label": "توماس فوروبيوف",
+    "en": "Tomáš Vorobjov",
+    "relation": "discoverer or inventor",
+    "sim": 54.54545454545454,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q5377873",
+    "lang": "ar",
+    "label": "شركة الهندسة والبحث",
+    "en": "Engineering and Research Corporation",
+    "relation": "manufacturer",
+    "sim": 35.89743589743589,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1360172",
+    "lang": "bn",
+    "label": "এনথ্রিভি গেমস",
+    "en": "N3V Games",
+    "relation": "developer",
+    "sim": 58.82352941176471,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q4412193",
+    "lang": "ar",
+    "label": "مكتب تصميم سيفيرنوي",
+    "en": "Severnoye Design Bureau",
+    "relation": "developer",
+    "sim": 33.33333333333333,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q488100",
+    "lang": "bn",
+    "label": "ডংডুক মহিলা বিশ্ববিদ্যালয়",
+    "en": "Dongduk Women's University",
+    "relation": "educated at",
+    "sim": 48.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1230582",
+    "lang": "ar",
+    "label": "كلوف ويليامز إليس",
+    "en": "Clough Williams-Ellis",
+    "relation": "architect",
+    "sim": 55.172413793103445,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q47416",
+    "lang": "ar",
+    "label": "سوريكو",
+    "en": "Sorico",
+    "relation": "place of death",
+    "sim": 44.44444444444444,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1361039",
+    "lang": "zh",
+    "label": "格里高利·拉托夫",
+    "en": "Gregory Ratoff",
+    "relation": "director",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q616998",
+    "lang": "zh",
+    "label": "佩雷·孔普特",
+    "en": "Pere Compte",
+    "relation": "architect",
+    "sim": 55.172413793103445,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q503332",
+    "lang": "zh",
+    "label": "乔万尼·萨卢斯蒂奥·佩鲁齐",
+    "en": "Giovanni Sallustio Peruzzi",
+    "relation": "architect",
+    "sim": 57.692307692307686,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q615154",
+    "lang": "ar",
+    "label": "جامعة شيلونيا في كاتوفيتس",
+    "en": "University of Silesia in Katowice",
+    "relation": "educated at",
+    "sim": 40.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2601879",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Maynooth",
+    "en": "Maynooth University",
+    "relation": "educated at",
+    "sim": 59.25925925925926,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q302103",
+    "lang": "zh",
+    "label": "亚伦·休伊",
+    "en": "Aaron Huey",
+    "relation": "author",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4314536",
+    "lang": "ja",
+    "label": "電気機械研究所",
+    "en": "Electromechanical Research Institute",
+    "relation": "developer",
+    "sim": 39.21568627450981,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7252388",
+    "lang": "ar",
+    "label": "مركز بروفيدنس ألاسكا الطبي",
+    "en": "Providence Alaska Medical Center",
+    "relation": "place of death",
+    "sim": 47.61904761904761,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q748085",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Perugia",
+    "en": "University of Perugia",
+    "relation": "educated at",
+    "sim": 58.82352941176471,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q965898",
+    "lang": "bn",
+    "label": "ক্লড ভাস্কনি",
+    "en": "Claude Vasconi",
+    "relation": "architect",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2170999",
+    "lang": "bn",
+    "label": "রয়্যাল ডিফেন্স স্টাডিজ কলেজ",
+    "en": "Royal College of Defence Studies",
+    "relation": "educated at",
+    "sim": 51.162790697674424,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2094177",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Memphis",
+    "en": "University of Memphis",
+    "relation": "educated at",
+    "sim": 58.82352941176471,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q3379900",
+    "lang": "zh",
+    "label": "菲利普·加佐",
+    "en": "Philippe Gazeau",
+    "relation": "architect",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5042903",
+    "lang": "ja",
+    "label": "カールソン航空機",
+    "en": "Carlson Aircraft",
+    "relation": "manufacturer",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6471428",
+    "lang": "ru",
+    "label": "Средняя школа Лафайетт",
+    "en": "Lafayette High School",
+    "relation": "educated at",
+    "sim": 52.17391304347826,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q12283074",
+    "lang": "zh",
+    "label": "基里尔·佐内夫",
+    "en": "Kiril Tsonev",
+    "relation": "creator",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q372608",
+    "lang": "bn",
+    "label": "বার্ল বিশ্ববিদ্যালয়",
+    "en": "University of Basel",
+    "relation": "educated at",
+    "sim": 42.10526315789474,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q3569449",
+    "lang": "ru",
+    "label": "Древо мудрости",
+    "en": "Wisdom Tree",
+    "relation": "developer",
+    "sim": 42.85714285714286,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q11866969",
+    "lang": "zh",
+    "label": "约尔马·亚尔维",
+    "en": "Jorma Järvi",
+    "relation": "architect",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3159853",
+    "lang": "zh",
+    "label": "雅克·雷纳尔",
+    "en": "Jacques Renard",
+    "relation": "director",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1787576",
+    "lang": "zh",
+    "label": "米诺莫尼瀑布",
+    "en": "Menomonee Falls",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3152321",
+    "lang": "sw",
+    "label": "Taasisi ya Viwanda ya Kaskazini",
+    "en": "Institut industriel du Nord",
+    "relation": "educated at",
+    "sim": 38.888888888888886,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q9095271",
+    "lang": "ar",
+    "label": "فيكتور إيوسا",
+    "en": "Víctor Eusa",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q841804",
+    "lang": "bn",
+    "label": "মস্কো ধর্মতাত্ত্বিক একাডেমি",
+    "en": "Moscow Theological Academy",
+    "relation": "educated at",
+    "sim": 46.15384615384615,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q5908758",
+    "lang": "zh",
+    "label": "圣约翰和圣伊丽莎白医院",
+    "en": "Hospital of St John and St Elizabeth",
+    "relation": "place of death",
+    "sim": 41.1764705882353,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7979",
+    "lang": "sw",
+    "label": "Kiingereza cha Uingereza",
+    "en": "British English",
+    "relation": "language of work or name",
+    "sim": 41.666666666666664,
+    "n_facts": 6
+   },
+   {
+    "qid": "Q1320540",
+    "lang": "zh",
+    "label": "阿尔弗雷德·伦特",
+    "en": "Alfred Lent",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q15814223",
+    "lang": "zh",
+    "label": "米哈伊洛夫斯基炮兵学校",
+    "en": "Mikhailovsky Artillery School",
+    "relation": "educated at",
+    "sim": 44.44444444444444,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2007616",
+    "lang": "ar",
+    "label": "أوكي بي كي جيدروبريس",
+    "en": "OKB Gidropress",
+    "relation": "developer",
+    "sim": 48.275862068965516,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q96271400",
+    "lang": "ja",
+    "label": "セザール・シャンバール",
+    "en": "César Chambard",
+    "relation": "creator",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q42429220",
+    "lang": "zh",
+    "label": "伊万·切尔梅耶夫",
+    "en": "Ivan Chermayeff",
+    "relation": "creator",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3186163",
+    "lang": "zh",
+    "label": "何塞·安东尼奥·费尔南德斯·奥尔多涅斯",
+    "en": "José Antonio Fernández Ordóñez",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q699561",
+    "lang": "ru",
+    "label": "Концентрационный лагерь Эбензее",
+    "en": "Ebensee concentration camp",
+    "relation": "place of death",
+    "sim": 55.319148936170215,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3830613",
+    "lang": "ar",
+    "label": "ليونيد ميخائيلوفيتش بولياكوف",
+    "en": "Leonid Michailovič Poljakov",
+    "relation": "architect",
+    "sim": 44.44444444444444,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q28708669",
+    "lang": "zh",
+    "label": "恩里克·法特霍·伊·托拉斯",
+    "en": "Enric Fatjó i Torras",
+    "relation": "architect",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q715086",
+    "lang": "zh",
+    "label": "卡洛·安东尼奥·卡洛内",
+    "en": "Carlo Antonio Carlone",
+    "relation": "architect",
+    "sim": 59.25925925925925,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q3189615",
+    "lang": "zh",
+    "label": "朱利安·波尔蒂",
+    "en": "Julien Polti",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q9697295",
+    "lang": "zh",
+    "label": "卡洛斯·波尔托",
+    "en": "Carlos Porto",
+    "relation": "architect",
+    "sim": 56.25,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q239867",
+    "lang": "ar",
+    "label": "بارينارجويس",
+    "en": "Parignargues",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1712612",
+    "lang": "ja",
+    "label": "ユリウス・フリューゲ",
+    "en": "Julius Flügge",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q965259",
+    "lang": "ar",
+    "label": "بي زد إل",
+    "en": "PZL",
+    "relation": "manufacturer",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3064033",
+    "lang": "sw",
+    "label": "Kiwiya cha Silaha za Łucznik",
+    "en": "Łucznik Arms Factory",
+    "relation": "manufacturer",
+    "sim": 51.85185185185186,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q7926436",
+    "lang": "bn",
+    "label": "ভিক্টর ডব্লিউ. ভোরহিস",
+    "en": "Victor W. Voorhees",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1135992",
+    "lang": "sw",
+    "label": "Kampuni ya Usafiri na Biashara ya Mvuke ya Urusi",
+    "en": "Russian Steam Navigation and Trading Company",
+    "relation": "manufacturer",
+    "sim": 42.10526315789473,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1513679",
+    "lang": "bn",
+    "label": "নর্ড এভিয়েশন",
+    "en": "Nord Aviation",
+    "relation": "manufacturer",
+    "sim": 52.63157894736843,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2628140",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Kiuchumi cha Kitaifa cha Belarus",
+    "en": "Belarusian State Economic University",
+    "relation": "educated at",
+    "sim": 48.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q12048294",
+    "lang": "sw",
+    "label": "Chuo cha Sayansi, Chuo Kikuu cha Charles",
+    "en": "Faculty of Science, Charles University",
+    "relation": "educated at",
+    "sim": 53.73134328358209,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2450920",
+    "lang": "zh",
+    "label": "古斯塔夫·斯特劳文",
+    "en": "Gustave Strauven",
+    "relation": "architect",
+    "sim": 53.84615384615385,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q626634",
+    "lang": "ar",
+    "label": "جامعة تكساس–بان أمريكان",
+    "en": "University of Texas–Pan American",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q788831",
+    "lang": "zh",
+    "label": "埃米利奥·比利亚努埃瓦·佩尼亚兰达",
+    "en": "Emilio Villanueva Peñaranda",
+    "relation": "architect",
+    "sim": 57.53424657534247,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2019596",
+    "lang": "zh",
+    "label": "扬·彼得·凡·鲍尔斯海特 (子)",
+    "en": "Jan Pieter van Baurscheit the Younger",
+    "relation": "architect",
+    "sim": 59.375,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1583368",
+    "lang": "id",
+    "label": "Akademi Seni Pertunjukan Hong Kong",
+    "en": "Hong Kong Academy for Performing Arts",
+    "relation": "educated at",
+    "sim": 59.15492957746479,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q58874697",
+    "lang": "ar",
+    "label": "نيبون فونوجرام المحدودة، اليابان",
+    "en": "Nippon Gramophon Co. Ltd. Japan",
+    "relation": "manufacturer",
+    "sim": 43.47826086956522,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1247932",
+    "lang": "sw",
+    "label": "Kilatini ya Kanisa",
+    "en": "Ecclesiastical Latin",
+    "relation": "language of work or name",
+    "sim": 50.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2655759",
+    "lang": "ar",
+    "label": "أميوزمنت فيجن",
+    "en": "Amusement Vision",
+    "relation": "developer",
+    "sim": 57.14285714285714,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q14945414",
+    "lang": "bn",
+    "label": "জেমস কাফ",
+    "en": "James Cuff",
+    "relation": "developer",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1440969",
+    "lang": "ar",
+    "label": "فرانشيسكو كاراتي",
+    "en": "Francesco Caratti",
+    "relation": "architect",
+    "sim": 56.00000000000001,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5440475",
+    "lang": "bn",
+    "label": "ফেডারেল বিশ্ববিদ্যালয় অব আলাগোয়াস",
+    "en": "Universidade Federal de Alagoas",
+    "relation": "educated at",
+    "sim": 54.23728813559322,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4304093",
+    "lang": "ar",
+    "label": "جامعة موسكو الحكومية للنسيج",
+    "en": "Moscow State Textile University",
+    "relation": "educated at",
+    "sim": 42.85714285714286,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q941731",
+    "lang": "ar",
+    "label": "كلية إيفرجرين الحكومية",
+    "en": "Evergreen State College",
+    "relation": "educated at",
+    "sim": 31.25,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q100750",
+    "lang": "ja",
+    "label": "フリッツ・エプラー",
+    "en": "Fritz Erler",
+    "relation": "creator",
+    "sim": 47.05882352941176,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q101206430",
+    "lang": "zh",
+    "label": "斯蒂芬·芬格尔顿",
+    "en": "Stephen Fingleton",
+    "relation": "director",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q636838",
+    "lang": "ja",
+    "label": "ドイツ航空交通管制",
+    "en": "Deutsche Flugsicherung",
+    "relation": "developer",
+    "sim": 43.75,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q102398072",
+    "lang": "ar",
+    "label": "كلية الفلسفة في الجامعة الألمانية في براغ",
+    "en": "philosophy faculty of the German university of Prague",
+    "relation": "educated at",
+    "sim": 51.515151515151516,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q1142082",
+    "lang": "bn",
+    "label": "ওসাকা বিদেশি ভাষা বিশ্ববিদ্যালয়",
+    "en": "Osaka University of Foreign Studies",
+    "relation": "educated at",
+    "sim": 45.614035087719294,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q45766279",
+    "lang": "zh",
+    "label": "乔治和爱德华·布卢姆",
+    "en": "George & Edward Blum",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 6
+   },
+   {
+    "qid": "Q4480746",
+    "lang": "es",
+    "label": "Facultad de Periodismo de la Universidad Estatal de Moscú",
+    "en": "MSU Faculty of Journalism",
+    "relation": "educated at",
+    "sim": 52.17391304347826,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q5041519",
+    "lang": "zh",
+    "label": "卡洛·朱塞佩·梅尔洛",
+    "en": "Carlo Giuseppe Merlo",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2339568",
+    "lang": "ja",
+    "label": "ポール・コーシー",
+    "en": "Paul Cauchie",
+    "relation": "architect",
+    "sim": 43.47826086956522,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3851105",
+    "lang": "bn",
+    "label": "রূপা",
+    "en": "Silver",
+    "relation": "author",
+    "sim": 33.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q267111",
+    "lang": "ar",
+    "label": "جامعة نييغاتا",
+    "en": "Niigata University",
+    "relation": "educated at",
+    "sim": 42.85714285714286,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3151770",
+    "lang": "bn",
+    "label": "রাশিয়ার ডি. মেন্ডেলিফ রাসায়নিক প্রযুক্তি বিশ্ববিদ্যালয়",
+    "en": "D. Mendeleev University of Chemical Technology of Russia",
+    "relation": "educated at",
+    "sim": 44.642857142857146,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3052616",
+    "lang": "zh",
+    "label": "埃马纽埃尔·贝内齐特",
+    "en": "Emmanuel Bénézit",
+    "relation": "author",
+    "sim": 56.25,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q45177455",
+    "lang": "zh",
+    "label": "弗朗茨·罗特",
+    "en": "Franz Roth",
+    "relation": "architect",
+    "sim": 44.44444444444444,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q23712650",
+    "lang": "zh",
+    "label": "穆罕默德·希吉里",
+    "en": "Mohamed Hijri",
+    "relation": "author",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3247089",
+    "lang": "bn",
+    "label": "ফলস ভিলেজ",
+    "en": "Falls Village",
+    "relation": "place of death",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5042418",
+    "lang": "zh",
+    "label": "卡洛斯·森本",
+    "en": "Carlos Morimoto",
+    "relation": "developer",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4666924",
+    "lang": "ar",
+    "label": "مدرسة أبردين النحوية",
+    "en": "Aberdeen Grammar School",
+    "relation": "educated at",
+    "sim": 41.02564102564103,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1143524",
+    "lang": "sw",
+    "label": "Qi ya Kaskazini",
+    "en": "Northern Qi",
+    "relation": "country of citizenship",
+    "sim": 30.769230769230774,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q869060",
+    "lang": "ar",
+    "label": "ماوريتسيو لوسيدي",
+    "en": "Maurizio Lucidi",
+    "relation": "director",
+    "sim": 45.45454545454546,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4129767",
+    "lang": "sw",
+    "label": "Chuo cha Uhandisi wa Majini cha F. E. Dzerzhinsky",
+    "en": "F. E. Dzerzhinsky Naval Engineering Academy",
+    "relation": "educated at",
+    "sim": 59.523809523809526,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q9379679",
+    "lang": "ja",
+    "label": "ワルシャワ大学心理学部",
+    "en": "Faculty of Psychology, University of Warsaw",
+    "relation": "educated at",
+    "sim": 34.48275862068966,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4877387",
+    "lang": "zh",
+    "label": "博·史密斯",
+    "en": "Beau Smith",
+    "relation": "creator",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q20007324",
+    "lang": "zh",
+    "label": "费德里科·弗里杰里奥",
+    "en": "Federico Frigerio",
+    "relation": "architect",
+    "sim": 48.88888888888889,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3159672",
+    "lang": "bn",
+    "label": "জ্যাক নলো",
+    "en": "Jacques Nolot",
+    "relation": "director",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4304102",
+    "lang": "es",
+    "label": "Universidad Estatal de Artes Gráficas de Moscú",
+    "en": "Moscow State University of Printing Arts",
+    "relation": "educated at",
+    "sim": 48.19277108433735,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q691361",
+    "lang": "ar",
+    "label": "ماوريتسيو نيشيتي",
+    "en": "Maurizio Nichetti",
+    "relation": "director",
+    "sim": 48.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4304093",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Kitaifa cha Tekstile cha Moscow",
+    "en": "Moscow State Textile University",
+    "relation": "educated at",
+    "sim": 46.3768115942029,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q12132952",
+    "lang": "pt",
+    "label": "Universidade Nacional de Educação Física e Desporto da Ucrânia",
+    "en": "National University of Physical Education and Sport of Ukraine",
+    "relation": "educated at",
+    "sim": 57.391304347826086,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q778568",
+    "lang": "ja",
+    "label": "浅井兄弟",
+    "en": "Asam brothers",
+    "relation": "architect",
+    "sim": 23.076923076923073,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q50794",
+    "lang": "ja",
+    "label": "ヨハン・レオポルト・ルートヴィヒ・フォン・ブレーゼ＝ヴィニアリ",
+    "en": "Johann Leopold Ludwig von Brese-Winiary",
+    "relation": "architect",
+    "sim": 59.77011494252873,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q968187",
+    "lang": "sw",
+    "label": "Shule ya Sanaa za Kuona ya Hifadhi ya Lage",
+    "en": "Escola de Artes Visuais do Parque Lage",
+    "relation": "educated at",
+    "sim": 51.06382978723405,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q15063239",
+    "lang": "zh",
+    "label": "安东尼奥·马凯蒂",
+    "en": "Antonio Marchetti",
+    "relation": "architect",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2845756",
+    "lang": "ja",
+    "label": "パリ5区 (旧)",
+    "en": "former 5th arrondissement of Paris",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3490980",
+    "lang": "ja",
+    "label": "ソフィー・レルーシュ",
+    "en": "Sophie Lellouche",
+    "relation": "director",
+    "sim": 55.172413793103445,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q54856000",
+    "lang": "zh",
+    "label": "德伊德雷·斯库",
+    "en": "Deidre Schoo",
+    "relation": "director",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6972457",
+    "lang": "ja",
+    "label": "国家工学科学委員会",
+    "en": "National Engineering and Scientific Commission",
+    "relation": "manufacturer",
+    "sim": 40.625,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5798797",
+    "lang": "ar",
+    "label": "دانيال إسيخا",
+    "en": "Daniel Écija",
+    "relation": "creator",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q245456",
+    "lang": "zh",
+    "label": "第五单元游戏公司",
+    "en": "5th Cell",
+    "relation": "developer",
+    "sim": 18.181818181818176,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q266936",
+    "lang": "sw",
+    "label": "Maabara ya HP",
+    "en": "HP Labs",
+    "relation": "developer",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1913571",
+    "lang": "ja",
+    "label": "マックス・フォークト",
+    "en": "Max Vogt",
+    "relation": "architect",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q10140",
+    "lang": "bn",
+    "label": "লিওন জাতীয় উচ্চ সঙ্গীত ও নৃত্য কনজারভেটরি",
+    "en": "Conservatoire national supérieur de musique et de danse de Lyon",
+    "relation": "educated at",
+    "sim": 37.83783783783784,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q985576",
+    "lang": "ar",
+    "label": "كاشويرا",
+    "en": "Cachoeira",
+    "relation": "place of death",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q615109",
+    "lang": "bn",
+    "label": "ডাফেল",
+    "en": "Duffel",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q7322470",
+    "lang": "ja",
+    "label": "リック・ホルト",
+    "en": "Ric Holt",
+    "relation": "developer",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q98828614",
+    "lang": "ja",
+    "label": "ラルフ・クルシオ",
+    "en": "Ralph Curcio",
+    "relation": "architect",
+    "sim": 59.25925925925926,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1199523",
+    "lang": "ar",
+    "label": "مقاطعة جينغيان",
+    "en": "Jingyan County",
+    "relation": "place of death",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1562715",
+    "lang": "zh",
+    "label": "里瓦·切尔索",
+    "en": "Riva Celso",
+    "relation": "developer",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q97133",
+    "lang": "zh",
+    "label": "鲁道夫·施瓦茨",
+    "en": "Rudolf Schwarz",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2045505",
+    "lang": "zh",
+    "label": "太平洋航空航天",
+    "en": "Pacific Aerospace",
+    "relation": "manufacturer",
+    "sim": 36.36363636363637,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q680916",
+    "lang": "ar",
+    "label": "خنتبروجّه",
+    "en": "Gentbrugge",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q8960483",
+    "lang": "ar",
+    "label": "أوجيني بيريه سيندويا",
+    "en": "Eugeni Pere Cendoya",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1469447",
+    "lang": "ar",
+    "label": "شركة وينشستر للأسلحة النارية المتكررة",
+    "en": "Winchester Repeating Arms Company",
+    "relation": "manufacturer",
+    "sim": 43.63636363636364,
+    "n_facts": 10
+   },
+   {
+    "qid": "Q736090",
+    "lang": "ar",
+    "label": "بيرو ليغوريو",
+    "en": "Pirro Ligorio",
+    "relation": "architect",
+    "sim": 52.63157894736843,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q697289",
+    "lang": "ar",
+    "label": "الجامعة الوطنية تايوان",
+    "en": "National University of Tainan",
+    "relation": "educated at",
+    "sim": 45.16129032258065,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1036167",
+    "lang": "ar",
+    "label": "منطقة سيجيزْكي",
+    "en": "Segezhsky District",
+    "relation": "place of death",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q327432",
+    "lang": "zh",
+    "label": "维克多·施罗特",
+    "en": "Victor Schröter",
+    "relation": "architect",
+    "sim": 51.85185185185186,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4693931",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Kilimo cha Jimbo la Moldova",
+    "en": "State Agrarian University of Moldova",
+    "relation": "educated at",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q790029",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Bangor",
+    "en": "Bangor University",
+    "relation": "educated at",
+    "sim": 52.17391304347826,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q495061",
+    "lang": "ar",
+    "label": "شركة لوينغ للهندسة الطيرانية",
+    "en": "Loening Aeronautical Engineering Corporation",
+    "relation": "manufacturer",
+    "sim": 37.5,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4149254",
+    "lang": "zh",
+    "label": "鲍里斯·格里戈里耶夫",
+    "en": "Boris Grigoryev",
+    "relation": "director",
+    "sim": 51.85185185185186,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q494948",
+    "lang": "sw",
+    "label": "Taasisi ya Utafiti wa Anga ya Korea",
+    "en": "Korea Aerospace Research Institute",
+    "relation": "developer",
+    "sim": 48.484848484848484,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1190812",
+    "lang": "bn",
+    "label": "নিউ মেক্সিকো বিশ্ববিদ্যালয়",
+    "en": "University of New Mexico",
+    "relation": "educated at",
+    "sim": 42.10526315789473,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q432904",
+    "lang": "zh",
+    "label": "戈特弗里德·谢德尔",
+    "en": "Gottfried Schädel",
+    "relation": "architect",
+    "sim": 45.16129032258065,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q640493",
+    "lang": "ar",
+    "label": "كيمبنو",
+    "en": "Kępno",
+    "relation": "place of death",
+    "sim": 44.44444444444444,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5488461",
+    "lang": "zh",
+    "label": "弗兰克·米尔斯·安德鲁斯",
+    "en": "Frank Mills Andrews",
+    "relation": "architect",
+    "sim": 57.89473684210527,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q464476",
+    "lang": "sw",
+    "label": "Bendera Nyeusi",
+    "en": "Black Flag",
+    "relation": "creator",
+    "sim": 33.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q875637",
+    "lang": "bn",
+    "label": "উইলিয়াম অ্যান্ড মেরি কলেজ",
+    "en": "College of William & Mary",
+    "relation": "educated at",
+    "sim": 45.714285714285715,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6999567",
+    "lang": "zh",
+    "label": "罗多尔福·佩特拉科",
+    "en": "Rodolfo Petracco",
+    "relation": "architect",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3176886",
+    "lang": "ar",
+    "label": "جامعة الفلبين ديليمان",
+    "en": "University of the Philippines Diliman",
+    "relation": "educated at",
+    "sim": 44.99999999999999,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q1769401",
+    "lang": "id",
+    "label": "Sekolah Tinggi Ilmu Keolahragaan Norwegia",
+    "en": "Norwegian School of Sport Sciences",
+    "relation": "educated at",
+    "sim": 40.0,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2638403",
+    "lang": "zh",
+    "label": "阿尔伯特·路德维希·格林",
+    "en": "Albert Ludwig Grimm",
+    "relation": "creator",
+    "sim": 53.06122448979591,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q11524880",
+    "lang": "bn",
+    "label": "টোকিও শিক্ষা বিশ্ববিদ্যালয়",
+    "en": "Tokyo University of Education",
+    "relation": "educated at",
+    "sim": 40.0,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q531285",
+    "lang": "bn",
+    "label": "নিউক্যাসল বিশ্ববিদ্যালয়",
+    "en": "University of Newcastle",
+    "relation": "educated at",
+    "sim": 37.5,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4119659",
+    "lang": "sw",
+    "label": "Shule ya Tiba ya Chuo Kikuu cha Boston",
+    "en": "Boston University School of Medicine",
+    "relation": "educated at",
+    "sim": 47.88732394366197,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q265058",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Sayansi ya Hungary",
+    "en": "Hungarian Academy of Sciences",
+    "relation": "educated at",
+    "sim": 45.16129032258065,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6543110",
+    "lang": "ar",
+    "label": "ليسيو إيطاليانو",
+    "en": "Liceo Italiano",
+    "relation": "educated at",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5530214",
+    "lang": "sw",
+    "label": "Shule ya Tiba ya Geisel",
+    "en": "Geisel School of Medicine",
+    "relation": "educated at",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3942954",
+    "lang": "zh",
+    "label": "拉斯蒂·坎迪夫",
+    "en": "Rusty Cundieff",
+    "relation": "director",
+    "sim": 45.45454545454546,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q316438",
+    "lang": "bn",
+    "label": "ডয়েচে ভের্ফট",
+    "en": "Deutsche Werft",
+    "relation": "manufacturer",
+    "sim": 57.14285714285714,
+    "n_facts": 17
+   },
+   {
+    "qid": "Q166721",
+    "lang": "zh",
+    "label": "克利福德·沃伦·阿什利",
+    "en": "Clifford Warren Ashley",
+    "relation": "author",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q9391434",
+    "lang": "zh",
+    "label": "波兰王国",
+    "en": "United Kingdom of Poland",
+    "relation": "country of citizenship",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5493697",
+    "lang": "zh",
+    "label": "何塞·特里格埃罗斯",
+    "en": "José Trigueros",
+    "relation": "architect",
+    "sim": 48.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q109440871",
+    "lang": "zh",
+    "label": "科迪·卡拉汉",
+    "en": "Cody Calahan",
+    "relation": "director",
+    "sim": 41.666666666666664,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1823146",
+    "lang": "ru",
+    "label": "Издательство Ватикана",
+    "en": "Vatican Publishing House",
+    "relation": "author",
+    "sim": 44.44444444444444,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q548602",
+    "lang": "ar",
+    "label": "لويجي بازوني",
+    "en": "Luigi Bazzoni",
+    "relation": "director",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q892719",
+    "lang": "ar",
+    "label": "خواكين روكوبا",
+    "en": "Joaquín Rucoba",
+    "relation": "architect",
+    "sim": 42.10526315789473,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q338372",
+    "lang": "ar",
+    "label": "أكاديمية شيجانا الموسيقية",
+    "en": "Accademia Musicale Chigiana",
+    "relation": "educated at",
+    "sim": 36.36363636363637,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q832550",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Teknolojia ya Kaskazini Magharibi",
+    "en": "Northwestern Polytechnical University",
+    "relation": "educated at",
+    "sim": 35.61643835616438,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7201408",
+    "lang": "sw",
+    "label": "Shule ya Sekondari ya Plano East",
+    "en": "Plano East Senior High School",
+    "relation": "educated at",
+    "sim": 58.62068965517241,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q109499",
+    "lang": "bn",
+    "label": "কংসভিংগার পৌরসভা",
+    "en": "Kongsvinger Municipality",
+    "relation": "place of death",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q63279375",
+    "lang": "zh",
+    "label": "雅克·奥热",
+    "en": "Jacques Oger",
+    "relation": "architect",
+    "sim": 45.45454545454546,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q489753",
+    "lang": "ar",
+    "label": "جامعة تاتارستان الحكومية للعلوم الإنسانية والتربية",
+    "en": "Tatar State University of Humanities and Education",
+    "relation": "educated at",
+    "sim": 45.45454545454546,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2096604",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Teknolojia ya Sharif",
+    "en": "Sharif University of Technology",
+    "relation": "educated at",
+    "sim": 51.515151515151516,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q15962041",
+    "lang": "ar",
+    "label": "مدرسة نيجني نوفغورود الثانوية",
+    "en": "Nizhny Novgorod Gymnasium",
+    "relation": "educated at",
+    "sim": 45.45454545454546,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q24701567",
+    "lang": "ar",
+    "label": "يوشت يان",
+    "en": "Jost Jahn",
+    "relation": "discoverer or inventor",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4160420",
+    "lang": "ja",
+    "label": "クリス・ジョーンズ",
+    "en": "Chris Jones",
+    "relation": "developer",
+    "sim": 54.54545454545454,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q64796832",
+    "lang": "zh",
+    "label": "唐纳德·克罗恩",
+    "en": "Donald Crone",
+    "relation": "architect",
+    "sim": 41.666666666666664,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6388895",
+    "lang": "ru",
+    "label": "Колледж искусств и дизайна Кендалла",
+    "en": "Kendall College of Art and Design",
+    "relation": "educated at",
+    "sim": 46.3768115942029,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1419175",
+    "lang": "ar",
+    "label": "المؤسسة الملكية للطائرات",
+    "en": "Royal Aircraft Establishment",
+    "relation": "manufacturer",
+    "sim": 30.76923076923077,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q368546",
+    "lang": "ar",
+    "label": "دومينيكو فينيزيانو",
+    "en": "Domenico Veneziano",
+    "relation": "creator",
+    "sim": 53.84615384615385,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q883799",
+    "lang": "sw",
+    "label": "Msingi wa Blender",
+    "en": "Blender Foundation",
+    "relation": "developer",
+    "sim": 58.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1496662",
+    "lang": "bn",
+    "label": "গাজী বিশ্ববিদ্যালয়",
+    "en": "Gazi University",
+    "relation": "educated at",
+    "sim": 48.275862068965516,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2067261",
+    "lang": "bn",
+    "label": "পিউয়ী ভ্যালি",
+    "en": "Pewee Valley",
+    "relation": "place of death",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q716282",
+    "lang": "ar",
+    "label": "أورين بيلي",
+    "en": "Oren Peli",
+    "relation": "director",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1416348",
+    "lang": "sw",
+    "label": "Taasisi ya Teknolojia ya Norway",
+    "en": "Norwegian Institute of Technology",
+    "relation": "educated at",
+    "sim": 45.90163934426229,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5171564",
+    "lang": "bn",
+    "label": "কর্নেল বিশ্ববিদ্যালয় কলেজ অফ ইঞ্জিনিয়ারিং",
+    "en": "Cornell University College of Engineering",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3340630",
+    "lang": "zh",
+    "label": "尼古拉斯·尼古拉斯",
+    "en": "Nicolas Nicole",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q459506",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Bristol",
+    "en": "University of Bristol",
+    "relation": "educated at",
+    "sim": 58.82352941176471,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q2994578",
+    "lang": "sw",
+    "label": "Hifadhi ya Nice",
+    "en": "Conservatory of Nice",
+    "relation": "educated at",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q379094",
+    "lang": "ar",
+    "label": "مبادرات السينما الرقمية",
+    "en": "Digital Cinema Initiatives",
+    "relation": "developer",
+    "sim": 38.70967741935484,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3384918",
+    "lang": "ar",
+    "label": "بيير إسكيه",
+    "en": "Pierre Esquié",
+    "relation": "architect",
+    "sim": 40.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2745586",
+    "lang": "zh",
+    "label": "天才音速",
+    "en": "Genius Sonority",
+    "relation": "developer",
+    "sim": 34.78260869565217,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q918638",
+    "lang": "bn",
+    "label": "ফানকম",
+    "en": "Funcom",
+    "relation": "developer",
+    "sim": 44.44444444444444,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q7571404",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Kusini-Magharibi",
+    "en": "Southwestern College",
+    "relation": "educated at",
+    "sim": 32.25806451612904,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q756126",
+    "lang": "id",
+    "label": "Universitas Teknik Timur Tengah",
+    "en": "Middle East Technical University",
+    "relation": "educated at",
+    "sim": 53.96825396825397,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4059233",
+    "lang": "bn",
+    "label": "গ্দাńsk-এর ফাইন আর্টস একাডেমি",
+    "en": "Academy of Fine Arts in Gdańsk",
+    "relation": "educated at",
+    "sim": 56.25,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q56669156",
+    "lang": "ar",
+    "label": "جوليو بوديستي",
+    "en": "Giulio Podesti",
+    "relation": "architect",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1972050",
+    "lang": "bn",
+    "label": "জোহানেসবার্গ বিশ্ববিদ্যালয়",
+    "en": "University of Johannesburg",
+    "relation": "educated at",
+    "sim": 51.28205128205128,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2303432",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Oviedo",
+    "en": "University of Oviedo",
+    "relation": "educated at",
+    "sim": 56.25,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2390188",
+    "lang": "ar",
+    "label": "جوزيف بيرني-دوشيه",
+    "en": "Joseph Pernet-Ducher",
+    "relation": "creator",
+    "sim": 43.75,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1660987",
+    "lang": "sw",
+    "label": "Shule ya Tiba ya Chuo Kikuu cha Belgrade",
+    "en": "University of Belgrade School of Medicine",
+    "relation": "educated at",
+    "sim": 50.666666666666664,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3069583",
+    "lang": "zh",
+    "label": "维斯可公司",
+    "en": "Visco Corporation",
+    "relation": "developer",
+    "sim": 34.78260869565217,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q6781214",
+    "lang": "ar",
+    "label": "مدرسة ماريكنول للسيدات",
+    "en": "Maryknoll Convent School",
+    "relation": "educated at",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3551667",
+    "lang": "bn",
+    "label": "সেন্ট-বনিফেস বিশ্ববিদ্যালয়",
+    "en": "Université de Saint-Boniface",
+    "relation": "educated at",
+    "sim": 39.02439024390244,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3942954",
+    "lang": "bn",
+    "label": "রুস্টি কান্ডিফ",
+    "en": "Rusty Cundieff",
+    "relation": "director",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q391150",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Henan",
+    "en": "Henan University",
+    "relation": "educated at",
+    "sim": 47.61904761904762,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q10371490",
+    "lang": "zh",
+    "label": "硅梦工作室",
+    "en": "Silicon Dreams Studios",
+    "relation": "developer",
+    "sim": 36.8421052631579,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6255909",
+    "lang": "zh",
+    "label": "约翰·鲁道夫·尼恩西",
+    "en": "John Rudolph Niernsee",
+    "relation": "architect",
+    "sim": 52.38095238095239,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q216941",
+    "lang": "bn",
+    "label": "সি নদী",
+    "en": "Xi River",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4005868",
+    "lang": "bn",
+    "label": "সান আন্তোনিওতে টেক্সাস স্বাস্থ্য বিজ্ঞান কেন্দ্র বিশ্ববিদ্যালয়",
+    "en": "University of Texas Health Science Center at San Antonio",
+    "relation": "developer",
+    "sim": 44.067796610169495,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q279212",
+    "lang": "zh",
+    "label": "格伦·埃克勒",
+    "en": "Glenn Eichler",
+    "relation": "creator",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q210720",
+    "lang": "sw",
+    "label": "Wilaya ya 20 ya Paris",
+    "en": "20th arrondissement of Paris",
+    "relation": "place of death",
+    "sim": 47.82608695652174,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q3157586",
+    "lang": "ar",
+    "label": "يعقوب ريف",
+    "en": "Jacob Rijf",
+    "relation": "architect",
+    "sim": 53.333333333333336,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4506662",
+    "lang": "ar",
+    "label": "نيكولاي تشاجين",
+    "en": "Nikolai Chagin",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q768144",
+    "lang": "zh",
+    "label": "罗伯特·阿斯金",
+    "en": "Robert Askin",
+    "relation": "creator",
+    "sim": 58.33333333333333,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3290454",
+    "lang": "bn",
+    "label": "উচ্চ সান আন্দ্রেস বিশ্ববিদ্যালয়",
+    "en": "Higher University of San Andrés",
+    "relation": "educated at",
+    "sim": 53.65853658536586,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4314989",
+    "lang": "es",
+    "label": "Universidad Estatal Nacional de Cultura Física, Deporte y Salud Lesgaft",
+    "en": "Lesgaft National State University of Physical Education, Sport and Health",
+    "relation": "educated at",
+    "sim": 57.74647887323944,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q392904",
+    "lang": "bn",
+    "label": "মিলানের পলিটেকনিক বিশ্ববিদ্যালয়",
+    "en": "Polytechnic University of Milan",
+    "relation": "educated at",
+    "sim": 43.63636363636364,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q5590225",
+    "lang": "ru",
+    "label": "Джон Бёрджи",
+    "en": "John Burgee",
+    "relation": "architect",
+    "sim": 58.82352941176471,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q3631692",
+    "lang": "ar",
+    "label": "أنظمة بي إيه إي للمنصات والخدمات",
+    "en": "BAE Systems Platforms & Services",
+    "relation": "manufacturer",
+    "sim": 38.095238095238095,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q55768705",
+    "lang": "zh",
+    "label": "马克·约布斯特",
+    "en": "Marc Jobst",
+    "relation": "director",
+    "sim": 52.63157894736843,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q23662144",
+    "lang": "zh",
+    "label": "凯文·艾洛卡",
+    "en": "Kevin Allocca",
+    "relation": "author",
+    "sim": 53.84615384615385,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q8074145",
+    "lang": "bn",
+    "label": "জুম",
+    "en": "Zoom",
+    "relation": "developer",
+    "sim": 50.0,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2094209",
+    "lang": "zh",
+    "label": "理查德·希基",
+    "en": "Richard Hickey",
+    "relation": "developer",
+    "sim": 53.84615384615385,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7834196",
+    "lang": "zh",
+    "label": "里约热内卢联邦农村大学",
+    "en": "Federal Rural University of Rio de Janeiro",
+    "relation": "educated at",
+    "sim": 42.857142857142854,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4348557",
+    "lang": "zh",
+    "label": "微仓",
+    "en": "Microcabin",
+    "relation": "developer",
+    "sim": 46.15384615384615,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q1474656",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Uchumi na Biashara cha Athens",
+    "en": "Athens University of Economics and Business",
+    "relation": "educated at",
+    "sim": 47.27272727272728,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1341318",
+    "lang": "sw",
+    "label": "Akademia ya Kijeshi ya Kikosi cha Mawasiliano",
+    "en": "Military Academy of the Signal Corps",
+    "relation": "educated at",
+    "sim": 46.15384615384615,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q240913",
+    "lang": "zh",
+    "label": "联合设备公司",
+    "en": "Associated Equipment Company",
+    "relation": "manufacturer",
+    "sim": 39.13043478260869,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q676992",
+    "lang": "zh",
+    "label": "马丁·华莱士",
+    "en": "Martin Wallace",
+    "relation": "creator",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1166903",
+    "lang": "ar",
+    "label": "كوركيلروي",
+    "en": "Corquilleroy",
+    "relation": "place of death",
+    "sim": 50.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q414110",
+    "lang": "bn",
+    "label": "বার্লিনের শিল্পকলা একাডেমি",
+    "en": "Academy of Arts, Berlin",
+    "relation": "educated at",
+    "sim": 41.379310344827594,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1519255",
+    "lang": "ar",
+    "label": "جيزين فاينميلر",
+    "en": "Gesine Weinmiller",
+    "relation": "architect",
+    "sim": 52.17391304347826,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q452689",
+    "lang": "bn",
+    "label": "ফ্রেড উলফ",
+    "en": "Fred Wolf",
+    "relation": "director",
+    "sim": 55.55555555555556,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1048851",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Yeshiva",
+    "en": "Yeshiva University",
+    "relation": "educated at",
+    "sim": 56.00000000000001,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q597758",
+    "lang": "bn",
+    "label": "ওল্ডেনবার্গ বিশ্ববিদ্যালয়",
+    "en": "University of Oldenburg",
+    "relation": "educated at",
+    "sim": 47.05882352941176,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3551770",
+    "lang": "bn",
+    "label": "সাউথইস্ট বিশ্ববিদ্যালয়",
+    "en": "Southeast University",
+    "relation": "educated at",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5123309",
+    "lang": "ar",
+    "label": "مدرسة سيتي مونتيسوري",
+    "en": "City Montessori School",
+    "relation": "educated at",
+    "sim": 48.484848484848484,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7412783",
+    "lang": "zh",
+    "label": "塞缪尔·蒂尔登·诺顿",
+    "en": "Samuel Tilden Norton",
+    "relation": "architect",
+    "sim": 57.14285714285714,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q222923",
+    "lang": "ar",
+    "label": "فينشنزو فوبا",
+    "en": "Vincenzo Foppa",
+    "relation": "creator",
+    "sim": 47.61904761904761,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q13117583",
+    "lang": "zh",
+    "label": "星理论游戏",
+    "en": "Star Theory Games",
+    "relation": "developer",
+    "sim": 25.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q17403677",
+    "lang": "zh",
+    "label": "乔治·麦克尼尔",
+    "en": "George McNeil",
+    "relation": "creator",
+    "sim": 41.1764705882353,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q11697871",
+    "lang": "ja",
+    "label": "フェリックス・ヘンリー",
+    "en": "Felix Henry",
+    "relation": "architect",
+    "sim": 58.82352941176471,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q972747",
+    "lang": "ar",
+    "label": "فريغيزيا دي ساو فرانسيسكو خافيير",
+    "en": "Freguesia de São Francisco Xavier",
+    "relation": "place of death",
+    "sim": 58.33333333333333,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1895354",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Ukumbusho cha Newfoundland",
+    "en": "Memorial University of Newfoundland",
+    "relation": "educated at",
+    "sim": 58.62068965517242,
+    "n_facts": 2
+   }
+  ],
+  "translit": [
+   {
+    "qid": "Q3015827",
+    "lang": "ar",
+    "label": "تشاتام تاونشيب",
+    "en": "Chatham Township",
+    "relation": "place of death",
+    "sim": 72.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1384279",
+    "lang": "zh",
+    "label": "哈梅·诺门",
+    "en": "Jaume Nomen",
+    "relation": "discoverer or inventor",
+    "sim": 72.72727272727273,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5512120",
+    "lang": "bn",
+    "label": "জি. অ্যালবার্ট ল্যান্সবার্গ",
+    "en": "G. Albert Lansburgh",
+    "relation": "architect",
+    "sim": 80.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q86955",
+    "lang": "sw",
+    "label": "Gabriel von Seidl",
+    "en": "Gabriel von Seidl",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q19345276",
+    "lang": "ja",
+    "label": "クリス・フォギン",
+    "en": "Chris Foggin",
+    "relation": "director",
+    "sim": 69.56521739130434,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q108011645",
+    "lang": "ja",
+    "label": "ヴィクトル・ストリボグ",
+    "en": "Wiktor Stribog",
+    "relation": "creator",
+    "sim": 90.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1428711",
+    "lang": "id",
+    "label": "Universitas Bohemia Selatan di České Budějovice",
+    "en": "University of South Bohemia in České Budějovice",
+    "relation": "educated at",
+    "sim": 82.97872340425532,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q708858",
+    "lang": "bn",
+    "label": "জাক লেমার্সিয়ের",
+    "en": "Jacques Lemercier",
+    "relation": "architect",
+    "sim": 60.0,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q2536056",
+    "lang": "bn",
+    "label": "টেনজেন",
+    "en": "Tengen",
+    "relation": "developer",
+    "sim": 83.33333333333334,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q61826736",
+    "lang": "sw",
+    "label": "Hans Joachim Budeit",
+    "en": "Hans Joachim Budeit",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2562433",
+    "lang": "bn",
+    "label": "ভোলগোগ্রাদ ট্র্যাক্টর কারখানা",
+    "en": "Volgograd Tractor Factory",
+    "relation": "manufacturer",
+    "sim": 68.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q931716",
+    "lang": "bn",
+    "label": "লন্ডন ফিল্ম স্কুল",
+    "en": "London Film School",
+    "relation": "educated at",
+    "sim": 74.07407407407408,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q12335095",
+    "lang": "sw",
+    "label": "Shaky González",
+    "en": "Shaky González",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q26993",
+    "lang": "sw",
+    "label": "Theodor Storm",
+    "en": "Theodor Storm",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q18030319",
+    "lang": "sw",
+    "label": "Bryn Higgins",
+    "en": "Bryn Higgins",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q746801",
+    "lang": "bn",
+    "label": "এডিসন",
+    "en": "Edison",
+    "relation": "place of death",
+    "sim": 85.71428571428572,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q707783",
+    "lang": "sw",
+    "label": "Yoshinori Kobayashi",
+    "en": "Yoshinori Kobayashi",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q122187",
+    "lang": "id",
+    "label": "Jacques Feyder",
+    "en": "Jacques Feyder",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q373128",
+    "lang": "pt",
+    "label": "Bill Walsh",
+    "en": "Bill Walsh",
+    "relation": "creator",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4119326",
+    "lang": "bn",
+    "label": "হাটেম আলী",
+    "en": "Hatem Ali",
+    "relation": "director",
+    "sim": 90.9090909090909,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3564666",
+    "lang": "pt",
+    "label": "WET Enterprises",
+    "en": "WET Enterprises",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q6247364",
+    "lang": "id",
+    "label": "Tore Wretman",
+    "en": "Tore Wretman",
+    "relation": "discoverer or inventor",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2305438",
+    "lang": "es",
+    "label": "Telkom Indonesia",
+    "en": "Telkom Indonesia",
+    "relation": "manufacturer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5669",
+    "lang": "sw",
+    "label": "Sandro Botticelli",
+    "en": "Sandro Botticelli",
+    "relation": "creator",
+    "sim": 100.0,
+    "n_facts": 10
+   },
+   {
+    "qid": "Q631639",
+    "lang": "id",
+    "label": "Linkebeek",
+    "en": "Linkebeek",
+    "relation": "place of death",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q877925",
+    "lang": "bn",
+    "label": "কুইন্স ইউনিভার্সিটি বেলফাস্ট",
+    "en": "Queen's University Belfast",
+    "relation": "educated at",
+    "sim": 66.66666666666667,
+    "n_facts": 7
+   },
+   {
+    "qid": "Q2493977",
+    "lang": "id",
+    "label": "Moisei Ginzburg",
+    "en": "Moisei Ginzburg",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q361395",
+    "lang": "ru",
+    "label": "Колледж моды Bunka",
+    "en": "Bunka Fashion College",
+    "relation": "educated at",
+    "sim": 60.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q628479",
+    "lang": "sw",
+    "label": "Terry Nation",
+    "en": "Terry Nation",
+    "relation": "creator",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q19880640",
+    "lang": "ru",
+    "label": "Лорен Юнгерих",
+    "en": "Lauren Iungerich",
+    "relation": "creator",
+    "sim": 88.88888888888889,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q349013",
+    "lang": "id",
+    "label": "Roger Hargreaves",
+    "en": "Roger Hargreaves",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q216748",
+    "lang": "sw",
+    "label": "Richard Thorpe",
+    "en": "Richard Thorpe",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 6
+   },
+   {
+    "qid": "Q349518",
+    "lang": "sw",
+    "label": "George W. Hill",
+    "en": "George W. Hill",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q998392",
+    "lang": "ru",
+    "label": "Рохелио Сальмона",
+    "en": "Rogelio Salmona",
+    "relation": "architect",
+    "sim": 87.5,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q22096168",
+    "lang": "bn",
+    "label": "জেনি স্নাইডার আরমান",
+    "en": "Jennie Snyder Urman",
+    "relation": "developer",
+    "sim": 88.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q98323458",
+    "lang": "id",
+    "label": "André Dutilly",
+    "en": "André Dutilly",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1633938",
+    "lang": "id",
+    "label": "Pedro Masó",
+    "en": "Pedro Masó",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7357986",
+    "lang": "ar",
+    "label": "روجر كريستنسن",
+    "en": "Roger Christiansen",
+    "relation": "director",
+    "sim": 72.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2572052",
+    "lang": "id",
+    "label": "Bert Toorman",
+    "en": "Bert Toorman",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5167141",
+    "lang": "zh",
+    "label": "料理妈妈 Limited",
+    "en": "Cooking Mama Limited",
+    "relation": "developer",
+    "sim": 80.0,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q530451",
+    "lang": "id",
+    "label": "Jean Yarbrough",
+    "en": "Jean Yarbrough",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1045778",
+    "lang": "sw",
+    "label": "Esri",
+    "en": "Esri",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q100542",
+    "lang": "id",
+    "label": "Werner Düttmann",
+    "en": "Werner Düttmann",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q17090902",
+    "lang": "id",
+    "label": "Olatunde Osunsanmi",
+    "en": "Olatunde Osunsanmi",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q657945",
+    "lang": "sw",
+    "label": "Tumas Dingli",
+    "en": "Tumas Dingli",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q16222691",
+    "lang": "ar",
+    "label": "ألبرت كالوايرت",
+    "en": "Albert Callewaert",
+    "relation": "architect",
+    "sim": 81.81818181818181,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2001088",
+    "lang": "id",
+    "label": "Northern State University",
+    "en": "Northern State University",
+    "relation": "educated at",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q105440568",
+    "lang": "ru",
+    "label": "Джордж Л. Сихерман",
+    "en": "George L. Sicherman",
+    "relation": "discoverer or inventor",
+    "sim": 74.28571428571429,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q106518103",
+    "lang": "bn",
+    "label": "ইওরান হেলিং",
+    "en": "Yoran Heling",
+    "relation": "creator",
+    "sim": 86.95652173913044,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7451753",
+    "lang": "ru",
+    "label": "Sepandar Kamvar",
+    "en": "Sepandar Kamvar",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7082952",
+    "lang": "id",
+    "label": "Olaf Hassel",
+    "en": "Olaf Hassel",
+    "relation": "discoverer or inventor",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1611273",
+    "lang": "id",
+    "label": "Mikayil Useynov",
+    "en": "Mikayil Useynov",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q14950",
+    "lang": "bn",
+    "label": "সিন্সহাইম",
+    "en": "Sinsheim",
+    "relation": "place of death",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q15411288",
+    "lang": "id",
+    "label": "Hudong-Zhonghua Shipbuilding",
+    "en": "Hudong-Zhonghua Shipbuilding",
+    "relation": "manufacturer",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q27621",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Jimbo la Saint Petersburg",
+    "en": "Saint Petersburg State University",
+    "relation": "educated at",
+    "sim": 65.3061224489796,
+    "n_facts": 13
+   },
+   {
+    "qid": "Q3766425",
+    "lang": "bn",
+    "label": "জিওভান্নি অ্যান্টিনোরি",
+    "en": "Giovanni Antinori",
+    "relation": "architect",
+    "sim": 76.47058823529412,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3739237",
+    "lang": "id",
+    "label": "Vilen Künnapu",
+    "en": "Vilen Künnapu",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5854907",
+    "lang": "id",
+    "label": "Fakultas Filsafat dan Sastra Universitas Buenos Aires",
+    "en": "Facultad de Filosofía y Letras de la Universidad de Buenos Aires",
+    "relation": "educated at",
+    "sim": 77.47747747747748,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q16656631",
+    "lang": "de",
+    "label": "KB Tochmash",
+    "en": "KB Tochmash",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q555578",
+    "lang": "sw",
+    "label": "Chespirito",
+    "en": "Chespirito",
+    "relation": "creator",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7793744",
+    "lang": "ar",
+    "label": "توماس إس. تيت",
+    "en": "Thomas S. Tait",
+    "relation": "architect",
+    "sim": 84.21052631578947,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1544413",
+    "lang": "id",
+    "label": "National Instruments",
+    "en": "National Instruments",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2170996",
+    "lang": "id",
+    "label": "Royal Arsenal",
+    "en": "Royal Arsenal",
+    "relation": "manufacturer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1818180",
+    "lang": "ja",
+    "label": "ビラ・クーラ・ブロチェロ",
+    "en": "Villa Cura Brochero",
+    "relation": "place of death",
+    "sim": 75.67567567567568,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2897797",
+    "lang": "zh",
+    "label": "贝尔纳·德耶里耶斯",
+    "en": "Bernard Deyriès",
+    "relation": "creator",
+    "sim": 66.66666666666667,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3171831",
+    "lang": "ru",
+    "label": "Жан Дюбуассон",
+    "en": "Jean Dubuisson",
+    "relation": "architect",
+    "sim": 82.35294117647058,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4373659",
+    "lang": "bn",
+    "label": "জেফ পস্কানজার",
+    "en": "Jef Poskanzer",
+    "relation": "developer",
+    "sim": 73.6842105263158,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q547867",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Kitaifa na Kapodistrian cha Athens",
+    "en": "National and Kapodistrian University of Athens",
+    "relation": "educated at",
+    "sim": 67.53246753246754,
+    "n_facts": 6
+   },
+   {
+    "qid": "Q86355036",
+    "lang": "de",
+    "label": "Tomohisa Taguchi",
+    "en": "Tomohisa Taguchi",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q15995018",
+    "lang": "zh",
+    "label": "西奥多·德·莱莫斯",
+    "en": "Theodore de Lemos",
+    "relation": "architect",
+    "sim": 64.70588235294117,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q371556",
+    "lang": "bn",
+    "label": "ভ্লাডিস্লাভ সাডলোভস্কি",
+    "en": "Władysław Sadłowski",
+    "relation": "architect",
+    "sim": 65.21739130434783,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q932897",
+    "lang": "bn",
+    "label": "ইয়ারো শিপবিল্ডারস লিমিটেড",
+    "en": "Yarrow Shipbuilders Limited",
+    "relation": "manufacturer",
+    "sim": 84.21052631578947,
+    "n_facts": 6
+   },
+   {
+    "qid": "Q702123",
+    "lang": "sw",
+    "label": "Schierke",
+    "en": "Schierke",
+    "relation": "place of death",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3550687",
+    "lang": "bn",
+    "label": "মানুয়েল কোন্দে",
+    "en": "Manuel Conde",
+    "relation": "director",
+    "sim": 81.4814814814815,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1449787",
+    "lang": "ar",
+    "label": "فريدريش بوتزر",
+    "en": "Friedrich Pützer",
+    "relation": "architect",
+    "sim": 72.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q36482668",
+    "lang": "sw",
+    "label": "Martin Walz",
+    "en": "Martin Walz",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q81472",
+    "lang": "bn",
+    "label": "জিয়াংনান শিপইয়ার্ড",
+    "en": "Jiangnan Shipyard",
+    "relation": "manufacturer",
+    "sim": 81.4814814814815,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q15461245",
+    "lang": "ru",
+    "label": "Джон Гоу Мим",
+    "en": "John Gaw Meem",
+    "relation": "architect",
+    "sim": 77.77777777777779,
+    "n_facts": 10
+   },
+   {
+    "qid": "Q1053764",
+    "lang": "pt",
+    "label": "Central Connecticut State University",
+    "en": "Central Connecticut State University",
+    "relation": "educated at",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q303641",
+    "lang": "id",
+    "label": "FASA Studio",
+    "en": "FASA Studio",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q933641",
+    "lang": "ru",
+    "label": "Мартонвашар",
+    "en": "Martonvásár",
+    "relation": "place of death",
+    "sim": 95.65217391304348,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q183141",
+    "lang": "bn",
+    "label": "পিটার বার্গ",
+    "en": "Peter Berg",
+    "relation": "director",
+    "sim": 93.33333333333333,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q375606",
+    "lang": "sw",
+    "label": "Birkbeck, Chuo Kikuu cha London",
+    "en": "Birkbeck, University of London",
+    "relation": "educated at",
+    "sim": 68.18181818181819,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q298537",
+    "lang": "bn",
+    "label": "আর্ট ক্লোকি",
+    "en": "Art Clokey",
+    "relation": "creator",
+    "sim": 71.42857142857143,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q17516873",
+    "lang": "id",
+    "label": "María Celia Forneas Fernández",
+    "en": "María Celia Forneas Fernández",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1562715",
+    "lang": "ja",
+    "label": "リヴァ・セルソ",
+    "en": "Riva Celso",
+    "relation": "developer",
+    "sim": 72.72727272727273,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q984128",
+    "lang": "ar",
+    "label": "جروبي",
+    "en": "Groby",
+    "relation": "place of death",
+    "sim": 66.66666666666667,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3324260",
+    "lang": "ru",
+    "label": "Луис Гутьеррес Сото",
+    "en": "Luis Gutiérrez Soto",
+    "relation": "architect",
+    "sim": 89.47368421052632,
+    "n_facts": 8
+   },
+   {
+    "qid": "Q500605",
+    "lang": "id",
+    "label": "Pierre Bullet",
+    "en": "Pierre Bullet",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q556068",
+    "lang": "sw",
+    "label": "Anthonis van Obbergen",
+    "en": "Anthonis van Obbergen",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q4339271",
+    "lang": "es",
+    "label": "Vasyl Oleksandrovych Osmak",
+    "en": "Vasyl Oleksandrovych Osmak",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q440136",
+    "lang": "bn",
+    "label": "মার্ক-জোসেফ মারিওঁ দ্যু ফ্রেন",
+    "en": "Marc-Joseph Marion du Fresne",
+    "relation": "discoverer or inventor",
+    "sim": 82.75862068965517,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1944828",
+    "lang": "ar",
+    "label": "مونينو",
+    "en": "Monino",
+    "relation": "place of death",
+    "sim": 66.66666666666667,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5041527",
+    "lang": "id",
+    "label": "Carlo Ignazio Pozzi",
+    "en": "Carlo Ignazio Pozzi",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3173217",
+    "lang": "ja",
+    "label": "ジャン・リアボー",
+    "en": "Jean Liabaud",
+    "relation": "creator",
+    "sim": 60.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q72327814",
+    "lang": "id",
+    "label": "Chilla's Art",
+    "en": "Chilla's Art",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q6698781",
+    "lang": "bn",
+    "label": "লুডিয়া",
+    "en": "Ludia",
+    "relation": "developer",
+    "sim": 80.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5236475",
+    "lang": "bn",
+    "label": "ডেভিড লিচ",
+    "en": "David Leitch",
+    "relation": "director",
+    "sim": 66.66666666666667,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q73334",
+    "lang": "ar",
+    "label": "أبراهام فان دن بلوك",
+    "en": "Abraham van den Blocke",
+    "relation": "architect",
+    "sim": 86.66666666666667,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q16729745",
+    "lang": "bn",
+    "label": "জ্যাকারি হাইনজারলিং",
+    "en": "Zachary Heinzerling",
+    "relation": "director",
+    "sim": 61.111111111111114,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q940298",
+    "lang": "id",
+    "label": "Richard Morris Hunt",
+    "en": "Richard Morris Hunt",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q55408",
+    "lang": "ar",
+    "label": "ريشيكيش موكرجي",
+    "en": "Hrishikesh Mukherjee",
+    "relation": "director",
+    "sim": 75.86206896551724,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q12500209",
+    "lang": "sw",
+    "label": "Nayato Fio Nuala",
+    "en": "Nayato Fio Nuala",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q95069339",
+    "lang": "ar",
+    "label": "يان بوهم",
+    "en": "Jan Böhm",
+    "relation": "creator",
+    "sim": 76.92307692307692,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q55221",
+    "lang": "bn",
+    "label": "আলেকজান্ডার কোরদা",
+    "en": "Alexander Korda",
+    "relation": "director",
+    "sim": 80.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q1941670",
+    "lang": "ru",
+    "label": "Моккау",
+    "en": "Mockau",
+    "relation": "place of death",
+    "sim": 83.33333333333334,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1048151",
+    "lang": "bn",
+    "label": "ক্যাসপার ভোগেল",
+    "en": "Caspar Vogel",
+    "relation": "architect",
+    "sim": 75.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q151759",
+    "lang": "sw",
+    "label": "Karl Friedrich Schinkel",
+    "en": "Karl Friedrich Schinkel",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 9
+   },
+   {
+    "qid": "Q163580",
+    "lang": "bn",
+    "label": "হেনশেল অ্যান্ড সন",
+    "en": "Henschel & Sohn",
+    "relation": "manufacturer",
+    "sim": 76.19047619047619,
+    "n_facts": 5
+   },
+   {
+    "qid": "Q2066464",
+    "lang": "ar",
+    "label": "ميتسوو ياناجيماتشي",
+    "en": "Mitsuo Yanagimachi",
+    "relation": "director",
+    "sim": 61.53846153846154,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1485091",
+    "lang": "bn",
+    "label": "মারিও জাম্পি",
+    "en": "Mario Zampi",
+    "relation": "director",
+    "sim": 83.33333333333334,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1256981",
+    "lang": "bn",
+    "label": "সান ফ্রান্সিসকো স্টেট ইউনিভার্সিটি",
+    "en": "San Francisco State University",
+    "relation": "educated at",
+    "sim": 68.18181818181819,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q3430953",
+    "lang": "zh",
+    "label": "理查德·朗",
+    "en": "Richard Lang",
+    "relation": "director",
+    "sim": 78.26086956521739,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q7410890",
+    "lang": "sw",
+    "label": "Samuel Beazley",
+    "en": "Samuel Beazley",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1514597",
+    "lang": "id",
+    "label": "Universidad de las Américas Puebla",
+    "en": "University of the Americas Puebla",
+    "relation": "educated at",
+    "sim": 77.61194029850746,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q75369110",
+    "lang": "id",
+    "label": "Lorenzo Giacomuzzi-Moore",
+    "en": "Lorenzo Giacomuzzi-Moore",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3438207",
+    "lang": "bn",
+    "label": "রড অ্যামাটো",
+    "en": "Rod Amateau",
+    "relation": "director",
+    "sim": 76.92307692307692,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q1636134",
+    "lang": "bn",
+    "label": "স্টিভেন গ Gallagher",
+    "en": "Stephen Gallagher",
+    "relation": "creator",
+    "sim": 81.4814814814815,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q16989835",
+    "lang": "ar",
+    "label": "إيسا بيرونين",
+    "en": "Esa Piironen",
+    "relation": "architect",
+    "sim": 62.5,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q953520",
+    "lang": "bn",
+    "label": "রিচার্ড রাশ",
+    "en": "Richard Rush",
+    "relation": "director",
+    "sim": 88.88888888888889,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q252725",
+    "lang": "ar",
+    "label": "بافل شترنبرغ",
+    "en": "Pavel Shternberg",
+    "relation": "architect",
+    "sim": 83.33333333333334,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q13581128",
+    "lang": "bn",
+    "label": "গ্রোভ স্ট্রিট গেমস",
+    "en": "Grove Street Games",
+    "relation": "developer",
+    "sim": 81.4814814814815,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q447073",
+    "lang": "id",
+    "label": "Kaori Ekuni",
+    "en": "Kaori Ekuni",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q715993",
+    "lang": "id",
+    "label": "Jien",
+    "en": "Jien",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q85469645",
+    "lang": "ru",
+    "label": "Алан Роберт Лейси",
+    "en": "Alan Robert Lacey",
+    "relation": "author",
+    "sim": 90.32258064516128,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q59694166",
+    "lang": "sw",
+    "label": "Philippe Gagnon",
+    "en": "Philippe Gagnon",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q188492",
+    "lang": "bn",
+    "label": "সেথ ম্যাকফারলেন",
+    "en": "Seth MacFarlane",
+    "relation": "creator",
+    "sim": 72.72727272727273,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q558995",
+    "lang": "bn",
+    "label": "এলিয়া মিলোসেভিচ",
+    "en": "Elia Millosevich",
+    "relation": "discoverer or inventor",
+    "sim": 76.47058823529412,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1857293",
+    "lang": "bn",
+    "label": "পন্টিফিক্যাল ক্যাথলিক ইউনিভার্সিটি অফ রিও ডি জেনিরো",
+    "en": "Pontifical Catholic University of Rio de Janeiro",
+    "relation": "educated at",
+    "sim": 67.6923076923077,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q89027",
+    "lang": "zh",
+    "label": "格奥尔格·安东·古姆普",
+    "en": "Georg Anton Gumpp",
+    "relation": "architect",
+    "sim": 66.66666666666667,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1278904",
+    "lang": "bn",
+    "label": "নাইজেল নিল",
+    "en": "Nigel Kneale",
+    "relation": "creator",
+    "sim": 76.92307692307692,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q106005",
+    "lang": "sw",
+    "label": "Hossein Sabet",
+    "en": "Hossein Sabet",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5314318",
+    "lang": "id",
+    "label": "Duncan Coutts",
+    "en": "Duncan Coutts",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1152391",
+    "lang": "sw",
+    "label": "Chuo Kikuu cha Ochanomizu",
+    "en": "Ochanomizu University",
+    "relation": "educated at",
+    "sim": 64.51612903225806,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q16059926",
+    "lang": "ja",
+    "label": "イグナティウス・スコールズ",
+    "en": "Ignatius Scoles",
+    "relation": "architect",
+    "sim": 71.42857142857143,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q954877",
+    "lang": "de",
+    "label": "SETA Corporation",
+    "en": "SETA Corporation",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q5669389",
+    "lang": "bn",
+    "label": "হ্যারি হেকে",
+    "en": "Harry Hake",
+    "relation": "architect",
+    "sim": 76.92307692307692,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q14888",
+    "lang": "bn",
+    "label": "আহাউস",
+    "en": "Ahaus",
+    "relation": "place of death",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2527329",
+    "lang": "sw",
+    "label": "Pangea Software",
+    "en": "Pangea Software",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q5682596",
+    "lang": "ja",
+    "label": "フランソワ・ブリュネ・ド・ベーン",
+    "en": "François Brunet de Baines",
+    "relation": "architect",
+    "sim": 75.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3431189",
+    "lang": "sw",
+    "label": "Richard Sale",
+    "en": "Richard Sale",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q3852558",
+    "lang": "sw",
+    "label": "Maurizio Colombo",
+    "en": "Maurizio Colombo",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1337925",
+    "lang": "id",
+    "label": "Larry Cohen",
+    "en": "Larry Cohen",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q18857350",
+    "lang": "ru",
+    "label": "Джеймс МакМаллен Ригг",
+    "en": "James McMullen Rigg",
+    "relation": "author",
+    "sim": 80.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1602947",
+    "lang": "ja",
+    "label": "サン＝ヴァリエ",
+    "en": "Saint-Vallier",
+    "relation": "place of death",
+    "sim": 76.92307692307692,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q7184227",
+    "lang": "ru",
+    "label": "Филип Поуэлл",
+    "en": "Philip Powell",
+    "relation": "architect",
+    "sim": 86.95652173913044,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2450920",
+    "lang": "id",
+    "label": "Gustave Strauven",
+    "en": "Gustave Strauven",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2706709",
+    "lang": "ar",
+    "label": "هاند",
+    "en": "h.a.n.d.",
+    "relation": "developer",
+    "sim": 66.66666666666667,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q21468905",
+    "lang": "ar",
+    "label": "روبرت لي",
+    "en": "Robert Lee",
+    "relation": "director",
+    "sim": 85.71428571428572,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q328728",
+    "lang": "sw",
+    "label": "Robert Stephenson",
+    "en": "Robert Stephenson",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q2127063",
+    "lang": "id",
+    "label": "Rafal Zieliński",
+    "en": "Rafal Zielinski",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q6660151",
+    "lang": "fr",
+    "label": "Liz Gateley",
+    "en": "Liz Gateley",
+    "relation": "creator",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q105917",
+    "lang": "ar",
+    "label": "يوهان غوتفريد بورينغ",
+    "en": "Johann Gottfried Büring",
+    "relation": "architect",
+    "sim": 74.28571428571429,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q51189441",
+    "lang": "id",
+    "label": "Claude H. Lindsley",
+    "en": "Claude H. Lindsley",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q215596",
+    "lang": "bn",
+    "label": "ওস্কার ক Kaufmann",
+    "en": "Oskar Kaufmann",
+    "relation": "architect",
+    "sim": 90.3225806451613,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q164765",
+    "lang": "sw",
+    "label": "Alexander Blok",
+    "en": "Alexander Blok",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q887818",
+    "lang": "zh",
+    "label": "鲍勃·博伊尔",
+    "en": "Bob Boyle",
+    "relation": "creator",
+    "sim": 66.66666666666667,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q652149",
+    "lang": "pt",
+    "label": "Anees Bazmee",
+    "en": "Anees Bazmee",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q679049",
+    "lang": "bn",
+    "label": "ভিটোরিও গ্রেগোত্তি",
+    "en": "Vittorio Gregotti",
+    "relation": "architect",
+    "sim": 96.96969696969697,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q2822452",
+    "lang": "bn",
+    "label": "রয়েল একাডেমি অফ আর্টস অফ লিজে",
+    "en": "Royal Academy of Arts of Liège",
+    "relation": "educated at",
+    "sim": 66.66666666666667,
+    "n_facts": 3
+   },
+   {
+    "qid": "Q1045037",
+    "lang": "pt",
+    "label": "AliceSoft",
+    "en": "AliceSoft",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q2375623",
+    "lang": "zh",
+    "label": "Synapse Software",
+    "en": "Synapse Software",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1278253",
+    "lang": "bn",
+    "label": "ইস্টার্ন ওয়াশিংটন বিশ্ববিদ্যালয়",
+    "en": "Eastern Washington University",
+    "relation": "educated at",
+    "sim": 60.46511627906976,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1741288",
+    "lang": "ar",
+    "label": "كيلان ريدشوف",
+    "en": "Kilian Riedhof",
+    "relation": "director",
+    "sim": 80.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q77041021",
+    "lang": "bn",
+    "label": "ম্যাক্স বারবাকো",
+    "en": "Max Barbakow",
+    "relation": "director",
+    "sim": 72.72727272727273,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q768263",
+    "lang": "bn",
+    "label": "কেনজো মাসাওকা",
+    "en": "Kenzō Masaoka",
+    "relation": "director",
+    "sim": 85.71428571428572,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q2660091",
+    "lang": "bn",
+    "label": "গ্রিপস্টোন গেমস",
+    "en": "Griptonite Games",
+    "relation": "developer",
+    "sim": 85.71428571428572,
+    "n_facts": 6
+   },
+   {
+    "qid": "Q61352032",
+    "lang": "de",
+    "label": "Clarence H. Russell",
+    "en": "Clarence H. Russell",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q231019",
+    "lang": "bn",
+    "label": "আগ্নিয়েশকা হল্যান্ড",
+    "en": "Agnieszka Holland",
+    "relation": "director",
+    "sim": 72.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1260345",
+    "lang": "ar",
+    "label": "درور شاؤول",
+    "en": "Dror Shaul",
+    "relation": "director",
+    "sim": 77.77777777777779,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q727883",
+    "lang": "sw",
+    "label": "NetApp",
+    "en": "NetApp",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q1603744",
+    "lang": "sw",
+    "label": "Horst Gerson",
+    "en": "Horst Gerson",
+    "relation": "author",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7349874",
+    "lang": "id",
+    "label": "Robert Smith",
+    "en": "Robert Smith",
+    "relation": "architect",
+    "sim": 100.0,
+    "n_facts": 2
+   },
+   {
+    "qid": "Q6631232",
+    "lang": "id",
+    "label": "Wych Kaosayananda",
+    "en": "Wych Kaosayananda",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q156731",
+    "lang": "sw",
+    "label": "Claes Oldenburg",
+    "en": "Claes Oldenburg",
+    "relation": "creator",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q7338225",
+    "lang": "id",
+    "label": "Riverhillsoft",
+    "en": "Riverhillsoft",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q508248",
+    "lang": "id",
+    "label": "Andrew V. McLaglen",
+    "en": "Andrew V. McLaglen",
+    "relation": "director",
+    "sim": 100.0,
+    "n_facts": 4
+   },
+   {
+    "qid": "Q2108911",
+    "lang": "ar",
+    "label": "دولف فان جندت",
+    "en": "Dolf van Gendt",
+    "relation": "architect",
+    "sim": 78.26086956521739,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q61793216",
+    "lang": "es",
+    "label": "Tribanda",
+    "en": "Triband",
+    "relation": "developer",
+    "sim": 100.0,
+    "n_facts": 1
+   },
+   {
+    "qid": "Q51988",
+    "lang": "bn",
+    "label": "রিচার্ড লুকায়ে",
+    "en": "Richard Lucae",
+    "relation": "architect",
+    "sim": 76.92307692307692,
+    "n_facts": 2
+   }
+  ]
+ },
+ "by_lang": {
+  "translit": {
+   "id": 8781,
+   "sw": 11624,
+   "bn": 11125,
+   "de": 783,
+   "pt": 3017,
+   "ar": 4437,
+   "es": 787,
+   "ru": 2775,
+   "ja": 2991,
+   "zh": 1631,
+   "fr": 236,
+   "en": 14
+  },
+  "semantic": {
+   "bn": 1413,
+   "id": 178,
+   "ar": 1788,
+   "es": 50,
+   "zh": 1955,
+   "sw": 1436,
+   "de": 24,
+   "ja": 657,
+   "ru": 128,
+   "pt": 67,
+   "fr": 6
+  }
+ },
+ "by_relation": {
+  "translit": {
+   "educated at": 4240,
+   "architect": 12737,
+   "manufacturer": 3018,
+   "discoverer or inventor": 1375,
+   "place of death": 3745,
+   "director": 11589,
+   "developer": 5056,
+   "official language": 155,
+   "creator": 3218,
+   "author": 2895,
+   "country of citizenship": 82,
+   "language of work or name": 52,
+   "country": 26,
+   "continent": 13
+  },
+  "semantic": {
+   "educated at": 2631,
+   "manufacturer": 709,
+   "developer": 787,
+   "architect": 1662,
+   "country of citizenship": 58,
+   "discoverer or inventor": 169,
+   "author": 181,
+   "director": 680,
+   "place of death": 402,
+   "creator": 301,
+   "official language": 57,
+   "language of work or name": 42,
+   "country": 21,
+   "continent": 2
+  }
+ }
+}

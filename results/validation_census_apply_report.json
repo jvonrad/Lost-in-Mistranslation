@@ -1,0 +1,1067 @@
+{
+  "verdict_counts": {
+    "de:ok": 430,
+    "de:subject": 12,
+    "de:type": 2,
+    "id:ok": 435,
+    "id:subject": 6,
+    "id:relation": 1,
+    "id:unsure": 1,
+    "id:type": 1,
+    "pt:ok": 434,
+    "pt:subject": 3,
+    "pt:type": 5,
+    "pt:relation": 2,
+    "ar:ok": 416,
+    "ar:type": 16,
+    "ar:subject": 10,
+    "ar:relation": 1,
+    "ar:unsure": 1,
+    "bn:ok": 430,
+    "bn:unsure": 2,
+    "bn:relation": 4,
+    "bn:subject": 5,
+    "bn:type": 3,
+    "sw:ok": 417,
+    "sw:subject": 4,
+    "sw:type": 20,
+    "sw:unsure": 1,
+    "sw:relation": 2,
+    "es:ok": 425,
+    "es:subject": 9,
+    "es:unsure": 7,
+    "es:relation": 1,
+    "es:type": 2,
+    "ru:ok": 419,
+    "ru:type": 6,
+    "ru:subject": 13,
+    "ru:relation": 3,
+    "ru:unsure": 3,
+    "fr:ok": 427,
+    "fr:subject": 5,
+    "fr:type": 4,
+    "fr:unsure": 7,
+    "fr:relation": 1,
+    "ja:ok": 426,
+    "ja:type": 12,
+    "ja:subject": 5,
+    "ja:unsure": 1,
+    "zh:ok": 423,
+    "zh:subject": 8,
+    "zh:type": 8,
+    "zh:unsure": 4,
+    "zh:relation": 1,
+    "en:ok": 431,
+    "en:conflict": 9,
+    "en:vague": 3,
+    "en:unsure": 1
+  },
+  "effective_english_conflicts": 9,
+  "english_conflicts": [
+    "Q1057697|P57|Q697834",
+    "Q1166556|P57|Q30876",
+    "Q2255224|P170|Q301",
+    "Q2530979|P178|Q2300984",
+    "Q3232426|P57|Q314882",
+    "Q3641710|P407|Q652",
+    "Q369659|P407|Q150",
+    "Q586782|P57|Q983092",
+    "Q602121|P57|Q55392"
+  ],
+  "english_adjudication": [
+    {
+      "fact_id": "Q369659|P407|Q150",
+      "action": "question_wrong",
+      "corrected_question": "In what language did Debussy write his unfinished opera 'La chute de la maison Usher'?",
+      "note": "Confirmed via web search: Q369659 is Debussy's unfinished one-act opera (his own libretto, based on Poe's 1839 story but a distinct French-language musical work composed 1908-1917), not Poe's original English short story. The gold answer French is correct for the opera; the question's 'short story' framing pulls the reader toward Poe's English original. Fix: name the actual medium (Debussy's opera) instead of 'short story'."
+    },
+    {
+      "fact_id": "Q2255224|P170|Q301",
+      "action": "question_wrong",
+      "corrected_question": "Who is credited with creating the painting of Laocoön housed at the National Gallery of Art?",
+      "note": "Confirmed via web search: El Greco's Laocoön (c. 1610-1614, National Gallery of Art, Washington) is an oil painting, not the ancient marble sculpture (Laocoon and His Sons, by Agesander/Athenodoros/Polydorus). Gold El Greco is correct for the painting; the question's word 'sculpture' names the wrong medium/wrong real-world artwork. Fix: say 'painting' instead of 'sculpture'."
+    },
+    {
+      "fact_id": "Q1166556|P57|Q30876",
+      "action": "question_wrong",
+      "corrected_question": "Who directed the 1993 film Darr?",
+      "note": "Confirmed via web search: the Yash Chopra film Darr (starring Shah Rukh Khan, Sunny Deol, Juhi Chawla) was released 24 December 1993, not 1979. Gold Yash Chopra is correct; only the year in the question is wrong. Fix: correct 1979 to 1993 (needed to disambiguate from other films titled Darr, e.g. 1974)."
+    },
+    {
+      "fact_id": "Q586782|P57|Q983092",
+      "action": "question_wrong",
+      "corrected_question": "Who directed the 1952 film April in Paris?",
+      "note": "Confirmed via web search: the David Butler/Doris Day/Ray Bolger musical April in Paris was released December 24, 1952, not 1953. Gold David Butler is correct; only the year is wrong. Fix: correct 1953 to 1952."
+    },
+    {
+      "fact_id": "Q602121|P57|Q55392",
+      "action": "question_wrong",
+      "corrected_question": "Who directed the 1984 film Crackers?",
+      "note": "Confirmed via web search: the Louis Malle/Donald Sutherland comedy Crackers (a remake of Big Deal on Madonna Street) was released February 17, 1984, not 1977. Gold Louis Malle is correct; only the year is wrong. Fix: correct 1977 to 1984."
+    },
+    {
+      "fact_id": "Q3641710|P407|Q652",
+      "action": "question_wrong",
+      "corrected_question": "In what language is Cristiano Malgioglio's 2006 album Boleros recorded?",
+      "note": "Confirmed via web search: Wikidata Q3641710 is a 2006 studio album by Italian singer-songwriter Cristiano Malgioglio (a covers set of Cuban bolero standards), released on the Italian label MBO -- a specific Italian-language work, matching gold Italian. The current question's generic phrasing ('Boleros are often written in what language') invokes the Spanish-language bolero song genre in general, which would mislead a reader toward Spanish. Fix: name the specific work (the Malgioglio album) instead of the generic genre."
+    },
+    {
+      "fact_id": "Q2530979|P178|Q2300984",
+      "action": "question_wrong",
+      "corrected_question": "Which company developed the 1997 Superman video game for the Game Boy?",
+      "note": "Confirmed via web search: the 1988 NES Superman was developed by Kotobuki System / published by Kemco, while the separate 1997 Game Boy Superman was developed by Titus (Titus Interactive). Gold Titus Interactive is correct only for the Game Boy version; the question wrongly conflates both platforms into 'the Superman video game for the NES and Game Boy' as if it were one game. Fix: restrict the question to the Game Boy version only."
+    },
+    {
+      "fact_id": "Q3232426|P57|Q314882",
+      "action": "question_wrong",
+      "corrected_question": "Who directed the 1948 film Woman Hater?",
+      "note": "Confirmed via web search: the Terence Young/Stewart Granger/Edwige Feuillere British comedy Woman Hater was released 13 October 1948, not 1964. Gold Terence Young is correct; only the year is wrong. Fix: correct 1964 to 1948."
+    },
+    {
+      "fact_id": "Q1057697|P57|Q697834",
+      "action": "question_wrong",
+      "corrected_question": "Who directed the 1965 film Slalom?",
+      "note": "Confirmed via web search (including the Wikidata entry Q1057697 itself, which is the 1965 film): the Luciano Salce/Vittorio Gassman Italian comedy Slalom was released 24 September 1965, not 1963. Gold Luciano Salce is correct; only the year is wrong. Fix: correct 1963 to 1965."
+    }
+  ],
+  "translation_adjudication": [],
+  "proposed": 184,
+  "accepted": [
+    {
+      "fact_id": "Q1011270|P37|Q256",
+      "lang": "ar",
+      "question": "ما هي اللغة الرسمية في هندك (سقارية)؟"
+    },
+    {
+      "fact_id": "Q1036092|P176|Q805116",
+      "lang": "ar",
+      "question": "من هي الشركة المصنعة لكاميرا هايرايز؟"
+    },
+    {
+      "fact_id": "Q105480642|P178|Q312",
+      "lang": "ar",
+      "question": "من هو مطور تقنية روزيتا 2؟"
+    },
+    {
+      "fact_id": "Q1057697|P57|Q697834",
+      "lang": "en",
+      "question": "Who directed the 1965 film Slalom?"
+    },
+    {
+      "fact_id": "Q1070553|P407|Q1860",
+      "lang": "es",
+      "question": "En qué idioma está escrita originalmente la obra o el nombre 'Speak'?"
+    },
+    {
+      "fact_id": "Q1073160|P407|Q1860",
+      "lang": "ar",
+      "question": "ما هي لغة العمل أو لغة الاسم لكتاب Nightmares & Dreamscapes لستيفن كينغ؟"
+    },
+    {
+      "fact_id": "Q1073160|P407|Q1860",
+      "lang": "de",
+      "question": "In welcher Sprache wurde Stephen Kings 'Nightmares & Dreamscapes' ursprünglich verfasst?"
+    },
+    {
+      "fact_id": "Q1073160|P407|Q1860",
+      "lang": "es",
+      "question": "En qué idioma se escribió originalmente la obra 'Pesadillas y alucinaciones' de Stephen King?"
+    },
+    {
+      "fact_id": "Q1073160|P407|Q1860",
+      "lang": "fr",
+      "question": "Dans quelle langue a été écrite à l'origine l'œuvre « Nightmares & Dreamscapes » de Stephen King ?"
+    },
+    {
+      "fact_id": "Q1096741|P407|Q9067",
+      "lang": "sw",
+      "question": "Imák és mantrák ziliandikwa kwa lugha gani?"
+    },
+    {
+      "fact_id": "Q1134427|P176|Q2615597",
+      "lang": "ru",
+      "question": "Кто был производителем подводной лодки USS Alligator?"
+    },
+    {
+      "fact_id": "Q1166556|P57|Q30876",
+      "lang": "en",
+      "question": "Who directed the 1993 film Darr?"
+    },
+    {
+      "fact_id": "Q116962318|P170|Q191748",
+      "lang": "es",
+      "question": "Según la información, ¿quién es el creador de la pintura de San Cristóbal que se encuentra actualmente en el Germanisches Nationalmuseum?"
+    },
+    {
+      "fact_id": "Q1183333|P17|Q183",
+      "lang": "ja",
+      "question": "ディーンスター・ミューレンバッハはどの国にありますか？"
+    },
+    {
+      "fact_id": "Q11863164|P407|Q1860",
+      "lang": "bn",
+      "question": "বিফোর ইডেনের রচনার বা নামের ভাষা কোনটি?"
+    },
+    {
+      "fact_id": "Q11863164|P407|Q1860",
+      "lang": "sw",
+      "question": "Before Eden iliandikwa kwa lugha gani?"
+    },
+    {
+      "fact_id": "Q1188430|P176|Q15180",
+      "lang": "de",
+      "question": "Welches Land war der Hersteller der Rakete Kh-59 Ovod?"
+    },
+    {
+      "fact_id": "Q1188430|P176|Q15180",
+      "lang": "zh",
+      "question": "Kh-59 Ovod导弹是由哪个国家制造的？"
+    },
+    {
+      "fact_id": "Q122365412|P178|Q2597910",
+      "lang": "de",
+      "question": "Welches Studio entwickelte das Spiel 'Anime Studio Story'?"
+    },
+    {
+      "fact_id": "Q122365412|P178|Q2597910",
+      "lang": "id",
+      "question": "Siapakah pengembang dari game Anime Studio Story?"
+    },
+    {
+      "fact_id": "Q122365412|P178|Q2597910",
+      "lang": "sw",
+      "question": "Ni kampuni gani iliyochangia katika utengenezaji wa mchezo wa Anime Studio Story?"
+    },
+    {
+      "fact_id": "Q122365412|P178|Q2597910",
+      "lang": "zh",
+      "question": "《动画工作室物语》是由哪个工作室开发的？"
+    },
+    {
+      "fact_id": "Q123698969|P178|Q3504740",
+      "lang": "ja",
+      "question": "ゲーム『キャスティング・オブ・フランク・ストーン』の開発元はどこですか？"
+    },
+    {
+      "fact_id": "Q123698969|P178|Q3504740",
+      "lang": "sw",
+      "question": "Ni kampuni gani iliyochangia katika utengenezaji wa mchezo wa The Casting of Frank Stone?"
+    },
+    {
+      "fact_id": "Q123698969|P178|Q3504740",
+      "lang": "zh",
+      "question": "《弗兰克·斯通的阴影》是由哪个游戏开发商开发的？"
+    },
+    {
+      "fact_id": "Q1514066|P20|Q1022",
+      "lang": "de",
+      "question": "Wo starb German von Bohn?"
+    },
+    {
+      "fact_id": "Q1537255|P30|Q46",
+      "lang": "es",
+      "question": "En qué continente nació Louis Blanc?"
+    },
+    {
+      "fact_id": "Q1537255|P30|Q46",
+      "lang": "ja",
+      "question": "ルイ・ブランはどの大陸で生まれましたか？"
+    },
+    {
+      "fact_id": "Q1537255|P30|Q46",
+      "lang": "zh",
+      "question": "路易·布朗出生于哪个大洲？"
+    },
+    {
+      "fact_id": "Q1605597|P30|Q46",
+      "lang": "ar",
+      "question": "في أي قارة تقع لورا دي إستيبا؟"
+    },
+    {
+      "fact_id": "Q16642856|P84|Q568839",
+      "lang": "ar",
+      "question": "من هو المهندس المعماري لأوتيل ديستريه؟"
+    },
+    {
+      "fact_id": "Q16975665|P57|Q4027339",
+      "lang": "pt",
+      "question": "Quem é o realizador do documentário 'The Famous Paparazzo'?"
+    },
+    {
+      "fact_id": "Q16975665|P57|Q4027339",
+      "lang": "ru",
+      "question": "Кто является режиссёром фильма «Знаменитый папарацци»?"
+    },
+    {
+      "fact_id": "Q16975665|P57|Q4027339",
+      "lang": "sw",
+      "question": "Nani alikuwa mwandaaji wa maudhui wa filamu ya nyaraka The Famous Paparazzo?"
+    },
+    {
+      "fact_id": "Q1724973|P57|Q1569097",
+      "lang": "zh",
+      "question": "电影《无情的爱人》的导演是谁？"
+    },
+    {
+      "fact_id": "Q17329371|P407|Q1860",
+      "lang": "ar",
+      "question": "ما هي لغة العمل أو لغة الاسم لمسرحية Wanted on Voyage؟"
+    },
+    {
+      "fact_id": "Q17329371|P407|Q1860",
+      "lang": "bn",
+      "question": "ওয়ান্টেড অন ভয়েজ নাটকটি কোন ভাষায় রচিত?"
+    },
+    {
+      "fact_id": "Q17329371|P407|Q1860",
+      "lang": "id",
+      "question": "Dalam drama 'Wanted on Voyage', bahasa apa yang digunakan?"
+    },
+    {
+      "fact_id": "Q17329371|P407|Q1860",
+      "lang": "pt",
+      "question": "Em que língua foi originalmente escrita a peça 'Wanted on Voyage'?"
+    },
+    {
+      "fact_id": "Q17497450|P57|Q11451649",
+      "lang": "ru",
+      "question": "Кто является режиссёром фильма «Проклятие: Девочка в чёрном»?"
+    },
+    {
+      "fact_id": "Q1769069|P30|Q46",
+      "lang": "ar",
+      "question": "في أي قارة تقع بييدراهيتا دي كاسترو؟"
+    },
+    {
+      "fact_id": "Q1769981|P37|Q7026",
+      "lang": "pt",
+      "question": "Qual é a língua oficial de Eslida?"
+    },
+    {
+      "fact_id": "Q1769981|P37|Q7026",
+      "lang": "sw",
+      "question": "Lugha rasmi ya Eslida ni ipi?"
+    },
+    {
+      "fact_id": "Q1818215|P17|Q213",
+      "lang": "ja",
+      "question": "ラチボールはどの国にありますか？"
+    },
+    {
+      "fact_id": "Q181830|P37|Q7918",
+      "lang": "es",
+      "question": "En Shumen, ¿cuál es el idioma oficial?"
+    },
+    {
+      "fact_id": "Q18602|P84|Q212487",
+      "lang": "de",
+      "question": "Wer ist der Architekt von 22 Bishopsgate?"
+    },
+    {
+      "fact_id": "Q18602|P84|Q212487",
+      "lang": "fr",
+      "question": "Qui est l'architecte du 22 Bishopsgate ?"
+    },
+    {
+      "fact_id": "Q18614223|P50|Q285048",
+      "lang": "ar",
+      "question": "من هو مؤلف شريط xkcd الهزلي Road Rage؟"
+    },
+    {
+      "fact_id": "Q18614223|P50|Q285048",
+      "lang": "de",
+      "question": "Wer ist der Autor des xkcd-Comics, der den Begriff 'road rage' in einem wissenschaftlichen Kontext bekannt machte?"
+    },
+    {
+      "fact_id": "Q18614453|P50|Q285048",
+      "lang": "ar",
+      "question": "من هو مؤلف شريط xkcd الهزلي So Bad It's Worse؟"
+    },
+    {
+      "fact_id": "Q18763236|P61|Q446449",
+      "lang": "de",
+      "question": "Wer entdeckte oder erfand 10707 Prunariu?"
+    },
+    {
+      "fact_id": "Q1887806|P17|Q45",
+      "lang": "ru",
+      "question": "Малта является фрегезией в каком государстве?"
+    },
+    {
+      "fact_id": "Q1887806|P17|Q45",
+      "lang": "zh",
+      "question": "马尔塔（孔迪镇）位于哪个国家？"
+    },
+    {
+      "fact_id": "Q18885479|P57|Q3299768",
+      "lang": "ja",
+      "question": "映画『マスク・フー・フェル・トゥ・アース』の監督は誰ですか？"
+    },
+    {
+      "fact_id": "Q18885479|P57|Q3299768",
+      "lang": "ru",
+      "question": "Кто является режиссёром эпизода «Маск, который упал на Землю»?"
+    },
+    {
+      "fact_id": "Q18931|P17|Q224",
+      "lang": "ja",
+      "question": "マリ・コジナツはどの国にありますか？"
+    },
+    {
+      "fact_id": "Q18931|P17|Q224",
+      "lang": "zh",
+      "question": "马利·科济纳茨位于哪个国家？"
+    },
+    {
+      "fact_id": "Q1999658|P170|Q835",
+      "lang": "ja",
+      "question": "登場人物マルガリータの作者は誰ですか？"
+    },
+    {
+      "fact_id": "Q2015768|P37|Q8785",
+      "lang": "ja",
+      "question": "ソラックの公用語は何ですか？"
+    },
+    {
+      "fact_id": "Q2015768|P37|Q8785",
+      "lang": "sw",
+      "question": "Lugha rasmi ya Solak ni ipi?"
+    },
+    {
+      "fact_id": "Q2015768|P37|Q8785",
+      "lang": "zh",
+      "question": "索拉克的官方语言是什么？"
+    },
+    {
+      "fact_id": "Q2033966|P17|Q145",
+      "lang": "pt",
+      "question": "Em qual país está sediada a BBC Arabic?"
+    },
+    {
+      "fact_id": "Q2039233|P69|Q50662",
+      "lang": "ru",
+      "question": "В каком университете учился Отто Хольцапфель?"
+    },
+    {
+      "fact_id": "Q2056949|P17|Q218",
+      "lang": "de",
+      "question": "In welchem Staat befindet sich die U-Bahn-Linie M1 der Bukarester Metro?"
+    },
+    {
+      "fact_id": "Q20671331|P50|Q285048",
+      "lang": "ar",
+      "question": "من هو مؤلف شريط xkcd الهزلي Words for Pets؟"
+    },
+    {
+      "fact_id": "Q20671331|P50|Q285048",
+      "lang": "de",
+      "question": "Wer ist der Autor des Webcomics xkcd, das oft humorvolle und informative Inhalte bietet, darunter eine Serie über das Benennen von Haustieren?"
+    },
+    {
+      "fact_id": "Q20671331|P50|Q285048",
+      "lang": "ru",
+      "question": "Кто является автором веб-комикса xkcd?"
+    },
+    {
+      "fact_id": "Q2095705|P50|Q33977",
+      "lang": "ar",
+      "question": "من هو مؤلف رواية بورس دو فوياج؟"
+    },
+    {
+      "fact_id": "Q2095705|P50|Q33977",
+      "lang": "fr",
+      "question": "Qui est l'auteur du roman 'Bourses de voyage' ?"
+    },
+    {
+      "fact_id": "Q2095705|P50|Q33977",
+      "lang": "id",
+      "question": "Siapakah penulis novel 'Bourses de voyage'?"
+    },
+    {
+      "fact_id": "Q2095705|P50|Q33977",
+      "lang": "ru",
+      "question": "Кто является автором книги «Юные путешественники»?"
+    },
+    {
+      "fact_id": "Q2095705|P50|Q33977",
+      "lang": "zh",
+      "question": "《旅行基金》的作者是谁？"
+    },
+    {
+      "fact_id": "Q20972651|P57|Q13047608",
+      "lang": "ru",
+      "question": "Кто является режиссёром фильма «Бабай»?"
+    },
+    {
+      "fact_id": "Q211093|P17|Q142",
+      "lang": "ar",
+      "question": "في أي بلد يقع غلون؟"
+    },
+    {
+      "fact_id": "Q212221|P17|Q38",
+      "lang": "ar",
+      "question": "في أي بلد يقع نهر أغونيا؟"
+    },
+    {
+      "fact_id": "Q212221|P17|Q38",
+      "lang": "bn",
+      "question": "আগোগনা কোন দেশে অবস্থিত?"
+    },
+    {
+      "fact_id": "Q2123948|P176|Q623503",
+      "lang": "zh",
+      "question": "R33级飞艇是由哪个公司制造的？"
+    },
+    {
+      "fact_id": "Q21510029|P407|Q188",
+      "lang": "fr",
+      "question": "Dans quelle langue Karl Landsteiner a-t-il principalement travaillé et publié ses recherches ?"
+    },
+    {
+      "fact_id": "Q2206215|P176|Q2832095",
+      "lang": "bn",
+      "question": "সিক্রাল ১বি উপগ্রহের প্রস্তুতকারক কে?"
+    },
+    {
+      "fact_id": "Q220|P37|Q652",
+      "lang": "es",
+      "question": "En Roma, ¿cuál es el idioma oficial?"
+    },
+    {
+      "fact_id": "Q2255224|P170|Q301",
+      "lang": "en",
+      "question": "Who is credited with creating the painting of Laocoön housed at the National Gallery of Art?"
+    },
+    {
+      "fact_id": "Q2264974|P37|Q256",
+      "lang": "pt",
+      "question": "Qual é a língua oficial do distrito de Şırnak?"
+    },
+    {
+      "fact_id": "Q2293119|P178|Q122741",
+      "lang": "zh",
+      "question": "《Alex Kidd：高科技世界》是由哪个公司开发的？"
+    },
+    {
+      "fact_id": "Q24283890|P170|Q505150",
+      "lang": "sw",
+      "question": "Nani aliyebuni mchoro wa The Idle Servant?"
+    },
+    {
+      "fact_id": "Q2530979|P178|Q2300984",
+      "lang": "en",
+      "question": "Which company developed the 1997 Superman video game for the Game Boy?"
+    },
+    {
+      "fact_id": "Q2582536|P84|Q312838",
+      "lang": "es",
+      "question": "Según la información disponible, ¿quién fue el arquitecto de la Cidade das Artes Bibi Ferreira?"
+    },
+    {
+      "fact_id": "Q2631207|P37|Q8785",
+      "lang": "ja",
+      "question": "パルチザークの公用語は何ですか？"
+    },
+    {
+      "fact_id": "Q2631207|P37|Q8785",
+      "lang": "sw",
+      "question": "Lugha rasmi ya Partizak ni ipi?"
+    },
+    {
+      "fact_id": "Q2631207|P37|Q8785",
+      "lang": "zh",
+      "question": "帕尔蒂扎克的官方语言是什么？"
+    },
+    {
+      "fact_id": "Q26447649|P407|Q5287",
+      "lang": "ja",
+      "question": "埴輪の作品又は名前の言語は何ですか？"
+    },
+    {
+      "fact_id": "Q26447649|P407|Q5287",
+      "lang": "sw",
+      "question": "Lugha ya kazi au jina la Haniwa ni ipi?"
+    },
+    {
+      "fact_id": "Q27167202|P407|Q5287",
+      "lang": "id",
+      "question": "Bahasa apa yang digunakan oleh Oina?"
+    },
+    {
+      "fact_id": "Q27167202|P407|Q5287",
+      "lang": "ja",
+      "question": "オイナの作品又は名前は、通常どの言語で記述されますか？"
+    },
+    {
+      "fact_id": "Q27167202|P407|Q5287",
+      "lang": "sw",
+      "question": "Lugha ya kazi au jina la Oina ni ipi?"
+    },
+    {
+      "fact_id": "Q2798732|P57|Q1589304",
+      "lang": "ar",
+      "question": "من هو مُخرِج فيلم The Evidence of the Film؟"
+    },
+    {
+      "fact_id": "Q2798732|P57|Q1589304",
+      "lang": "bn",
+      "question": "দ্য এভিডেন্স অফ দ্য ফিল্ম চলচ্চিত্রটি কে পরিচালনা করেছেন?"
+    },
+    {
+      "fact_id": "Q2798732|P57|Q1589304",
+      "lang": "es",
+      "question": "¿Quién dirigió la película 'The Evidence of the Film'?"
+    },
+    {
+      "fact_id": "Q2798732|P57|Q1589304",
+      "lang": "ru",
+      "question": "Кто является режиссёром фильма «Улика на киноплёнке»?"
+    },
+    {
+      "fact_id": "Q2798732|P57|Q1589304",
+      "lang": "zh",
+      "question": "电影《The Evidence of the Film》的导演是谁？"
+    },
+    {
+      "fact_id": "Q284964|P30|Q48",
+      "lang": "pt",
+      "question": "Em qual continente está localizado o Cao?"
+    },
+    {
+      "fact_id": "Q284964|P30|Q48",
+      "lang": "ru",
+      "question": "На каком континенте было расположено государство Цао?"
+    },
+    {
+      "fact_id": "Q284964|P30|Q48",
+      "lang": "sw",
+      "question": "Cao iko katika bara gani?"
+    },
+    {
+      "fact_id": "Q3014230|P57|Q2562608",
+      "lang": "ar",
+      "question": "من هو مُخرِج فيلم الفيل الأبيض؟"
+    },
+    {
+      "fact_id": "Q3018815|P170|Q34981",
+      "lang": "ar",
+      "question": "من هو صانع سلسلة لاكي ستار؟"
+    },
+    {
+      "fact_id": "Q315733|P17|Q928",
+      "lang": "ru",
+      "question": "Бадиан является муниципалитетом в каком государстве?"
+    },
+    {
+      "fact_id": "Q3207217|P50|Q233046",
+      "lang": "ru",
+      "question": "Кто является автором книги «Певица Перна»?"
+    },
+    {
+      "fact_id": "Q3232426|P57|Q314882",
+      "lang": "en",
+      "question": "Who directed the 1948 film Woman Hater?"
+    },
+    {
+      "fact_id": "Q3487409|P407|Q1860",
+      "lang": "de",
+      "question": "In welcher Sprache wurde der Roman 'The Empath' ursprünglich verfasst?"
+    },
+    {
+      "fact_id": "Q3487409|P407|Q1860",
+      "lang": "fr",
+      "question": "Dans quelle langue originale a été écrit le roman 'The Empath' ?"
+    },
+    {
+      "fact_id": "Q3487409|P407|Q1860",
+      "lang": "sw",
+      "question": "Riwaya ya The Empath iliandikwa kwa lugha gani mara ya kwanza?"
+    },
+    {
+      "fact_id": "Q3508025|P17|Q691",
+      "lang": "ar",
+      "question": "في أي بلد يتم التحدث بلغة أميلي؟"
+    },
+    {
+      "fact_id": "Q3508025|P17|Q691",
+      "lang": "de",
+      "question": "In welchem Land wird die Sprache Amele gesprochen?"
+    },
+    {
+      "fact_id": "Q3509955|P61|Q3814153",
+      "lang": "fr",
+      "question": "Par qui l'astéroïde (203823) Zdanavičius a-t-il été découvert ou inventé ?"
+    },
+    {
+      "fact_id": "Q3641710|P407|Q652",
+      "lang": "en",
+      "question": "In what language is Cristiano Malgioglio's 2006 album Boleros recorded?"
+    },
+    {
+      "fact_id": "Q369659|P407|Q150",
+      "lang": "en",
+      "question": "In what language did Debussy write his unfinished opera 'La chute de la maison Usher'?"
+    },
+    {
+      "fact_id": "Q390601|P37|Q652",
+      "lang": "sw",
+      "question": "Lugha rasmi ya Bottidda ni ipi?"
+    },
+    {
+      "fact_id": "Q405893|P37|Q7918",
+      "lang": "sw",
+      "question": "Lugha rasmi ya Klisura ni ipi?"
+    },
+    {
+      "fact_id": "Q4190055|P57|Q4458251",
+      "lang": "fr",
+      "question": "Par qui le film 'Hello, I'm Your Aunt!' a-t-il été réalisé ou mis en scène ?"
+    },
+    {
+      "fact_id": "Q4211667|P407|Q7737",
+      "lang": "pt",
+      "question": "Em qual língua foi originalmente escrita a obra 'Kamnem po golove'?"
+    },
+    {
+      "fact_id": "Q4211667|P407|Q7737",
+      "lang": "sw",
+      "question": "Kamnem po golove iliandikwa kwa lugha gani mara ya kwanza?"
+    },
+    {
+      "fact_id": "Q4385194|P176|Q2754053",
+      "lang": "ja",
+      "question": "駆逐艦若葉は、どこで製造されましたか？"
+    },
+    {
+      "fact_id": "Q44283|P178|Q312",
+      "lang": "ar",
+      "question": "من هو مطور ميزة سبوت لايت؟"
+    },
+    {
+      "fact_id": "Q465443|P27|Q153529",
+      "lang": "ru",
+      "question": "Какое гражданство имела Лючия Ангиссола?"
+    },
+    {
+      "fact_id": "Q495870|P20|Q884",
+      "lang": "ja",
+      "question": "オ・ユンギョはどこで亡くなりましたか？"
+    },
+    {
+      "fact_id": "Q495870|P20|Q884",
+      "lang": "zh",
+      "question": "吴连教在哪个国家去世？"
+    },
+    {
+      "fact_id": "Q5004179|P17|Q30",
+      "lang": "zh",
+      "question": "欧胡岛平等院位于哪个国家？"
+    },
+    {
+      "fact_id": "Q5615340|P27|Q928",
+      "lang": "id",
+      "question": "Apa kewarganegaraan Guia Gomez?"
+    },
+    {
+      "fact_id": "Q579563|P170|Q234314",
+      "lang": "zh",
+      "question": "《The Guild》的创作者是谁？"
+    },
+    {
+      "fact_id": "Q5829387|P37|Q9168",
+      "lang": "ja",
+      "question": "チャフヴァルズの公用語は何ですか？"
+    },
+    {
+      "fact_id": "Q5829387|P37|Q9168",
+      "lang": "sw",
+      "question": "Lugha rasmi ya Chahvarz ni ipi?"
+    },
+    {
+      "fact_id": "Q583623|P57|Q503767",
+      "lang": "sw",
+      "question": "Nani alikuwa mwandaaji wa maudhui wa filamu ya Burning Secret ya mwaka 1988?"
+    },
+    {
+      "fact_id": "Q586782|P57|Q983092",
+      "lang": "en",
+      "question": "Who directed the 1952 film April in Paris?"
+    },
+    {
+      "fact_id": "Q5968417|P407|Q1321",
+      "lang": "ar",
+      "question": "ما هي لغة العمل أو لغة الاسم لكتاب La vida contra la muerte؟"
+    },
+    {
+      "fact_id": "Q5968417|P407|Q1321",
+      "lang": "es",
+      "question": "En qué idioma fue escrita originalmente la obra 'La vida contra la muerte'?"
+    },
+    {
+      "fact_id": "Q5968417|P407|Q1321",
+      "lang": "sw",
+      "question": "La vida contra la muerte iliandikwa kwa lugha gani mara ya kwanza?"
+    },
+    {
+      "fact_id": "Q602121|P57|Q55392",
+      "lang": "en",
+      "question": "Who directed the 1984 film Crackers?"
+    },
+    {
+      "fact_id": "Q606806|P17|Q7318",
+      "lang": "pt",
+      "question": "Em qual país foi fundado o Rasse- und Siedlungshauptamt der SS?"
+    },
+    {
+      "fact_id": "Q609011|P84|Q3028170",
+      "lang": "sw",
+      "question": "Nani alikuwa mbunifu wa jengo la Kituo cha Uchunguzi cha Anga cha Kwanza cha Serbia?"
+    },
+    {
+      "fact_id": "Q63922|P37|Q150",
+      "lang": "bn",
+      "question": "ভার্নিয়ারের প্রাতিষ্ঠানিক ভাষা কী?"
+    },
+    {
+      "fact_id": "Q63922|P37|Q150",
+      "lang": "es",
+      "question": "En Vernier, ¿cuál es el idioma oficial?"
+    },
+    {
+      "fact_id": "Q6453491|P30|Q48",
+      "lang": "ar",
+      "question": "في أي قارة تقع إيماملار؟"
+    },
+    {
+      "fact_id": "Q6453491|P30|Q48",
+      "lang": "ru",
+      "question": "На каком континенте расположен Имамлар?"
+    },
+    {
+      "fact_id": "Q64752|P37|Q188",
+      "lang": "sw",
+      "question": "Lugha rasmi ya Aristau ni ipi?"
+    },
+    {
+      "fact_id": "Q652395|P17|Q408",
+      "lang": "ar",
+      "question": "في أي بلد يقع شير أوف ميتشل؟"
+    },
+    {
+      "fact_id": "Q669347|P84|Q4339271",
+      "lang": "ru",
+      "question": "Кто является архитектором стадиона «Динамо» имени Валерия Лобановского?"
+    },
+    {
+      "fact_id": "Q681153|P37|Q150",
+      "lang": "bn",
+      "question": "ব্রেইভসের প্রাতিষ্ঠানিক ভাষা কোনটি?"
+    },
+    {
+      "fact_id": "Q687211|P37|Q1412",
+      "lang": "bn",
+      "question": "কন্নেভেসির প্রাতিষ্ঠানিক ভাষা কী?"
+    },
+    {
+      "fact_id": "Q6922099|P30|Q51",
+      "lang": "es",
+      "question": "En qué continente se encuentra el Monte McElroy?"
+    },
+    {
+      "fact_id": "Q6922099|P30|Q51",
+      "lang": "fr",
+      "question": "Sur quel continent se trouve Mount McElroy ?"
+    },
+    {
+      "fact_id": "Q6922099|P30|Q51",
+      "lang": "pt",
+      "question": "Em qual continente está localizado o Monte McElroy?"
+    },
+    {
+      "fact_id": "Q696823|P17|Q142",
+      "lang": "ru",
+      "question": "В какой стране произошла битва за Кан?"
+    },
+    {
+      "fact_id": "Q716153|P61|Q457312",
+      "lang": "ar",
+      "question": "من هو المكتشف أو المخترع لـ 6883 هيوتشيجاتاكي؟"
+    },
+    {
+      "fact_id": "Q716153|P61|Q457312",
+      "lang": "ja",
+      "question": "小惑星6883 燧ヶ岳を発見または発明したのは誰ですか？"
+    },
+    {
+      "fact_id": "Q716153|P61|Q457312",
+      "lang": "ru",
+      "question": "Кто является первооткрывателем или изобретателем астероида 6883 Хиутигатаке?"
+    },
+    {
+      "fact_id": "Q750238|P176|Q2913694",
+      "lang": "bn",
+      "question": "আস্ট্রা ১এ উপগ্রহের প্রস্তুতকারক কে?"
+    },
+    {
+      "fact_id": "Q7564703|P407|Q22282939",
+      "lang": "ar",
+      "question": "ما هي لغة العمل أو لغة الاسم لـ Sound Pieces؟"
+    },
+    {
+      "fact_id": "Q7564703|P407|Q22282939",
+      "lang": "de",
+      "question": "Welche Sprache ist die Sprache des Werks 'Sound Pieces'?"
+    },
+    {
+      "fact_id": "Q7564703|P407|Q22282939",
+      "lang": "fr",
+      "question": "Quelle est la langue de l'œuvre, du nom ou du terme 'Sound Pieces' ?"
+    },
+    {
+      "fact_id": "Q7564703|P407|Q22282939",
+      "lang": "id",
+      "question": "Bahasa apa yang digunakan dalam 'Sound Pieces'?"
+    },
+    {
+      "fact_id": "Q7564703|P407|Q22282939",
+      "lang": "sw",
+      "question": "Lugha ya kazi au jina la Sound Pieces ni ipi?"
+    },
+    {
+      "fact_id": "Q7710941|P407|Q1860",
+      "lang": "ar",
+      "question": "ما هي لغة العمل أو لغة الاسم لأغنية That's Just the Way I Want to Be؟"
+    },
+    {
+      "fact_id": "Q7710941|P407|Q1860",
+      "lang": "sw",
+      "question": "Wimbo That's Just the Way I Want to Be ulirekodiwa kwa lugha gani mara ya kwanza?"
+    },
+    {
+      "fact_id": "Q7762423|P50|Q43736",
+      "lang": "ar",
+      "question": "من هو مؤلف رواية عصابة أساكوسا القرمزية؟"
+    },
+    {
+      "fact_id": "Q873361|P57|Q5349201",
+      "lang": "ar",
+      "question": "من هو مُخرِج فيلم أوميزارو؟"
+    },
+    {
+      "fact_id": "Q899558|P17|Q142",
+      "lang": "ru",
+      "question": "В каком государстве расположена коммуна Оден?"
+    },
+    {
+      "fact_id": "Q913272|P37|Q8752",
+      "lang": "bn",
+      "question": "এরান্ডিওর প্রাতিষ্ঠানিক ভাষা কোনটি?"
+    },
+    {
+      "fact_id": "Q961733|P170|Q1107006",
+      "lang": "pt",
+      "question": "Quem é o criador da biblioteca de banco de dados dbm?"
+    },
+    {
+      "fact_id": "Q967398|P17|Q31",
+      "lang": "de",
+      "question": "In welchem Staat fand der Europäische Supercup 1988 statt?"
+    },
+    {
+      "fact_id": "Q967398|P17|Q31",
+      "lang": "id",
+      "question": "Piala Super Eropa 1988 diselenggarakan di negara mana?"
+    },
+    {
+      "fact_id": "Q98267264|P30|Q49",
+      "lang": "ru",
+      "question": "На каком континенте расположен Нарроус-Вью?"
+    }
+  ],
+  "rejected": [
+    {
+      "fact_id": "Q369659|P407|Q150",
+      "lang": "id",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Dalam cerita pendek Edgar Allan Poe, 'Kejatuhan Rumah Usher', bahasa apa yang digunakan?"
+    },
+    {
+      "fact_id": "Q2255224|P170|Q301",
+      "lang": "ru",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Кто является создателем скульптуры Лаокоона?"
+    },
+    {
+      "fact_id": "Q20671331|P50|Q285048",
+      "lang": "fr",
+      "reason": "implausible length 186 (expected 18-154)",
+      "proposed": "Qui est l'auteur ou l'autrice de la bande dessinée web xkcd, qui propose souvent un contenu humoristique et informatif, notamment une série sur le choix des noms d'animaux de compagnie ?"
+    },
+    {
+      "fact_id": "Q1166556|P57|Q30876",
+      "lang": "ja",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "1979年の映画『ダール』の監督は誰ですか？"
+    },
+    {
+      "fact_id": "Q1166556|P57|Q30876",
+      "lang": "zh",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "电影《恐惧》的导演是谁？"
+    },
+    {
+      "fact_id": "Q3641710|P407|Q652",
+      "lang": "sw",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Boleros huandikwa kwa lugha gani?"
+    },
+    {
+      "fact_id": "Q2530979|P178|Q2300984",
+      "lang": "de",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Welches Unternehmen entwickelte das Superman-Spiel für NES und Game Boy?"
+    },
+    {
+      "fact_id": "Q2530979|P178|Q2300984",
+      "lang": "bn",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "সুপারম্যান গেমটির ডেভেলপার কে?"
+    },
+    {
+      "fact_id": "Q2530979|P178|Q2300984",
+      "lang": "es",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Según los registros, ¿quién es el desarrollador del videojuego de Superman para NES y Game Boy?"
+    },
+    {
+      "fact_id": "Q2530979|P178|Q2300984",
+      "lang": "ru",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Кто является разработчиком видеоигры Superman для NES и Game Boy?"
+    },
+    {
+      "fact_id": "Q3232426|P57|Q314882",
+      "lang": "bn",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "উইম্যান হেটার (১৯৬৪) চলচ্চিত্রটি কে পরিচালনা করেছিলেন?"
+    },
+    {
+      "fact_id": "Q3232426|P57|Q314882",
+      "lang": "sw",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Nani alikuwa mwandaaji wa maudhui wa filamu ya Woman Hater ya mwaka 1964?"
+    },
+    {
+      "fact_id": "Q3232426|P57|Q314882",
+      "lang": "ja",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "1964年の映画『ウーマン・ヘイター』の監督は誰ですか？"
+    },
+    {
+      "fact_id": "Q1057697|P57|Q697834",
+      "lang": "sw",
+      "reason": "English source conflicts with gold; target repair requires a corrected source",
+      "proposed": "Nani alikuwa mwandaaji wa maudhui wa filamu ya Slalom ya mwaka 1963?"
+    }
+  ]
+}

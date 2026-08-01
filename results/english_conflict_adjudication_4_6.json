@@ -1,0 +1,300 @@
+[
+  {
+    "fact_id": "Q1330530|P178|Q333260",
+    "action": "question_wrong",
+    "corrected_question": "Who developed the P-5?",
+    "note": "The P-5 is a Soviet cruise missile, not an anti-ballistic missile system."
+  },
+  {
+    "fact_id": "Q1143988|P57|Q967502",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Dove?",
+    "note": "The year 1974 selects a different film; the stored subject and director correspond to the earlier film."
+  },
+  {
+    "fact_id": "Q1077713|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is The Night the Sun Came Up associated with?",
+    "note": "The Night the Sun Came Up is an album, not a novel."
+  },
+  {
+    "fact_id": "Q58626779|P57|Q9587268",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Ilha de Ferro?",
+    "note": "Ilha de Ferro is a television series, not a film."
+  },
+  {
+    "fact_id": "Q4066154|P37|Q8097",
+    "action": "question_wrong",
+    "corrected_question": "What was the official language of Andhra State?",
+    "note": "The question substitutes Andhra Pradesh for the distinct historical Andhra State."
+  },
+  {
+    "fact_id": "Q519497|P57|Q7931953",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Panama?",
+    "note": "The stored subject is a television episode, not a film."
+  },
+  {
+    "fact_id": "Q966903|P57|Q5726046",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Amarte es mi Pecado?",
+    "note": "Amarte es mi Pecado is a telenovela, not a film."
+  },
+  {
+    "fact_id": "Q95472133|P57|Q179463",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Forest of Love: Deep Cut?",
+    "note": "The stored subject is a limited series/serial cut, not a film."
+  },
+  {
+    "fact_id": "Q1023092|P17|Q20",
+    "action": "question_wrong",
+    "corrected_question": "In which country is the band CC Cowboys based?",
+    "note": "CC Cowboys is a rock band; the false country-music qualifier should be removed."
+  },
+  {
+    "fact_id": "Q7734304|P57|Q2735655",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Fix?",
+    "note": "The stored subject is an episode of House, not a television series."
+  },
+  {
+    "fact_id": "Q3668205|P30|Q48",
+    "action": "question_wrong",
+    "corrected_question": "On which continent is Buğday located?",
+    "note": "Buğday is a settlement, not wheat."
+  },
+  {
+    "fact_id": "Q318031|P57|Q85349",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Liane, Jungle Goddess?",
+    "note": "The supplied 1936 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q6798032|P57|Q1402886",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Maytime?",
+    "note": "The supplied 1954 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q6144386|P57|Q2510311",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Dumpling Paradox?",
+    "note": "The Dumpling Paradox is a television episode, not a film."
+  },
+  {
+    "fact_id": "Q3884384|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is Oranges & Lemons associated with?",
+    "note": "The stored subject is the XTC album, not the distinct nursery rhyme."
+  },
+  {
+    "fact_id": "Q2455681|P176|Q290188",
+    "action": "question_wrong",
+    "corrected_question": "Who manufactured the battleship Dante Alighieri?",
+    "note": "The manufacturer relation is reversed in the original question."
+  },
+  {
+    "fact_id": "Q3855335|P57|Q53020",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Messaline?",
+    "note": "The supplied 1961 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q3567625|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is What Are You Doing the Rest of Your Life? associated with?",
+    "note": "The stored subject is a song, not a play."
+  },
+  {
+    "fact_id": "Q2145382|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is Rising in the East associated with?",
+    "note": "Rising in the East is a live concert video release, not a poem."
+  },
+  {
+    "fact_id": "Q23810842|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is Meson associated with?",
+    "note": "The wording 'primarily written in' asks for the software's programming language, while the stored relation is natural language of work or name."
+  },
+  {
+    "fact_id": "Q3282252|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is the album Laminar Flow associated with?",
+    "note": "The stored subject is a Roy Ayers album, not the scientific concept."
+  },
+  {
+    "fact_id": "Q374434|P57|Q323243",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Glass Menagerie?",
+    "note": "The supplied 1944 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q3419343|P50|Q56278346",
+    "action": "gold_wrong",
+    "note": "Genius is a company and online lyrics database, and Mahbod Moghadam is one of its founders. The imported P50 author assertion is a misapplied relation, so the stored triple should be corrected rather than generating an author question."
+  },
+  {
+    "fact_id": "Q17632806|P57|Q3380439",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Nightingale?",
+    "note": "The supplied 1995 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q16253323|P57|Q1342878",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Money and the Woman?",
+    "note": "The supplied 1927 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q24021025|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is The Getaway associated with?",
+    "note": "The stored subject is the Red Hot Chili Peppers album, not a film."
+  },
+  {
+    "fact_id": "Q2615891|P57|Q2842560",
+    "action": "question_wrong",
+    "corrected_question": "Who directed the episode King of the Hill?",
+    "note": "The stored subject is a Simpsons episode, not the animated series of the same name or a majority of that series' episodes."
+  },
+  {
+    "fact_id": "Q5653080|P176|Q170416",
+    "action": "gold_wrong",
+    "note": "The 8X300 was manufactured under the Signetics name; Philips was Signetics' parent company. The stored manufacturer object is therefore too broad/wrong for this product-level fact."
+  },
+  {
+    "fact_id": "Q5921854|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is the surname Howerton associated with?",
+    "note": "Howerton is a surname entry, not a person who creates works."
+  },
+  {
+    "fact_id": "Q3628512|P17|Q38",
+    "action": "question_wrong",
+    "corrected_question": "In which country was the men's 110 metres hurdles event at the 1960 Summer Olympics held?",
+    "note": "The stored country describes the event's country, not the nation represented by the gold-medal winner."
+  },
+  {
+    "fact_id": "Q883994|P17|Q29",
+    "action": "question_wrong",
+    "corrected_question": "Which country is associated with the painting View of Toledo?",
+    "note": "The stored P17 country is Spain, while the painting's present location is the Metropolitan Museum of Art in the United States; 'located' asks the wrong relation."
+  },
+  {
+    "fact_id": "Q2381272|P170|Q296",
+    "action": "question_wrong",
+    "corrected_question": "Who created the painting Camille Monet on Her Deathbed?",
+    "note": "The stored subject is one painting, not a series of paintings."
+  },
+  {
+    "fact_id": "Q19360901|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is A Monster Like Me associated with?",
+    "note": "The stored subject is a song, not a book."
+  },
+  {
+    "fact_id": "Q2572372|P17|Q30",
+    "action": "question_wrong",
+    "corrected_question": "In which country is Sprague located?",
+    "note": "The stored subject is Sprague, Connecticut; the original question substitutes a person named Carl Sprague."
+  },
+  {
+    "fact_id": "Q754416|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is I'm with You associated with?",
+    "note": "The stored subject is the Red Hot Chili Peppers album, not a song."
+  },
+  {
+    "fact_id": "Q11827704|P407|Q809",
+    "action": "question_wrong",
+    "corrected_question": "What language is Proletaryat in Concert associated with?",
+    "note": "The stored subject is a live album; the original question instead asks about the ensemble name Proletaryat."
+  },
+  {
+    "fact_id": "Q19879456|P57|Q127109",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Citadel of Silence?",
+    "note": "The supplied 1933 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q11314023|P57|Q285908",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Looking for Mister Perfect?",
+    "note": "The supplied 1993 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q3283808|P407|Q5146",
+    "action": "question_wrong",
+    "corrected_question": "What language is Canção do Amor Demais associated with?",
+    "note": "The stored subject is an album, not a song."
+  },
+  {
+    "fact_id": "Q3213896|P407|Q294",
+    "action": "question_wrong",
+    "corrected_question": "What language is the novel Voices associated with?",
+    "note": "The stored subject is an Arnaldur Indriðason novel, not an epic poem."
+  },
+  {
+    "fact_id": "Q733615|P57|Q51123",
+    "action": "question_wrong",
+    "corrected_question": "Who directed The Sealed Room?",
+    "note": "The supplied 1925 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q50074406|P57|Q5334819",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Nevermore?",
+    "note": "The stored subject is an episode of The 100, not a film."
+  },
+  {
+    "fact_id": "Q6041825|P30|Q48",
+    "action": "question_wrong",
+    "corrected_question": "On which continent is Fevzi Çakmak located?",
+    "note": "The stored subject is a neighborhood, not the person Fevzi Çakmak; a place is located rather than born."
+  },
+  {
+    "fact_id": "Q7259616|P178|Q122741",
+    "action": "question_wrong",
+    "corrected_question": "Which company developed Pulsar?",
+    "note": "The stored subject is a video game, not a game engine."
+  },
+  {
+    "fact_id": "Q3531519|P57|Q216748",
+    "action": "question_wrong",
+    "corrected_question": "Who directed White Cargo?",
+    "note": "The supplied 1929 year selects a different film from the stored subject/director pair."
+  },
+  {
+    "fact_id": "Q1789630|P17|Q213",
+    "action": "question_wrong",
+    "corrected_question": "In which country is Tvarožná located?",
+    "note": "Tvarožná is a municipality, not a cheese."
+  },
+  {
+    "fact_id": "Q12060647|P407|Q1860",
+    "action": "question_wrong",
+    "corrected_question": "What language is the work Hypatia associated with?",
+    "note": "The stored subject is the English-language work Hypatia; the original question instead treats the historical Hypatia as its writer."
+  },
+  {
+    "fact_id": "Q767992|P57|Q386024",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Guyana Tragedy: The Story of Jim Jones?",
+    "note": "The stored subject is a scripted television miniseries/docudrama, not a documentary."
+  },
+  {
+    "fact_id": "Q1058071|P57|Q103788",
+    "action": "question_wrong",
+    "corrected_question": "Who directed They Won't Forget?",
+    "note": "The supplied 1935 year is false for the stored film/director pair."
+  },
+  {
+    "fact_id": "Q3818781|P57|Q3161448",
+    "action": "question_wrong",
+    "corrected_question": "Who directed Charlie Chan in Shanghai?",
+    "note": "The supplied 1932 year is false for the stored film/director pair."
+  }
+]

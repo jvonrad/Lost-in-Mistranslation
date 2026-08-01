@@ -1,0 +1,588 @@
+{
+  "polyfact": "jvonrad/PolyFact-Clean",
+  "min_entity_len": 4,
+  "benchmarks": [
+    {
+      "benchmark": "JRQi/BMLAMA17",
+      "n_bmlama_facts_en": 6792,
+      "polyfact_clean_train_facts": 61455,
+      "polyfact_clean_test_facts": 1640,
+      "exact_fact_pair_in_polyfact_train": 129,
+      "exact_fact_pair_in_polyfact_train_pct": 1.899,
+      "exact_fact_pair_in_polyfact_test": 7,
+      "exact_fact_pair_in_polyfact_test_pct": 0.103,
+      "strict_triple_in_polyfact_train": 101,
+      "strict_triple_in_polyfact_train_pct": 1.487,
+      "shared_relation_items": 1323,
+      "shared_relation_pct": 19.479,
+      "clean_shared_items": 1222,
+      "non_shared_relation_items": 5469,
+      "non_shared_relation_pct": 80.521,
+      "contamination_within_shared_relations_pct": 7.634,
+      "subject_entity_in_polyfact_train": 2132,
+      "subject_entity_in_polyfact_train_pct": 31.39,
+      "answer_string_in_polyfact_train_objects": 4051,
+      "answer_string_in_polyfact_train_objects_pct": 59.644,
+      "n_templates": 36,
+      "templates": [
+        {
+          "template": "[X] maintains diplomatic relations with",
+          "n": 996,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] and",
+          "n": 977,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] shares border with",
+          "n": 642,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "The official language of [X] is",
+          "n": 602,
+          "exact_fact_in_polyfact_train": 95,
+          "pct": 15.78
+        },
+        {
+          "template": "[X] is located in",
+          "n": 423,
+          "exact_fact_in_polyfact_train": 23,
+          "pct": 5.44
+        },
+        {
+          "template": "The capital of [X] is",
+          "n": 336,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] consists of",
+          "n": 283,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is part of",
+          "n": 268,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is the capital of",
+          "n": 213,
+          "exact_fact_in_polyfact_train": 3,
+          "pct": 1.41
+        },
+        {
+          "template": "[X] works in the field of",
+          "n": 167,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] used to work in",
+          "n": 150,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is named after",
+          "n": 145,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "The native language of [X] is",
+          "n": 130,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is affiliated with the",
+          "n": 125,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is a subclass of",
+          "n": 121,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] has the position of",
+          "n": 110,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] used to communicate in",
+          "n": 104,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] plays",
+          "n": 96,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is a member of",
+          "n": 85,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] was written in",
+          "n": 83,
+          "exact_fact_in_polyfact_train": 2,
+          "pct": 2.41
+        },
+        {
+          "template": "[X] is a legal term in",
+          "n": 80,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] died in",
+          "n": 79,
+          "exact_fact_in_polyfact_train": 1,
+          "pct": 1.27
+        },
+        {
+          "template": "[X] is a",
+          "n": 77,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is developed by",
+          "n": 76,
+          "exact_fact_in_polyfact_train": 2,
+          "pct": 2.63
+        },
+        {
+          "template": "[X] is",
+          "n": 60,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "The headquarter of [X] is in",
+          "n": 51,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is owned by",
+          "n": 50,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] plays in",
+          "n": 47,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] was founded in",
+          "n": 36,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] was born in",
+          "n": 35,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is produced by",
+          "n": 35,
+          "exact_fact_in_polyfact_train": 2,
+          "pct": 5.71
+        },
+        {
+          "template": "[X] was created in",
+          "n": 30,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "The original language of [X] is",
+          "n": 25,
+          "exact_fact_in_polyfact_train": 1,
+          "pct": 4.0
+        },
+        {
+          "template": "[X] is represented by music label",
+          "n": 23,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] works for",
+          "n": 21,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] was originally aired on",
+          "n": 11,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        }
+      ],
+      "examples_contaminated": [
+        {
+          "subject": "alexander viii",
+          "object": "rome",
+          "template": "[X] died in"
+        },
+        {
+          "subject": "holy see",
+          "object": "latin",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "the gambia",
+          "object": "english",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "mississippi",
+          "object": "english",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "kajaani",
+          "object": "finnish",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "coimbatore",
+          "object": "tamil",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "lucerne",
+          "object": "german",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "montana",
+          "object": "english",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "the bahamas",
+          "object": "english",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "poland",
+          "object": "polish",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "basel",
+          "object": "german",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "romania",
+          "object": "romanian",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "ghana",
+          "object": "english",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "provence",
+          "object": "french",
+          "template": "The official language of [X] is"
+        },
+        {
+          "subject": "slovenia",
+          "object": "slovene",
+          "template": "The official language of [X] is"
+        }
+      ]
+    },
+    {
+      "benchmark": "JRQi/BMLAMA53",
+      "n_bmlama_facts_en": 3070,
+      "polyfact_clean_train_facts": 61455,
+      "polyfact_clean_test_facts": 1640,
+      "exact_fact_pair_in_polyfact_train": 70,
+      "exact_fact_pair_in_polyfact_train_pct": 2.28,
+      "exact_fact_pair_in_polyfact_test": 4,
+      "exact_fact_pair_in_polyfact_test_pct": 0.13,
+      "strict_triple_in_polyfact_train": 51,
+      "strict_triple_in_polyfact_train_pct": 1.661,
+      "shared_relation_items": 436,
+      "shared_relation_pct": 14.202,
+      "clean_shared_items": 385,
+      "non_shared_relation_items": 2634,
+      "non_shared_relation_pct": 85.798,
+      "contamination_within_shared_relations_pct": 11.697,
+      "subject_entity_in_polyfact_train": 1641,
+      "subject_entity_in_polyfact_train_pct": 53.453,
+      "answer_string_in_polyfact_train_objects": 2779,
+      "answer_string_in_polyfact_train_objects_pct": 90.521,
+      "n_templates": 27,
+      "templates": [
+        {
+          "template": "[X] maintains diplomatic relations with <mask>.",
+          "n": 966,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] and <mask> are twin cities.",
+          "n": 804,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] shares border with <mask>.",
+          "n": 423,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "The official language of [X] is <mask>.",
+          "n": 298,
+          "exact_fact_in_polyfact_train": 53,
+          "pct": 17.79
+        },
+        {
+          "template": "[X] is the capital of <mask>.",
+          "n": 155,
+          "exact_fact_in_polyfact_train": 3,
+          "pct": 1.94
+        },
+        {
+          "template": "[X] is located in <mask>.",
+          "n": 135,
+          "exact_fact_in_polyfact_train": 14,
+          "pct": 10.37
+        },
+        {
+          "template": "The capital of [X] is <mask>.",
+          "n": 107,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is a member of <mask>.",
+          "n": 28,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is part of <mask>.",
+          "n": 23,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] consists of <mask>.",
+          "n": 21,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] used to work in <mask>.",
+          "n": 20,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "The native language of [X] is <mask>.",
+          "n": 19,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is named after <mask>.",
+          "n": 17,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] works in the field of <mask>.",
+          "n": 17,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is affiliated with the <mask> religion.",
+          "n": 14,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] used to communicate in <mask>.",
+          "n": 4,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is <mask> citizen.",
+          "n": 3,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] has the position of <mask>.",
+          "n": 3,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is a <mask>.",
+          "n": 3,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] died in <mask>.",
+          "n": 2,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is a subclass of <mask>.",
+          "n": 2,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] was written in <mask>.",
+          "n": 1,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] plays <mask>.",
+          "n": 1,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] is owned by <mask>.",
+          "n": 1,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] was created in <mask>.",
+          "n": 1,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "The headquarter of [X] is in <mask>.",
+          "n": 1,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        },
+        {
+          "template": "[X] was founded in <mask>.",
+          "n": 1,
+          "exact_fact_in_polyfact_train": 0,
+          "pct": 0.0
+        }
+      ],
+      "examples_contaminated": [
+        {
+          "subject": "the gambia",
+          "object": "english",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "mississippi",
+          "object": "english",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "montana",
+          "object": "english",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "the bahamas",
+          "object": "english",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "poland",
+          "object": "polish",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "basel",
+          "object": "german",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "romania",
+          "object": "romanian",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "ghana",
+          "object": "english",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "slovenia",
+          "object": "slovene",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "moldova",
+          "object": "romanian",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "lithuania",
+          "object": "lithuanian",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "yerevan",
+          "object": "armenian",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "south sudan",
+          "object": "english",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "dominican republic",
+          "object": "spanish",
+          "template": "The official language of [X] is <mask>."
+        },
+        {
+          "subject": "british columbia",
+          "object": "english",
+          "template": "The official language of [X] is <mask>."
+        }
+      ]
+    }
+  ]
+}

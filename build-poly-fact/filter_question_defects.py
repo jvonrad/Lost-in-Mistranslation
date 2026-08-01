@@ -45,11 +45,18 @@ LANGS = ["en", "de", "id", "pt", "ar", "bn", "sw", "es", "ru", "fr", "ja", "zh"]
 SPLITS = ["train", "validation", "test"]
 CONFIGS = ["parallel"] + LANGS
 NO_WORD_BOUNDARY = {"ja", "zh"}     # scripts written without spaces
+# Minimum gold length to bother leak-checking. 3 is right for alphabetic scripts
+# (shorter strings false-positive inside longer words), but CJK writes whole words
+# in 2 characters — 日本 is "Japan", 苏联 is "Soviet Union" — so a 3-char floor
+# silently exempted every short CJK gold from the check. That gap left 63 genuinely
+# answer-leaking items in the corpus.
 MIN_GOLD_LEN = 3
+MIN_GOLD_LEN_CJK = 2
 
 
 def leaks(gold, question, lang):
-	if not gold or len(gold) < MIN_GOLD_LEN:
+	floor = MIN_GOLD_LEN_CJK if lang in NO_WORD_BOUNDARY else MIN_GOLD_LEN
+	if not gold or len(gold) < floor:
 		return False
 	g, q = gold.casefold(), question.casefold()
 	if lang in NO_WORD_BOUNDARY:
