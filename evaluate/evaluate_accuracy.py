@@ -172,10 +172,15 @@ def score_candidates_batch(
 		if opt_lp.numel() == 0:
 			score = -1e9
 		else:
+			total = float(opt_lp.sum().item())
 			if score_mode == "sum":
-				score = float(opt_lp.sum().item())
+				score = total                                    # lm-eval acc
 			elif score_mode == "avg":
-				score = float(opt_lp.mean().item())
+				score = total / max(opt_lp.numel(), 1)           # per-token mean
+			elif score_mode == "char":
+				score = total / max(len(_opt), 1)                # lm-eval acc_norm
+			elif score_mode == "byte":
+				score = total / max(len(_opt.encode("utf-8")), 1)  # lm-eval acc_bytes
 			else:
 				raise ValueError(f"Unknown score_mode: {score_mode}")
 
@@ -193,7 +198,13 @@ def main():
 	ap.add_argument("--model", default="allenai/OLMo-2-1124-7B")
 	ap.add_argument("--batch_size", type=int, default=8)
 	ap.add_argument("--max_examples_per_lang", type=int, default=0, help="0 = all")
-	ap.add_argument("--score_mode", choices=["sum", "avg"], default="avg")
+	ap.add_argument("--score_mode", choices=["sum", "avg", "char", "byte"],
+	                default="byte",
+	                help="sum=lm-eval acc, avg=per-token mean, char=per-character "
+	                     "mean (lm-eval acc_norm), byte=per-UTF-8-byte mean "
+	                     "(lm-eval acc_bytes). byte is the default: it is "
+	                     "tokenizer-independent, which matters when per-language "
+	                     "accuracies are compared side by side.")
 	args = ap.parse_args()
 
 	if args.input_jsonl:

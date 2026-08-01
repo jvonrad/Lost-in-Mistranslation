@@ -111,11 +111,54 @@ def build_gmmlu_letter_prompt(item: dict) -> str:
 # Data loading
 # --------------------------------------------------------------------------
 
+def _normalize_lang_item(item):
+    """
+    Accepts either the WIKI-FACT per-language item ({"question", "options",
+    "answer_text"}) or the PolyFact / PolyFact-Clean `parallel` item
+    ({"question", "option_a".."option_d", "answer_index", "answer_text",
+    optional "option_ids"}), and returns a common dict or None.
+    """
+    if not isinstance(item, dict):
+        return None
+    question = (item.get("question") or "").strip()
+    if not question:
+        return None
+
+    if "option_a" in item:
+        options = [item.get(f"option_{c}") for c in "abcd"]
+        if any(o is None or not str(o).strip() for o in options):
+            return None
+        options = [str(o).strip() for o in options]
+        gold_idx = item.get("answer_index")
+        if not isinstance(gold_idx, int) or not 0 <= gold_idx < N_OPTIONS:
+            return None
+        option_ids = item.get("option_ids")
+    else:
+        options = item.get("options", [])
+        if not isinstance(options, list) or len(options) != N_OPTIONS:
+            return None
+        gold = (item.get("answer_text") or "").strip()
+        if gold not in options:
+            return None
+        gold_idx = options.index(gold)
+        option_ids = item.get("option_ids")
+
+    if len(options) != N_OPTIONS or len(set(options)) != N_OPTIONS:
+        return None
+
+    out = {"question": question, "options": options, "gold_idx": gold_idx}
+    if isinstance(option_ids, list) and len(option_ids) == N_OPTIONS \
+            and all(option_ids) and len(set(option_ids)) == N_OPTIONS:
+        out["option_ids"] = list(option_ids)
+    return out
+
+
 def load_polyfact_facts(args):
     """
-    Returns: dict fact_id -> lang -> {"question", "options", "gold_idx"}
-    Supports the nested schema of jvonrad/WIKI-FACT ({"langs": {...}}) both
-    from the HF hub and from a local JSONL.
+    Returns: dict fact_id -> lang -> {"question", "options", "gold_idx"[, "option_ids"]}
+    Supports the nested schema of jvonrad/WIKI-FACT ({"langs": {...}}) and the
+    `parallel` config of jvonrad/PolyFact / jvonrad/PolyFact-Clean
+    ({"translations": {...}}), from the HF hub or a local JSONL.
     """
     if args.input_jsonl:
         print(f"Loading rows from local JSONL: {args.input_jsonl}")
@@ -138,34 +181,27 @@ def load_polyfact_facts(args):
         rows = list(ds)
 
     facts = {}
+    n_dropped = 0
     for row in rows:
-        if "langs" not in row or not isinstance(row["langs"], dict):
+        block = row.get("langs") if isinstance(row.get("langs"), dict) else row.get("translations")
+        if not isinstance(block, dict):
             continue
         fact_id = row.get("fact_id")
         per_lang = {}
         for lang in LANGS:
-            item = row["langs"].get(lang)
+            item = block.get(lang)
             if not item:
                 continue
-            question = (item.get("question") or "").strip()
-            options = item.get("options", [])
-            gold = (item.get("answer_text") or "").strip()
-            if (
-                not question
-                or not isinstance(options, list)
-                or len(options) != N_OPTIONS
-                or gold not in options
-                or len(set(options)) != N_OPTIONS
-            ):
+            norm = _normalize_lang_item(item)
+            if norm is None:
+                n_dropped += 1
                 continue
-            per_lang[lang] = {
-                "question": question,
-                "options": list(options),
-                "gold_idx": options.index(gold),
-            }
+            per_lang[lang] = norm
         if per_lang:
             facts[fact_id] = per_lang
 
+    if n_dropped:
+        print(f"[WARN] dropped {n_dropped} malformed language entries")
     return facts
 
 
@@ -335,7 +371,42 @@ class OptionAligner:
         return alignment
 
 
+def align_by_option_ids(facts):
+    """
+    Exact alignment using the Wikidata QIDs stored per option
+    (PolyFact-Clean `parallel` config: `option_ids`). Returns
+    fact_id -> lang -> list[int] (option_idx -> REF_LANG slot), or None for the
+    whole dataset if the ids are not usable for every fact/language.
+
+    This supersedes the string/LaBSE aligner: the mapping is ground truth, not
+    an estimate, so RankC and answer agreement carry no alignment noise.
+    """
+    alignment = {}
+    for fact_id, per_lang in facts.items():
+        ref = per_lang.get(REF_LANG)
+        if ref is None or "option_ids" not in ref:
+            return None
+        slot_of = {qid: i for i, qid in enumerate(ref["option_ids"])}
+        per_fact = {}
+        for lang, item in per_lang.items():
+            ids = item.get("option_ids")
+            if ids is None or set(ids) != set(slot_of):
+                return None
+            per_fact[lang] = [slot_of[q] for q in ids]
+            # gold must map to gold; a violation means ids and answer_index disagree
+            if per_fact[lang][item["gold_idx"]] != ref["gold_idx"]:
+                return None
+        alignment[fact_id] = per_fact
+    return alignment
+
+
 def get_polyfact_alignment(facts, args):
+    exact = None if args.no_option_id_alignment else align_by_option_ids(facts)
+    if exact is not None:
+        print(f"Alignment: exact via option_ids for all {len(exact):,} facts "
+              f"(no embedding alignment needed)")
+        return exact
+
     if args.alignment_cache and os.path.exists(args.alignment_cache):
         print(f"Loading cached alignment: {args.alignment_cache}")
         with open(args.alignment_cache, "r", encoding="utf-8") as f:
@@ -374,13 +445,42 @@ def get_device(requested: str):
     return torch.device("cpu"), "cpu"
 
 
+def derive_scores(mode, sums, n_tokens, options):
+    """
+    Turn raw option logprob sums into the requested scoring rule. All modes are
+    recoverable from (sum, n_tokens, option string), so a run saves `sum` and
+    `n_tokens` and any mode can be recomputed later without re-running a model.
+
+      sum  : unnormalized logprob            (lm-eval `acc`)
+      avg  : per-TOKEN mean                  (tokenizer-dependent)
+      char : per-CHARACTER mean              (lm-eval `acc_norm`)
+      byte : per-UTF-8-BYTE mean             (script-neutral variant)
+    """
+    out = []
+    for s, nt, opt in zip(sums, n_tokens, options):
+        if s <= -1e8:
+            out.append(-1e9)
+        elif mode == "sum":
+            out.append(s)
+        elif mode == "avg":
+            out.append(s / max(nt, 1))
+        elif mode == "char":
+            out.append(s / max(len(opt), 1))
+        elif mode == "byte":
+            out.append(s / max(len(opt.encode("utf-8")), 1))
+        else:
+            raise ValueError(f"Unknown score_mode: {mode}")
+    return out
+
+
 def score_candidates_batch(
     model, tokenizer, examples, device, device_kind,
     score_mode="avg", max_length=512, fixed_batch_size=None,
 ):
     """
     examples: list of dicts with keys "prompt" and "options".
-    Returns list[list[float]]: score per option per example.
+    Returns list of dicts per example: {"sum": [4 floats], "n_tokens": [4 ints]}.
+    Callers apply `derive_scores` to get a specific scoring rule.
     On XLA, pads to (fixed_batch_size * N_OPTIONS, max_length) so every
     forward pass has an identical shape (single compilation).
     """
@@ -427,7 +527,10 @@ def score_candidates_batch(
         )["input_ids"]
     ]
 
-    scores = [[0.0] * len(ex["options"]) for ex in examples]
+    out = [
+        {"sum": [0.0] * len(ex["options"]), "n_tokens": [0] * len(ex["options"])}
+        for ex in examples
+    ]
     for row_idx, (ex_idx, opt_idx) in enumerate(meta):
         plen = prompt_lens[row_idx]
         seq_len = int(target_mask[row_idx].sum().item()) + 1
@@ -439,14 +542,13 @@ def score_candidates_batch(
         end = offset + seq_len - 1
         opt_lp = token_logprobs[row_idx, start:end]
         if opt_lp.numel() == 0:
-            score = -1e9
-        elif score_mode == "sum":
-            score = float(opt_lp.sum().item())
+            out[ex_idx]["sum"][opt_idx] = -1e9
+            out[ex_idx]["n_tokens"][opt_idx] = 0
         else:
-            score = float(opt_lp.mean().item())
-        scores[ex_idx][opt_idx] = score
+            out[ex_idx]["sum"][opt_idx] = float(opt_lp.sum().item())
+            out[ex_idx]["n_tokens"][opt_idx] = int(opt_lp.numel())
 
-    return scores
+    return out
 
 
 # --------------------------------------------------------------------------
@@ -460,6 +562,16 @@ def rankc_weights(n: int):
 
 
 RANKC_W = rankc_weights(N_OPTIONS)
+
+# With only N=4 candidates, RankC cannot reach 0: any two rankings over the same
+# 4 slots share all 4 items at j=4 and at least 2 at j=3. Report the attainable
+# floor and the value expected from two INDEPENDENT uniform rankings
+# (E[P@j] = j/N) so absolute RankC numbers are interpretable and are not
+# mistaken for Qi et al.'s large-candidate-pool values.
+RANKC_FLOOR = sum(
+    RANKC_W[j - 1] * max(2 * j - N_OPTIONS, 0) / j for j in range(1, N_OPTIONS + 1)
+)
+RANKC_CHANCE = sum(RANKC_W[j - 1] * j / N_OPTIONS for j in range(1, N_OPTIONS + 1))
 
 
 def rankc_pair(rank_slots_1, rank_slots_2):
@@ -541,9 +653,15 @@ def compute_metrics(facts, predictions, alignment, langs):
         agree_matrix[key] = agree_sum / max(n, 1)
 
     n_pairs = len(rankc_matrix)
+    rankc_avg = sum(rankc_matrix.values()) / max(n_pairs, 1)
     results["rankc"] = {
         "pairwise": rankc_matrix,
-        "average": sum(rankc_matrix.values()) / max(n_pairs, 1),
+        "average": rankc_avg,
+        # rescaled onto [0, 1] over the attainable range for N=4 candidates
+        "average_rescaled": (rankc_avg - RANKC_FLOOR) / (1.0 - RANKC_FLOOR),
+        "floor": RANKC_FLOOR,
+        "chance": RANKC_CHANCE,
+        "n_candidates": N_OPTIONS,
         "average_en_x": (
             sum(v for k, v in rankc_matrix.items() if k.startswith("en-") or k.endswith("-en"))
             / max(len(langs) - 1, 1)
@@ -590,7 +708,12 @@ def main():
     ap.add_argument("--model", default="allenai/OLMo-2-1124-7B")
     ap.add_argument("--batch_size", type=int, default=8, help="Facts per forward batch")
     ap.add_argument("--max_facts", type=int, default=0, help="0 = all")
-    ap.add_argument("--score_mode", choices=["sum", "avg"], default="avg")
+    ap.add_argument("--score_mode", choices=["sum", "avg", "char", "byte"],
+                    default="byte",
+                    help="sum=lm-eval acc, avg=per-token mean, "
+                         "char=per-character mean (lm-eval acc_norm), "
+                         "byte=per-UTF-8-byte mean. All four are recomputable "
+                         "post-hoc from the saved scores_sum/n_option_tokens.")
     ap.add_argument("--max_length", type=int, default=512,
                     help="Fixed sequence length on XLA; truncation limit elsewhere")
     ap.add_argument("--device", choices=["auto", "cuda", "xla", "cpu"], default="auto")
@@ -600,10 +723,22 @@ def main():
     ap.add_argument("--embedding_model", default="sentence-transformers/LaBSE")
     ap.add_argument("--no_embedding_alignment", action="store_true",
                     help="Skip embedding alignment; unaligned facts drop out of RankC")
+    ap.add_argument("--no_option_id_alignment", action="store_true",
+                    help="Ignore per-option Wikidata ids and fall back to the "
+                         "string/LaBSE aligner (for parity with older runs)")
     ap.add_argument("--output_json", default=None)
     args = ap.parse_args()
 
     langs = [l.strip() for l in args.langs.split(",") if l.strip()]
+
+    if args.device == "xla" and args.batch_size > 8:
+        raise SystemExit(
+            f"--batch_size {args.batch_size} is unsafe on Neuron/XLA: the fp32 "
+            f"[batch*{N_OPTIONS}, seq, vocab] logsumexp exceeds a runtime memory "
+            f"limit and returns SILENTLY CORRUPTED logits (accuracy collapses to "
+            f"chance). Use --batch_size 8 or less, or pass --device auto to "
+            f"acknowledge the risk."
+        )
 
     # ---- data ----
     if args.benchmark == "polyfact":
@@ -636,6 +771,16 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
     # Right padding keeps offset logic trivial and matches evaluate_accuracy.py
     tokenizer.padding_side = "right"
+
+    # Option scores are read back at token offset `len(tokenize(prompt))`, which
+    # is only valid if the prompt's ids are an exact prefix of the full text's.
+    _p = "Question: What is the capital of France?\nAnswer:"
+    _pi = tokenizer(_p)["input_ids"]
+    _fi = tokenizer(_p + " Paris")["input_ids"]
+    assert _fi[: len(_pi)] == _pi, (
+        f"Tokenization boundary mismatch for {args.model}: prompt ids are not a "
+        f"prefix of prompt+option ids ({_pi} vs {_fi[:len(_pi)]})"
+    )
 
     print(f"Loading model: {args.model}")
     model = AutoModelForCausalLM.from_pretrained(
@@ -673,13 +818,16 @@ def main():
         correct = 0
         for i in range(0, len(examples), args.batch_size):
             batch = examples[i : i + args.batch_size]
-            score_lists = score_candidates_batch(
+            raw_lists = score_candidates_batch(
                 model, tokenizer, batch, device, device_kind,
                 score_mode=args.score_mode,
                 max_length=args.max_length,
                 fixed_batch_size=args.batch_size,
             )
-            for ex, scores in zip(batch, score_lists):
+            for ex, raw in zip(batch, raw_lists):
+                scores = derive_scores(
+                    args.score_mode, raw["sum"], raw["n_tokens"], ex["options"]
+                )
                 pred_idx = max(range(len(scores)), key=lambda k: scores[k])
                 is_correct = pred_idx == ex["gold_idx"]
                 correct += int(is_correct)
@@ -687,6 +835,10 @@ def main():
                     "scores": scores,
                     "pred_idx": pred_idx,
                     "correct": is_correct,
+                    # raw material so sum/avg/char/byte can be recomputed later
+                    "scores_sum": raw["sum"],
+                    "n_option_tokens": raw["n_tokens"],
+                    "options": ex["options"],
                 }
             done = min(i + args.batch_size, len(examples))
             if done % (args.batch_size * 50) < args.batch_size:
@@ -720,6 +872,9 @@ def main():
 
     print(f"\nRANKC  average={results['rankc']['average']:.4f}  "
           f"en-X average={results['rankc']['average_en_x']:.4f}")
+    print(f"  (N={N_OPTIONS} candidates: floor={RANKC_FLOOR:.4f}, "
+          f"independent-ranking chance={RANKC_CHANCE:.4f}, "
+          f"rescaled={results['rankc']['average_rescaled']:.4f})")
     print_pair_matrix("RankC matrix:", results["rankc"]["pairwise"], langs)
     print(f"\nANSWER AGREEMENT  average={results['answer_agreement']['average']:.4f}")
     print_pair_matrix("Agreement matrix:", results["answer_agreement"]["pairwise"], langs)
@@ -728,7 +883,14 @@ def main():
         os.makedirs(os.path.dirname(args.output_json) or ".", exist_ok=True)
         results["predictions"] = {
             fid: {
-                lang: {"pred_idx": p["pred_idx"], "correct": p["correct"], "scores": p["scores"]}
+                lang: {
+                    "pred_idx": p["pred_idx"],
+                    "correct": p["correct"],
+                    "scores": p["scores"],
+                    "scores_sum": p["scores_sum"],
+                    "n_option_tokens": p["n_option_tokens"],
+                    "options": p["options"],
+                }
                 for lang, p in per_lang.items()
             }
             for fid, per_lang in predictions.items()

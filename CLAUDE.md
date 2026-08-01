@@ -21,6 +21,8 @@ Qwen-2.5-7B, using the PolyFact dataset (100K Wikidata facts × 12 languages).
   per-language `question` / `options` / `answer_text`. Used by the eval scripts.
 - `jvonrad/PolyFact` — same facts, per-language configs (`option_a..d`,
   `answer_index`) plus a `parallel` config. This is the paper-facing release.
+-`jvonrad/PolyFact-Clean` — curated dataset excluding noisy and hallucinated labels 
+and properties. **Should be used for eval**
 - Languages: en, de, id, pt, ar, bn, sw, es, ru, fr, ja, zh. Test split: 2,523
   usable facts. Options are 4 MCQ candidates (1 gold + 3 distractors), same
   entities across languages but **independently shuffled per language, with no
@@ -38,13 +40,55 @@ Qwen-2.5-7B, using the PolyFact dataset (100K Wikidata facts × 12 languages).
   overlap per language pair), pairwise answer agreement. Supports
   `--benchmark polyfact` and `--benchmark global_mmlu` (Global-MMLU joins
   languages on `sample_id`, options parallel by index).
-- **Always pass `--alignment_cache evaluate/alignments/polyfact_test_alignment.json`
-  for PolyFact test.** RankC needs distractors aligned across languages; this
-  committed cache (exact match + LaBSE assignment, 0 unaligned) makes numbers
-  comparable across model variants. Recomputing it may produce slightly
-  different alignments.
-- Results JSONs include raw per-option scores, so new metrics can be computed
-  from saved output without re-running the model.
+- **Cross-lingual option alignment — read this before choosing flags.** RankC
+  and answer agreement need each language's 4 options matched to English.
+  - **PolyFact-Clean: pass NOTHING.** Its `parallel` config stores `option_ids`
+    (the Wikidata QID of every option, per language), so the evaluator derives
+    the alignment *exactly* via `align_by_option_ids`. Verified over all 2,523
+    test facts: 4 distinct QIDs, identical set across all 12 languages,
+    `option_ids[answer_index] == object_id` everywhere.
+  - **Do NOT pass `--alignment_cache .../polyfact_test_alignment.json` with
+    PolyFact-Clean.** That cache was built for WIKI-FACT. Curation resampled
+    distractors and reshuffled options, so it is now wrong: only 1,503/2,523
+    fact_ids appear in it at all, and of the mappings that do, just
+    2,142/18,036 (11.9%) match the true QID alignment. It fails silently and
+    produces garbage RankC/AnsAgr.
+  - WIKI-FACT has no option ids, so it still needs the cached
+    string-match + LaBSE alignment. `--no_option_id_alignment` forces that old
+    path for parity with pre-2026-08 runs.
+- **`--score_mode` now defaults to `byte`** (was `avg`) in both
+  `evaluate_accuracy.py` and `evaluate_crosslingual_consistency.py`:
+  `sum` (lm-eval `acc`) / `avg` (per-token mean) / `char` (per-character =
+  lm-eval `acc_norm`) / `byte` (per-UTF-8 byte = lm-eval `acc_bytes`).
+  Results JSONs save the raw option logprob **sum** plus the option token
+  count, so **all four modes are recomputable post-hoc without re-running a
+  model** (`derive_scores`); `data_analysis/rescore_results.py --mode X` rewrites
+  saved JSONs in place, which is how a sweep whose runs used different modes is
+  made uniform.
+  - Byte is the default because it is tokenizer-independent, which matters when
+    per-language numbers are compared side by side. Token-mean divides by a
+    count ranging from 2.75 (en) to 17.44 (bn) tokens per option, and the
+    spread of that divisor across the four competing options is 2-4.6x larger
+    in bn/ja/zh than in English — an uneven length penalty landing hardest on
+    exactly the low-resource languages.
+  - Note for framing: lm-eval's own defaults are **not** tokenizer-dependent
+    (`acc_norm` divides by characters; `acc` is a string logprob), so published
+    low-resource gaps measured with lm-eval are not a normalization artifact.
+    The artifact is specific to token-mean. Tokenizer fertility still hurts
+    low-resource languages, but through model quality, not the eval metric.
+- **AnsAgr is computed but no longer reported in the tables.** RankC's w_1 is
+  0.644, so RankC is ~2/3 answer agreement — they are near-duplicate metrics,
+  not independent evidence. It stays in the result JSONs. Dropping it saves no
+  compute (same pairwise loop as RankC).
+- **RankC here is RankC@4, not Qi et al.'s number.** With only the 4 MCQ
+  candidates, top-4 sets always overlap fully and top-3 sets always overlap
+  >= 2/3, so RankC cannot go below **0.0902**; two independent random rankings
+  score **0.3768** (both brute-force verified over all 4!x4! ranking pairs).
+  Reported values sit on that pedestal and deltas are compressed by x0.91 —
+  do not compare them to Qi et al., who rank a large candidate pool. The
+  output JSON carries `rankc.floor`, `rankc.chance` and
+  `rankc.average_rescaled`. Note also w_1 = 0.644, so RankC is ~2/3 just answer
+  agreement: the two metrics are **not independent evidence**.
 
 ## Running evals on Trainium (batch-size ceiling + two-model parallelism)
 
@@ -245,6 +289,152 @@ Notes for a clean parallel run:
   push it over quota (breaks file writes with `EDQUOT`). Set
   `PIP_CACHE_DIR`/`TMPDIR` to `$SCRATCH` for any big install, and
   `rm -rf ~/.cache/pip` to reclaim.
+
+## PolyFact-Clean evaluation sweep (2026-08-01, trn2.3xlarge)
+
+`bash evaluate/run_polyfact_clean_sweep.sh` evaluates all 14 checkpoints (the
+12 README models + `OLMo-2-7B-CM-Align` / `Qwen-2.5-CM-Align`) on
+PolyFact-Clean test, writing `results/polyfact_clean/<tag>_polyfact_clean.json`.
+It runs two lanes — OLMo on `NEURON_RT_VISIBLE_CORES=0-1`, Qwen on `2-3` — so
+each family compiles its own graph once in its own lane with no compile-cache
+write race. Re-running skips any model whose JSON already exists.
+
+`python data_analysis/aggregate_polyfact_clean.py` turns those JSONs into
+`results/polyfact_clean/report.md`: the Acc/TotCons/RankC/AnsAgr table plus
+per-language accuracy, each under all four scoring rules, and repeated on the
+`n_langs_verified == 12` subset — all recomputed from saved scores, no GPU.
+
+Facts about the split, verified 2026-08-01: **2,523 facts, every one present in
+all 12 languages**, no malformed entries, and `max_length 192` still truncates
+nothing (longest tokenized prompt+option is 180 for OLMo, 162 for Qwen).
+Only **1,269/2,523** facts have `n_langs_verified == 12`, which is why the
+aggregator reports that subset separately.
+
+Fresh-instance setup notes (bare Ubuntu 26.04 trn2, not a Neuron DLAMI):
+- `setup_trainium.sh` aborted under `set -u` because `LD_LIBRARY_PATH` is unset
+  on a bare AMI; the appended activate lines now use `${LD_LIBRARY_PATH:-}`.
+- Root volume is ~7 GB. Mount the instance-store NVMe (`/dev/nvme1n1`, ~430 GB,
+  ships unformatted) at `/mnt/nvme`, put the venv there, and export `HF_HOME`,
+  `UV_CACHE_DIR`, `TMPDIR` and `NEURON_CC_FLAGS=--cache_dir=...` from the venv's
+  `activate`. Without `HF_HOME` the model cache silently targets `~/.cache` and
+  fills the root disk after two 7B checkpoints.
+- `uv venv` refuses a path that already exists, so a pre-created symlink at
+  `~/neuron_venv` breaks the script — create the venv at its real NVMe path
+  first, then symlink.
+- `--batch_size > 8` on `--device xla` now hard-errors instead of silently
+  returning corrupted logits.
+
+## Question-quality auditing: what works and what does NOT
+
+A manual spot-check (26 facts x 12 langs, `results/polyfact_clean_spotcheck_report.md`)
+found a defect class no existing audit catches: **the question names the right
+subject but means the wrong thing**. Examples: bn asks about the PlayStation
+"Qore" *service* rather than the Qore programming language; the novel "Voices"
+becomes the common noun in id/ar/sw/zh ("what language does the voice use?");
+a long parody title is regenerated per language into three different films.
+Root cause is that questions were **generated per language**, not translated.
+
+**Embedding-based detection does not work for this — two attempts, both
+measured against 8 hand-confirmed bad instances, both failed. Do not rebuild
+them** (`data_analysis/detect_question_outliers.py` keeps both for the record):
+- **Mean LaBSE cosine to the 11 parallel questions: 1/8.** The question
+  template is identical across languages by construction, so cosine tracks the
+  relation, not the entity — a right-relation/wrong-entity question still
+  scores ~0.85. The Voices ar/zh cases sat at the 24th-28th percentile.
+- **Bitext margin + retrieval rank (Artetxe & Schwenk style): 2/8**, at a 36%
+  fact flag rate concentrated in zh/ja/ar (the rank criterion is not
+  per-language normalized, so it re-introduced the low-resource bias the margin
+  z-score was designed to avoid). Two separate failure modes: *vague but still
+  nearest* — against only 2,523 candidates even a subject-less question is
+  uniquely closest to its own fact (retrieval_rank 0 for Voices id/zh, Qore
+  bn); and *sharp but wrong* — Q7711911 ru scored margin_z **+2.07**, better
+  than average, because it is precisely about the wrong film. A parody and its
+  target are near-identical in embedding space by construction.
+
+**Use the LLM judge instead** (`data_analysis/judge_question_equivalence.py`):
+one Batch API request per fact showing the triple plus all 12 questions,
+structured-output JSON verdict per language. Run `--self_test` first — it
+judges only the hand-reviewed facts and scores recall against the same 8
+instances, so the judge is validated before spending on the full split.
+Needs `pip install anthropic` and `ANTHROPIC_API_KEY` (or `ant auth login`).
+Batch API is 50% off: ~$11 for 2,523 facts on `claude-opus-5`, ~$4.50 on
+`claude-sonnet-5`. Capability matters more than price here — world knowledge is
+exactly what the embedding detectors lacked.
+
+**Judge results, full test split (2026-08-01, `results/item_quality_judge.json`)**
+— 2,523 facts, `claude-opus-5`, effort=medium, Batch API. 4,354 issues over
+1,802 facts; **544 facts (21.6%) carry a high-confidence defect**. High-conf
+counts: question 502, validity 357, label 187 (of which **76 gold-label**).
+Top problems: wrong_entity 247, type_leakage 166, answer_leakage 165,
+fabricated_detail 134, garbled-label 85. High-conf issues are **3x more common
+in sw (147) and zh (143) than de (49)** — data quality is not uniform across
+languages.
+
+**KEY ROBUSTNESS RESULT — the High/Low-resource gap is NOT a data artifact.**
+Recomputing per-language accuracy with every high-confidence defective item
+dropped moves the gap by **-0.03pp (OLMo base)** and **-0.24pp (Qwen base)**;
+no per-language accuracy shifts by more than 0.7pp. The language-correlated
+defect *rate* is real, but the absolute rate (5.7% of items in sw vs 1.9% in
+de) is far too low to move a ~14pp gap. This is the answer to the obvious
+reviewer question and it is free to recompute for any model, since result JSONs
+store per-fact scores.
+
+**COST LESSON — estimate from a probe, not from arithmetic.** The run cost
+**$35.02**, not the ~$19 estimated: input was **3,331 tokens/fact**, not 1,450.
+Two causes, both avoidable: (a) the system prompt (~800 tok) and JSON schema
+(~500 tok) are re-sent on *every* request — ~40% of the input bill for bytes
+that never change; (b) content was under-counted because 48 option strings
+across 12 languages tokenize far worse than English (bn is ~17 tok/option, a
+number measured earlier in the same session and not applied). Before any future
+batch: run ~50 requests, read actual `usage`, extrapolate — and put
+`cache_control` on the system block (fixed prefix x 2,523 requests is the
+textbook prompt-caching case, worth ~$5-8 here).
+
+**CURATED TEST SET (2026-08-01):**
+`evaluate/alignments/polyfact_clean_test_droplist.json` — **484 facts dropped,
+2,039 kept**. Criteria: any high-confidence judge issue, MINUS the 117/302
+`wrong_entity` flags rescued because the "wrong" name is an official Wikidata
+label/alias for that language (the judge's one systematic FP class — Alexander
+Neufeld IS the German name of Sándor Nemes). Precision evidence: 28-flag
+stratified human recheck (26-27 correct; contested cases adjudicated against
+Wikidata). `aggregate_polyfact_clean.py` now emits CURATED tables automatically
+(`--drop_list ''` to disable). Composition caveat: drops concentrate in
+title-bearing relations (director 36%, language-of-work 31%, discoverer 50%)
+vs citizenship 6.7% — the curated set tilts toward proper-noun relations.
+Effect on finished models: acc ±0.7pp, TotCons −0.2-0.4pp, High/Low gap
++0.5-0.9pp (dropped leakage items were easy everywhere, so removing them
+slightly WIDENS the gap). Paper framing: report full 2,523 AND curated 2,039;
+the near-identical numbers are the robustness argument.
+
+**PUSHED TO HUB 2026-08-01 (user-approved, mid-sweep):** commit `88a05d08`,
+built by `build-poly-fact/curate_test_release.py` (--stage validates the whole
+tree — counts, cross-config fact_id identity, flag removal, option_ids — then
+--push uploads as ONE commit). Test is now 2,039 everywhere; the
+`question_verified`/`question_regenerated` columns were REMOVED from all
+configs (nested-struct removal needs `map(..., features=rebuilt)` — map alone
+null-fills, staging validation caught this); droplist ships in the dataset at
+`curation/test_droplist.json`. Pre-curation revision pinned at
+`evaluate/alignments/polyfact_clean_precuration_revision.txt` (`c89817f8`);
+`aggregate_polyfact_clean.py` resolves gold/alignment at that pinned revision
+and guards mixed coverage.
+
+**SWEEP RESTARTED on the curated set (user request, 2026-08-01 23:13):** all
+14 models re-run uniformly on the 2,039-fact v2 test. The 4 completed full-set
+(2,523) results were archived to `results/polyfact_clean_precuration/`
+(olmo_base, olmo_cpt, qwen_base, qwen_cpt) — aggregate them with
+`--results_dir results/polyfact_clean_precuration` for the full-vs-curated
+robustness comparison on those models. No recompilation on restart: the
+compiled graph shape `[batch*4, max_length]` is dataset-size-independent.
+Curated numbers from a native 2,039 run are IDENTICAL to filtering a 2,523 run
+by the droplist (per-fact scores are independent) — the restart buys uniform
+provenance, not different numbers.
+
+Also unresolved: **`question_verified` and `n_langs_verified` contradict each
+other** in both directions (one fact has 12 true but `n_langs_verified=9`;
+another has 11 false but `n_langs_verified=11`). 1,194/30,276 (3.9%) question
+instances are `question_verified=false`, and that set is enriched for genuinely
+broken questions — but at least one badly broken fact carries all-true flags.
+Pin down the semantics before either field is used as a filter or cited.
 
 ## Known inconsistencies to resolve
 
