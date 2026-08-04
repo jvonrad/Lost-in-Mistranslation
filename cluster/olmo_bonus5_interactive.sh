@@ -12,11 +12,11 @@
 # rendezvous desync).
 #
 # Usage: setsid nohup bash cluster/olmo_bonus5_interactive.sh <JOBID> [HEAD_IP] \
-#          > /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/olmo_bonus5_watcher.log 2>&1 &
+#          > /projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/olmo_bonus5_watcher.log 2>&1 &
 set -uo pipefail
 JOBID="${1:?usage: olmo_bonus5_interactive.sh <jobid> [head_ip]}"
-REPO=/home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
-PROJ=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+REPO=/home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
+PROJ=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 PORT=29501
 # Head IP = first node's high-speed NIC (rank-0 / machine_rank 0 lands there
 # because it is first in the allocation's nodelist). Pass explicitly to override.
@@ -45,7 +45,7 @@ for attempt in $(seq 1 20); do
           --main_process_ip $HEAD_IP --main_process_port $PORT --multi_gpu \
           training/train_wikifact_grpo_accelerate.py \
           --model_id allenai/OLMo-2-1124-7B \
-          --dataset_id jvonrad/WIKI-FACT \
+          --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
           --output_dir '$PROJ/models/olmo-grpo-bonus50-ablation' \
           --run_name olmo-grpo-bonus50-ablation \
           --use_lora --bf16 \

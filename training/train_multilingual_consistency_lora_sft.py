@@ -12,6 +12,8 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, Sampler
 from datasets import Dataset, load_dataset
+
+import polyfact_schema as pfs
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -23,7 +25,7 @@ import wandb
 
 '''
 CUDA_VISIBLE_DEVICES=1 python training/train_multilingual_consistency_lora_sft.py \
-  --hf_dataset_id jvonrad/WIKI-FACT \
+  --hf_dataset_id jvonrad/PolyFact-Clean --hf_dataset_config parallel \
   --model_id Qwen/Qwen2.5-7B \
   --facts_per_device_batch 8 \
   --gradient_accumulation_steps 8 \
@@ -37,7 +39,8 @@ CUDA_VISIBLE_DEVICES=1 python training/train_multilingual_consistency_lora_sft.p
 
 
 MODEL_ID = "allenai/OLMo-2-1124-7B"
-HF_DATASET_ID = "jonny-vr/WIKI-FACT"
+HF_DATASET_ID = "jvonrad/PolyFact-Clean"
+HF_DATASET_CONFIG = "parallel"
 
 CKPT_DIR = "/tmp/olmo2_wikifact_ckpts"
 OUTPUT_DIR = "/tmp/olmo2_wikifact_final"
@@ -141,23 +144,18 @@ def flatten_wikifact_split(raw_split: Dataset, tokenizer, langs: List[str]) -> D
 
     for ex in raw_split:
         fact_id = ex["fact_id"]
-        langs_dict = ex["langs"]
+        # PolyFact-Clean (`translations` + option_a..d + answer_index) or legacy
+        # WIKI-FACT (`langs` + options list) — normalised in polyfact_schema.
+        langs_dict = pfs.lang_blocks(ex)
 
         for lang in langs:
             if lang not in langs_dict:
                 continue
 
-            item = langs_dict[lang]
-            question = item["question"]
-            options = item["options"]
-            answer_text = item["answer_text"]
-
-            if not isinstance(options, list) or len(options) != 4:
+            parsed = pfs.normalize_lang_item(langs_dict[lang])
+            if parsed is None:
                 continue
-            if answer_text not in options:
-                continue
-
-            gold_idx = options.index(answer_text)
+            question, options, _answer_text, gold_idx = parsed
             feats = mcq_row_to_features(question, options, gold_idx, tokenizer)
 
             rows.append({
@@ -401,6 +399,9 @@ def parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model_id", type=str, default=MODEL_ID)
     ap.add_argument("--hf_dataset_id", type=str, default=HF_DATASET_ID)
+    ap.add_argument("--hf_dataset_config", type=str, default=HF_DATASET_CONFIG,
+                    help="HF config name; PolyFact-Clean requires 'parallel'. "
+                         "Pass '' for single-config datasets like WIKI-FACT.")
     ap.add_argument("--ckpt_dir", type=str, default=CKPT_DIR)
     ap.add_argument("--output_dir", type=str, default=OUTPUT_DIR)
     ap.add_argument("--run_name", type=str)
@@ -500,7 +501,7 @@ def main():
     else:
         print0(f"Loading HF dataset: {args.hf_dataset_id}")
 
-        raw = load_dataset(args.hf_dataset_id)
+        raw = pfs.load_split_dict(args.hf_dataset_id, args.hf_dataset_config)
 
         print0("Flattening WIKI-FACT train ...")
         train_ds = flatten_wikifact_split(raw["train"], tokenizer, LANGS)

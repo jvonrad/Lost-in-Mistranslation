@@ -4,7 +4,7 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-PROJ=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+PROJ=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 
 JOBID="${JOBID:?set JOBID to an active Slurm allocation}"
 MODEL_ID="${MODEL_ID:-allenai/OLMo-2-1124-7B}"
@@ -25,7 +25,7 @@ run_worker() {
   export WORLD_SIZE="$NUM_PROCESSES"
   python training/train_wikifact_grpo_accelerate.py \
     --model_id "$MODEL_ID" \
-    --dataset_id jvonrad/WIKI-FACT \
+    --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
     --output_dir "$OUT" \
     --run_name "$RUN_NAME" \
     --use_lora --bf16 \

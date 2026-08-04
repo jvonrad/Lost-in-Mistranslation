@@ -68,7 +68,7 @@ from torch.utils.data import DataLoader as TorchDataLoader
 
 
 MODEL_ID = "allenai/OLMo-2-1124-7B"
-HF_DATASET_ID = "jvonrad/PolyFact"
+HF_DATASET_ID = "jvonrad/PolyFact-Clean"
 HF_DATASET_CONFIG = "parallel"
 MODEL_OUT_ROOT = "/data/jonathan/Lost-in-Mistranslation/models"
 

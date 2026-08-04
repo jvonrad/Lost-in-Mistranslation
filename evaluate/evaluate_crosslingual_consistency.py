@@ -205,6 +205,71 @@ def load_polyfact_facts(args):
     return facts
 
 
+def load_bmlama_facts(args, langs):
+    """JRQi/BMLAMA53 (Qi et al., EMNLP 2023 — RankC's native benchmark).
+
+    Schema per language config: Prompt (cloze template containing "<mask>"),
+    Ans, "Candidate Ans" (comma-joined pool, median 10), Subject. Rows and
+    candidate pools are index-parallel across languages (verified: equal pool
+    sizes row-wise en vs de over all 3,070 rows), so alignment is identity —
+    like Global-MMLU, no option matching needed.
+
+    Causal-LM scoring protocol (the released DCO probe assumes BMLAMA17's
+    pre-stripped prompts and list-literal pools; 53 ships raw templates, so we
+    define the natural adaptation and document it): split the template at
+    <mask>; prompt = prefix, scored continuation = " " + candidate + suffix.
+    The suffix (e.g. " citizen.") is constant within an item, so byte
+    normalisation stays fair across the pool, and P(suffix|prefix,cand) keeps
+    grammatical-agreement signal. Items with pool < 2 are dropped.
+
+    NOTE: sw is not among BMLAMA-53's languages — passing it warns and drops.
+    """
+    from datasets import load_dataset as _ld
+    per_lang_rows = {}
+    for lang in list(langs):
+        try:
+            per_lang_rows[lang] = _ld("JRQi/BMLAMA53", lang, split=args.split)
+        except Exception as e:
+            print(f"[warn] BMLAMA53 has no '{lang}' config ({type(e).__name__}); dropping it")
+    langs[:] = [l for l in langs if l in per_lang_rows]
+    n_rows = min(len(ds) for ds in per_lang_rows.values())
+
+    facts = {}
+    n_dropped = 0
+    for i in range(n_rows):
+        per_fact = {}
+        pool_n = None
+        ok = True
+        for lang in langs:
+            r = per_lang_rows[lang][i]
+            prompt_t = (r["Prompt"] or "").strip()
+            ans = (r["Ans"] or "").strip()
+            pool = [c.strip() for c in (r["Candidate Ans"] or "").split(", ") if c.strip()]
+            if "<mask>" not in prompt_t or len(pool) < 2 or ans not in pool:
+                ok = False
+                break
+            if pool_n is None:
+                pool_n = len(pool)
+            elif len(pool) != pool_n:
+                ok = False        # index-parallelism violated; drop whole fact
+                break
+            prefix, suffix = prompt_t.split("<mask>", 1)
+            per_fact[lang] = {
+                "question": prompt_t,
+                "prefix": prefix.rstrip(),
+                "options": [" " + c + suffix for c in pool],
+                "candidates": pool,
+                "gold_idx": pool.index(ans),
+            }
+        if ok and len(per_fact) == len(langs):
+            facts[f"bmlama53_{i}"] = per_fact
+        else:
+            n_dropped += 1
+    print(f"BMLAMA53: kept {len(facts):,} facts across {len(langs)} langs "
+          f"(dropped {n_dropped}: pool<2 / missing mask / pool-size mismatch)")
+    return facts
+
+
 def load_gmmlu_facts(args, langs):
     """
     Returns: dict sample_id -> lang -> {"question", "options", "gold_idx"}
@@ -574,13 +639,26 @@ RANKC_FLOOR = sum(
 RANKC_CHANCE = sum(RANKC_W[j - 1] * j / N_OPTIONS for j in range(1, N_OPTIONS + 1))
 
 
+_RANKC_W_CACHE = {N_OPTIONS: RANKC_W}
+
+
 def rankc_pair(rank_slots_1, rank_slots_2):
-    """rank_slots_x: list of slots ordered by descending model score."""
+    """rank_slots_x: list of slots ordered by descending model score.
+
+    Pool size n is taken from the input (variable for bmlama53, fixed 4 for
+    polyfact/gmmlu — weights identical to before at n=4). Larger pools give
+    RankC its real dynamic range (the RankC@4 floor is 0.0902; at n=10 the
+    floor is ~0.008), directly comparable to Qi et al.
+    """
+    n = len(rank_slots_1)
+    ws = _RANKC_W_CACHE.get(n)
+    if ws is None:
+        ws = _RANKC_W_CACHE[n] = rankc_weights(n)
     score = 0.0
-    for j in range(1, N_OPTIONS + 1):
+    for j in range(1, n + 1):
         top1 = set(rank_slots_1[:j])
         top2 = set(rank_slots_2[:j])
-        score += RANKC_W[j - 1] * len(top1 & top2) / j
+        score += ws[j - 1] * len(top1 & top2) / j
     return score
 
 
@@ -632,7 +710,7 @@ def compute_metrics(facts, predictions, alignment, langs):
         if m is None:
             return None
         scores = predictions[fid][lang]["scores"]
-        order = sorted(range(N_OPTIONS), key=lambda i: scores[i], reverse=True)
+        order = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
         return [m[i] for i in order]
 
     rankc_matrix, agree_matrix, pair_n = {}, {}, {}
@@ -654,14 +732,32 @@ def compute_metrics(facts, predictions, alignment, langs):
 
     n_pairs = len(rankc_matrix)
     rankc_avg = sum(rankc_matrix.values()) / max(n_pairs, 1)
+    # Floor/chance depend on the candidate-pool size, which is fixed at 4 for
+    # polyfact/gmmlu but VARIES per fact on bmlama53 (median 10). Average the
+    # per-fact floor/chance over the actual pools so `average_rescaled` is
+    # meaningful on every benchmark (identical to the old constants at n=4).
+    pool_sizes = [len(v["scores"]) for p in predictions.values() for v in p.values()]
+    if pool_sizes:
+        _fc = {}
+        for n in set(pool_sizes):
+            ws = rankc_weights(n)
+            _fc[n] = (sum(ws[j - 1] * max(2 * j - n, 0) / j for j in range(1, n + 1)),
+                      sum(ws[j - 1] * j / n for j in range(1, n + 1)))
+        floor_avg = sum(_fc[n][0] for n in pool_sizes) / len(pool_sizes)
+        chance_avg = sum(_fc[n][1] for n in pool_sizes) / len(pool_sizes)
+        n_cand_mean = sum(pool_sizes) / len(pool_sizes)
+    else:
+        floor_avg, chance_avg, n_cand_mean = RANKC_FLOOR, RANKC_CHANCE, float(N_OPTIONS)
+
     results["rankc"] = {
         "pairwise": rankc_matrix,
         "average": rankc_avg,
-        # rescaled onto [0, 1] over the attainable range for N=4 candidates
-        "average_rescaled": (rankc_avg - RANKC_FLOOR) / (1.0 - RANKC_FLOOR),
-        "floor": RANKC_FLOOR,
-        "chance": RANKC_CHANCE,
-        "n_candidates": N_OPTIONS,
+        # rescaled onto [0, 1] over the attainable range for the OBSERVED pools
+        "average_rescaled": (rankc_avg - floor_avg) / max(1.0 - floor_avg, 1e-9),
+        "floor": floor_avg,
+        "chance": chance_avg,
+        "n_candidates": n_cand_mean,
+        "n_candidates_hist": {str(n): pool_sizes.count(n) for n in sorted(set(pool_sizes))},
         "average_en_x": (
             sum(v for k, v in rankc_matrix.items() if k.startswith("en-") or k.endswith("-en"))
             / max(len(langs) - 1, 1)
@@ -699,7 +795,7 @@ def print_pair_matrix(title, pairwise, langs):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--benchmark",
-                    choices=["polyfact", "global_mmlu", "global_mmlu_lite"],
+                    choices=["polyfact", "global_mmlu", "global_mmlu_lite", "bmlama53"],
                     default="polyfact")
     ap.add_argument("--hf_dataset", default="jvonrad/WIKI-FACT")
     ap.add_argument("--hf_config", default=None)
@@ -743,6 +839,8 @@ def main():
     # ---- data ----
     if args.benchmark == "polyfact":
         facts = load_polyfact_facts(args)
+    elif args.benchmark == "bmlama53":
+        facts = load_bmlama_facts(args, langs)
     else:
         facts = load_gmmlu_facts(args, langs)
     print(f"Loaded {len(facts):,} facts")
@@ -755,6 +853,12 @@ def main():
     # ---- alignment ----
     if args.benchmark == "polyfact":
         alignment = get_polyfact_alignment(facts, args)
+    elif args.benchmark == "bmlama53":
+        # pools are index-parallel across languages; size varies per fact
+        alignment = {
+            fid: {lang: list(range(len(item["options"]))) for lang, item in per_lang.items()}
+            for fid, per_lang in facts.items()
+        }
     else:
         identity = list(range(N_OPTIONS))
         alignment = {
@@ -804,6 +908,9 @@ def main():
             if is_gmmlu(args.benchmark):
                 prompt = build_gmmlu_letter_prompt(item)
                 options = ["A", "B", "C", "D"]
+            elif args.benchmark == "bmlama53":
+                prompt = item["prefix"]
+                options = item["options"]   # " cand + suffix", byte-normalised fairly
             else:
                 prompt = build_prompt(item["question"])
                 options = item["options"]

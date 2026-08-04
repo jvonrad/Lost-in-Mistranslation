@@ -1,0 +1,23 @@
+{
+ "model": "/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/models/olmo-dco-n10000-r128/merged",
+ "arch": "olmo2",
+ "langs": [
+  "en",
+  "de",
+  "id",
+  "pt",
+  "ar",
+  "bn",
+  "sw",
+  "es",
+  "ru",
+  "fr",
+  "ja",
+  "zh"
+ ],
+ "data_num": 500,
+ "max_length": 512,
+ "ted_jsonl": "/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/datasets/TED2025/TED2025/multi_way.jsonl",
+ "num_layers": 32,
+ "num_heads": 32
+}

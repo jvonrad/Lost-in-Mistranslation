@@ -1,0 +1,88 @@
+{
+ "config": {
+  "model": "/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/models/sweep/../olmo-sft-n10000/merged",
+  "benchmark": "polyfact_freeform",
+  "dataset": "jvonrad/PolyFact-Clean",
+  "split": "test",
+  "n_facts": 2039,
+  "langs": [
+   "en",
+   "de",
+   "id",
+   "pt",
+   "ar",
+   "bn",
+   "sw",
+   "es",
+   "ru",
+   "fr",
+   "ja",
+   "zh"
+  ],
+  "matcher": "klar_lenient",
+  "max_new_tokens": 16
+ },
+ "per_language_accuracy": {
+  "en": {
+   "accuracy": 0.4771947032859245,
+   "n": 2039
+  },
+  "de": {
+   "accuracy": 0.16282491417361453,
+   "n": 2039
+  },
+  "id": {
+   "accuracy": 0.16282491417361453,
+   "n": 2039
+  },
+  "pt": {
+   "accuracy": 0.20892594409024032,
+   "n": 2039
+  },
+  "ar": {
+   "accuracy": 0.059833251593918585,
+   "n": 2039
+  },
+  "bn": {
+   "accuracy": 0.046591466405100534,
+   "n": 2039
+  },
+  "sw": {
+   "accuracy": 0.05394801373222168,
+   "n": 2039
+  },
+  "es": {
+   "accuracy": 0.278077488965179,
+   "n": 2039
+  },
+  "ru": {
+   "accuracy": 0.14467876410004904,
+   "n": 2039
+  },
+  "fr": {
+   "accuracy": 0.2535556645414419,
+   "n": 2039
+  },
+  "ja": {
+   "accuracy": 0.05787150564001962,
+   "n": 2039
+  },
+  "zh": {
+   "accuracy": 0.07111329082883767,
+   "n": 2039
+  }
+ },
+ "high_resource_mean": 19.045283635769167,
+ "low_resource_mean": 8.778813143697892,
+ "total_consistency": {
+  "all_langs_correct_fraction": 0.0,
+  "n_facts_all_langs": 2039,
+  "n_facts_total": 2039
+ },
+ "freeform_agreement": {
+  "same_entity_and_correct": 0.0,
+  "same_entity_and_wrong": 0.0,
+  "same_entity_any": 0.0,
+  "resolution_rate": 20.524767042667975
+ }
+}

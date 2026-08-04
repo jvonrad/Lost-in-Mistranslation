@@ -9,19 +9,21 @@
 #
 # Submit: sbatch cluster/nobonus_ablation_continue.sbatch
 #SBATCH --job-name=grpo-nobonus-ablation
-#SBATCH --account=brics.u6jh
+#SBATCH --account=brics.u6sg
 #SBATCH --partition=workq
 #SBATCH --time=24:00:00
 #SBATCH --nodes=1
 #SBATCH --gpus=2
-#SBATCH --output=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/slurm-grpo-nobonus-%j.out
-#SBATCH --error=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/slurm-grpo-nobonus-%j.err
+#SBATCH --output=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/slurm-grpo-nobonus-%j.out
+#SBATCH --error=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/slurm-grpo-nobonus-%j.err
 
 set -uo pipefail
-REPO=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+# REPO is the git checkout (code, on /home); PROJ is the data/output tree (on
+# Lustre /projects). This script used to set REPO to the /projects path, so the
+# mount-wait loop below could never succeed — training/ has never existed
+# there. See the same note in bonus5_ablation.sbatch and cluster/env.sh.
+source /home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/cluster/env.sh
 
-# See bonus5_ablation.sbatch for why: a freshly-scheduled node can start this
-# script before its Lustre /projects mount is fully up.
 for i in $(seq 1 30); do
     [[ -f "$REPO/training/train_wikifact_grpo_accelerate.py" ]] && break
     echo "[grpo-nobonus-ablation] waiting for $REPO to mount (attempt $i/30) ..."
@@ -29,17 +31,13 @@ for i in $(seq 1 30); do
 done
 cd "$REPO"
 
-source ~/miniforge3/etc/profile.d/conda.sh
-conda activate grpo
-export TOKENIZERS_PARALLELISM=false
-
 echo "grpo-nobonus-ablation: job $SLURM_JOB_ID on $(hostname) @ $(date -Is)"
 
 accelerate launch --num_processes 2 --multi_gpu \
   training/train_wikifact_grpo_accelerate.py \
   --model_id Qwen/Qwen2.5-7B \
-  --dataset_id jvonrad/WIKI-FACT \
-  --output_dir "$REPO/models/qwen-2.5-7b-grpo-nobonus-ablation" \
+  --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
+  --output_dir "$PROJ/models/qwen-2.5-7b-grpo-nobonus-ablation" \
   --run_name qwen-grpo-nobonus-ablation \
   --use_lora --bf16 \
   --kl_coef 0.0 \

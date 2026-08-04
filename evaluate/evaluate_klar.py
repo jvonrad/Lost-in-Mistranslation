@@ -218,7 +218,8 @@ def get_device(requested: str):
 # EVALUATION — BATCHED GENERATION
 # ──────────────────────────────────────────────────────────────────────────────
 
-def _greedy_xla(model, tokenizer, prompts, max_new_tokens, device, max_length):
+def _greedy_xla(model, tokenizer, prompts, max_new_tokens, device, max_length,
+                extract_mode: str = "first_line"):
     """Fixed-shape greedy decoding for Neuron/XLA.
 
     HF `model.generate` does not compile on Neuron: its cached-attention mask and
@@ -279,19 +280,48 @@ def _greedy_xla(model, tokenizer, prompts, max_new_tokens, device, max_length):
 
     gen = torch.cat(gen_cols, dim=1).cpu()
     decoded = tokenizer.batch_decode(gen, skip_special_tokens=True)
-    return [normalise(d.split("\n")[0]) for d in decoded]
+    return [extract_answer_line(d, extract_mode) for d in decoded]
+
+
+# --- answer extraction ------------------------------------------------------
+# KLAR keeps only the FIRST LINE of a completion. That is fine for a model that
+# answers immediately, but it scores a model that emits a leading newline as
+# having said nothing at all. qwen-nobonus-s6000 does exactly that: a first-token
+# probe puts ~92% (es) and ~96% (ja) of its mass on whitespace/newline while
+# P(EOS) is ~0, and it lands at 70.7% "empty" predictions against 0.0% for base.
+# The model is answering on line 2 and the extractor only reads line 1.
+#
+# Leading whitespace costs nothing under the GRPO reward (its matcher strips and
+# matches by containment), so a policy is free to drift into newline-prefixed
+# output -- invisible to training, fatal here.
+#
+# `mode` is explicit so old numbers stay reproducible:
+#   first_line          historical behaviour, kept as the default
+#   first_nonempty_line skip leading blank/whitespace-only lines, then take one
+_EXTRACT_MODES = ("first_line", "first_nonempty_line")
+
+
+def extract_answer_line(text: str, mode: str = "first_line") -> str:
+    if mode == "first_nonempty_line":
+        for line in text.split("\n"):
+            if line.strip():
+                return normalise(line)
+        return ""
+    return normalise(text.split("\n")[0])
 
 
 def generate_batch(model, tokenizer, prompts: list[str], max_new_tokens: int,
                    device=None, device_kind: str = "cuda",
-                   max_length: int = 448) -> list[str]:
+                   max_length: int = 448,
+                   extract_mode: str = "first_line") -> list[str]:
     """Greedy-generate for a batch of prompts. Returns normalised first-line strings."""
     import torch
     if device is None:
         device = model.device
 
     if device_kind == "xla":
-        return _greedy_xla(model, tokenizer, prompts, max_new_tokens, device, max_length)
+        return _greedy_xla(model, tokenizer, prompts, max_new_tokens, device, max_length,
+                           extract_mode)
 
     enc = tokenizer(
         prompts, return_tensors="pt",
@@ -310,7 +340,7 @@ def generate_batch(model, tokenizer, prompts: list[str], max_new_tokens: int,
     # for every row, so the newly generated tokens start at `prompt_len`).
     new_tokens = output[:, prompt_len:]
     decoded = tokenizer.batch_decode(new_tokens, skip_special_tokens=True)
-    return [normalise(d.split("\n")[0]) for d in decoded]
+    return [extract_answer_line(d, extract_mode) for d in decoded]
 
 
 def evaluate(
@@ -324,6 +354,7 @@ def evaluate(
     device_str: str = "auto",
     max_length: int = 128,
     contaminated_keys: set | None = None,
+    extract_mode: str = "first_line",
 ) -> tuple[dict[str, tuple[int, int]], list[dict]]:
     """Return ({lang: (n_correct, n_total)}, per_sample_records)."""
     import torch
@@ -379,6 +410,7 @@ def evaluate(
             preds = generate_batch(
                 model, tokenizer, prompts, max_new_tokens,
                 device=device, device_kind=device_kind, max_length=max_length,
+                extract_mode=extract_mode,
             )
             if pad_n:
                 preds = preds[:len(batch)]
@@ -424,6 +456,15 @@ def main() -> None:
     p.add_argument("--max-length", type=int, default=448,
                    help="Fixed prompt length on XLA (avoids recompilation; "
                         "max KLAR prompt is 392 tokens).")
+    p.add_argument("--answer-extract", choices=_EXTRACT_MODES, default="first_line",
+                   help="How to turn a completion into a prediction. 'first_line' is "
+                        "the historical behaviour and scores a completion that opens "
+                        "with a newline as EMPTY -- which is how qwen-nobonus-s6000 "
+                        "landed at 70.7%% empty / 4.6%% accuracy while answering "
+                        "normally on line 2. 'first_nonempty_line' skips leading blank "
+                        "lines first. Default is unchanged so published numbers stay "
+                        "reproducible; pass the tolerant mode to separate a real "
+                        "generation failure from a formatting drift.")
     p.add_argument("--contamination-labels", default=None,
                    help="JSON from data_analysis/contamination_analysis.py "
                         "(evaluate/alignments/klar_polyfact_contamination.json). "
@@ -462,6 +503,7 @@ def main() -> None:
         max_new_tokens=args.max_new_tokens,
         batch_size=args.batch_size,
         strict=args.strict,
+        extract_mode=args.answer_extract,
         device_str=args.device,
         max_length=args.max_length,
         contaminated_keys=contaminated_keys,

@@ -121,7 +121,7 @@ CURRICULUM_STATE_FILE = 'curriculum_state.json'
 def parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model_id", type=str, default="allenai/OLMo-2-1124-7B")
-    ap.add_argument("--dataset_id", type=str, default="jvonrad/PolyFact")
+    ap.add_argument("--dataset_id", type=str, default="jvonrad/PolyFact-Clean")
     ap.add_argument("--dataset_config", type=str, default="parallel")
 
     ap.add_argument("--use_lora", action="store_true", default=False)

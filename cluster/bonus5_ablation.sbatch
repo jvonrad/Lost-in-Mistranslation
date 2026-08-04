@@ -18,25 +18,25 @@
 #
 # Submit: sbatch cluster/bonus5_ablation.sbatch
 #SBATCH --job-name=grpo-bonus5-ablation
-#SBATCH --account=brics.u6jh
+#SBATCH --account=brics.u6sg
 #SBATCH --partition=workq
 #SBATCH --time=24:00:00
 #SBATCH --nodes=1
 #SBATCH --gpus=2
-#SBATCH --output=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/slurm-grpo-bonus5-%j.out
-#SBATCH --error=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/slurm-grpo-bonus5-%j.err
+#SBATCH --output=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/slurm-grpo-bonus5-%j.out
+#SBATCH --error=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/slurm-grpo-bonus5-%j.err
 
 set -uo pipefail
 # REPO is the actual git checkout (code) -- lives under /home, NOT /projects.
-# /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation is a separate, pre-existing
+# /projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation is a separate, pre-existing
 # *data/output-only* directory (datasets/, models/, logs/) that has never
 # contained training/, evaluate/, cluster/, etc. Every earlier "Lustre mount
 # race" failure blamed on this script (nid011229, nid010530, and again on
 # nid010320 via the interactive-job variant of this same command) was actually
 # this wrong-path bug, not a timing issue -- waiting longer never helped
 # because the file was never going to appear under /projects.
-REPO=/home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
-PROJ=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+REPO=/home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
+PROJ=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 cd "$REPO"
 
 source ~/miniforge3/etc/profile.d/conda.sh
@@ -48,7 +48,7 @@ echo "grpo-bonus5-ablation: job $SLURM_JOB_ID on $(hostname) @ $(date -Is)"
 accelerate launch --num_processes 2 --multi_gpu \
   training/train_wikifact_grpo_accelerate.py \
   --model_id Qwen/Qwen2.5-7B \
-  --dataset_id jvonrad/WIKI-FACT \
+  --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
   --output_dir "$PROJ/models/qwen-grpo-bonus50-ablation" \
   --run_name qwen-grpo-bonus50-ablation \
   --use_lora --bf16 \

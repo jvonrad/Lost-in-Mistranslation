@@ -7,16 +7,16 @@
 # Submit:
 #   sbatch --export=ALL,JOBID=5635241,GPUS=2,3 cluster/submit_ablation.sbatch
 #SBATCH --job-name=ablation-orch
-#SBATCH --account=brics.u6jh
+#SBATCH --account=brics.u6sg
 #SBATCH --partition=workq
 #SBATCH --time=24:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=2G
-#SBATCH --output=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/ablation-orch-%j.out
-#SBATCH --error=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/ablation-orch-%j.err
+#SBATCH --output=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/ablation-orch-%j.out
+#SBATCH --error=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/ablation-orch-%j.err
 
 set -uo pipefail
-REPO=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+REPO=/home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 cd "$REPO"
 echo "[submit_ablation] orchestrator job $SLURM_JOB_ID on $(hostname), targeting allocation JOBID=$JOBID"
 bash cluster/run_grpo_ablation.sh

@@ -1,0 +1,37 @@
+{
+ "model": "/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/models/sweep/_merged_qwen-sweep-clip5",
+ "langs": [
+  "en",
+  "de",
+  "id",
+  "pt",
+  "ar",
+  "bn",
+  "sw",
+  "es",
+  "ru",
+  "fr",
+  "ja",
+  "zh"
+ ],
+ "max_tokens": 2000000,
+ "seq_len": 1024,
+ "top_frac": 0.01,
+ "n_selected": 5304,
+ "num_layers": 28,
+ "intermediate_size": 18944,
+ "tokens_per_lang": {
+  "en": 1999872,
+  "de": 1999872,
+  "id": 1999872,
+  "pt": 1999872,
+  "ar": 1999872,
+  "bn": 1233920,
+  "sw": 333824,
+  "es": 1999872,
+  "ru": 1999872,
+  "fr": 1999872,
+  "ja": 1999872,
+  "zh": 1999872
+ }
+}

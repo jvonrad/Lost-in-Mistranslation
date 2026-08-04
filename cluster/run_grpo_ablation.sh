@@ -21,7 +21,7 @@
 set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-PROJ=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+PROJ=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 
 JOBID="${JOBID:-$(cut -d' ' -f1 "$REPO/cluster/state/current_job" 2>/dev/null)}"
 NODE="${NODE:-}"
@@ -56,7 +56,7 @@ srun --jobid="$JOBID" --overlap "${NODE_FLAGS[@]}" bash -c "
   accelerate launch --num_processes $NUM_PROCESSES --multi_gpu \
     training/train_wikifact_grpo_accelerate.py \
     --model_id '$MODEL_ID' \
-    --dataset_id jvonrad/WIKI-FACT \
+    --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
     --output_dir '$OUT' \
     --run_name '$RUN_NAME' \
     --use_lora --bf16 \

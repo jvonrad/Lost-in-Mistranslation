@@ -18,16 +18,16 @@
 #   sbatch --export=ALL,JOBID=5635241,GPUS=0,1,TAG=qwen,MAX_FACTS=40000 \
 #     cluster/submit_cmalign.sbatch
 #SBATCH --job-name=cmalign-orch
-#SBATCH --account=brics.u6jh
+#SBATCH --account=brics.u6sg
 #SBATCH --partition=workq
 #SBATCH --time=12:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=2G
-#SBATCH --output=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/cmalign-orch-%j.out
-#SBATCH --error=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/cmalign-orch-%j.err
+#SBATCH --output=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/cmalign-orch-%j.out
+#SBATCH --error=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/cmalign-orch-%j.err
 
 set -uo pipefail
-REPO=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+REPO=/home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 cd "$REPO"
 echo "[submit_cmalign] orchestrator job $SLURM_JOB_ID on $(hostname), targeting allocation JOBID=$JOBID"
 bash cluster/run_cmalign_sharded.sh

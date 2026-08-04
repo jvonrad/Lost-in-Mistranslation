@@ -16,8 +16,8 @@ set -euo pipefail
 
 JOBID="${1:?usage: $0 <jobid> <node>}"
 NODE="${2:?usage: $0 <jobid> <node>}"
-REPO=/home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
-PROJ=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+REPO=/home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
+PROJ=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 MERGED="$PROJ/datasets/cmalign_pref_olmo"
 OUT="$PROJ/models/olmo-cmalign-dpo"
 

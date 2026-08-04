@@ -38,9 +38,9 @@ model's own English generations as a pivot and aligns the other languages to it:
   python training/train_wikifact_cmalign_dpo.py \
     --phase all \
     --model_id jvonrad/Qwen-2.5-7B-TED \
-    --dataset_id jvonrad/WIKI-FACT \
-    --pref_data_path /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/datasets/cmalign_pref_qwen_ted \
-    --output_dir /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/models/qwen-2.5-7b-ted-cmalign-dpo \
+    --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
+    --pref_data_path /projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/datasets/cmalign_pref_qwen_ted \
+    --output_dir /projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/models/qwen-2.5-7b-ted-cmalign-dpo \
     --run_name qwen-2.5-7b-ted-cmalign-dpo \
     --max_facts 8000 --num_candidates 4 \
     --beta 0.1 --nll_gamma 0.0 --learning_rate 5e-6 --num_train_epochs 1 \
@@ -67,6 +67,10 @@ from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
 
 from datasets import load_dataset, Dataset, load_from_disk
+
+import prompt_scaffold as pscaf
+
+import polyfact_schema as pfs
 from transformers import (
     AutoTokenizer,
     AutoModelForCausalLM,
@@ -84,7 +88,8 @@ except ImportError:  # wandb is optional
 # ─────────────────────────────────────────────
 
 MODEL_ID = "Qwen/Qwen2.5-7B"
-HF_DATASET_ID = "jvonrad/WIKI-FACT"
+HF_DATASET_ID = "jvonrad/PolyFact-Clean"
+HF_DATASET_CONFIG = "parallel"
 WANDB_PROJECT = "UnLock"
 
 LANGS = ["en", "es", "fr", "de", "id", "pt", "ru", "zh", "ja", "ar", "sw", "bn"]
@@ -109,45 +114,39 @@ def safe_strip(x: Any) -> str:
 
 def extract_answer_text(text: str) -> str:
     text = safe_strip(text)
-    text = re.sub(r"^\s*(answer|answer text)\s*:\s*", "", text, flags=re.I)
+    text = pscaf.strip_answer_label(text)
     text = text.split("\n")[0].strip()
     return text
 
 
-def build_single_language_prompt(lang: str, question: str, options: Dict[str, str]) -> str:
-    return (
-        f"You will be given one factual multiple-choice question in {LANG_TO_NAME[lang]}.\n"
-        f"Return only the full answer text in {LANG_TO_NAME[lang]}.\n"
-        f"Do not return the letter.\n"
-        f"Do not explain.\n\n"
-        f"Question: {question}\n"
-        f"A. {options['A']}\n"
-        f"B. {options['B']}\n"
-        f"C. {options['C']}\n"
-        f"D. {options['D']}\n\n"
-        f"Answer text:"
-    )
+def build_single_language_prompt(lang, question, options, scaffold="native"):
+    """Free-form MCQ prompt, localised to `lang` (see prompt_scaffold).
+
+    Base models continue in the language of their context, so an English
+    scaffold around a non-English question biases the answer toward English
+    and then fails option matching. scaffold='en' restores the old prompt.
+    """
+    return pscaf.build_single_language_prompt(lang, question, options, scaffold)
 
 
 def build_fact_prompts(ex: Dict[str, Any]) -> Dict[str, str]:
-    """One free-text prompt per available language for a WIKI-FACT row."""
-    langs_data = ex.get("langs", {})
-    if not isinstance(langs_data, dict):
+    """One free-text prompt per available language.
+
+    Handles PolyFact-Clean (`translations` + option_a..d) and legacy WIKI-FACT
+    (`langs` + options list) via the shared polyfact_schema normaliser.
+    """
+    langs_data = pfs.lang_blocks(ex)
+    if not langs_data:
         return {}
     prompts_by_lang = {}
     for lang in LANGS:
-        item = langs_data.get(lang)
-        if not isinstance(item, dict):
+        parsed = pfs.normalize_lang_item(langs_data.get(lang))
+        if parsed is None:
             continue
-        question = safe_strip(item.get("question", ""))
-        options = item.get("options", [])
-        if not question or not isinstance(options, list) or len(options) != 4:
-            continue
-        options = [safe_strip(x) for x in options]
-        if any(not x for x in options):
-            continue
-        option_map = {"A": options[0], "B": options[1], "C": options[2], "D": options[3]}
-        prompts_by_lang[lang] = build_single_language_prompt(lang, question, option_map)
+        question, options, _answer_text, _gold_idx = parsed
+        prompts_by_lang[lang] = build_single_language_prompt(
+            lang, question, pfs.option_map(options)
+        )
     return prompts_by_lang
 
 
@@ -301,7 +300,9 @@ def construct_preference_data(args, device) -> Dataset:
     embedder = Embedder(args.embedding_model, device=device)
 
     print(f"[construct] loading dataset {args.dataset_id} ...", flush=True)
-    raw = load_dataset(args.dataset_id, split=args.dataset_split)
+    raw = (load_dataset(args.dataset_id, args.dataset_config, split=args.dataset_split)
+           if args.dataset_config else
+           load_dataset(args.dataset_id, split=args.dataset_split))
     if args.max_facts is not None:
         raw = raw.shuffle(seed=args.seed).select(range(min(args.max_facts, len(raw))))
     # Disjoint contiguous shard of the (globally shuffled) fact set, so N parallel
@@ -746,6 +747,9 @@ def parse_args():
     ap.add_argument("--model_id", type=str, default=MODEL_ID)
     ap.add_argument("--dataset_id", type=str, default=HF_DATASET_ID)
     ap.add_argument("--dataset_split", type=str, default="train")
+    ap.add_argument("--dataset_config", type=str, default=HF_DATASET_CONFIG,
+                    help="HF config name; PolyFact-Clean requires 'parallel'. "
+                         "Pass '' for single-config datasets like WIKI-FACT.")
     ap.add_argument("--pref_data_path", type=str, required=True,
                     help="Where the constructed preference dataset is saved/loaded (save_to_disk).")
     ap.add_argument("--overwrite_pref_data", action="store_true", default=False)
@@ -810,6 +814,12 @@ def parse_args():
 
     ap.add_argument("--bf16", action="store_true", default=True)
     ap.add_argument("--no_bf16", action="store_true")
+    ap.add_argument("--prompt_scaffold", type=str, default="native",
+                    choices=["native", "en"],
+                    help="Language of the FREE-FORM prompt scaffold. 'native' "
+                         "localises it per language (default); 'en' restores the "
+                         "old English scaffold for an apples-to-apples ablation. "
+                         "Does NOT affect the log-likelihood MCQ path.")
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--report_to", type=str, default="wandb")
     args = ap.parse_args()

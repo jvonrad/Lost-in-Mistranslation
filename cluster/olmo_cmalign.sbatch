@@ -17,16 +17,16 @@
 #
 # Submit: sbatch cluster/olmo_cmalign.sbatch
 #SBATCH --job-name=olmo-cmalign
-#SBATCH --account=brics.u6jh
+#SBATCH --account=brics.u6sg
 #SBATCH --partition=workq
 #SBATCH --time=24:00:00
 #SBATCH --nodes=1
 #SBATCH --gpus=4
-#SBATCH --output=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/slurm-olmo-cmalign-%j.out
-#SBATCH --error=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/logs/slurm-olmo-cmalign-%j.err
+#SBATCH --output=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/slurm-olmo-cmalign-%j.out
+#SBATCH --error=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation/logs/slurm-olmo-cmalign-%j.err
 
 set -uo pipefail
-REPO=/home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+REPO=/home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 cd "$REPO"
 
 echo "olmo-cmalign: job $SLURM_JOB_ID on $(hostname) @ $(date -Is)"

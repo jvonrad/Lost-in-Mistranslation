@@ -22,7 +22,7 @@
 set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-PROJ=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+PROJ=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 
 JOBID="${JOBID:-$(cut -d' ' -f1 "$REPO/cluster/state/current_job" 2>/dev/null)}"
 NODE="${NODE:-}"
@@ -90,7 +90,7 @@ for i in "${!GPU_ARR[@]}"; do
       $COMMON_ENV
       export CUDA_VISIBLE_DEVICES=$cvd
       python -u training/train_wikifact_cmalign_dpo.py \
-        --phase construct --model_id '$MODEL_ID' --dataset_id jvonrad/WIKI-FACT \
+        --phase construct --model_id '$MODEL_ID' --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
         --pref_data_path '$shard_dir' --output_dir /tmp/unused_${TAG}_${i} \
         --max_facts $MAX_FACTS --num_shards $NUM_SHARDS --shard_index $i \
         --num_candidates 4 --facts_per_gen_batch 16 --gen_micro_batch_size $GEN_MICRO_BATCH_SIZE \

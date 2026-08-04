@@ -1,0 +1,60 @@
+{
+ "model": "/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation/models/qwen-2.5-7b-cmalign-dpo/merged",
+ "langs": [
+  "es",
+  "fr",
+  "ru",
+  "zh",
+  "ja",
+  "ar"
+ ],
+ "match_mode": "lenient",
+ "per_lang": {
+  "es": [
+   1839,
+   2619
+  ],
+  "fr": [
+   1829,
+   2619
+  ],
+  "ru": [
+   1646,
+   2619
+  ],
+  "zh": [
+   893,
+   2619
+  ],
+  "ja": [
+   974,
+   2619
+  ],
+  "ar": [
+   1183,
+   2619
+  ]
+ },
+ "subset_acc": {
+  "full": [
+   8364,
+   15714,
+   0.5322642229858725
+  ],
+  "contaminated_157": [
+   648,
+   942,
+   0.6878980891719745
+  ],
+  "clean_shared_1050": [
+   3398,
+   6300,
+   0.5393650793650794
+  ],
+  "clean_all": [
+   7716,
+   14772,
+   0.5223395613322502
+  ]
+ }
+}

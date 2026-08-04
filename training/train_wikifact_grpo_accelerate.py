@@ -17,7 +17,7 @@ For each fact:
 
 accelerate launch --num_processes 2 --multi_gpu training/train_wikifact_grpo_accelerate.py \
   --model_id jvonrad/Qwen-2.5-7B-TED \
-  --dataset_id jvonrad/WIKI-FACT \
+  --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
   --output_dir /data/jonathan/Lost-in-Mistranslation/models/qwen-2.5-7b-ted-grpo-accelerate \
   --per_device_train_batch_size 1 \
   --num_train_epochs 2 \
@@ -49,6 +49,10 @@ import numpy as np
 import evaluate
 from datasets import load_dataset, Dataset
 
+import prompt_scaffold as pscaf
+
+import polyfact_schema as pfs
+
 import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
@@ -70,7 +74,8 @@ from accelerate.utils import set_seed as accelerate_set_seed
 # ─────────────────────────────────────────────
 
 MODEL_ID = "Qwen/Qwen2.5-7B"
-HF_DATASET_ID = "jonny-vr/WIKI-FACT"
+HF_DATASET_ID = "jvonrad/PolyFact-Clean"
+HF_DATASET_CONFIG = "parallel"
 OUTPUT_DIR = "/data/jonathan/Lost-in-Mistranslation/models/qwen2.5-7b-grpo-accelerate"
 WANDB_PROJECT = "UnLock"
 
@@ -157,6 +162,10 @@ def parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model_id", type=str, default=MODEL_ID)
     ap.add_argument("--dataset_id", type=str, default=HF_DATASET_ID)
+    ap.add_argument("--dataset_config", type=str, default=HF_DATASET_CONFIG,
+                    help="HF config name. PolyFact-Clean has no default config "
+                         "(12 per-language configs + 'parallel'), so 'parallel' is "
+                         "required. Pass '' for single-config datasets like WIKI-FACT.")
     ap.add_argument("--output_dir", type=str, default=OUTPUT_DIR)
     ap.add_argument("--run_name", type=str, default=None)
     ap.add_argument("--logprob_micro_batch_size", type=int, default=4)
@@ -208,15 +217,116 @@ def parse_args():
 
     ap.add_argument("--coverage_reward_weight", type=float, default=0.05)
     ap.add_argument("--valid_option_reward_weight", type=float, default=0.15)
+    ap.add_argument("--lora_r", type=int, default=LORA_R,
+                    help="LoRA rank (paper runs used 64).")
+    ap.add_argument("--lora_alpha", type=int, default=None,
+                    help="LoRA alpha; default 2*lora_r (the paper ratio, 64/128).")
+    ap.add_argument("--ref_impl", type=str, default="separate",
+                    choices=["separate", "adapter_off"],
+                    help="KL reference model. 'separate' loads a second frozen copy "
+                         "of model_id (paper behaviour, +15 GB). 'adapter_off' reuses "
+                         "the policy with its LoRA adapter disabled -- mathematically "
+                         "the same reference (LoRA init is the base model) at zero "
+                         "extra memory; requires --use_lora.")
+    ap.add_argument("--reward_pooling", type=str, default="group",
+                    choices=["group", "per_lang"],
+                    help="'group' (paper): reward pooled over all 12 languages of a "
+                         "rollout group, one z-scored advantage broadcast to every "
+                         "language's generation. 'per_lang' (meta-review baseline, no "
+                         "cross-lingual pooling): each (fact, lang) is its own GRPO "
+                         "group; own-language reward only; all_correct_bonus ignored.")
     ap.add_argument("--all_correct_bonus", type=float, default=1.0,
                     help="Reward added when ALL languages are correct (cross-lingual "
                          "consistency bonus). Ablation: 0.0 disables it, 5.0 amplifies it. "
                          "Was previously hardcoded to 1.0.")
+    ap.add_argument("--bonus_shape", choices=["all_or_nothing", "power", "ladder"],
+                    default="all_or_nothing",
+                    help="How --all_correct_bonus is distributed over the number of "
+                         "correct languages k. 'all_or_nothing' (default, byte-for-byte "
+                         "the previous behaviour) pays only at k==n_langs — a SPARSE "
+                         "reward that fires on ~2-10%% of rollouts. 'power' pays "
+                         "bonus*(k/n)^bonus_power, convex so the marginal value of the "
+                         "last language exceeds the first while still paying nothing for "
+                         "being consistently WRONG. 'ladder' uses explicit rungs.")
+    ap.add_argument("--bonus_power", type=float, default=4.0,
+                    help="Exponent for --bonus_shape power. 1.0 is linear (no convexity, "
+                         "just rescales the count); higher concentrates weight near k=n.")
+    ap.add_argument("--brevity_penalty", type=float, default=0.0,
+                    help="Penalty on a CORRECT answer for text beyond the gold "
+                         "option, as penalty * min(1, excess_chars/len(gold)). "
+                         "0.0 (default) = previous behaviour: the matcher resolves "
+                         "by containment so padding is free, which is how Qwen "
+                         "drifted into low-probability filler and blew up its "
+                         "gradients. Keep < 1.0 so a padded CORRECT answer still "
+                         "outranks a wrong one; 0.3 is a reasonable start.")
+    ap.add_argument("--brevity_denom_floor", type=int, default=10,
+                    help="Floor on the brevity denominator, so the same ABSOLUTE "
+                         "padding costs the same in every language. Gold answers "
+                         "average 11-13 chars in most languages but 7.0 (ja) and "
+                         "4.8 (zh); without a floor, CJK is ~2.5x more sensitive "
+                         "to identical padding.")
+    ap.add_argument("--empty_penalty", type=float, default=0.0,
+                    help="Penalty for an EMPTY completion. 0.0 (default) reproduces "
+                         "every pre-2026-08-03 run byte for byte, but leaves the "
+                         "'silence hole': empty scores 0.0, tying wrong-but-valid and "
+                         "BEATING non-empty unparseable (-0.5), so the cheapest escape "
+                         "from garbled output is one EOS token. All rollouts then score "
+                         "alike -> std 0 -> zero gradient -> an absorbing state training "
+                         "can never leave (it killed qwen-final-main at both clip 5.0 and "
+                         "clip 2.0). Use 1.0 to order it correctly: "
+                         "correct +1 > valid-wrong 0 > unparseable -0.5 > empty -1.")
+    ap.add_argument("--dead_run_patience", type=int, default=200,
+                    help="Abort after this many CONSECUTIVE optimizer steps with "
+                         "reward_std == 0. Such steps contribute exactly zero gradient, "
+                         "so a run that never leaves the state cannot learn and only "
+                         "burns the allocation. Isolated zero-std steps are normal "
+                         "(a saturated all-correct group), which is why this counts "
+                         "consecutive ones; 0 disables the check.")
+    ap.add_argument("--bonus_ladder", type=str, default="9:1,10:2,11:3,12:5",
+                    help="Rungs for --bonus_shape ladder as 'k:absolute_reward' pairs: the "
+                         "default adds +1 / +2 / +3 / +5 when 9 / 10 / 11 / 12 languages are "
+                         "correct. Highest matching rung wins; rungs do NOT accumulate. "
+                         "--all_correct_bonus is IGNORED in ladder mode.")
     ap.add_argument("--max_eval_flores", type=int, default=32)
-    ap.add_argument("--kl_coef", type=float, default=0.05)
+    ap.add_argument("--kl_coef", type=float, default=0.0,
+                    help="KL penalty toward the reference policy (k3 estimator). "
+                         "Default 0.0 = OFF, matching every science run in this repo, "
+                         "which all passed --kl_coef 0.0 explicitly. Was 0.05, which "
+                         "silently enabled a KL term for any launcher that omitted the "
+                         "flag; combined with the old k1 estimator that term rewarded "
+                         "divergence rather than penalising it.")
 
     ap.add_argument("--bf16", action="store_true", default=True)
     ap.add_argument("--no_bf16", action="store_true")
+    ap.add_argument("--length_bucketing", action="store_true",
+                    help="Sort rollout prompts (generation) and sequences (loss) by "
+                         "length so each micro-batch pads to its own max. Tokenizer "
+                         "fertility differs ~4x across the 12 languages (bn ~307 tok "
+                         "vs en ~73 for the same fact), so unsorted micro-batches pad "
+                         "to the Bengali max; sorting cuts loss-pass FLOPs and the "
+                         "dominant [mb,T,vocab] memory term correspondingly. Changes "
+                         "no math -- the loss is a mean over sequences.")
+    ap.add_argument("--fused_logprob", action="store_true",
+                    help="Use F.cross_entropy for per-token logprobs instead of "
+                         "materialising the full-vocab log_softmax tensor. Halves the "
+                         "dominant loss-pass memory term; numerically equivalent.")
+    ap.add_argument("--task_format", choices=["mcq", "freeform"], default="mcq",
+                    help="Rollout prompt format. 'mcq' (default, previous behaviour) "
+                         "lists the four candidates, training SELECTION AMONG SHOWN "
+                         "OPTIONS. 'freeform' hides them, training closed-book recall "
+                         "— the task KLAR measures. Reward matching is identical in "
+                         "both; only the prompt changes.")
+    ap.add_argument("--max_grad_norm", type=float, default=1.0,
+                    help="Gradient-norm clip. Was hardcoded 1.0, but the measured "
+                         "pre-clip norm has median 139 (Qwen) / 3.7 (OLMo), so ~99%% of "
+                         "steps are renormalised and relative step magnitude is "
+                         "discarded. Raise to loosen.")
+    ap.add_argument("--prompt_scaffold", type=str, default="native",
+                    choices=["native", "en"],
+                    help="Language of the FREE-FORM prompt scaffold. 'native' "
+                         "localises it per language (default); 'en' restores the "
+                         "old English scaffold for an apples-to-apples ablation. "
+                         "Does NOT affect the log-likelihood MCQ path.")
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--report_to", type=str, default="wandb")
     return ap.parse_args()
@@ -250,14 +360,45 @@ def normalize_text(text: str) -> str:
 
 def extract_answer_text(text: str) -> str:
     text = safe_strip(text)
-    text = re.sub(r"^\s*(answer|answer text)\s*:\s*", "", text, flags=re.I)
+    text = pscaf.strip_answer_label(text)
     text = text.split("\n")[0].strip()
     return text
 
 
+# A generation that is *nothing but* an option letter: "D", "c)", "B.".
+# normalize_text already strips surrounding punctuation, so this is just the
+# single character — but keep the punctuation branch for safety.
+# Leading option-letter prefix in any of the forms the models actually emit:
+# "A)", "A.", "A -", "A:", "A]" plus optional space. Latin letters only, matching
+# the scaffold, which keeps A-D Latin in every language.
+_LETTER_PREFIX_RE = re.compile(r"^\s*[abcdABCD]\s*[\.\)\]:\-]\s*")
+
+_PURE_LETTER_RE = re.compile(r"^([abcd])[\.\)\]:\-]?$", re.I)
+
+
+def is_pure_letter_answer(pred_text: str) -> bool:
+    """True when the model returned only the option letter and no answer text."""
+    return bool(_PURE_LETTER_RE.match(normalize_text(extract_answer_text(pred_text))))
+
+
 def resolve_prediction_to_letter(
-    pred_text: str, option_map: Dict[str, str]
+    pred_text: str, option_map: Dict[str, str], allow_bare_letter: bool = False,
 ) -> Tuple[Optional[str], bool]:
+    """Map a free-text generation onto one of the four option letters.
+
+    The task is still multiple choice — the options ARE shown in the prompt —
+    but the prompt asks for the answer *text*, so a generation consisting only
+    of a letter is treated as unresolved (`allow_bare_letter=False`, default).
+    Previously "D" was mapped straight to option D and scored as fully correct,
+    which let GRPO collect reward by eliminating over the visible candidate
+    list instead of recalling the fact — the exact shortcut the closed-book
+    trainer was written to avoid, and not the skill evaluate_accuracy.py
+    measures. Pass allow_bare_letter=True to restore the old behaviour.
+
+    Text-based resolution is tried BEFORE the letter rule, so a mixed answer
+    like "D, Kiran Desai" is resolved by the entity it names rather than by the
+    letter it happens to start with.
+    """
     pred_raw = extract_answer_text(pred_text)
     pred_norm = normalize_text(pred_raw)
     if not pred_norm:
@@ -265,21 +406,33 @@ def resolve_prediction_to_letter(
 
     option_norm = {letter: normalize_text(text) for letter, text in option_map.items()}
 
+    # 1. exact answer text
     for letter, opt_norm in option_norm.items():
         if pred_norm == opt_norm:
             return letter, True
 
-    m = re.match(r"^([abcd])(?:[\.\)\]:\-\s]|$)", pred_norm)
+    # 2. a bare letter — no answer text at all. Checked BEFORE containment:
+    #    "d" is a substring of "durham", so a lone letter would otherwise be
+    #    silently resolved to whichever option happens to contain that char.
+    m = _PURE_LETTER_RE.match(pred_norm)
     if m:
-        return m.group(1).upper(), True
+        return (m.group(1).upper(), True) if allow_bare_letter else (None, False)
 
-    candidates = []
-    for letter, opt_norm in option_norm.items():
-        if opt_norm and (pred_norm in opt_norm or opt_norm in pred_norm):
-            candidates.append(letter)
-
+    # 3. answer text contained in / containing the generation (unambiguously).
+    #    The `pred in option` direction needs >=2 chars for the same reason —
+    #    2 is deliberate, not 3: CJK answers are legitimately 2 characters.
+    candidates = [
+        letter for letter, opt_norm in option_norm.items()
+        if opt_norm and ((len(pred_norm) >= 2 and pred_norm in opt_norm)
+                         or opt_norm in pred_norm)
+    ]
     if len(candidates) == 1:
         return candidates[0], True
+
+    # 4. a letter followed by text that matched nothing above
+    m = re.match(r"^([abcd])(?:[\.\)\]:\-\s])", pred_norm)
+    if m and allow_bare_letter:
+        return m.group(1).upper(), True
 
     return None, False
 
@@ -288,24 +441,37 @@ def resolve_prediction_to_letter(
 # Prompt / dataset builders
 # ─────────────────────────────────────────────
 
-def build_single_language_prompt(lang: str, question: str, options: Dict[str, str]) -> str:
-    return (
-        f"You will be given one factual multiple-choice question in {LANG_TO_NAME[lang]}.\n"
-        f"Return only the full answer text in {LANG_TO_NAME[lang]}.\n"
-        f"Do not return the letter.\n"
-        f"Do not explain.\n\n"
-        f"Question: {question}\n"
-        f"A. {options['A']}\n"
-        f"B. {options['B']}\n"
-        f"C. {options['C']}\n"
-        f"D. {options['D']}\n\n"
-        f"Answer text:"
-    )
+LETTER_TO_IDX = {"A": 0, "B": 1, "C": 2, "D": 3}
 
 
-def build_grouped_fact_item(ex: Dict[str, Any]) -> Dict[str, Any]:
-    langs_data = ex.get("langs", {})
-    if not isinstance(langs_data, dict):
+def build_prompt_eval(question: str) -> str:
+    """The prompt evaluate_accuracy.py / evaluate_crosslingual_consistency.py use.
+
+    Deliberately bare: no instruction wrapper and the options are NOT shown, so
+    log-likelihood scoring measures closed-book recall. Kept byte-identical to
+    the eval scripts' build_prompt so in-loop numbers are comparable.
+    """
+    return f"Question: {question}\nAnswer:"
+
+
+def build_single_language_prompt(lang, question, options, scaffold="native",
+                                 task_format="mcq"):
+    """Free-form MCQ prompt, localised to `lang` (see prompt_scaffold).
+
+    Base models continue in the language of their context, so an English
+    scaffold around a non-English question biases the answer toward English
+    and then fails option matching. scaffold='en' restores the old prompt.
+    """
+    return pscaf.build_single_language_prompt(lang, question, options, scaffold,
+                                              task_format=task_format)
+
+
+def build_grouped_fact_item(ex: Dict[str, Any], scaffold: str = "native",
+                            task_format: str = "mcq") -> Dict[str, Any]:
+    # Accepts PolyFact-Clean (`translations` + option_a..d + answer_index) and
+    # legacy WIKI-FACT (`langs` + options list) alike — see polyfact_schema.
+    langs_data = pfs.lang_blocks(ex)
+    if not langs_data:
         return {"is_valid": False, "num_languages": 0}
 
     prompts_by_lang = {}
@@ -314,27 +480,29 @@ def build_grouped_fact_item(ex: Dict[str, Any]) -> Dict[str, Any]:
     for lang in LANGS:
         if lang not in langs_data:
             continue
-        item = langs_data[lang]
-        question = safe_strip(item.get("question", ""))
-        answer_text = safe_strip(item.get("answer_text", ""))
-        options = item.get("options", [])
-
-        if not question or not isinstance(options, list) or len(options) != 4:
+        parsed = pfs.normalize_lang_item(langs_data[lang])
+        if parsed is None:
             continue
-        options = [safe_strip(x) for x in options]
-        if any(not x for x in options):
-            continue
+        question, options, answer_text, gold_idx = parsed
+        gold_letter = pfs.gold_letter(gold_idx)
 
-        gold_letter = answer_text_to_letter(options, answer_text)
-        if gold_letter is None:
-            continue
-
-        option_map = {"A": options[0], "B": options[1], "C": options[2], "D": options[3]}
-        prompts_by_lang[lang] = build_single_language_prompt(lang, question, option_map)
+        option_map = pfs.option_map(options)
+        prompts_by_lang[lang] = build_single_language_prompt(
+            lang, question, option_map, scaffold=scaffold, task_format=task_format)
         meta_by_lang[lang] = {
             "gold_letter": gold_letter,
             "gold_text": answer_text,
             "options": option_map,
+            # Kept so periodic eval can rebuild the *evaluation* prompt
+            # ("Question: {q}\nAnswer:", options hidden) rather than reusing the
+            # training prompt, which lists the options and therefore measures a
+            # different task. See compute_polyfact_logprob_metrics.
+            "question": question,
+            # Wikidata QIDs of the 4 options, in the same A-D order (PolyFact-
+            # Clean only; None for legacy WIKI-FACT). Enables EXACT cross-
+            # lingual option alignment for in-loop RankC — the hidden-state
+            # matcher is only a fallback for data without ids.
+            "option_ids": langs_data[lang].get("option_ids"),
         }
 
     return {
@@ -358,12 +526,74 @@ def collate_fn(batch: List[Dict[str, Any]]) -> Dict[str, List[Any]]:
 # Reward computation
 # ─────────────────────────────────────────────
 
+def parse_bonus_ladder(spec: str) -> List[Tuple[int, float]]:
+    """Parse "9:1,10:2,11:3,12:5" -> [(9, 1.0), (10, 2.0), (11, 3.0), (12, 5.0)].
+
+    Keys are counts of correct languages. Values are ABSOLUTE reward added at
+    that rung — NOT fractions of --all_correct_bonus, which is ignored entirely
+    in ladder mode. Highest matching rung wins; rungs do not accumulate.
+    """
+    rungs: List[Tuple[int, float]] = []
+    for part in (spec or "").split(","):
+        part = part.strip()
+        if not part:
+            continue
+        k, _, v = part.partition(":")
+        rungs.append((int(k), float(v)))
+    return sorted(rungs)
+
+
+def consistency_bonus(
+    n_correct: int, n_langs: int, bonus: float,
+    shape: str = "all_or_nothing", power: float = 4.0,
+    ladder: Optional[List[Tuple[int, float]]] = None,
+) -> float:
+    """Cross-lingual consistency bonus as a function of how many languages agree
+    with gold.
+
+    The base reward is the COUNT of correct languages, which is LINEAR in
+    n_correct: going 11 -> 12 pays exactly as much as 5 -> 6. But Total
+    Consistency is P(n_correct == n_langs) — it lives entirely in that last
+    step. Making the bonus convex in n_correct is what puts weight there.
+
+    `all_or_nothing` (default, reproduces the previous behaviour exactly) is the
+    extreme case: all the weight on the final rung. That makes it a SPARSE
+    reward — it fires on ~2-10% of rollouts, which is why it measured as only
+    0.4-2.4% of the mean reward and contributed almost no advantage variance.
+    `power` and `ladder` keep the same label-anchored quantity (a wrong answer
+    is never rewarded for being consistently wrong) while shaping every rollout.
+    """
+    if n_langs <= 0:
+        return 0.0
+    if shape == "ladder":
+        # Absolute rewards; --all_correct_bonus does not scale them (so the
+        # bonus == 0.0 short-circuit below must NOT apply here).
+        best = 0.0
+        for thr, val in (ladder or []):
+            if n_correct >= thr:
+                best = max(best, val)
+        return best
+    if bonus == 0.0:
+        return 0.0
+    if shape == "all_or_nothing":
+        return bonus if n_correct >= n_langs else 0.0
+    if shape == "power":
+        return bonus * ((n_correct / n_langs) ** power)
+    raise ValueError(f"unknown bonus_shape {shape!r}")
+
+
 def compute_group_reward(
     pred_text_by_lang: Dict[str, str],
     meta_by_lang: Dict[str, Any],
     coverage_weight: float,
     valid_option_weight: float,
     all_correct_bonus: float,
+    bonus_shape: str = "all_or_nothing",
+    bonus_power: float = 4.0,
+    bonus_ladder: Optional[List[Tuple[int, float]]] = None,
+    brevity_penalty: float = 0.0,
+    brevity_denom_floor: int = 10,
+    empty_penalty: float = 0.0,
 ) -> Dict[str, float]:
     score = 0.0
     n_correct = 0
@@ -377,7 +607,73 @@ def compute_group_reward(
         if resolved_letter == meta["gold_letter"]:
             n_correct += 1
             score += 1.0
-        elif safe_strip(pred) and not matched_valid:
+            # Brevity term. The matcher resolves by CONTAINMENT, so "Tel Aviv"
+            # and "Tel Aviv (Yosha karne)" score identically — appending text is
+            # free. Qwen exploits this: completions grow to the 48-token cap
+            # (34.6 -> 47.7 measured) and the padding degenerates into very
+            # low-probability tokens ("(فيsm)", "(ヴァ)"). Since the REINFORCE
+            # gradient is A * grad log pi, and grad log pi explodes on
+            # low-probability tokens, that padding is the source of the
+            # heavy gradient tail (Qwen p95 435, max 1701, vs OLMo max 5.61)
+            # that destroyed two runs. OLMo never learned to pad and never
+            # produced a gradient above 5.61.
+            #
+            # n_correct is deliberately NOT touched, so total-consistency
+            # accounting and the bonus/ladder semantics are unchanged.
+            #
+            # MUST stay < 1.0: at 1.0 a maximally-padded CORRECT answer would
+            # score 0.0, the same as a wrong-but-valid option, inverting the
+            # ordering the reward depends on. 0.3 keeps the floor at 0.7.
+            if brevity_penalty > 0.0:
+                gold_text = (meta.get("options") or {}).get(meta["gold_letter"], "")
+                p, g = safe_strip(pred), safe_strip(gold_text)
+                if g:
+                    # LANGUAGE ROBUSTNESS. Two corrections, both measured on
+                    # PolyFact-Clean test (gold length in chars: en 11.8, de 12.8,
+                    # bn 12.8 ... but ja 7.0 and zh 4.8 — CJK is far denser):
+                    #
+                    # 1. Strip a leading option-letter prefix. "A) " is 3 chars =
+                    #    75% excess on a 4-char zh gold but 10% on a 10-char en
+                    #    gold, a 7.5x difference for behaviour the model shows in
+                    #    every language. Penalising that unequally would push
+                    #    languages toward different output styles — the opposite
+                    #    of what a consistency objective should do.
+                    # 2. Floor the denominator, so the SAME ABSOLUTE padding costs
+                    #    the same everywhere. Padding is padding: "(Japanese)" is
+                    #    equally unwanted whether the answer is 4 or 20 chars, and
+                    #    normalising by a 4-char gold made CJK ~2.5x more
+                    #    sensitive. Characters (not tokens) are already the right
+                    #    unit here — token counts range 2.75 (en) to 17.4 (bn) per
+                    #    option, which is the tokenizer-fertility bias the eval
+                    #    switched to byte normalisation to avoid.
+                    p = _LETTER_PREFIX_RE.sub("", p, count=1).strip()
+                    excess = max(0, len(p) - len(g))
+                    denom = max(len(g), brevity_denom_floor)
+                    score -= brevity_penalty * min(1.0, excess / denom)
+        elif not safe_strip(pred):
+            # THE SILENCE HOLE (found 2026-08-03, after it killed qwen-final-main
+            # twice). Without this branch the reward table is
+            #     correct +1.0 | valid-but-wrong 0.0 | unparseable -0.5 | EMPTY 0.0
+            # so producing NOTHING ties the best non-correct outcome and strictly
+            # beats a wrong guess. When the policy drifts into unparseable output
+            # the gradient correctly pushes away from -0.5 -- and the cheapest
+            # escape is one EOS token, not a valid answer. Observed end to end in
+            # qwen-final-main-clip2:
+            #   step 3050  rew 13.0  every language clean ("D) General Motors")
+            #   step 3200  rew  4.0  std 0.00, all valid but mostly wrong
+            #   step 3250  rew  3.0  garbage appearing ("what?", "19 Greentrees A")
+            #   step 3300  rew  0.00 std 0.00 grad 0.00 -- all 12 languages EMPTY
+            # Once every rollout is empty the rewards are identical, so std = 0,
+            # advantages z-score to 0, and the gradient is exactly zero forever:
+            # an ABSORBING state no amount of further training can leave. Gradient
+            # clipping does not touch this (clip 5.0 died at 3050, clip 2.0 at
+            # ~3270 -- tightening only slowed the walk into the hole).
+            #
+            # Default 0.0 keeps every pre-2026-08-03 run reproducible byte for
+            # byte; pass --empty_penalty 1.0 to make silence the WORST outcome:
+            #     correct +1.0 > valid-wrong 0.0 > unparseable -0.5 > empty -1.0
+            score -= empty_penalty
+        elif not matched_valid:
             score -= 0.5
 
         if matched_valid:
@@ -385,10 +681,19 @@ def compute_group_reward(
         if safe_strip(pred):
             n_pred += 1
 
-    if n_correct == len(meta_by_lang):
-        score += all_correct_bonus  # cross-lingual consistency bonus (was hardcoded 1.0)
+    bonus = consistency_bonus(
+        n_correct, len(meta_by_lang), all_correct_bonus,
+        shape=bonus_shape, power=bonus_power, ladder=bonus_ladder,
+    )
+    score += bonus
 
-    return {"score": score, "n_correct": n_correct, "n_valid": n_valid, "n_pred": n_pred}
+    return {"score": score, "n_correct": n_correct, "n_valid": n_valid,
+            "n_pred": n_pred, "bonus": bonus}
+
+
+def _zscore(vals: List[float]) -> List[float]:
+    t = torch.tensor(vals, dtype=torch.float32)
+    return ((t - t.mean()) / (t.std(unbiased=False) + 1e-6)).tolist()
 
 
 def compute_group_advantages(
@@ -398,35 +703,105 @@ def compute_group_advantages(
     coverage_weight: float,
     valid_option_weight: float,
     all_correct_bonus: float,
+    reward_pooling: str = "group",
+    bonus_shape: str = "all_or_nothing",
+    bonus_power: float = 4.0,
+    bonus_ladder: Optional[List[Tuple[int, float]]] = None,
+    brevity_penalty: float = 0.0,
+    brevity_denom_floor: int = 10,
+    empty_penalty: float = 0.0,
 ):
+    """Rewards + advantages for every generated sequence.
+
+    Returns group_rewards keyed **(fact_idx, gen_idx, lang)** in BOTH modes,
+    plus group_stats keyed (fact_idx, gen_idx) for monitoring.
+
+    reward_pooling="group" (the paper's method): the reward is pooled over all
+    12 languages of a rollout group (sum of per-language correctness +
+    all_correct_bonus), z-scored across the G groups of the fact, and the SAME
+    advantage is broadcast to every language's generation — cross-lingual
+    credit sharing: a language's output gets gradient whenever the group
+    outcome varies, even if its own G rollouts were uniformly wrong.
+
+    reward_pooling="per_lang" (meta-review baseline, no cross-lingual
+    pooling): each (fact, lang) is its own GRPO group — reward per generation
+    is that language's own correctness only (+1 correct / -0.5 non-empty
+    unparseable / 0 else), z-scored across the G rollouts of that (fact,
+    lang), applied only to that generation. all_correct_bonus is undefined
+    here and ignored (warned about at startup). Note the degenerate-group
+    profile differs by construction: per-language rewards are near-ternary, so
+    a hard language whose G rollouts are all wrong yields std=0 -> zero
+    gradient for that language — exactly the signal-starvation this baseline
+    is meant to exhibit. `degenerate_frac` in group_stats tracks it.
+    """
     group_rewards = {}
     group_stats = {}
 
     for fact_idx, meta_json in enumerate(batch["meta_by_lang_json"]):
         meta_by_lang = json.loads(meta_json)
+        langs = list(meta_by_lang.keys())
 
-        rewards = []
+        # Per-(gen, lang) correctness, computed once and reused by both modes.
+        per_gl: Dict[Tuple[int, str], float] = {}
         for gen_idx in range(num_generations):
             preds = grouped_preds.get((fact_idx, gen_idx), {})
+            # Pooled stats are kept for monitoring in both modes (bonus only
+            # counts toward the actual reward in group mode).
             stats = compute_group_reward(
                 preds, meta_by_lang,
                 coverage_weight=coverage_weight,
                 valid_option_weight=valid_option_weight,
-                all_correct_bonus=all_correct_bonus,
+                all_correct_bonus=all_correct_bonus if reward_pooling == "group" else 0.0,
+                bonus_shape=bonus_shape,
+                bonus_power=bonus_power,
+                bonus_ladder=bonus_ladder,
+                brevity_penalty=brevity_penalty,
+                brevity_denom_floor=brevity_denom_floor,
+                empty_penalty=empty_penalty,
             )
             group_stats[(fact_idx, gen_idx)] = stats
-            rewards.append(stats["score"])
+            for lang, meta in meta_by_lang.items():
+                pred = preds.get(lang, "")
+                letter, matched = resolve_prediction_to_letter(pred, meta["options"])
+                if letter == meta["gold_letter"]:
+                    per_gl[(gen_idx, lang)] = 1.0
+                elif not safe_strip(pred):
+                    # Same silence hole as the pooled path — kept in sync here so
+                    # the two poolings cannot disagree about what an empty
+                    # completion is worth.
+                    per_gl[(gen_idx, lang)] = -empty_penalty
+                elif not matched:
+                    per_gl[(gen_idx, lang)] = -0.5
+                else:
+                    per_gl[(gen_idx, lang)] = 0.0
 
-        rewards_t = torch.tensor(rewards, dtype=torch.float32)
-        mean = rewards_t.mean()
-        std = rewards_t.std(unbiased=False)
-        advantages = (rewards_t - mean) / (std + 1e-6)
-
-        for gen_idx in range(num_generations):
-            group_rewards[(fact_idx, gen_idx)] = {
-                "reward": float(rewards[gen_idx]),
-                "advantage": float(advantages[gen_idx].item()),
-            }
+        if reward_pooling == "group":
+            rewards = [group_stats[(fact_idx, g)]["score"] for g in range(num_generations)]
+            advantages = _zscore(rewards)
+            for gen_idx in range(num_generations):
+                for lang in langs:
+                    group_rewards[(fact_idx, gen_idx, lang)] = {
+                        "reward": float(rewards[gen_idx]),
+                        "advantage": float(advantages[gen_idx]),
+                    }
+        elif reward_pooling == "per_lang":
+            n_degen = 0
+            for lang in langs:
+                rewards = [per_gl[(g, lang)] for g in range(num_generations)]
+                advantages = _zscore(rewards)
+                if max(rewards) == min(rewards):
+                    n_degen += 1
+                for gen_idx in range(num_generations):
+                    group_rewards[(fact_idx, gen_idx, lang)] = {
+                        "reward": float(rewards[gen_idx]),
+                        "advantage": float(advantages[gen_idx]),
+                    }
+            # Fraction of this fact's language-groups that produced zero
+            # gradient — the pooling baseline's expected failure mode.
+            for gen_idx in range(num_generations):
+                group_stats[(fact_idx, gen_idx)]["degenerate_frac"] = n_degen / max(len(langs), 1)
+        else:
+            raise ValueError(f"Unknown reward_pooling: {reward_pooling!r}")
 
     return group_rewards, group_stats
 
@@ -465,9 +840,11 @@ def log_sample_rollout_to_file(
                 ) else "✗"
                 f.write(f"  [{lang}] {correct} pred: {pred}\n")
                 f.write(f"       gold: {gold}\n")
-        reward = group_rewards[sample_key]["reward"]
-        advantage = group_rewards[sample_key]["advantage"]
-        f.write(f"reward={round(reward, 4)} advantage={round(advantage, 4)}\n")
+        for lang in LANGS:
+            gr = group_rewards.get((sample_fact_idx, sample_gen_idx, lang))
+            if gr:
+                f.write(f"  [{lang}] reward={round(gr['reward'], 4)} "
+                        f"advantage={round(gr['advantage'], 4)}\n")
 
 
 # ─────────────────────────────────────────────
@@ -495,17 +872,72 @@ def format_global_mmlu_example(ex, tokenizer):
 
 
 def load_global_mmlu_dev_eval_by_lang(langs, tokenizer, max_samples=MAX_EVAL_SAMPLES_PER_LANG):
-    eval_sets = {}
+    """Periodic in-training Global-MMLU monitoring — DEV split only.
+
+    This used to load split="test" despite the function name, which meant every
+    training run was watching (and implicitly selecting checkpoints on) the same
+    split the paper reports Global-MMLU numbers from. Global-MMLU ships both
+    'dev' and 'test' for every language config; monitoring belongs on dev, and
+    the reported numbers come from evaluate_crosslingual_consistency.py on test
+    (Global-MMLU-Lite) anyway. Dev is also far smaller, so this cuts the
+    dominant periodic-eval cost as a side effect.
+
+    Languages are joined on `sample_id` and returned in one shared id order, the
+    way evaluate_crosslingual_consistency.py does it. This is required for the
+    cross-lingual metrics: total consistency and RankC are only meaningful if
+    every language is answering the SAME questions. Selecting range(max_samples)
+    per language independently (the previous behaviour) does not guarantee that.
+    Global-MMLU options are parallel by index across languages, so letter slots
+    correspond directly and no option alignment is needed.
+
+    Returns (eval_sets, sample_ids) where sample_ids is the shared, ordered id
+    list — row i of every language's dataset is sample_ids[i].
+    """
+    raw = {}
     for lang in langs:
-        ds = load_dataset("CohereLabs/Global-MMLU", lang, split="test")
+        raw[lang] = load_dataset("CohereLabs/Global-MMLU", lang, split="dev")
+
+    if not raw:
+        return {}, []
+
+    id_col = "sample_id" if "sample_id" in next(iter(raw.values())).column_names else None
+    if id_col is None:
+        # Fall back to positional alignment, but say so — silently pairing
+        # unrelated questions across languages would corrupt every
+        # cross-lingual number downstream.
+        print("[warn] Global-MMLU has no 'sample_id' column; falling back to "
+              "positional alignment for cross-lingual metrics.", flush=True)
+        n = min(len(ds) for ds in raw.values())
         if max_samples is not None:
-            ds = ds.select(range(min(max_samples, len(ds))))
-        ds = ds.map(
+            n = min(n, max_samples)
+        eval_sets = {
+            lang: ds.select(range(n)).map(
+                lambda ex: format_global_mmlu_example(ex, tokenizer),
+                remove_columns=ds.column_names,
+            )
+            for lang, ds in raw.items()
+        }
+        return eval_sets, list(range(n))
+
+    common = None
+    for ds in raw.values():
+        ids = set(map(str, ds[id_col]))
+        common = ids if common is None else (common & ids)
+    shared = sorted(common)
+    if max_samples is not None:
+        shared = shared[:max_samples]
+    shared_pos = {sid: i for i, sid in enumerate(shared)}
+
+    eval_sets = {}
+    for lang, ds in raw.items():
+        keep = [i for i, sid in enumerate(map(str, ds[id_col])) if str(sid) in shared_pos]
+        keep.sort(key=lambda i: shared_pos[str(ds[id_col][i])])
+        ds = ds.select(keep)
+        eval_sets[lang] = ds.map(
             lambda ex: format_global_mmlu_example(ex, tokenizer),
             remove_columns=ds.column_names,
         )
-        eval_sets[lang] = ds
-    return eval_sets
+    return eval_sets, shared
 
 
 # ─────────────────────────────────────────────
@@ -622,7 +1054,7 @@ def compute_flores_hidden_cosine(model, tokenizer, flores_sets, device, batch_si
 # ─────────────────────────────────────────────
 
 @torch.no_grad()
-def evaluate_wikifact_grouped(model, tokenizer, eval_ds, max_prompt_length,
+def evaluate_polyfact_freeform(model, tokenizer, eval_ds, max_prompt_length,
                               max_completion_length, cache_implementation="static"):
     was_training = model.training
     model.eval()
@@ -673,13 +1105,13 @@ def evaluate_wikifact_grouped(model, tokenizer, eval_ds, max_prompt_length,
             total_all_correct += 1
 
     metrics = {
-        "wikifact/slot_accuracy": total_correct / total_slots if total_slots else 0.0,
-        "wikifact/resolution_rate": total_valid / total_slots if total_slots else 0.0,
-        "wikifact/all_correct_rate": total_all_correct / total_examples if total_examples else 0.0,
-        "wikifact/n_examples": float(total_examples),
+        "polyfact/freeform_accuracy": total_correct / total_slots if total_slots else 0.0,
+        "polyfact/freeform_resolution_rate": total_valid / total_slots if total_slots else 0.0,
+        "polyfact/freeform_total_consistency": total_all_correct / total_examples if total_examples else 0.0,
+        "polyfact/n_examples": float(total_examples),
     }
     for lang in LANGS:
-        metrics[f"wikifact/lang_acc_{lang}"] = (
+        metrics[f"polyfact/freeform_lang_acc_{lang}"] = (
             per_lang_correct[lang] / per_lang_total[lang] if per_lang_total[lang] else 0.0
         )
 
@@ -698,7 +1130,7 @@ _RANKC_Z = sum(RANKC_WEIGHTS)
 RANKC_WEIGHTS = [w / _RANKC_Z for w in RANKC_WEIGHTS]
 
 
-def rankc_pair_wikifact(slots_a: List[int], slots_b: List[int]) -> float:
+def rankc_pair_polyfact(slots_a: List[int], slots_b: List[int]) -> float:
     score = 0.0
     for j in range(1, RANKC_N_OPT + 1):
         top_a, top_b = set(slots_a[:j]), set(slots_b[:j])
@@ -722,22 +1154,39 @@ def _greedy_align(sim: np.ndarray) -> List[int]:
 
 
 @torch.no_grad()
-def compute_rankc_wikifact(model, tokenizer, eval_ds, max_prompt_length, device):
-    """RankC computed during periodic training eval (not the paper's final
-    number -- that comes from evaluate_crosslingual_consistency.py with the
-    committed alignment cache; this is a lighter in-loop monitoring signal).
+def compute_polyfact_logprob_metrics(model, tokenizer, eval_ds, max_prompt_length, device):
+    """Log-likelihood MCQ metrics on PolyFact, mirroring the evaluate/ scripts.
 
-    Needs two things evaluate_wikifact_grouped doesn't have: (1) a full rank
-    over all 4 options per language, not just the greedy top-1 generation, so
-    options are scored by avg length-normalized logprob (same technique as
-    evaluate_accuracy.py's score_candidates_batch); (2) cross-lingual option
-    alignment, since options are independently shuffled per language with no
-    stored correspondence -- solved here via cosine similarity of the model's
-    OWN mean-pooled hidden states over just the option tokens (same idea as
-    compute_flores_hidden_cosine), so no separate embedder/dependency is
-    needed. Each language is aligned to English's option order; RankC between
-    two non-English languages is then computed by comparing their
-    English-slot-mapped rankings.
+    ONE forward pass over (prompt + option) for 4 options x 12 languages yields
+    all three metrics, so accuracy and total consistency are free once RankC is
+    being computed:
+
+      polyfact/mcq_accuracy            argmax over the 4 option logprobs
+      polyfact/mcq_total_consistency   fraction of facts correct in ALL languages
+      consistency/rankc_avg[_en_x]    RankC over the full 4-option ranking
+
+    Deliberately matches evaluate_accuracy.py rather than the training setup:
+      * the EVAL prompt "Question: {q}\\nAnswer:" with options hidden, not the
+        training instruction prompt that lists A-D (that measures a different
+        task -- selecting among shown options vs closed-book recall);
+      * BYTE normalization (logprob sum / len(option.encode("utf-8"))), which
+        is evaluate_accuracy.py's current default. It used to use per-token
+        mean here while the eval default moved to byte, so the two numbers were
+        not comparable.
+
+    FIXED (2026-08-02): this scored the bare letters "A".."D" instead of the
+    option texts. meta["options"] is a Dict[str, str] keyed by letter, so
+    `enumerate(meta["options"])` iterated KEYS -- every RankC number logged
+    before this fix ranked the four letter tokens, not the answers.
+
+    Cross-lingual option alignment: options are independently shuffled per
+    language with no stored correspondence, so each language is aligned to
+    English by cosine similarity of the model's OWN mean-pooled hidden states
+    over the option tokens (same idea as compute_flores_hidden_cosine), no
+    extra embedder needed. Caveat: that alignment is model-dependent and can
+    drift as training changes representations, so this is a monitoring signal
+    -- the paper number comes from evaluate_crosslingual_consistency.py, which
+    aligns exactly via PolyFact-Clean's stored option_ids.
     """
     was_training = model.training
     model.eval()
@@ -761,16 +1210,25 @@ def compute_rankc_wikifact(model, tokenizer, eval_ds, max_prompt_length, device)
     items = []
     for fi, (prompts_by_lang, meta_by_lang, langs) in enumerate(facts):
         for lang in langs:
-            prompt = prompts_by_lang[lang]
+            meta = meta_by_lang[lang]
+            # Eval-side prompt (options hidden), NOT prompts_by_lang[lang].
+            # Older items may predate the stored question; fall back rather than
+            # crash a long training run over a stale dataset-map cache.
+            question = meta.get("question")
+            prompt = build_prompt_eval(question) if question else prompts_by_lang[lang]
             prompt_ids = tokenizer(
                 prompt, add_special_tokens=True,
                 truncation=True, max_length=max_prompt_length,
             )["input_ids"]
-            for oi, opt in enumerate(meta_by_lang[lang]["options"]):
+            # meta["options"] is a Dict[str, str] keyed "A".."D" -- iterate
+            # .items() to get the option TEXT (iterating the dict gives letters).
+            for letter, opt in meta["options"].items():
+                oi = LETTER_TO_IDX[letter]
                 opt_ids = tokenizer(" " + opt, add_special_tokens=False)["input_ids"]
                 items.append({
                     "fi": fi, "lang": lang, "oi": oi,
                     "ids": prompt_ids + opt_ids, "plen": len(prompt_ids),
+                    "nbytes": max(len(opt.encode("utf-8")), 1),
                 })
 
     scores: Dict[Tuple[int, str], List[float]] = {}
@@ -795,14 +1253,17 @@ def compute_rankc_wikifact(model, tokenizer, eval_ds, max_prompt_length, device)
         logp = torch.log_softmax(logits, dim=-1)
         tok_lp = torch.gather(logp, -1, target.unsqueeze(-1)).squeeze(-1) * opt_mask
         opt_len = opt_mask.sum(-1).clamp(min=1)
-        avg_lp = (tok_lp.sum(-1) / opt_len).detach().cpu()
+        sum_lp = tok_lp.sum(-1).detach().cpu()
 
         hidden = out.hidden_states[mid_layer][:, :-1, :].float()
         pooled = ((hidden * opt_mask.unsqueeze(-1)).sum(1) / opt_len.unsqueeze(-1)).detach().cpu()
 
         for i, x in enumerate(chunk):
             key = (x["fi"], x["lang"])
-            scores.setdefault(key, [0.0] * RANKC_N_OPT)[x["oi"]] = float(avg_lp[i].item())
+            # Byte normalization = evaluate_accuracy.py's `byte` mode
+            # (lm-eval acc_bytes): logprob sum / UTF-8 byte length.
+            byte_score = float(sum_lp[i].item()) / x["nbytes"]
+            scores.setdefault(key, [0.0] * RANKC_N_OPT)[x["oi"]] = byte_score
             embeds.setdefault(key, [None] * RANKC_N_OPT)[x["oi"]] = pooled[i]
 
         del out, logits, target, opt_mask, logp, tok_lp, hidden, pooled
@@ -810,14 +1271,47 @@ def compute_rankc_wikifact(model, tokenizer, eval_ds, max_prompt_length, device)
 
     rc_sum_all = rc_n_all = 0.0
     rc_sum_enx = rc_n_enx = 0.0
+    rcx_sum_all = rcx_n_all = 0.0
+    rcx_sum_enx = rcx_n_enx = 0.0
+    align_agree_hits = align_agree_total = 0
+    mcq_correct = mcq_slots = 0
+    mcq_all_correct = mcq_complete_facts = 0
+    mcq_per_lang_correct = {lang: 0 for lang in LANGS}
+    mcq_per_lang_total = {lang: 0 for lang in LANGS}
+
     for fi, (prompts_by_lang, meta_by_lang, langs) in enumerate(facts):
+        # ── Log-likelihood MCQ accuracy + total consistency (free: same scores)
+        fact_langs_scored = 0
+        fact_all_correct = True
+        for lang in langs:
+            key = (fi, lang)
+            if key not in scores:
+                continue
+            gold_idx = LETTER_TO_IDX[meta_by_lang[lang]["gold_letter"]]
+            pred_idx = max(range(RANKC_N_OPT), key=lambda k: scores[key][k])
+            hit = int(pred_idx == gold_idx)
+            mcq_correct += hit
+            mcq_slots += 1
+            mcq_per_lang_correct[lang] += hit
+            mcq_per_lang_total[lang] += 1
+            fact_langs_scored += 1
+            if not hit:
+                fact_all_correct = False
+        # Only facts present in ALL languages can count toward total consistency,
+        # matching evaluate_crosslingual_consistency.py's n_complete denominator.
+        if fact_langs_scored == len(LANGS):
+            mcq_complete_facts += 1
+            mcq_all_correct += int(fact_all_correct)
+
         en_key = (fi, "en")
         if en_key not in embeds:
             continue
         en_emb = F.normalize(torch.stack(embeds[en_key]), dim=-1)
         en_order = sorted(range(RANKC_N_OPT), key=lambda i: scores[en_key][i], reverse=True)
+        en_ids = meta_by_lang.get("en", {}).get("option_ids")
 
-        slot_rank = {"en": en_order}
+        slot_rank = {"en": en_order}          # hidden-state alignment (legacy keys)
+        slot_rank_exact = {"en": en_order}    # option_ids alignment (exact keys)
         for lang in langs:
             if lang == "en":
                 continue
@@ -830,21 +1324,60 @@ def compute_rankc_wikifact(model, tokenizer, eval_ds, max_prompt_length, device)
             order = sorted(range(RANKC_N_OPT), key=lambda i: scores[key][i], reverse=True)
             slot_rank[lang] = [align[i] for i in order]
 
+            # EXACT alignment via Wikidata QIDs (PolyFact-Clean stores them for
+            # every option incl. distractors) — model-independent, so this
+            # RankC cannot drift because the hidden-state matcher drifts.
+            lang_ids = meta_by_lang.get(lang, {}).get("option_ids")
+            if en_ids and lang_ids and set(en_ids) == set(lang_ids):
+                en_pos = {qid: k for k, qid in enumerate(en_ids)}
+                align_exact = [en_pos[qid] for qid in lang_ids]
+                slot_rank_exact[lang] = [align_exact[i] for i in order]
+                # Diagnostic: how often does the inferred matcher agree with
+                # ground truth? Declining agreement = alignment drift, the
+                # confound that makes the legacy rankc_avg ambiguous.
+                align_agree_hits += sum(int(a == b) for a, b in zip(align, align_exact))
+                align_agree_total += RANKC_N_OPT
+
         for a, b in itertools.combinations(slot_rank.keys(), 2):
-            rc = rankc_pair_wikifact(slot_rank[a], slot_rank[b])
+            rc = rankc_pair_polyfact(slot_rank[a], slot_rank[b])
             rc_sum_all += rc
             rc_n_all += 1
             if a == "en" or b == "en":
                 rc_sum_enx += rc
                 rc_n_enx += 1
+        for a, b in itertools.combinations(slot_rank_exact.keys(), 2):
+            rc = rankc_pair_polyfact(slot_rank_exact[a], slot_rank_exact[b])
+            rcx_sum_all += rc
+            rcx_n_all += 1
+            if a == "en" or b == "en":
+                rcx_sum_enx += rc
+                rcx_n_enx += 1
 
     if was_training:
         model.train()
 
-    return {
+    out_metrics = {
         "consistency/rankc_avg": rc_sum_all / max(rc_n_all, 1),
         "consistency/rankc_avg_en_x": rc_sum_enx / max(rc_n_enx, 1),
+        # Exact-QID-aligned counterparts (PolyFact-Clean only) — the
+        # trustworthy in-loop consistency signal; the pair above keeps the
+        # legacy hidden-state alignment for curve continuity in older runs.
+        "consistency/rankc_exact_avg": rcx_sum_all / max(rcx_n_all, 1),
+        "consistency/rankc_exact_avg_en_x": rcx_sum_enx / max(rcx_n_enx, 1),
+        "consistency/alignment_agreement": (
+            align_agree_hits / align_agree_total if align_agree_total else float("nan")),
+        # Log-likelihood MCQ accuracy under the eval prompt + byte
+        # normalization: the in-loop counterpart of evaluate_accuracy.py.
+        "polyfact/mcq_accuracy": mcq_correct / max(mcq_slots, 1),
+        "polyfact/mcq_total_consistency": mcq_all_correct / max(mcq_complete_facts, 1),
+        "polyfact/mcq_n_complete_facts": float(mcq_complete_facts),
     }
+    for lang in LANGS:
+        out_metrics[f"polyfact/mcq_lang_acc_{lang}"] = (
+            mcq_per_lang_correct[lang] / mcq_per_lang_total[lang]
+            if mcq_per_lang_total[lang] else 0.0
+        )
+    return out_metrics
 
 
 # ─────────────────────────────────────────────
@@ -855,17 +1388,17 @@ def compute_rankc_wikifact(model, tokenizer, eval_ds, max_prompt_length, device)
 def run_full_eval(
     model, tokenizer, wikifact_val_ds, flores_eval_sets, mmlu_eval_sets,
     max_prompt_length, max_completion_length, device, global_step,
-    cache_implementation="static",
+    cache_implementation="static", mmlu_sample_ids=None,
 ):
     metrics = {}
 
     # WikiFact
-    metrics.update(evaluate_wikifact_grouped(
+    metrics.update(evaluate_polyfact_freeform(
         model=model, tokenizer=tokenizer, eval_ds=wikifact_val_ds,
         max_prompt_length=max_prompt_length, max_completion_length=max_completion_length,
         cache_implementation=cache_implementation,
     ))
-    metrics.update(compute_rankc_wikifact(
+    metrics.update(compute_polyfact_logprob_metrics(
         model=model, tokenizer=tokenizer, eval_ds=wikifact_val_ds,
         max_prompt_length=max_prompt_length, device=device,
     ))
@@ -885,6 +1418,9 @@ def run_full_eval(
 
     # Global MMLU per language
     model.eval()
+    mmlu_sample_ids = mmlu_sample_ids or []
+    mmlu_rank: Dict[Tuple[Any, str], List[int]] = {}
+    mmlu_hit: Dict[Tuple[Any, str], bool] = {}
     choice_ids = [
         tokenizer(" A", add_special_tokens=False)["input_ids"][-1],
         tokenizer(" B", add_special_tokens=False)["input_ids"][-1],
@@ -908,12 +1444,15 @@ def run_full_eval(
 
         loader = DataLoader(ds, batch_size=8, shuffle=False, collate_fn=mmlu_collate_fn)
         correct = total = 0
+        row_base = 0                           # running row offset, batch-size agnostic
         for batch in loader:
             input_ids = batch["input_ids"].to(device)
             attention_mask = batch["attention_mask"].to(device)
             labels = batch["labels"]
             logits = model(input_ids=input_ids, attention_mask=attention_mask).logits
-            for i in range(labels.shape[0]):
+            n_rows = labels.shape[0]
+            for i in range(n_rows):
+                row_idx = row_base + i         # shuffle=False -> indexes mmlu_sample_ids
                 label_row = labels[i]
                 label_pos = (label_row != -100).nonzero(as_tuple=True)[0]
                 if len(label_pos) == 0:
@@ -923,15 +1462,52 @@ def run_full_eval(
                 if gold_token not in choice_ids:
                     continue
                 gold_idx = choice_ids.index(gold_token)
-                pred_idx = int(logits[i, j - 1, choice_ids].argmax().item())
+                letter_logits = logits[i, j - 1, choice_ids]
+                pred_idx = int(letter_logits.argmax().item())
                 correct += int(pred_idx == gold_idx)
                 total += 1
+
+                # Same forward pass, nothing extra computed: keep the FULL
+                # ranking over the 4 letters so total consistency and RankC come
+                # for free. Global-MMLU options are parallel by index across
+                # languages, so letter slots already correspond — no alignment.
+                if row_idx < len(mmlu_sample_ids):
+                    sid = mmlu_sample_ids[row_idx]
+                    order = sorted(range(4), key=lambda k: float(letter_logits[k].item()),
+                                   reverse=True)
+                    mmlu_rank[(sid, lang)] = order
+                    mmlu_hit[(sid, lang)] = bool(pred_idx == gold_idx)
+            row_base += n_rows
         metrics[f"mmlu/acc_{lang}"] = correct / total if total else 0.0
 
     if any(f"mmlu/acc_{lang}" in metrics for lang in LANGS):
         metrics["mmlu/acc_avg"] = float(np.mean([
             metrics[f"mmlu/acc_{lang}"] for lang in LANGS if f"mmlu/acc_{lang}" in metrics
         ]))
+
+    # ── Global-MMLU cross-lingual metrics (free: reuses the rankings above) ──
+    scored_langs = [l for l in mmlu_eval_sets.keys()]
+    if mmlu_sample_ids and len(scored_langs) >= 2:
+        n_complete = n_all_correct = 0
+        rc_sum = rc_n = 0.0
+        rc_sum_enx = rc_n_enx = 0.0
+        for sid in mmlu_sample_ids:
+            present = [l for l in scored_langs if (sid, l) in mmlu_rank]
+            if len(present) != len(scored_langs):
+                continue                      # only fully-parallel items count
+            n_complete += 1
+            n_all_correct += int(all(mmlu_hit[(sid, l)] for l in present))
+            for a, b in itertools.combinations(present, 2):
+                rc = rankc_pair_polyfact(mmlu_rank[(sid, a)], mmlu_rank[(sid, b)])
+                rc_sum += rc
+                rc_n += 1
+                if a == "en" or b == "en":
+                    rc_sum_enx += rc
+                    rc_n_enx += 1
+        metrics["mmlu/total_consistency"] = n_all_correct / max(n_complete, 1)
+        metrics["mmlu/rankc_avg"] = rc_sum / max(rc_n, 1)
+        metrics["mmlu/rankc_avg_en_x"] = rc_sum_enx / max(rc_n_enx, 1)
+        metrics["mmlu/n_complete_items"] = float(n_complete)
 
     return metrics
 
@@ -960,6 +1536,7 @@ def generate_grouped_rollouts(
     model, tokenizer, batch, num_generations,
     max_prompt_length, max_completion_length, temperature, top_p,
     gen_micro_batch_size=4, cache_implementation="static",
+    length_bucketing=False,
 ):
     """Generate rollouts using unwrapped model, micro-batched to avoid OOM.
 
@@ -975,6 +1552,18 @@ def generate_grouped_rollouts(
     """
     device = next(model.parameters()).device
     flat_prompts, flat_index = gather_rollout_prompts(batch, num_generations)
+
+    if length_bucketing and len(flat_prompts) > gen_micro_batch_size:
+        # Sort prompts by tokenized length so each generate() chunk pads to its
+        # own maximum instead of the global one. The languages differ wildly in
+        # tokenizer fertility (bn ~307 tokens vs en ~73 for the same fact), so
+        # unsorted chunks nearly always contain a Bengali prompt and pad
+        # everything ~4x. Results are keyed by (fact_idx, gen_idx, lang), so
+        # processing order is irrelevant. No-op when everything fits one chunk.
+        tok_lens = [len(ids) for ids in tokenizer(flat_prompts)["input_ids"]]
+        order = sorted(range(len(flat_prompts)), key=lambda i: tok_lens[i])
+        flat_prompts = [flat_prompts[i] for i in order]
+        flat_index = [flat_index[i] for i in order]
 
     was_training = model.training
     model.eval()
@@ -1043,11 +1632,37 @@ def generate_grouped_rollouts(
 
 def compute_logprob_loss(
     model, ref_model, seq_payloads, group_rewards, kl_coef, pad_token_id,
-    device, micro_batch_size=4,
+    device, micro_batch_size=4, length_bucketing=False, fused=False,
 ) -> Tuple[torch.Tensor, Dict[str, float]]:
     if not seq_payloads:
         zero = torch.tensor(0.0, device=device, requires_grad=True)
         return zero, {"mean_reward": 0.0, "reward_std": 0.0, "mean_advantage": 0.0, "mean_kl": 0.0}
+
+    if length_bucketing:
+        # Group similar-length sequences into the same micro-batch so each one
+        # pads to its own max, not the global (Bengali-dominated) max. The loss
+        # is a mean over sequences, so processing order does not change it. The
+        # peak-memory term is 2*[mb, T, vocab] per RETAINED micro-batch graph,
+        # linear in the padded T — unsorted, every micro-batch pads to ~445
+        # tokens when the true mean is ~164.
+        seq_payloads = sorted(seq_payloads, key=lambda x: x["total_len"])
+
+    def _token_logprobs(lgts, tgt):
+        """Per-token logprob of `tgt` under `lgts`.
+
+        fused=True uses F.cross_entropy, which computes log_softmax internally
+        WITHOUT materialising (or retaining for backward) the full-vocab
+        [mb, T, vocab] logprob tensor that the explicit log_softmax+gather
+        keeps alive per retained graph — that tensor is the single biggest
+        memory term in this trainer. Same math, one fewer vocab-sized copy.
+        """
+        if fused:
+            B_, Tm1, V_ = lgts.shape
+            return -F.cross_entropy(
+                lgts.reshape(-1, V_), tgt.reshape(-1), reduction="none",
+            ).reshape(B_, Tm1)
+        lp = torch.log_softmax(lgts, dim=-1)
+        return torch.gather(lp, -1, tgt.unsqueeze(-1)).squeeze(-1)
 
     losses, rewards, advantages, kls = [], [], [], []
 
@@ -1066,15 +1681,23 @@ def compute_logprob_loss(
         outputs = model(input_ids=input_ids, attention_mask=attention_mask)
         logits = outputs.logits[:, :-1, :]
         target_ids = input_ids[:, 1:]
-        logprobs = torch.log_softmax(logits, dim=-1)
-        token_logprobs = torch.gather(logprobs, -1, target_ids.unsqueeze(-1)).squeeze(-1)
+        token_logprobs = _token_logprobs(logits, target_ids)
 
         with torch.no_grad():
             if ref_model is not None and kl_coef > 0.0:
-                ref_outputs = ref_model(input_ids=input_ids, attention_mask=attention_mask)
+                if isinstance(ref_model, str) and ref_model == "adapter_off":
+                    # The reference distribution is the base weights: the
+                    # policy with its (zero-init at t=0) LoRA adapter turned
+                    # off. Identical to a separately-loaded copy of model_id,
+                    # without the +15 GB. no-grad forward, so bypassing the
+                    # DDP wrapper is safe (nothing to sync).
+                    unwrapped = model.module if hasattr(model, "module") else model
+                    with unwrapped.disable_adapter():
+                        ref_outputs = unwrapped(input_ids=input_ids, attention_mask=attention_mask)
+                else:
+                    ref_outputs = ref_model(input_ids=input_ids, attention_mask=attention_mask)
                 ref_logits = ref_outputs.logits[:, :-1, :]
-                ref_logprobs = torch.log_softmax(ref_logits, dim=-1)
-                ref_token_logprobs = torch.gather(ref_logprobs, -1, target_ids.unsqueeze(-1)).squeeze(-1)
+                ref_token_logprobs = _token_logprobs(ref_logits, target_ids)
             else:
                 ref_token_logprobs = None
 
@@ -1084,8 +1707,11 @@ def compute_logprob_loss(
             input_len = payload["input_len"]
             total_len = payload["total_len"]
 
-            reward = group_rewards[(fact_idx, gen_idx)]["reward"]
-            advantage = group_rewards[(fact_idx, gen_idx)]["advantage"]
+            gr = group_rewards.get((fact_idx, gen_idx, payload["lang"]))
+            if gr is None:
+                continue
+            reward = gr["reward"]
+            advantage = gr["advantage"]
 
             start = max(input_len - 1, 0)
             end = total_len - 1
@@ -1096,7 +1722,24 @@ def compute_logprob_loss(
             seq_loss = -advantage * gen_logprob_mean
 
             if ref_token_logprobs is not None:
-                seq_kl = (token_logprobs[i, start:end] - ref_token_logprobs[i, start:end]).mean()
+                # Schulman k3 estimator: r = log(pi_ref / pi); KL ~= exp(r) - r - 1.
+                # Provably >= 0 (since e^r >= 1 + r), unbiased for KL, and far lower
+                # variance than the naive k1 estimator (logpi - logpi_ref) it replaces.
+                #
+                # k1 was ANTI-REGULARISING here, not merely noisy. Minimising
+                # kl_coef * (logpi - logpi_ref) just pushes logpi DOWN on the policy's
+                # own samples; there is no attractor toward pi_ref. Since the samples
+                # come from pi, each step makes the estimate more negative and the
+                # gradient keeps pushing the same way. Measured on 1,500-step sweep
+                # arms: KL ran to -2.44 (coef 0.02) and -8.85 (coef 0.05) within 50
+                # steps, scaling with the coefficient — i.e. the "penalty" had become
+                # a bonus for diverging from the reference.
+                #
+                # The clamp only guards exp() overflow; |r| that large means the
+                # policy has already collapsed and the run is lost either way.
+                log_ratio = (ref_token_logprobs[i, start:end]
+                             - token_logprobs[i, start:end]).clamp(-10.0, 10.0)
+                seq_kl = (torch.exp(log_ratio) - log_ratio - 1.0).mean()
                 seq_loss = seq_loss + kl_coef * seq_kl
                 kls.append(float(seq_kl.detach().item()))
 
@@ -1185,11 +1828,12 @@ def main():
             print(f"[warn] FLORES eval disabled (could not load: {e})", flush=True)
         flores_eval_sets = {}
     try:
-        mmlu_eval_sets = load_global_mmlu_dev_eval_by_lang(LANGS, tokenizer, max_samples=args.max_eval_mmlu)
+        mmlu_eval_sets, mmlu_sample_ids = load_global_mmlu_dev_eval_by_lang(
+            LANGS, tokenizer, max_samples=args.max_eval_mmlu)
     except Exception as e:
         if is_main:
             print(f"[warn] Global-MMLU eval disabled (could not load: {e})", flush=True)
-        mmlu_eval_sets = {}
+        mmlu_eval_sets, mmlu_sample_ids = {}, []
 
     # ── Model ────────────────────────────────
     if is_main:
@@ -1201,8 +1845,9 @@ def main():
     )
 
     if args.use_lora:
+        lora_alpha = args.lora_alpha if args.lora_alpha is not None else 2 * args.lora_r
         peft_config = LoraConfig(
-            r=LORA_R, lora_alpha=LORA_ALPHA,
+            r=args.lora_r, lora_alpha=lora_alpha,
             target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"], #
             lora_dropout=0.05, bias="none",
             task_type=TaskType.CAUSAL_LM,
@@ -1221,20 +1866,29 @@ def main():
     # ── Reference model for KL (only if needed) ──
     ref_model = None
     if args.kl_coef > 0.0:
-        if is_main:
-            print("Loading reference model for KL ...", flush=True)
-        ref_model = AutoModelForCausalLM.from_pretrained(
-            args.model_id, dtype=dtype,
-        ).to(accelerator.device)
-        ref_model.eval()
-        for p in ref_model.parameters():
-            p.requires_grad = False
+        if args.ref_impl == "adapter_off":
+            if not args.use_lora:
+                raise ValueError("--ref_impl adapter_off requires --use_lora "
+                                 "(the reference is the adapter-disabled policy).")
+            if is_main:
+                print("KL reference: policy with LoRA adapter disabled "
+                      "(no second model).", flush=True)
+            ref_model = "adapter_off"
+        else:
+            if is_main:
+                print("Loading reference model for KL ...", flush=True)
+            ref_model = AutoModelForCausalLM.from_pretrained(
+                args.model_id, dtype=dtype,
+            ).to(accelerator.device)
+            ref_model.eval()
+            for p in ref_model.parameters():
+                p.requires_grad = False
 
     # ── Dataset ──────────────────────────────
     if is_main:
         print(f"Loading dataset {args.dataset_id} ...", flush=True)
 
-    raw_all = load_dataset(args.dataset_id)
+    raw_all = pfs.load_split_dict(args.dataset_id, args.dataset_config)
     raw_train = raw_all["train"]
     raw_val = raw_all["validation"]
 
@@ -1243,8 +1897,11 @@ def main():
         print("Using LoRA:", args.use_lora)
         print("Num processes:", accelerator.num_processes)
 
-    train_ds = raw_train.map(build_grouped_fact_item, num_proc=32)
-    val_ds = raw_val.map(build_grouped_fact_item)
+    # NOTE: fn_kwargs are part of the datasets .map fingerprint, so changing
+    # --task_format (like --prompt_scaffold) forces one cache recompute.
+    _map_kw = {"scaffold": args.prompt_scaffold, "task_format": args.task_format}
+    train_ds = raw_train.map(build_grouped_fact_item, num_proc=32, fn_kwargs=_map_kw)
+    val_ds = raw_val.map(build_grouped_fact_item, fn_kwargs=_map_kw)
 
     train_ds = train_ds.filter(lambda x: x["is_valid"] and x["num_languages"] >= args.min_languages)
     val_ds = val_ds.filter(lambda x: x["is_valid"] and x["num_languages"] >= args.min_languages)
@@ -1262,9 +1919,17 @@ def main():
     if is_main:
         print(f"Train: {len(train_ds)}, Val: {len(val_ds)}", flush=True)
 
+    # Explicit seeded generator: with shuffle=True and no generator the
+    # permutation is drawn from the GLOBAL RNG, which sampling-based rollout
+    # generation advances by an unpredictable amount before the first batch — so
+    # the epoch order would NOT be reproducible across a relaunch and the
+    # skip-forward resume below could not land on the same data. Seeding here
+    # makes the order a pure function of args.seed.
+    order_generator = torch.Generator()
+    order_generator.manual_seed(args.seed)
     train_loader = DataLoader(
         train_ds, batch_size=args.per_device_train_batch_size,
-        shuffle=True, collate_fn=collate_fn,
+        shuffle=True, collate_fn=collate_fn, generator=order_generator,
     )
 
     optimizer = torch.optim.AdamW(
@@ -1285,14 +1950,26 @@ def main():
     )
     warmup_steps = int(total_update_steps * args.warmup_ratio)
 
+    # `total_update_steps` counts OPTIMIZER steps on this rank (len(train_loader)
+    # is the already-sharded length). accelerator.prepare() wraps the scheduler in
+    # AcceleratedScheduler, whose .step() calls the inner scheduler num_processes
+    # times — it assumes the schedule was built against the UN-sharded step count.
+    # Both corrections together consume the cosine num_processes x too fast: on a
+    # 4-GPU run the lr hit exactly 0.0 at step 2500 of 10000 and stayed there, so
+    # 75% of the run trained with no learning at all. Scale the schedule up so the
+    # double-stepping lands the cosine minimum on the real final step.
+    sched_scale = max(1, accelerator.num_processes)
     scheduler = get_cosine_schedule_with_warmup(
-        optimizer, num_warmup_steps=warmup_steps, num_training_steps=total_update_steps,
+        optimizer,
+        num_warmup_steps=warmup_steps * sched_scale,
+        num_training_steps=total_update_steps * sched_scale,
     )
     scheduler = accelerator.prepare(scheduler)
 
     device = accelerator.device
     global_step = 0
     reward_ema = None
+    consecutive_zero_std = 0   # dead-run guard; see --dead_run_patience
     ema_alpha = 0.05
 
     # Cost-reporting counters (rollout tokens, wall-clock -> GPU-hours). "prior_*"
@@ -1330,14 +2007,66 @@ def main():
                       f"starting fresh from global_step=0.", flush=True)
             accelerator.wait_for_everyone()
 
+    if is_main and args.reward_pooling == "per_lang" and args.all_correct_bonus != 0.0:
+        print(f"[warn] --reward_pooling per_lang ignores --all_correct_bonus "
+              f"({args.all_correct_bonus}); the bonus is undefined without "
+              f"cross-lingual pooling.", flush=True)
+
+    bonus_ladder = parse_bonus_ladder(args.bonus_ladder)
+    if is_main and args.bonus_shape == "ladder" and args.all_correct_bonus not in (0.0, 1.0):
+        print(f"[warn] --bonus_shape ladder ignores --all_correct_bonus "
+              f"({args.all_correct_bonus}); ladder values are absolute rewards.", flush=True)
+    if is_main and args.bonus_shape != "all_or_nothing":
+        # Print the realized reward curve so the shape is auditable in the log
+        # rather than inferred from the flag names.
+        n_l = 12
+        curve = " ".join(
+            f"k={k}:{consistency_bonus(k, n_l, args.all_correct_bonus, args.bonus_shape, args.bonus_power, bonus_ladder):.2f}"
+            for k in range(0, n_l + 1, 2 if args.bonus_shape == "power" else 1)
+        )
+        print(f"[bonus] shape={args.bonus_shape} B={args.all_correct_bonus} "
+              f"power={args.bonus_power} ladder={bonus_ladder}\n[bonus] curve (n=12): {curve}",
+              flush=True)
+
     if is_main:
         print(f"Total update steps: {total_update_steps}", flush=True)
         print("Starting grouped-rollout training ...", flush=True)
 
     train_start_time = time.time()
 
-    for epoch in range(math.ceil(args.num_train_epochs)):
-        for step, batch in enumerate(train_loader):
+    # Per-optimizer-step wall time and allocator peak, for throughput/batch-size
+    # tuning and the paper's cost table. `recent_step_times` collects every
+    # optimizer step and is drained at each logging boundary, so the logged
+    # value is a mean over the last --logging_steps steps rather than a single
+    # noisy sample or a startup-polluted cumulative average.
+    last_opt_step_time = time.time()
+    recent_step_times: List[float] = []
+    torch.cuda.reset_peak_memory_stats()
+
+    # ── Resume-exact data ordering ───────────
+    # `global_step` is restored from the checkpoint, but without the skip below
+    # the dataloader restarts at batch 0 of a freshly reshuffled epoch, so a
+    # resumed run re-walks facts it already trained on (measured over a 3-chunk
+    # chain: only ~75% of the fact pool ever seen). set_epoch makes the shuffle a
+    # pure function of (seed, epoch) so a relaunch reconstructs the identical
+    # permutation, and skip_first_batches then fast-forwards to the exact batch
+    # the run stopped on.
+    steps_per_epoch = max(1, len(train_loader))
+    start_epoch = global_step // steps_per_epoch
+    skip_batches = global_step % steps_per_epoch
+    if is_main and global_step:
+        print(f"Resume-exact ordering: starting at epoch {start_epoch}, "
+              f"skipping {skip_batches}/{steps_per_epoch} batches.", flush=True)
+
+    for epoch in range(start_epoch, math.ceil(args.num_train_epochs)):
+        if hasattr(train_loader, "set_epoch"):
+            train_loader.set_epoch(epoch)
+        epoch_loader = train_loader
+        step_offset = 0
+        if epoch == start_epoch and skip_batches:
+            epoch_loader = accelerator.skip_first_batches(train_loader, skip_batches)
+            step_offset = skip_batches
+        for step, batch in enumerate(epoch_loader, start=step_offset):
 
             # ── Generation (unwrapped model, no DDP) ──
             # We unwrap so .generate() works without DDP issues.
@@ -1356,6 +2085,7 @@ def main():
                 top_p=args.top_p,
                 gen_micro_batch_size=args.gen_micro_batch_size,
                 cache_implementation=gen_cache_impl,
+                length_bucketing=args.length_bucketing,
             )
 
             # Rollout token cost, summed across ranks (each rank generates a
@@ -1376,6 +2106,13 @@ def main():
                 coverage_weight=args.coverage_reward_weight,
                 valid_option_weight=args.valid_option_reward_weight,
                 all_correct_bonus=args.all_correct_bonus,
+                reward_pooling=args.reward_pooling,
+                bonus_shape=args.bonus_shape,
+                bonus_power=args.bonus_power,
+                bonus_ladder=bonus_ladder,
+                brevity_penalty=args.brevity_penalty,
+                brevity_denom_floor=args.brevity_denom_floor,
+                empty_penalty=args.empty_penalty,
             )
 
             # ── Policy gradient loss (through the DDP-wrapped model) ──
@@ -1388,22 +2125,59 @@ def main():
                 pad_token_id=tokenizer.pad_token_id,
                 device=device,
                 micro_batch_size=args.logprob_micro_batch_size,
+                length_bucketing=args.length_bucketing,
+                fused=args.fused_logprob,
             )
 
             # ── Backward (Accelerate handles scaling + DDP sync) ──
             accelerator.backward(loss / args.gradient_accumulation_steps)
 
             if (step + 1) % args.gradient_accumulation_steps == 0:
-                grad_norm = accelerator.clip_grad_norm_(model.parameters(), 1.0)
+                grad_norm = accelerator.clip_grad_norm_(model.parameters(), args.max_grad_norm)
                 optimizer.step()
                 scheduler.step()
                 optimizer.zero_grad(set_to_none=True)
                 global_step += 1
 
+                _now = time.time()
+                recent_step_times.append(_now - last_opt_step_time)
+                last_opt_step_time = _now
+
+                # ── Dead-run guard ──────────────────────────────────────────
+                # A step whose rollouts all score alike has std 0, so every
+                # advantage z-scores to 0 and the step contributes EXACTLY zero
+                # gradient. One such step is normal (a saturated all-correct
+                # group). Hundreds in a row means the policy has entered an
+                # absorbing state — every rollout identical, no gradient able to
+                # leave it — and the remaining wall-clock is pure waste. Both
+                # observed absorbing states are all-12-languages-identical:
+                # empty output (reward 0.0) and unparseable output (-6.0).
+                if args.dead_run_patience > 0:
+                    _r = [v["reward"] for v in group_rewards.values()]
+                    if _r and max(_r) == min(_r):
+                        consecutive_zero_std += 1
+                    else:
+                        consecutive_zero_std = 0
+                    if consecutive_zero_std >= args.dead_run_patience:
+                        raise RuntimeError(
+                            f"dead run: {consecutive_zero_std} consecutive optimizer steps "
+                            f"with reward_std == 0 (reward {_r[0] if _r else float('nan'):.2f}) "
+                            f"at step {global_step}. Every rollout is identical, so the "
+                            f"gradient is zero and cannot recover. Restart from an earlier "
+                            f"checkpoint; if the rollouts are EMPTY, pass --empty_penalty 1.0."
+                        )
+
                 # ── Logging (main process only) ──
                 if is_main and global_step % args.logging_steps == 0:
                     rewards = [v["reward"] for v in group_rewards.values()]
                     advs = [v["advantage"] for v in group_rewards.values()]
+
+                    # group_stats is keyed per (fact, gen) — one entry per rollout,
+                    # not per (rollout, language) like group_rewards — so average
+                    # over it directly rather than over the 12x-replicated rewards.
+                    _gs = list(group_stats.values())
+                    _bonus_mean = float(sum(s.get("bonus", 0.0) for s in _gs) / len(_gs)) if _gs else 0.0
+                    _ncorrect_mean = float(sum(s.get("n_correct", 0) for s in _gs) / len(_gs)) if _gs else 0.0
 
                     reward_mean = float(sum(rewards) / len(rewards)) if rewards else 0.0
                     if reward_ema is None:
@@ -1413,6 +2187,23 @@ def main():
 
                     elapsed = time.time() - train_start_time
                     wall_seconds = prior_wall_seconds + elapsed
+
+                    # Mean seconds per optimizer step since the last log, and the
+                    # same figure per fact (an optimizer step covers
+                    # per_device_train_batch_size facts on each of num_processes
+                    # ranks). facts/step is what actually scales the loss pass.
+                    step_time = (
+                        sum(recent_step_times) / len(recent_step_times)
+                        if recent_step_times else 0.0
+                    )
+                    recent_step_times.clear()
+                    facts_per_step = (
+                        args.per_device_train_batch_size
+                        * args.gradient_accumulation_steps
+                        * accelerator.num_processes
+                    )
+                    peak_mem_gb = torch.cuda.max_memory_allocated() / 1024**3
+                    torch.cuda.reset_peak_memory_stats()
                     gpu_hours = wall_seconds * accelerator.num_processes / 3600
 
                     log_data = {
@@ -1423,11 +2214,21 @@ def main():
                         "train/reward_mean_ema": reward_ema,
                         "train/reward_std": float(torch.tensor(rewards).std(unbiased=False).item()) if len(rewards) > 1 else 0.0,
                         "train/adv_mean": float(sum(advs) / len(advs)) if advs else 0.0,
+                        # How much of the reward the consistency bonus actually
+                        # supplies. With all_or_nothing/B=1.0 this measured at
+                        # 0.4-2.4% — i.e. the objective was ~98% a correctness
+                        # count. Log it so the shaping is verifiable, not assumed.
+                        "train/bonus_mean": _bonus_mean,
+                        "train/bonus_share": (_bonus_mean / reward_mean) if reward_mean else 0.0,
+                        "train/n_correct_mean": _ncorrect_mean,
                         "train/mean_kl": loss_stats.get("mean_kl", 0.0),
                         "train/global_step": global_step,
                         "cost/cumulative_rollout_tokens": cumulative_rollout_tokens,
                         "cost/wall_clock_hours": wall_seconds / 3600,
                         "cost/gpu_hours": gpu_hours,
+                        "perf/step_time_sec": step_time,
+                        "perf/sec_per_fact": step_time / facts_per_step if facts_per_step else 0.0,
+                        "perf/peak_mem_gb": peak_mem_gb,
                     }
 
                     if args.report_to == "wandb":
@@ -1446,11 +2247,19 @@ def main():
                         "reward_mean": round(reward_mean, 4),
                         "reward_std": round(log_data["train/reward_std"], 4),
                         "adv_mean": round(log_data["train/adv_mean"], 4),
+                        # Pre-clip norm. clip_grad_norm_ is 1.0, so any value >1
+                        # means this step was renormalized — i.e. the raw gradient
+                        # scale (and the loss magnitude driving it) does NOT set
+                        # the effective step size. Worth seeing in the slurm log.
+                        "grad_norm": round(log_data["train/grad_norm"], 3),
                         "kl": round(log_data["train/mean_kl"], 6),
                         "it/s": round(steps_per_sec, 3),
                         "eta": f"{eta_h}h{eta_m:02d}m",
                         "rollout_tok": cumulative_rollout_tokens,
                         "gpu_h": round(gpu_hours, 2),
+                        "step_s": round(step_time, 3),
+                        "s_per_fact": round(step_time / facts_per_step, 3) if facts_per_step else 0.0,
+                        "peak_mem_gb": round(peak_mem_gb, 2),
                     }, flush=True)
 
                     # Sample rollout
@@ -1460,13 +2269,22 @@ def main():
                     for lang in LANGS:
                         if lang in grouped_preds[sample_key]:
                             print(f"  {lang}: {grouped_preds[sample_key][lang]}", flush=True)
-                    print(
-                        f"  reward={round(group_rewards[sample_key]['reward'], 4)}  "
-                        f"advantage={round(group_rewards[sample_key]['advantage'], 4)}",
-                        flush=True,
-                    )
+                    _lang_grs = [group_rewards[k] for k in group_rewards
+                                 if k[0] == sfidx and k[1] == sgidx]
+                    if _lang_grs:
+                        print(
+                            f"  reward(mean over langs)="
+                            f"{round(sum(g['reward'] for g in _lang_grs) / len(_lang_grs), 4)}  "
+                            f"advantage(mean)="
+                            f"{round(sum(g['advantage'] for g in _lang_grs) / len(_lang_grs), 4)}",
+                            flush=True,
+                        )
 
-                    if global_step % args.eval_steps == 0:
+                    # Needs the same `> 0` guard as the eval block below:
+                    # --eval_steps 0 (used to disable periodic eval entirely,
+                    # e.g. in the cluster/*_pilot.sh throughput sweeps) would
+                    # otherwise raise ZeroDivisionError on the first log step.
+                    if args.eval_steps > 0 and global_step % args.eval_steps == 0:
                         log_sample_rollout_to_file(
                             output_dir=args.output_dir,
                             global_step=global_step,
@@ -1493,6 +2311,7 @@ def main():
                                 wikifact_val_ds=val_ds,
                                 flores_eval_sets=flores_eval_sets,
                                 mmlu_eval_sets=mmlu_eval_sets,
+                                mmlu_sample_ids=mmlu_sample_ids,
                                 max_prompt_length=args.max_prompt_length,
                                 max_completion_length=args.max_completion_length,
                                 device=device,

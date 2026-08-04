@@ -1,0 +1,37 @@
+{
+ "model": "jvonrad/olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint",
+ "langs": [
+  "en",
+  "de",
+  "id",
+  "pt",
+  "ar",
+  "bn",
+  "sw",
+  "es",
+  "ru",
+  "fr",
+  "ja",
+  "zh"
+ ],
+ "max_tokens": 2000000,
+ "seq_len": 1024,
+ "top_frac": 0.01,
+ "n_selected": 3522,
+ "num_layers": 32,
+ "intermediate_size": 11008,
+ "tokens_per_lang": {
+  "en": 1999872,
+  "de": 1999872,
+  "id": 1999872,
+  "pt": 1999872,
+  "ar": 1999872,
+  "bn": 1401856,
+  "sw": 332800,
+  "es": 1999872,
+  "ru": 1999872,
+  "fr": 1999872,
+  "ja": 1999872,
+  "zh": 1999872
+ }
+}

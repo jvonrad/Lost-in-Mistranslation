@@ -1,0 +1,15 @@
+# The 12 paper checkpoints: <hf_model_id> <short_basename_for_result_files>
+# Basenames match the existing results/*.json naming so new runs slot in beside
+# the Trainium-era ones. Lines starting with # and blank lines are ignored.
+allenai/OLMo-2-1124-7B                                              OLMo-2-1124-7B
+jvonrad/OLMo-2-1124-7B-TED                                          OLMo-2-1124-7B-TED
+jvonrad/olmo-2-7b-wikifact-sft                                      olmo-2-7b-wikifact-sft
+jvonrad/olmo-2-7b-aligned-wikifact-sft                              olmo-2-7b-aligned-wikifact-sft
+jvonrad/olmo-2-7b-grpo-att-mlp-full                                 olmo-2-7b-grpo-att-mlp-full
+jvonrad/olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint  olmo-2-7b-finetranslation-wikifact-grpo-att-mlp-checkpoint
+Qwen/Qwen2.5-7B                                                     Qwen-2.5-7B
+jvonrad/Qwen-2.5-7B-TED                                             Qwen-2.5-7B-TED
+jvonrad/Qwen-2.5-7B-SFT-CE-random                                   Qwen-2.5-7B-SFT-CE-random
+jvonrad/Qwen-2.5-7B-TED-SFT                                         Qwen-2.5-7B-TED-SFT
+jvonrad/Qwen-2.5-7B-grpo-consistent                                 Qwen-2.5-7B-grpo-consistent
+jvonrad/Qwen-2.5-7B-TED-grpo                                        Qwen-2.5-7B-TED-grpo

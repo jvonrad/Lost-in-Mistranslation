@@ -20,3 +20,31 @@ core.[0-9]*
 cluster/state/
 cluster/*.log
 cluster/*.out
+
+# ---------------------------------------------------------------------------
+# Derived evaluation data (2026-08-04). Everything below is REGENERABLE and too
+# large for git; the originals live on Lustre under the repo dir, which has no
+# quota. data_analysis/make_result_summaries.py writes results/summary/ --
+# 2.1 MB of aggregates that IS tracked and is enough to rebuild every table and
+# figure. Only the per-fact analyses (consistency_split, significance_analysis,
+# bmlama_decontaminated) need the full files.
+
+# Raw evaluator output: 3.7 GB, because every option score for every fact in
+# every language is stored. BMLAMA files are 36 MB each.
+results/*_consistency.json
+results/*_polyfact_freeform*.json
+results/klar/*.json
+results/mexa/*_mexa.json
+results/polyfact_clean/
+results/polyfact_clean_precuration/
+
+# TED corpus + per-language streams built from it (519 MB), and the tokenised
+# caches LAPE builds per tokenizer family (331 MB). Rebuild with
+# `run_lahis.py --prepare-data` and the first LAPE task respectively.
+mechanistic-interpretability/data/
+results/lape/_tokens_*/
+results/lape/*/activations.*.pt
+datasets/TED2025/
+
+# Merged model copies written next to the adapters during evaluation.
+**/_merged_*/

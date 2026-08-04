@@ -11,14 +11,14 @@
 set -uo pipefail
 JOBID="${1:?usage: bonus5_in_interactive.sh <jobid>}"
 # REPO is the actual git checkout (code) -- lives under /home, NOT /projects.
-# /projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation is a separate, pre-existing
+# /projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation is a separate, pre-existing
 # *data/output-only* directory (datasets/, models/, logs/) that has never
 # contained training/, evaluate/, cluster/, etc. Every earlier "Lustre mount
 # race" failure this session (nid011229, nid010545, nid010530, nid010320) was
 # actually this same wrong-path bug, not a timing issue -- the file was never
 # going to appear there no matter how long the retry loop waited.
-REPO=/home/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
-PROJ=/projects/u6jh/jvonrad.u6jh/Lost-in-Mistranslation
+REPO=/home/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
+PROJ=/projects/u6sg/jvonrad.u6sg/Lost-in-Mistranslation
 
 echo "[bonus5-watcher] waiting for job $JOBID to start ..."
 while true; do
@@ -39,7 +39,7 @@ srun --jobid="$JOBID" --overlap --nodes=1 --ntasks=1 --gres=gpu:2 bash -c "
     accelerate launch --num_processes 2 --multi_gpu \
       training/train_wikifact_grpo_accelerate.py \
       --model_id Qwen/Qwen2.5-7B \
-      --dataset_id jvonrad/WIKI-FACT \
+      --dataset_id jvonrad/PolyFact-Clean --dataset_config parallel \
       --output_dir '$PROJ/models/qwen-grpo-bonus50-ablation' \
       --run_name qwen-grpo-bonus50-ablation \
       --use_lora --bf16 \
