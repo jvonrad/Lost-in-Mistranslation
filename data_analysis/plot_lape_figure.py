@@ -39,10 +39,16 @@ LOW = {"id", "bn", "sw"}
 
 # Tol bright: CVD-safe, fixed order, never cycled.
 COLORS = {"Base": "#BBBBBB", "SFT": "#4477AA", "DCO": "#228833",
-          "CM-Align": "#CCBB44", "GRPO": "#EE6677"}
+          "CM-Align": "#CCBB44", "GRPO": "#EE6677", "CPT+GRPO": "#EE6677"}
 
 FAMILIES = {
     "olmo": ("OLMo-2-1124-7B", [
+        ("Base", "olmo-base"), ("SFT", "olmo-sft-10k"), ("DCO", "olmo-dco-10k"),
+        ("CM-Align", "olmo-cmalign-10k"), ("CPT+GRPO", "olmo-cpt-grpo")]),
+    # The plain-GRPO variant, kept selectable: olmo-grpo-attmlp is the checkpoint
+    # the results table reports and gives a LARGER English shift (+7.7% vs the
+    # CPT-initialised model's +4.6%).
+    "olmo-plain": ("OLMo-2-1124-7B", [
         ("Base", "olmo-base"), ("SFT", "olmo-sft-10k"), ("DCO", "olmo-dco-10k"),
         ("CM-Align", "olmo-cmalign-10k"), ("GRPO", "olmo-grpo-attmlp")]),
     "qwen": ("Qwen-2.5-7B", [
