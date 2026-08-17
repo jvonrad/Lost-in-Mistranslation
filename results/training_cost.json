@@ -1,0 +1,278 @@
+{
+ "final/_preserved/olmo-ladder10k-final": {
+  "gpu_hours": 22.841452827188704,
+  "rollout_tokens": 23335400,
+  "steps": 9000,
+  "wall_seconds": 82229.23017787933
+ },
+ "final/_preserved/olmo-ladder10k-s5000": {
+  "gpu_hours": 12.796110028558306,
+  "rollout_tokens": 13991968,
+  "steps": 5000,
+  "wall_seconds": 46065.996102809906
+ },
+ "final/_preserved/olmo-ladder10k-s6500": {
+  "gpu_hours": 16.606939572294554,
+  "rollout_tokens": 17689899,
+  "steps": 6500,
+  "wall_seconds": 59784.98246026039
+ },
+ "final/_preserved/olmo-main10k-final": {
+  "gpu_hours": 22.20443844821718,
+  "rollout_tokens": 38781292,
+  "steps": 8500,
+  "wall_seconds": 79935.97841358185
+ },
+ "final/_preserved/olmo-main10k-s5000": {
+  "gpu_hours": 13.158342249790827,
+  "rollout_tokens": 22662141,
+  "steps": 5000,
+  "wall_seconds": 47370.03209924698
+ },
+ "final/_preserved/olmo-main10k-s6500": {
+  "gpu_hours": 17.029922315014733,
+  "rollout_tokens": 29570464,
+  "steps": 6500,
+  "wall_seconds": 61307.72033405304
+ },
+ "final/_preserved/qwen-ladder-c1-final": {
+  "gpu_hours": 21.725967269208695,
+  "rollout_tokens": 44385674,
+  "steps": 10000,
+  "wall_seconds": 78213.4821691513
+ },
+ "final/_preserved/qwen-ladder-c1-s5000": {
+  "gpu_hours": 10.903213419185745,
+  "rollout_tokens": 21395019,
+  "steps": 5000,
+  "wall_seconds": 39251.56830906868
+ },
+ "final/_preserved/qwen-ladder-c1-s7000": {
+  "gpu_hours": 15.220241858694289,
+  "rollout_tokens": 30604521,
+  "steps": 7000,
+  "wall_seconds": 54792.87069129944
+ },
+ "final/_preserved/qwen-main-ep1-final": {
+  "gpu_hours": 22.428918973472385,
+  "rollout_tokens": 42165651,
+  "steps": 10000,
+  "wall_seconds": 80744.10830450058
+ },
+ "final/_preserved/qwen-main-ep1-s4750": {
+  "gpu_hours": 10.598910192118751,
+  "rollout_tokens": 18157753,
+  "steps": 4750,
+  "wall_seconds": 38156.0766916275
+ },
+ "final/_preserved/qwen-main-ep1-s6750": {
+  "gpu_hours": 15.0966786891222,
+  "rollout_tokens": 27190681,
+  "steps": 6750,
+  "wall_seconds": 54348.04328083992
+ },
+ "final/_preserved/qwen-nobonus-final": {
+  "gpu_hours": 21.736782296101254,
+  "rollout_tokens": 43950404,
+  "steps": 10000,
+  "wall_seconds": 78252.41626596451
+ },
+ "final/_preserved/qwen-nobonus-s6000": {
+  "gpu_hours": 13.050134593049686,
+  "rollout_tokens": 25519812,
+  "steps": 6000,
+  "wall_seconds": 46980.48453497887
+ },
+ "final/_preserved/qwen-nobonus-s8000": {
+  "gpu_hours": 17.393418234652945,
+  "rollout_tokens": 34734681,
+  "steps": 8000,
+  "wall_seconds": 62616.305644750595
+ },
+ "final/olmo-final-ladder-clip5": {
+  "gpu_hours": 25.493273656368256,
+  "rollout_tokens": 25478638,
+  "steps": 10000,
+  "wall_seconds": 91775.78516292572
+ },
+ "final/olmo-final-main-clip5": {
+  "gpu_hours": 24.875717877282035,
+  "rollout_tokens": 43386803,
+  "steps": 9500,
+  "wall_seconds": 89552.58435821533
+ },
+ "final/qwen-final-ladder-clip1-from2k": {
+  "gpu_hours": 21.726148981385762,
+  "rollout_tokens": 44385674,
+  "steps": 10000,
+  "wall_seconds": 78214.13633298874
+ },
+ "final/qwen-final-ladder-clip5": {
+  "gpu_hours": 5.465676419337591,
+  "rollout_tokens": 9961715,
+  "steps": 2500,
+  "wall_seconds": 19676.435109615326
+ },
+ "final/qwen-final-main-clip2-from3k": {
+  "gpu_hours": 7.230913664235009,
+  "rollout_tokens": 12228197,
+  "steps": 3250,
+  "wall_seconds": 26031.289191246033
+ },
+ "final/qwen-final-main-clip5": {
+  "gpu_hours": 6.648974628117349,
+  "rollout_tokens": 11499637,
+  "steps": 3000,
+  "wall_seconds": 23936.308661222458
+ },
+ "final/qwen-final-main-ep1-from3k": {
+  "gpu_hours": 22.4291049126784,
+  "rollout_tokens": 42165651,
+  "steps": 10000,
+  "wall_seconds": 80744.77768564224
+ },
+ "final/qwen-final-nobonus-clip5": {
+  "gpu_hours": 21.73699314190282,
+  "rollout_tokens": 43950404,
+  "steps": 10000,
+  "wall_seconds": 78253.17531085014
+ },
+ "hp_sweep/r128_lr1e-5": {
+  "gpu_hours": 3.4345847632487616,
+  "rollout_tokens": 6530932,
+  "steps": 1500,
+  "wall_seconds": 12364.505147695541
+ },
+ "hp_sweep/r128_lr3e-5": {
+  "gpu_hours": 3.3787103468179702,
+  "rollout_tokens": 5658286,
+  "steps": 1500,
+  "wall_seconds": 12163.357248544693
+ },
+ "hp_sweep/r128_lr3e-6": {
+  "gpu_hours": 3.3999187507894306,
+  "rollout_tokens": 5071454,
+  "steps": 1500,
+  "wall_seconds": 12239.70750284195
+ },
+ "hp_sweep/r256_lr1e-5": {
+  "gpu_hours": 3.4538311205969916,
+  "rollout_tokens": 5390864,
+  "steps": 1500,
+  "wall_seconds": 12433.79203414917
+ },
+ "hp_sweep/r256_lr3e-5": {
+  "gpu_hours": 2.378111101720068,
+  "rollout_tokens": 4487617,
+  "steps": 1000,
+  "wall_seconds": 8561.199966192245
+ },
+ "hp_sweep/r256_lr3e-6": {
+  "gpu_hours": 3.6337544892893896,
+  "rollout_tokens": 5253233,
+  "steps": 1500,
+  "wall_seconds": 13081.516161441803
+ },
+ "hp_sweep/r64_lr1e-5": {
+  "gpu_hours": 3.2038295328617097,
+  "rollout_tokens": 4059492,
+  "steps": 1500,
+  "wall_seconds": 11533.786318302155
+ },
+ "hp_sweep/r64_lr3e-5": {
+  "gpu_hours": 3.2765283115704853,
+  "rollout_tokens": 6133572,
+  "steps": 1500,
+  "wall_seconds": 11795.501921653748
+ },
+ "hp_sweep/r64_lr3e-6": {
+  "gpu_hours": 3.2383044863409465,
+  "rollout_tokens": 4943045,
+  "steps": 1500,
+  "wall_seconds": 11657.896150827408
+ },
+ "olmo-grpo-full-r128-lr1e-5": {
+  "gpu_hours": 24.770491394996643,
+  "rollout_tokens": 26630016,
+  "steps": 2000,
+  "wall_seconds": 22293.44225549698
+ },
+ "qwen-grpo-full-r128-lr1e-5": {
+  "gpu_hours": 24.645122323036194,
+  "rollout_tokens": 31024675,
+  "steps": 2400,
+  "wall_seconds": 22180.610090732574
+ },
+ "sweep/olmo-clip1.0": {
+  "gpu_hours": 2.761556261248059,
+  "rollout_tokens": 3413657,
+  "steps": 1000,
+  "wall_seconds": 9941.602540493011
+ },
+ "sweep/olmo-clip5.0": {
+  "gpu_hours": 2.7999476989110312,
+  "rollout_tokens": 2766098,
+  "steps": 1000,
+  "wall_seconds": 10079.811716079712
+ },
+ "sweep/olmo-pilot-ladder-clip5": {
+  "gpu_hours": 2.7615920554267035,
+  "rollout_tokens": 3477952,
+  "steps": 1000,
+  "wall_seconds": 9941.731399536133
+ },
+ "sweep/olmo-sweep-clip5-n1500": {
+  "gpu_hours": 3.986771510243416,
+  "rollout_tokens": 4956094,
+  "steps": 1500,
+  "wall_seconds": 14352.377436876297
+ },
+ "sweep/qwen-pilot-ladder-clip5": {
+  "gpu_hours": 3.348303517765469,
+  "rollout_tokens": 6152168,
+  "steps": 1500,
+  "wall_seconds": 12053.892663955688
+ },
+ "sweep/qwen-sweep-clip20": {
+  "gpu_hours": 3.389302579495642,
+  "rollout_tokens": 5350317,
+  "steps": 1500,
+  "wall_seconds": 12201.489286184311
+ },
+ "sweep/qwen-sweep-clip20-kl002": {
+  "gpu_hours": 3.67688795765241,
+  "rollout_tokens": 5154255,
+  "steps": 1500,
+  "wall_seconds": 13236.796647548676
+ },
+ "sweep/qwen-sweep-clip20-kl005": {
+  "gpu_hours": 3.8773457576168906,
+  "rollout_tokens": 5152806,
+  "steps": 1500,
+  "wall_seconds": 13958.444727420807
+ },
+ "sweep/qwen-sweep-clip5": {
+  "gpu_hours": 3.388713724017143,
+  "rollout_tokens": 5986978,
+  "steps": 1500,
+  "wall_seconds": 12199.369406461716
+ },
+ "sweep/qwen-sweep-clip5-kl002": {
+  "gpu_hours": 3.7810494258006413,
+  "rollout_tokens": 5240565,
+  "steps": 1500,
+  "wall_seconds": 13611.777932882309
+ },
+ "sweep/qwen-sweep-control": {
+  "gpu_hours": 3.340206462542216,
+  "rollout_tokens": 4439424,
+  "steps": 1500,
+  "wall_seconds": 12024.743265151978
+ },
+ "sweep/qwen-sweep-ladder": {
+  "gpu_hours": 3.368173353340891,
+  "rollout_tokens": 5790497,
+  "steps": 1500,
+  "wall_seconds": 12125.424072027206
+ }
+}
